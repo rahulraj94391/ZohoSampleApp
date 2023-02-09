@@ -5,16 +5,18 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.mall.Database.*
 
 const val DATABASE_NAME = "shopie.db"
 private const val TAG = "Common_Tag_DB"
 
 class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(UserTable.createUsersTableStmt)
-        db?.execSQL(AddressTable.createAddressTableStmt)
-        db?.execSQL(ProfileTable.createProfileTableStmt)
-        db?.execSQL(WishlistTable.createWishlistTableStmt)
+        db?.execSQL(UserTable.createTableStmt)
+        db?.execSQL(AddressTable.createTableStmt)
+        db?.execSQL(ProfileTable.createTableStmt)
+        db?.execSQL(WishlistTable.createTableStmt)
+        db?.execSQL(ProductCountPrice.createTableStmt)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -122,48 +124,5 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         val userId = cursor.getInt(0)
         cursor.close()
         return userId
-    }
-}
-
-class UserTable {
-    companion object {
-        const val USER_TABLE_NAME = "users"
-        const val COL_UID = "uid"
-        const val COL_USERNAME = "username"
-        const val COL_PASSWORD = "password"
-        const val createUsersTableStmt: String = "CREATE TABLE IF NOT EXISTS $USER_TABLE_NAME ($COL_UID INTEGER PRIMARY KEY AUTOINCREMENT, $COL_USERNAME TEXT, $COL_PASSWORD TEXT)"
-    }
-}
-
-class ProfileTable {
-    companion object {
-        const val PROFILE_TABLE_NAME = "profiles"
-        const val COL_UID = "uid"
-        const val COL_FIRST_NAME = "fName"
-        const val COL_LAST_NAME = "lName"
-        const val COL_MOBILE = "mob"
-        const val COL_EMAIL = "email"
-        const val createProfileTableStmt = "CREATE TABLE IF NOT EXISTS $PROFILE_TABLE_NAME ($COL_UID INTEGER, $COL_FIRST_NAME TEXT, $COL_LAST_NAME TEXT, $COL_MOBILE TEXT, $COL_EMAIL TEXT)"
-    }
-}
-
-class AddressTable {
-    companion object {
-        const val ADDRESS_TABLE_NAME = "addresses"
-        const val COL_UID = "uid"
-        const val COL_FULL_NAME = "full_name"
-        const val COL_MOBILE = "mobile"
-        const val COL_PIN_CODE = "pin_code"
-        const val COL_ADDRESS = "address"
-        const val createAddressTableStmt = "CREATE TABLE IF NOT EXISTS $ADDRESS_TABLE_NAME ($COL_UID INTEGER, $COL_FULL_NAME TEXT, $COL_MOBILE TEXT, $COL_PIN_CODE TEXT, $COL_ADDRESS TEXT)"
-    }
-}
-
-class WishlistTable {
-    companion object {
-        const val WISHLIST_TABLE_NAME = "wishlists"
-        const val COL_UID = "uid"
-        const val COL_PRODUCT_ID = "product_id"
-        const val createWishlistTableStmt = "CREATE TABLE IF NOT EXISTS $WISHLIST_TABLE_NAME ($COL_UID INTEGER, $COL_PRODUCT_ID INTEGER)"
     }
 }

@@ -21,8 +21,8 @@
             android:orientation="horizontal">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="140dp"
-                android:layout_height="140dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
@@ -39,6 +39,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -51,7 +52,7 @@
                     android:layout_marginBottom="4dp"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    tools:text="Rahul Raj" />
+                    tools:text="Full Name" />
 
                 <TextView
                     android:id="@+id/tv_mobile_number"
@@ -61,7 +62,7 @@
                     android:layout_marginEnd="4dp"
                     android:layout_marginBottom="4dp"
                     android:textSize="15sp"
-                    tools:text="9155881234" />
+                    tools:text="91XXXXXXXX" />
 
                 <TextView
                     android:id="@+id/tv_email"
@@ -71,7 +72,7 @@
                     android:layout_marginEnd="4dp"
                     android:layout_marginBottom="4dp"
                     android:textSize="15sp"
-                    tools:text="rahul.raj@zohocorp.com" />
+                    tools:text="username@domain.com" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
