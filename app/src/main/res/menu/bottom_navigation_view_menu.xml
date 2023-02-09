@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bnv_home"
+        android:icon="@drawable/home_icon_selector"
+        android:title="@string/bnv_home" />
+    <item
+        android:id="@+id/bnv_category"
+        android:icon="@drawable/category_icon_selector"
+        android:title="@string/bnv_category" />
+    <item
+        android:id="@+id/bnv_account"
+        android:icon="@drawable/account_icon_selector"
+        android:title="@string/bnv_account" />
+    <item
+        android:id="@+id/bnv_cart"
+        android:icon="@drawable/cart_icon_selector"
+        android:title="@string/bnv_cart" />
+
+</menu>
