@@ -17,7 +17,6 @@ import kotlinx.coroutines.launch
 
 private const val TAG = "Common_Tag_LoginPageActivity"
 
-
 class LoginPageActivity : AppCompatActivity() {
     private lateinit var textInputUsername: TextInputLayout
     private lateinit var textInputPassword: TextInputLayout

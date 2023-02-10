@@ -13,16 +13,12 @@ private const val TAG = "Common_Tag_Splash"
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
-    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         supportActionBar?.hide()
         window.navigationBarColor = ContextCompat.getColor(this, R.color.primary_container)
-
-        DB(this@SplashActivity).insertDummyData()
-
         CoroutineScope(Dispatchers.Main).launch {
             delay(1500)
             if (isLoggedIn()) {
