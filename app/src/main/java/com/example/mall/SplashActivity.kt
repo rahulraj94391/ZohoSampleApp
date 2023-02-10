@@ -21,15 +21,7 @@ class SplashActivity : AppCompatActivity() {
         supportActionBar?.hide()
         window.navigationBarColor = ContextCompat.getColor(this, R.color.primary_container)
 
-        sharedPreferences = getSharedPreferences(MSharedPreferences.NAME, MODE_PRIVATE)
-
-        if (sharedPreferences.getBoolean(MSharedPreferences.IS_FIRST_TIME, true)) {
-            DB(this@SplashActivity).insertDummyData()
-            sharedPreferences.edit().apply {
-                putBoolean(MSharedPreferences.IS_FIRST_TIME, false)
-                apply()
-            }
-        }
+        DB(this@SplashActivity).insertDummyData()
 
         CoroutineScope(Dispatchers.Main).launch {
             delay(1500)

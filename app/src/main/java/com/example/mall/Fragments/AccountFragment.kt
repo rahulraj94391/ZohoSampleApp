@@ -64,7 +64,7 @@ class AccountFragment : Fragment() {
             putInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
             apply()
         }
-        startActivity(Intent(activity, LoginPageActivity::class.java))
         activity!!.finish()
+        startActivity(Intent(activity, LoginPageActivity::class.java))
     }
 }
