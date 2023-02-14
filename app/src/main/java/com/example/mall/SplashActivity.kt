@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.*
 
-//private const val TAG = "SplashActivity_Mall"
 private const val TAG = "Common_Tag_Splash"
 
 @SuppressLint("CustomSplashScreen")
@@ -20,7 +19,7 @@ class SplashActivity : AppCompatActivity() {
         supportActionBar?.hide()
         window.navigationBarColor = ContextCompat.getColor(this, R.color.primary_container)
         CoroutineScope(Dispatchers.Main).launch {
-            delay(1500)
+            delay(500)
             if (isLoggedIn()) {
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             } else {

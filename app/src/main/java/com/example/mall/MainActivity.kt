@@ -21,12 +21,13 @@ import com.google.android.material.navigation.NavigationView
 
 //private const val TAG = "MainActivity_Mall"
 private const val TAG = "Common_Tag_MainActivity"
+const val backStackName = "Main_Back_Stack"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var drawer: DrawerLayout
     private lateinit var bottomNavigationView: BottomNavigationView
-    private val backStackName = "Main_Back_Stack"
+
     private lateinit var fm: FragmentManager
     private lateinit var navView: NavigationView
 
