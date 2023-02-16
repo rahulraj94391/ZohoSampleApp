@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus {
     private lateinit var toolbar: Toolbar
     private lateinit var drawer: DrawerLayout
     private lateinit var bottomNavigationView: BottomNavigationView
-
     private lateinit var fm: FragmentManager
     private lateinit var navView: NavigationView
 
@@ -54,9 +53,7 @@ class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus {
             val fragmentInstance: Fragment = when (it.itemId) {
                 R.id.nav_my_order -> MyOrdersFragment().also { fragmentTag = "MyOrdersFragment" }
                 R.id.nav_my_wishlist -> MyWishlistFragment().also { fragmentTag = "MyWishlistFragment" }
-                R.id.nav_FAQs -> FaqsFragment().also { fragmentTag = "FaqsFragment" }
-                R.id.nav_contact_us -> ContactUsFragment().also { fragmentTag = "ContactUsFragment" }
-                else-> LegalTermsFragment().also { fragmentTag = "LegalTermsFragment" }
+                else -> ContactUsFragment().also { fragmentTag = "ContactUsFragment" }
             }
             fm.beginTransaction().apply {
                 replace(R.id.frag_container, fragmentInstance, fragmentTag)

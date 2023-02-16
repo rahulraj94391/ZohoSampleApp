@@ -13,25 +13,13 @@
             android:id="@+id/nav_my_wishlist"
             android:icon="@drawable/my_wishlist_24"
             android:title="@string/nav_drawer_my_wishlist" />
-    </group>
-
-    <group android:id="@+id/nav_drawer_mid_group">
-
-        <item
-            android:id="@+id/nav_FAQs"
-            android:icon="@drawable/faqs_24"
-            android:title="@string/nav_drawer_faqs" />
 
         <item
             android:id="@+id/nav_contact_us"
             android:icon="@drawable/contact_us_24"
             android:title="@string/nav_drawer_contact_us" />
-
-        <item
-            android:id="@+id/nav_legal_terms"
-            android:icon="@drawable/policies"
-            android:title="@string/nav_drawer_legal_terms" />
     </group>
+
 </menu>
 
     <!--    android:checkableBehavior="single"-->

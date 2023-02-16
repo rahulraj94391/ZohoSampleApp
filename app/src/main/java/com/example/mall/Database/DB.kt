@@ -8,10 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.example.mall.Database.*
 import com.example.mall.Fragments.Category
-import com.example.mall.ModelClass.CartItemModel
-import com.example.mall.ModelClass.ProdDescPageModel
-import com.example.mall.ModelClass.ProductListModel
-import com.example.mall.ModelClass.UserDetailsModel
+import com.example.mall.ModelClass.*
 
 const val DATABASE_NAME = "shopie.db"
 private const val TAG = "Common_Tag_DB"
@@ -82,8 +79,8 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
                         cursor.getInt(2),
                         cursor.getInt(3),
                         cursor.getString(4)
-                                 )
-                                )
+                    )
+                )
             } while (cursor.moveToNext())
         }
         cursor.close()
@@ -211,29 +208,28 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
                         cursor.getString(2),
                         cursor.getInt(3),
                         cursor.getInt(4)
-                                    )
-                            )
+                    )
+                )
             } while (cursor.moveToNext())
         }
         cursor.close()
         return products
     }
 
-    fun getWishlistItems(uid: Int): MutableList<ProductListModel> {
-        val wishListItems: MutableList<ProductListModel> = mutableListOf()
-        val query = "SELECT wishlists.pid, prod_details.prod_name, prod_details.imgURL0, prod_details.price, prod_details.stock FROM wishlists LEFT JOIN prod_details ON prod_details.pid = wishlists.pid WHERE uid = ?"
+    fun getWishlistItems(uid: Int): MutableList<WishlistModel> {
+        val wishListItems: MutableList<WishlistModel> = mutableListOf()
+        val query = "SELECT wishlists.pid, prod_details.prod_name, prod_details.price, prod_details.imgURL0 FROM wishlists LEFT JOIN prod_details ON prod_details.pid = wishlists.pid WHERE uid = ?"
         val cursor: Cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString()))
         if (cursor.moveToFirst()) {
             do {
                 wishListItems.add(
-                    ProductListModel(
+                    WishlistModel(
                         cursor.getInt(0),
                         cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getInt(3),
-                        cursor.getInt(4)
-                                 )
-                                 )
+                        cursor.getInt(2),
+                        cursor.getString(3)
+                    )
+                )
             } while (cursor.moveToNext())
         }
         cursor.close()

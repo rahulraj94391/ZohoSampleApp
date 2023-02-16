@@ -7,58 +7,57 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mall.ModelClass.CartItemModel
+import com.example.mall.ModelClass.WishlistModel
 import com.example.mall.R
 import com.squareup.picasso.Picasso
 
 class WishlistAdapter(
-    private val cartItems: MutableList<CartItemModel>,
-    private val listener: OnCartItemClickListener
-                      ) : RecyclerView.Adapter<CartItemsAdapter.CartItemViewHolder>() {
-    inner class CartItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private val wishlistItems: MutableList<WishlistModel>,
+    private val listener: WishlistItemClickListener
+) : RecyclerView.Adapter<WishlistAdapter.WishlistViewHolder>() {
+
+    inner class WishlistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         init {
-            itemView.setOnClickListener() {
+            itemView.findViewById<Button>(R.id.btn_wishlist_remove_top).setOnClickListener(){
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    listener.onItemClicked(adapterPosition)
+                    listener.onTopBtnClicked(adapterPosition)
                 }
             }
-            itemView.findViewById<Button>(R.id.btn_start).setOnClickListener() {
+
+            itemView.findViewById<Button>(R.id.btn_wishlist_remove_bottom).setOnClickListener(){
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    listener.onStartButtonClicked(adapterPosition)
-                }
-            }
-            itemView.findViewById<Button>(R.id.btn_end).setOnClickListener() {
-                if (adapterPosition != RecyclerView.NO_POSITION) {
-                    listener.onEndButtonClicked(adapterPosition)
+                    listener.onBottomBtnClicked(adapterPosition)
                 }
             }
         }
-
-        var prodPrice: TextView = itemView.findViewById(R.id.tv_prod_price)
-        var quantity: TextView = itemView.findViewById(R.id.tv_prod_quantity)
-        val imageView: ImageView = itemView.findViewById(R.id.iv_product_image)
-        var prodName: TextView = itemView.findViewById(R.id.tv_prod_name)
-
+        var img: ImageView = itemView.findViewById(R.id.iv_wishlist_prod_img)
+        var prodName: TextView = itemView.findViewById(R.id.tv_wishlist_product_name)
+        var prodPrice: TextView = itemView.findViewById(R.id.tv_wishlist_product_price)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemsAdapter.CartItemViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.cart_row, parent, false)
-        return CartItemViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WishlistViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.row_wishlist, parent, false)
+        return WishlistViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return cartItems.size
+        return wishlistItems.size
     }
 
-    override fun onBindViewHolder(holder: CartItemsAdapter.CartItemViewHolder, position: Int) {
-        holder.prodName.text = cartItems[position].productName
-        holder.prodPrice.text = "₹ ${cartItems[position].price}"
-        holder.quantity.text = "Quantity - ${cartItems[position].quantity}"
-        val imageURL = cartItems[position].thumbnailURL
+    override fun onBindViewHolder(holder: WishlistViewHolder, position: Int) {
         Picasso.get()
-            .load(imageURL)
+            .load(wishlistItems[position].imgURL)
             .placeholder(R.drawable.img_placeholder)
             .error(R.drawable.img_placeholder)
-            .into(holder.imageView)
+            .into(holder.img)
+
+        holder.prodName.text = wishlistItems[position].prodName
+        holder.prodPrice.text = wishlistItems[position].prodPrice.toString()
     }
+}
+
+interface WishlistItemClickListener {
+    fun onTopBtnClicked(position: Int)
+    fun onBottomBtnClicked(position: Int)
 }

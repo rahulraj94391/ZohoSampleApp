@@ -11,9 +11,8 @@ import com.example.mall.ModelClass.AllCategoryModel
 import com.example.mall.R
 
 class AllCategoriesAdapter(
-    private val categories: MutableList<AllCategoryModel>,
-    private val listener: OnItemClickListener
-                          ) : RecyclerView.Adapter<AllCategoriesAdapter.CategoryViewHolder>() {
+    private val categories: MutableList<AllCategoryModel>, private val listener: OnItemClickListener
+) : RecyclerView.Adapter<AllCategoriesAdapter.CategoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.all_categories_row, parent, false)

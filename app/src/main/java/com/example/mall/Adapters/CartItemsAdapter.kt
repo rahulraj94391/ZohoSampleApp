@@ -14,9 +14,8 @@ import com.squareup.picasso.Picasso
 private const val TAG = "Common_Tag_CartItemsAdapter"
 
 class CartItemsAdapter(
-    private val cartItems: MutableList<CartItemModel>,
-    private val listener: OnCartItemClickListener
-                      ) : RecyclerView.Adapter<CartItemsAdapter.CartItemViewHolder>() {
+    private val cartItems: MutableList<CartItemModel>, private val listener: OnCartItemClickListener
+) : RecyclerView.Adapter<CartItemsAdapter.CartItemViewHolder>() {
     inner class CartItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
             itemView.setOnClickListener() {
@@ -57,11 +56,7 @@ class CartItemsAdapter(
         holder.prodPrice.text = "₹ ${cartItems[position].price}"
         holder.quantity.text = "Quantity - ${cartItems[position].quantity}"
         val imageURL = cartItems[position].thumbnailURL
-        Picasso.get()
-            .load(imageURL)
-            .placeholder(R.drawable.img_placeholder)
-            .error(R.drawable.img_placeholder)
-            .into(holder.imageView)
+        Picasso.get().load(imageURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(holder.imageView)
     }
 }
 
