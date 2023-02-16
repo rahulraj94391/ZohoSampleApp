@@ -1,6 +1,7 @@
 package com.example.mall.Fragments
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -10,15 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.mall.DB
-import com.example.mall.LoginPageActivity
-import com.example.mall.MSharedPreferences
+import com.example.mall.*
 import com.example.mall.ModelClass.UserDetailsModel
-import com.example.mall.R
 
-private const val TAG = "CommonTag_AccountFragment"
+private const val TAG = "Common_Tag_AccountFragment"
 
 class AccountFragment : Fragment() {
     private lateinit var etFullName: TextView
@@ -27,6 +26,10 @@ class AccountFragment : Fragment() {
     private lateinit var btnLogout: Button
     private lateinit var sharedPreferences: SharedPreferences
     private var currentProfileDetails: UserDetailsModel? = null
+    private lateinit var tvMyOrder: TextView
+    private lateinit var tvMyWishlist: TextView
+    private lateinit var tvContactUs: TextView
+    private lateinit var builder: AlertDialog.Builder
 
     override fun onAttach(context: Context) {
         Log.d(TAG, "onAttach: called")
@@ -34,7 +37,7 @@ class AccountFragment : Fragment() {
         super.onAttach(context)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         Log.d(TAG, "onCreateView: called")
         val view: View = inflater.inflate(R.layout.fragment_account, container, false)
         return view
@@ -43,27 +46,69 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d(TAG, "onViewCreated: called")
         super.onViewCreated(view, savedInstanceState)
+
+        tvMyOrder = view.findViewById(R.id.tv_account_my_orders)
+        tvMyWishlist = view.findViewById(R.id.tv_account_my_wishlist)
+        tvContactUs = view.findViewById(R.id.tv_account_contact_us)
+
         etFullName = view.findViewById(R.id.tv_full_name)
         etMobile = view.findViewById(R.id.tv_mobile_number)
         etEMail = view.findViewById(R.id.tv_email)
         btnLogout = view.findViewById(R.id.btn_logout)
+
         getProfileDetails()
 
-        btnLogout.setOnClickListener() {
-            logoutUser()
+        tvMyOrder.setOnClickListener { myOrderAction() }
+        tvMyWishlist.setOnClickListener { myWishlistAction() }
+        tvContactUs.setOnClickListener { contactUsAction() }
+        btnLogout.setOnClickListener { logoutDecisionDialog() }
+    }
+
+    private fun myOrderAction() {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frag_container, MyOrdersFragment(), "MyOrdersFragment")
+            addToBackStack(backStackName)
+            commit()
         }
     }
 
+    private fun myWishlistAction() {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frag_container, MyWishlistFragment(), "MyWishlistFragment")
+            addToBackStack(backStackName)
+            commit()
+        }
+    }
+
+    private fun logoutDecisionDialog() {
+        val positive = DialogInterface.OnClickListener() { _, _ ->
+            logoutUser()
+        }
+        val negative = DialogInterface.OnClickListener() { dialogInterface, _ ->
+            dialogInterface.cancel()
+        }
+
+        builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("Logout current user ?").setCancelable(true).setPositiveButton("yes", positive).setNegativeButton("no", negative).show()
+    }
+
+    private fun setUserDetails() {
+        etFullName.text = currentProfileDetails?.userName
+        etMobile.text = currentProfileDetails?.mobileNo
+        etEMail.text = currentProfileDetails?.email
+    }
+
     private fun getProfileDetails() {
-        if (null != currentProfileDetails) return
+        if (null != currentProfileDetails) {
+            setUserDetails()
+            return
+        }
         val currentUserId = sharedPreferences.getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
+        Log.d(TAG, "currentUserId = $currentUserId")
         if (currentUserId != -1) {
             val db = DB(requireActivity().applicationContext)
-            Log.d(TAG, "getProfileDetails: called")
             currentProfileDetails = db.uerProfileInfo(currentUserId)
-            etFullName.text = currentProfileDetails?.userName
-            etMobile.text = currentProfileDetails?.mobileNo
-            etEMail.text = currentProfileDetails?.email
+            setUserDetails()
         }
     }
 
@@ -76,7 +121,6 @@ class AccountFragment : Fragment() {
         startActivity(Intent(activity, LoginPageActivity::class.java))
         requireActivity().finish()
     }
-
 
     override fun onDestroyView() {
         Log.d(TAG, "onDestroyView: called")
@@ -91,5 +135,13 @@ class AccountFragment : Fragment() {
     override fun onDetach() {
         Log.d(TAG, "onDetach: called")
         super.onDetach()
+    }
+
+    private fun contactUsAction() {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frag_container, ContactUsFragment(), "ContactUsFragment")
+            addToBackStack(backStackName)
+            commit()
+        }
     }
 }
