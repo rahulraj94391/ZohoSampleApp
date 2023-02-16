@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mall.R
-import com.example.mall.Adapters.ProductDescriptionImagesAdapter
 
 
 class HomeFragment : Fragment() {

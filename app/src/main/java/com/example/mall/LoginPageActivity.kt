@@ -78,7 +78,7 @@ class LoginPageActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.Main).launch {
                 delay(2000)
                 val db = DB(this@LoginPageActivity)
-                val isValid = db.isUser(textInputUsername.editText?.text.toString(), textInputPassword.editText?.text.toString())
+                val isValid = db.isExistingUser(textInputUsername.editText?.text.toString(), textInputPassword.editText?.text.toString())
                 if (isValid) {
                     val editor: SharedPreferences.Editor = sharedPreferences.edit()
                     editor.putBoolean(MSharedPreferences.IS_LOGGED_IN, true)

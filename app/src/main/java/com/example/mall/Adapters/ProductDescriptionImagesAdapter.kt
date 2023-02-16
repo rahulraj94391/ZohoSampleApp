@@ -24,9 +24,8 @@ class ProductDescriptionImagesAdapter(private val images: MutableList<String>) :
     }
 
     override fun onBindViewHolder(holder: ViewPagerViewHolder, position: Int) {
-        val imageURL = images[position]
         Picasso.get()
-            .load(imageURL)
+            .load(images[position])
             .placeholder(R.drawable.img_placeholder)
             .error(R.drawable.img_placeholder)
             .into(holder.imgView)

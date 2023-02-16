@@ -32,13 +32,6 @@
             android:icon="@drawable/policies"
             android:title="@string/nav_drawer_legal_terms" />
     </group>
-    <group android:id="@+id/nav_drawer_bottom_group">
-
-        <item
-            android:id="@+id/nav_alter_items_in_DB"
-            android:icon="@drawable/add_item_db_24"
-            android:title="@string/nav_drawer_testing_zone" />
-    </group>
 </menu>
 
     <!--    android:checkableBehavior="single"-->

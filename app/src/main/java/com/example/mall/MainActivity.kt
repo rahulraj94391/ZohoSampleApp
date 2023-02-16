@@ -23,7 +23,7 @@ import com.google.android.material.navigation.NavigationView
 private const val TAG = "Common_Tag_MainActivity"
 const val backStackName = "Main_Back_Stack"
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus {
     private lateinit var toolbar: Toolbar
     private lateinit var drawer: DrawerLayout
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -56,8 +56,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_my_wishlist -> MyWishlistFragment().also { fragmentTag = "MyWishlistFragment" }
                 R.id.nav_FAQs -> FaqsFragment().also { fragmentTag = "FaqsFragment" }
                 R.id.nav_contact_us -> ContactUsFragment().also { fragmentTag = "ContactUsFragment" }
-                R.id.nav_legal_terms -> LegalTermsFragment().also { fragmentTag = "LegalTermsFragment" }
-                else -> TestingZoneFragment().also { fragmentTag = "TestingZoneFragment" }
+                else-> LegalTermsFragment().also { fragmentTag = "LegalTermsFragment" }
             }
             fm.beginTransaction().apply {
                 replace(R.id.frag_container, fragmentInstance, fragmentTag)
@@ -103,10 +102,10 @@ class MainActivity : AppCompatActivity() {
         var fragmentTag = ""
         bottomNavigationView.setOnItemSelectedListener() { item: MenuItem ->
             val currentFrag: Fragment = when (item.itemId) {
-                R.id.bnv_category -> CategoryFragment().also { fragmentTag = "CategoryFragment" }
+                R.id.bnv_category -> CategoriesFragment().also { fragmentTag = "CategoryFragment" }
                 R.id.bnv_account -> AccountFragment().also { fragmentTag = "AccountFragment" }
-                R.id.bnv_cart -> CartFragment().also { fragmentTag = "CartFragment"}
-                else -> HomeFragment().also { fragmentTag = "HomeFragment"}
+                R.id.bnv_cart -> CartFragment().also { fragmentTag = "CartFragment" }
+                else -> HomeFragment().also { fragmentTag = "HomeFragment" }
             }
             fm.beginTransaction().apply {
                 replace(R.id.frag_container, currentFrag, fragmentTag)
@@ -116,16 +115,16 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        bottomNavigationView.setOnItemReselectedListener { item: MenuItem ->
-            // TODO: implement scroll to top position on reselect
-            val toast: String = when (item.itemId) {
-                R.id.bnv_category -> "CategoryFragment()"
-                R.id.bnv_account -> "AccountFragment()"
-                R.id.bnv_cart -> "CartFragment()"
-                else -> "HomeFragment()"
-            }
-            Toast.makeText(this, "$toast reselected", Toast.LENGTH_SHORT).show();
-        }
+//        bottomNavigationView.setOnItemReselectedListener { item: MenuItem ->
+//            // TODO: implement scroll to top position on reselect
+//            val toast: String = when (item.itemId) {
+//                R.id.bnv_category -> "CategoryFragment()"
+//                R.id.bnv_account -> "AccountFragment()"
+//                R.id.bnv_cart -> "CartFragment()"
+//                else -> "HomeFragment()"
+//            }
+//            Toast.makeText(this, "$toast reselected", Toast.LENGTH_SHORT).show();
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -140,21 +139,25 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
-        } else if (fm.findFragmentById(R.id.frag_container) is HomeFragment && fm.backStackEntryCount > 0) {
+        }
+        else if (fm.findFragmentById(R.id.frag_container) is HomeFragment && fm.backStackEntryCount > 0) {
             repeat(fm.backStackEntryCount) { fm.popBackStack() }
             Toast.makeText(this, "Press Back Again to exit", Toast.LENGTH_SHORT).show()
-        } else {
+        }
+        else {
             super.onBackPressed()
         }
-        val topFragment: Int = when (fm.findFragmentById(R.id.frag_container)) {
+        val position: Int = when (fm.findFragmentById(R.id.frag_container)) {
             is HomeFragment -> 0
-            is CategoryFragment -> 1
+            is CategoriesFragment -> 1
             is AccountFragment -> 2
             is CartFragment -> 3
             else -> -1
         }
-        if (topFragment != -1) bottomNavigationView.menu.getItem(topFragment).isChecked = true
+        if (position != -1) bottomNavigationView.menu.getItem(position).isChecked = true
     }
+
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         Log.d(TAG, "onSaveInstanceState: called")
@@ -189,6 +192,10 @@ class MainActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         Log.d(TAG, "onRestart: called")
+    }
+
+    override fun changeIndicator(position: Int) {
+        bottomNavigationView.menu.getItem(position).isChecked = true
     }
 }
 

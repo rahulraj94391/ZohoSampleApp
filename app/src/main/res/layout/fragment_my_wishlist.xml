@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.MyWishlistFragment">
+    tools:context=".Fragments.MyWishlistFragment"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
-        android:textSize="40sp"
-        android:layout_height="match_parent"
-        android:text="My Wishlist Frag" />
+        android:layout_height="wrap_content"
+        android:text="Wishlist"
+        style="@style/left_right_padding_6dp"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:textStyle="bold"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rv_wishlist"
+
+        />
+
+</LinearLayout>

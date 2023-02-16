@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.example.mall.Database.*
 import com.example.mall.Fragments.Category
 import com.example.mall.ModelClass.CartItemModel
@@ -33,7 +34,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
 
     }
 
-    fun queryProfileData(uid: Int): UserDetailsModel {
+    fun uerProfileInfo(uid: Int): UserDetailsModel {
         lateinit var profileData: UserDetailsModel
         val query = "SELECT * FROM ${ProfileTable.PROFILE_TABLE_NAME} WHERE ${ProfileTable.COL_UID} = ?"
         val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString()))
@@ -42,14 +43,15 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
             val mob = cursor.getString(3)
             val email = cursor.getString(4)
             profileData = UserDetailsModel(fullName, mob, email)
-        } else {
+        }
+        else {
             profileData = UserDetailsModel("Update details", "-", "-")
         }
         cursor.close()
         return profileData
     }
 
-    fun isUser(userID: String, password: String): Boolean {
+    fun isExistingUser(userID: String, password: String): Boolean {
         val checkQuery = "SELECT * FROM ${UserTable.USER_TABLE_NAME} where ${UserTable.COL_USERNAME} = ? AND ${UserTable.COL_PASSWORD} = ?"
         val cursor: Cursor = readableDatabase.rawQuery(checkQuery, arrayOf(userID, password))
         val result: Boolean = cursor.count > 0
@@ -75,13 +77,29 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
             do {
                 cartItemList.add(
                     CartItemModel(
-                        cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(3), cursor.getString(4)
-                    )
-                )
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getInt(2),
+                        cursor.getInt(3),
+                        cursor.getString(4)
+                                 )
+                                )
             } while (cursor.moveToNext())
         }
         cursor.close()
         return cartItemList
+    }
+
+    fun addItemToCart(uid: Int, pid: Int, quantity: Int): Boolean {
+        val cv = ContentValues().apply {
+            put(CartTable.COL_UID, uid)
+            put(CartTable.COL_PID, pid)
+            put(CartTable.COL_QUANTITY, quantity)
+        }
+        Log.d(TAG, "add item to cart CV -> $cv")
+        val insert = writableDatabase.insert(CartTable.CART_TABLE_NAME, null, cv)
+        Log.d(TAG, "insert value -> $insert")
+        return insert != (-1).toLong()
     }
 
     fun getProductDescription(pid: Int): ProdDescPageModel {
@@ -117,34 +135,52 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return ProdDescPageModel(imageURLs, pid, prodName, prodPrice, stock, specs)
     }
 
-    fun checkItemInCart(uid: Int, pid: Int): Boolean {
+    fun isItemInCart(uid: Int, pid: Int): Boolean {
         val query = "SELECT pid FROM cart WHERE uid = ? AND pid = ?"
         val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString(), pid.toString()))
-        var row: Int = 0
+        var queryPID: Int = -1
         if (cursor.moveToFirst()) {
-            row = cursor.getInt(0)
+            queryPID = cursor.getInt(0)
         }
         cursor.close()
-        return row > 0
+        return pid == queryPID
     }
 
-    fun addItemFromCartToWishlist(uid: Int, pid: Int) {
-        deleteItemFromCart(uid, pid)
-        addItemToWishlist(uid, pid)
+    fun addItemFromCartToWishlist(uid: Int, pid: Int): Boolean {
+        val deletedRows = deleteItemFromCart(uid, pid)
+        val isInsertSuccess = addItemToWishlist(uid, pid)
+        return deletedRows > 0 && isInsertSuccess
     }
 
     fun addItemToWishlist(uid: Int, pid: Int): Boolean {
+        if (isItemInWishlist(uid, pid)) return true
         val cv = ContentValues().apply {
-            put(uid.toString(), pid)
+            put(WishlistTable.COL_UID, uid)
+            put(WishlistTable.COL_PID, pid)
         }
+        Log.d(TAG, "cv = $cv")
         val insert = writableDatabase.insert(WishlistTable.WISHLIST_TABLE_NAME, null, cv)
+        Log.d(TAG, "Insert in wishlist = $insert")
         return insert != (-1).toLong()
+    }
+
+    fun isItemInWishlist(uid: Int, pid: Int): Boolean {
+        val query = "SELECT ${WishlistTable.COL_PID} FROM ${WishlistTable.WISHLIST_TABLE_NAME} WHERE ${WishlistTable.COL_UID} = ? AND ${WishlistTable.COL_PID} = ?"
+        val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString(), pid.toString()))
+        if (cursor.moveToFirst()) {
+            return cursor.getInt(0) == pid
+        }
+        return false
     }
 
     fun deleteItemFromCart(uid: Int, pid: Int): Int {
         val whereClause = "uid = ? AND pid = ?"
-        val rowsDeleted: Int = writableDatabase.delete(CartTable.CART_TABLE_NAME, whereClause, arrayOf(uid.toString(), pid.toString()))
-        return rowsDeleted
+        return writableDatabase.delete(CartTable.CART_TABLE_NAME, whereClause, arrayOf(uid.toString(), pid.toString()))
+    }
+
+    fun deleteItemFromWishlist(uid: Int, pid: Int): Int {
+        val whereClause = "uid = ? AND pid = ?"
+        return writableDatabase.delete(WishlistTable.WISHLIST_TABLE_NAME, whereClause, arrayOf(uid.toString(), pid.toString()))
     }
 
     fun queryProductsBasedOnCategory(category: Category): MutableList<ProductListModel> {
@@ -158,11 +194,11 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
             Category.HEADPHONES -> "headphone"
             Category.TELEVISON -> "television"
             Category.EARPHONES -> "earphone"
-            else -> "ALL"
+            else -> "-1"
         }
 
         var selectionArgs: Array<String>? = null
-        val finalQuery = if (keyword != "ALL") (baseQuery + categorySpecificQuery).also { selectionArgs = arrayOf(keyword) } else baseQuery
+        val finalQuery = if (keyword != "-1") (baseQuery + categorySpecificQuery).also { selectionArgs = arrayOf(keyword) } else baseQuery
         val cursor = readableDatabase.rawQuery(finalQuery, selectionArgs)
         val products: MutableList<ProductListModel> = mutableListOf()
 
@@ -175,12 +211,32 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
                         cursor.getString(2),
                         cursor.getInt(3),
                         cursor.getInt(4)
-                    )
-                )
+                                    )
+                            )
             } while (cursor.moveToNext())
         }
         cursor.close()
         return products
+    }
 
+    fun getWishlistItems(uid: Int): MutableList<ProductListModel> {
+        val wishListItems: MutableList<ProductListModel> = mutableListOf()
+        val query = "SELECT wishlists.pid, prod_details.prod_name, prod_details.imgURL0, prod_details.price, prod_details.stock FROM wishlists LEFT JOIN prod_details ON prod_details.pid = wishlists.pid WHERE uid = ?"
+        val cursor: Cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString()))
+        if (cursor.moveToFirst()) {
+            do {
+                wishListItems.add(
+                    ProductListModel(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getInt(3),
+                        cursor.getInt(4)
+                                 )
+                                 )
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return wishListItems
     }
 }

@@ -11,9 +11,7 @@ import com.example.mall.ModelClass.CartItemModel
 import com.example.mall.R
 import com.squareup.picasso.Picasso
 
-private const val TAG = "Common_Tag_CartItemsAdapter"
-
-class CartItemsAdapter(
+class WishlistAdapter(
     private val cartItems: MutableList<CartItemModel>,
     private val listener: OnCartItemClickListener
                       ) : RecyclerView.Adapter<CartItemsAdapter.CartItemViewHolder>() {
@@ -63,9 +61,4 @@ class CartItemsAdapter(
             .error(R.drawable.img_placeholder)
             .into(holder.imageView)
     }
-}
-
-interface OnCartItemClickListener : OnClickListener {
-    fun onStartButtonClicked(position: Int)
-    fun onEndButtonClicked(position: Int)
 }

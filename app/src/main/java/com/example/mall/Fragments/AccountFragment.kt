@@ -60,7 +60,7 @@ class AccountFragment : Fragment() {
         if (currentUserId != -1) {
             val db = DB(requireActivity().applicationContext)
             Log.d(TAG, "getProfileDetails: called")
-            currentProfileDetails = db.queryProfileData(currentUserId)
+            currentProfileDetails = db.uerProfileInfo(currentUserId)
             etFullName.text = currentProfileDetails?.userName
             etMobile.text = currentProfileDetails?.mobileNo
             etEMail.text = currentProfileDetails?.email

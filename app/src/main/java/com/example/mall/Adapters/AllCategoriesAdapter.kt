@@ -13,7 +13,6 @@ import com.example.mall.R
 class AllCategoriesAdapter(
     private val categories: MutableList<AllCategoryModel>,
     private val listener: OnItemClickListener
-
                           ) : RecyclerView.Adapter<AllCategoriesAdapter.CategoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -31,9 +30,6 @@ class AllCategoriesAdapter(
     }
 
     inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var image: ImageView = itemView.findViewById(R.id.iv_category_image)
-        var category: TextView = itemView.findViewById(R.id.tv_category_type)
-
         init {
             itemView.setOnClickListener() {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
@@ -41,8 +37,12 @@ class AllCategoriesAdapter(
                 }
             }
         }
+
+        var image: ImageView = itemView.findViewById(R.id.iv_category_image)
+        var category: TextView = itemView.findViewById(R.id.tv_category_type)
     }
 }
+
 
 interface OnItemClickListener {
     fun onItemClick(category: Category)

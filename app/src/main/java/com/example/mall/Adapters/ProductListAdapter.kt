@@ -11,8 +11,21 @@ import com.example.mall.ModelClass.ProductListModel
 import com.example.mall.R
 import com.squareup.picasso.Picasso
 
-class ProductListAdapter(private val products: MutableList<ProductListModel>) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
+class ProductListAdapter(
+    private val products: MutableList<ProductListModel>,
+    private val listener: OnClickListener
+
+                        ) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
+
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        init {
+            itemView.setOnClickListener() {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    listener.onItemClicked(adapterPosition)
+                }
+            }
+        }
+
         var prodImage: ImageView = itemView.findViewById(R.id.iv_products_list_res)
         var prodName: TextView = itemView.findViewById(R.id.tv_products_list_name)
         var prodPrice: TextView = itemView.findViewById(R.id.tv_products_list_price)
@@ -29,8 +42,15 @@ class ProductListAdapter(private val products: MutableList<ProductListModel>) : 
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
+
+        Picasso.get()
+            .load(products[position].imgURL)
+            .placeholder(R.drawable.img_placeholder)
+            .error(R.drawable.img_placeholder)
+            .into(holder.prodImage)
         holder.prodName.text = products[position].prodName
         holder.prodPrice.text = products[position].prodPrice.toString()
+
         val stock = products[position].stock
         if (stock > 5) {
             holder.isInStock.text = "In Stock"
@@ -43,11 +63,9 @@ class ProductListAdapter(private val products: MutableList<ProductListModel>) : 
             holder.isInStock.text = "Out of Stock"
             holder.isInStock.setTextColor(Color.parseColor("#990000"))
         }
-        val imageURL = products[position].imgURL
-        Picasso.get()
-            .load(imageURL)
-            .placeholder(R.drawable.img_placeholder)
-            .error(R.drawable.img_placeholder)
-            .into(holder.prodImage)
     }
+}
+
+interface OnClickListener {
+    fun onItemClicked(position: Int)
 }

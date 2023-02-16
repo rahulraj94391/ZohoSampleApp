@@ -18,7 +18,7 @@ import com.example.mall.backStackName
 
 private const val TAG = "Common_Tag_CategoryFragment"
 
-class CategoryFragment : Fragment(), OnItemClickListener {
+class CategoriesFragment : Fragment(), OnItemClickListener {
     private lateinit var allCategories: RecyclerView
     private lateinit var categoriesList: MutableList<AllCategoryModel>
 
@@ -37,18 +37,11 @@ class CategoryFragment : Fragment(), OnItemClickListener {
     override fun onItemClick(category: Category) {
         val listOfProducts: MutableList<ProductListModel> = DB(requireContext()).queryProductsBasedOnCategory(category)
         Log.d(TAG, "listOfProducts.size ${listOfProducts.size}")
-        if (listOfProducts.size > 0) {
-            requireActivity().supportFragmentManager.beginTransaction().apply {
-                replace(R.id.frag_container, ProductsListViewFragment(listOfProducts))
-                addToBackStack(backStackName)
-                commit()
-            }
-        } else {
-            requireActivity().supportFragmentManager.beginTransaction().apply {
-                replace(R.id.frag_container, ProductNotAvailable())
-                addToBackStack(backStackName)
-                commit()
-            }
+        val fragment = if (listOfProducts.size > 0) ProductsListViewFragment(listOfProducts) else ProductNotAvailable()
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frag_container, fragment)
+            addToBackStack(backStackName)
+            commit()
         }
     }
 
@@ -65,4 +58,5 @@ class CategoryFragment : Fragment(), OnItemClickListener {
         return categoriesList
     }
 }
+
 
