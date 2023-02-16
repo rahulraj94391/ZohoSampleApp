@@ -10,9 +10,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.*
-import com.example.mall.Fragments.ProductDescriptionFragment
+import com.example.mall.Fragments.SingleProductDescriptionFragment
 import com.example.mall.ModelClass.CartItemModel
-import com.example.mall.ModelClass.ProdDescPageModel
 import com.squareup.picasso.Picasso
 
 private const val TAG = "Common_Tag_CartItemsAdapter"
@@ -28,14 +27,14 @@ class CartItemsAdapter(private val cartItems: MutableList<CartItemModel>) : Recy
                 Log.d(TAG, "Clicked on item = ${cartItems[adapterPosition].productName} , uid = ${cartItems[adapterPosition].productId}")
                 val activity = it.context as MainActivity
                 activity.supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.frag_container, ProductDescriptionFragment(cartItems[adapterPosition].productId))
+                    replace(R.id.frag_container, SingleProductDescriptionFragment(cartItems[adapterPosition].productId))
                     addToBackStack(backStackName)
                     commit()
                 }
             }
         }
 
-        val btnDelete: Button = itemView.findViewById<Button?>(R.id.btn_delete).also {
+        val btnEnd: Button = itemView.findViewById<Button?>(R.id.btn_delete).also {
             it.setOnClickListener() {
                 Log.d(TAG, "delete clicked - ${cartItems[adapterPosition].productName}")
                 val id = it.context
@@ -50,7 +49,7 @@ class CartItemsAdapter(private val cartItems: MutableList<CartItemModel>) : Recy
             }
         }
 
-        val btnWishlist: Button = itemView.findViewById<Button?>(R.id.btn_add_to_wishlist).also {
+        val btnStart: Button = itemView.findViewById<Button?>(R.id.btn_add_to_wishlist).also {
             it.setOnClickListener() {
                 Log.d(TAG, "wishlisted - ${cartItems[adapterPosition].productName}")
                 val id = it.context

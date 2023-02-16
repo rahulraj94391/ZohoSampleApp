@@ -6,8 +6,10 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.mall.Database.*
+import com.example.mall.Fragments.Category
 import com.example.mall.ModelClass.CartItemModel
 import com.example.mall.ModelClass.ProdDescPageModel
+import com.example.mall.ModelClass.ProductListModel
 import com.example.mall.ModelClass.UserDetailsModel
 
 const val DATABASE_NAME = "shopie.db"
@@ -115,12 +117,23 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return ProdDescPageModel(imageURLs, pid, prodName, prodPrice, stock, specs)
     }
 
-    fun addItemFromCartToWishlist(uid: Int, pid: Int){
+    fun checkItemInCart(uid: Int, pid: Int): Boolean {
+        val query = "SELECT pid FROM cart WHERE uid = ? AND pid = ?"
+        val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString(), pid.toString()))
+        var row: Int = 0
+        if (cursor.moveToFirst()) {
+            row = cursor.getInt(0)
+        }
+        cursor.close()
+        return row > 0
+    }
+
+    fun addItemFromCartToWishlist(uid: Int, pid: Int) {
         deleteItemFromCart(uid, pid)
         addItemToWishlist(uid, pid)
     }
 
-    fun addItemToWishlist(uid: Int, pid: Int): Boolean{
+    fun addItemToWishlist(uid: Int, pid: Int): Boolean {
         val cv = ContentValues().apply {
             put(uid.toString(), pid)
         }
@@ -132,5 +145,42 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         val whereClause = "uid = ? AND pid = ?"
         val rowsDeleted: Int = writableDatabase.delete(CartTable.CART_TABLE_NAME, whereClause, arrayOf(uid.toString(), pid.toString()))
         return rowsDeleted
+    }
+
+    fun queryProductsBasedOnCategory(category: Category): MutableList<ProductListModel> {
+        val baseQuery = "SELECT pid, prod_name, imgURL0, price, stock FROM prod_details"
+        val categorySpecificQuery = " WHERE pid IN (SELECT pid FROM category_tags WHERE category_tags.category_tag = ?)"
+        val keyword: String = when (category) {
+            Category.ANDROID_PHONES -> "android"
+            Category.IPHONES -> "iPhone"
+            Category.REFRIGERATOR -> "refrigerator"
+            Category.AIR_CONDITIONER -> "ac"
+            Category.HEADPHONES -> "headphone"
+            Category.TELEVISON -> "television"
+            Category.EARPHONES -> "earphone"
+            else -> "ALL"
+        }
+
+        var selectionArgs: Array<String>? = null
+        val finalQuery = if (keyword != "ALL") (baseQuery + categorySpecificQuery).also { selectionArgs = arrayOf(keyword) } else baseQuery
+        val cursor = readableDatabase.rawQuery(finalQuery, selectionArgs)
+        val products: MutableList<ProductListModel> = mutableListOf()
+
+        if (cursor.moveToFirst()) {
+            do {
+                products.add(
+                    ProductListModel(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getInt(3),
+                        cursor.getInt(4)
+                    )
+                )
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return products
+
     }
 }

@@ -50,16 +50,17 @@ class MainActivity : AppCompatActivity() {
 //        navView.menu.getItem(2).isChecked = true
 
         val navViewListener = NavigationView.OnNavigationItemSelectedListener {
+            var fragmentTag = ""
             val fragmentInstance: Fragment = when (it.itemId) {
-                R.id.nav_my_order -> MyOrdersFragment()
-                R.id.nav_my_wishlist -> MyWishlistFragment()
-                R.id.nav_FAQs -> FaqsFragment()
-                R.id.nav_contact_us -> ContactUsFragment()
-                R.id.nav_legal_terms -> LegalTermsFragment()
-                else -> TestingZoneFragment()
+                R.id.nav_my_order -> MyOrdersFragment().also { fragmentTag = "MyOrdersFragment" }
+                R.id.nav_my_wishlist -> MyWishlistFragment().also { fragmentTag = "MyWishlistFragment" }
+                R.id.nav_FAQs -> FaqsFragment().also { fragmentTag = "FaqsFragment" }
+                R.id.nav_contact_us -> ContactUsFragment().also { fragmentTag = "ContactUsFragment" }
+                R.id.nav_legal_terms -> LegalTermsFragment().also { fragmentTag = "LegalTermsFragment" }
+                else -> TestingZoneFragment().also { fragmentTag = "TestingZoneFragment" }
             }
             fm.beginTransaction().apply {
-                replace(R.id.frag_container, fragmentInstance)
+                replace(R.id.frag_container, fragmentInstance, fragmentTag)
                 addToBackStack(backStackName)
                 commit()
             }
@@ -99,15 +100,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun bottomNavViewAndListenerConfig() {
         bottomNavigationView = findViewById(R.id.bnv_bottom_menu_container)
+        var fragmentTag = ""
         bottomNavigationView.setOnItemSelectedListener() { item: MenuItem ->
             val currentFrag: Fragment = when (item.itemId) {
-                R.id.bnv_category -> CategoryFragment()
-                R.id.bnv_account -> AccountFragment()
-                R.id.bnv_cart -> CartFragment()
-                else -> HomeFragment()
+                R.id.bnv_category -> CategoryFragment().also { fragmentTag = "CategoryFragment" }
+                R.id.bnv_account -> AccountFragment().also { fragmentTag = "AccountFragment" }
+                R.id.bnv_cart -> CartFragment().also { fragmentTag = "CartFragment"}
+                else -> HomeFragment().also { fragmentTag = "HomeFragment"}
             }
             fm.beginTransaction().apply {
-                replace(R.id.frag_container, currentFrag)
+                replace(R.id.frag_container, currentFrag, fragmentTag)
                 addToBackStack(backStackName)
                 commit()
             }
