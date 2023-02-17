@@ -24,7 +24,5 @@ class OrderActivity : AppCompatActivity() {
 
         rvCheckout.adapter = adapter
         rvCheckout.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-
     }
 }
