@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="All Categories"
         android:textSize="28sp"
+        android:visibility="gone"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView

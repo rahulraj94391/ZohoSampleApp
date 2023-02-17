@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.Adapters.AllCategoriesAdapter
 import com.example.mall.Adapters.OnItemClickListener
-import com.example.mall.BottomNavViewVisibility
 import com.example.mall.DB
 import com.example.mall.ModelClass.AllCategoryModel
 import com.example.mall.ModelClass.ProductListModel
@@ -19,10 +18,7 @@ import com.example.mall.backStackName
 
 private const val TAG = "Common_Tag_CategoryFragment"
 
-class CategoriesFragment(
-    private val bottomNavBar: BottomNavViewVisibility
-
-) : Fragment(), OnItemClickListener {
+class CategoriesFragment : Fragment(), OnItemClickListener {
     private lateinit var allCategories: RecyclerView
     private lateinit var categoriesList: MutableList<AllCategoryModel>
 
@@ -47,7 +43,6 @@ class CategoriesFragment(
             addToBackStack(backStackName)
             commit()
         }
-        bottomNavBar.hide()
     }
 
     private fun getCategories(): MutableList<AllCategoryModel> {

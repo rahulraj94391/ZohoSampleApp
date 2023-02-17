@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -19,9 +18,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 private const val TAG = "Common_Tag_MainActivity"
 const val backStackName = "Main_Back_Stack"
 
-class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus, BottomNavViewVisibility {
+class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus {
     private lateinit var toolbar: Toolbar
-    lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var fm: FragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,10 +43,10 @@ class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus, BottomNa
 
     private fun bottomNavViewAndListenerConfig() {
         bottomNavigationView = findViewById(R.id.bnv_bottom_menu_container)
-        var fragmentTag = ""
-        bottomNavigationView.setOnItemSelectedListener() { item: MenuItem ->
+        var fragmentTag: String
+        bottomNavigationView.setOnItemSelectedListener { item: MenuItem ->
             val currentFrag: Fragment = when (item.itemId) {
-                R.id.bnv_category -> CategoriesFragment(this).also {
+                R.id.bnv_category -> CategoriesFragment().also {
                     fragmentTag = "CategoryFragment"
                     toolbar.title = "All Categories"
                 }
@@ -61,6 +60,7 @@ class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus, BottomNa
                 }
                 else -> HomeFragment().also {
                     fragmentTag = "HomeFragment"
+                    toolbar.title = "Shopie"
 
                 }
             }
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus, BottomNa
             true
         }
 
-        bottomNavigationView.setOnItemReselectedListener { item: MenuItem ->
+        bottomNavigationView.setOnItemReselectedListener {
             // TODO: implement scroll to top position on reselect
 //            val toast: String = when (item.itemId) {
 //                R.id.bnv_category -> "CategoryFragment()"
@@ -102,21 +102,21 @@ class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus, BottomNa
             super.onBackPressed()
         }
         val position: Int = when (fm.findFragmentById(R.id.frag_container)) {
-            is HomeFragment -> 0
-            is CategoriesFragment -> 1.also { show() }
-            is AccountFragment -> 2
-            is CartFragment -> 3
+            is HomeFragment -> 0.also {
+                toolbar.title = "Shopie"
+            }
+            is CategoriesFragment -> 1.also {
+                toolbar.title = "All Categories"
+            }
+            is AccountFragment -> 2.also {
+                toolbar.title = "Accounts"
+            }
+            is CartFragment -> 3.also {
+                toolbar.title = "Cart"
+            }
             else -> -1
         }
         if (position != -1) bottomNavigationView.menu.getItem(position).isChecked = true
-    }
-
-    override fun hide() {
-        bottomNavigationView.visibility = View.GONE
-    }
-
-    override fun show() {
-        bottomNavigationView.visibility = View.VISIBLE
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -159,8 +159,4 @@ class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus, BottomNa
     }
 }
 
-interface BottomNavViewVisibility {
-    fun hide()
-    fun show()
-}
 

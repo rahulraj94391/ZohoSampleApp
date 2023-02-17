@@ -12,17 +12,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.example.mall.*
 import com.example.mall.Adapters.ProductDescriptionImagesAdapter
-import com.example.mall.DB
-import com.example.mall.MSharedPreferences
 import com.example.mall.ModelClass.ProdDescPageModel
-import com.example.mall.R
-import com.example.mall.backStackName
 import com.google.android.material.button.MaterialButtonToggleGroup
 
 private const val TAG = "Common_Tag_SingleProductDescriptionFragment"
 
-class SingleProductDescriptionFragment(private val pid: Int, private val statusSwitcher: ChangeBottomNavigationStatus) : Fragment() {
+class SingleProductDescriptionFragment(
+    private val pid: Int,
+    private val statusSwitcher: ChangeBottomNavigationStatus
+) : Fragment() {
     private lateinit var productImages: ViewPager2
     private lateinit var productName: TextView
     private lateinit var productPrice: TextView
@@ -63,7 +63,7 @@ class SingleProductDescriptionFragment(private val pid: Int, private val statusS
         quantityBtn = view.findViewById(R.id.select_qty_segmented)
 
         // get the product details from DB using pid, store in model_class
-        val prodDetails: ProdDescPageModel = db.getProductDescription(pid)
+        val prodDetails: ProdDescPageModel = db.singleProdDesc(pid)
         val stock = prodDetails.stock
         setupStartBtn()
         setupEndBtn(stock)
@@ -158,7 +158,7 @@ class SingleProductDescriptionFragment(private val pid: Int, private val statusS
     }
 }
 
-interface ChangeBottomNavigationStatus{
+interface ChangeBottomNavigationStatus {
     fun changeIndicator(position: Int)
 }
 

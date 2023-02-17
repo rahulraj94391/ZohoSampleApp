@@ -89,7 +89,12 @@ class AccountFragment : Fragment() {
         }
 
         builder = AlertDialog.Builder(requireContext())
-        builder.setMessage("Logout current user ?").setCancelable(true).setPositiveButton("yes", positive).setNegativeButton("no", negative).show()
+        builder
+            .setMessage("Logout current user ?")
+            .setCancelable(true)
+            .setPositiveButton("yes", positive)
+            .setNegativeButton("no", negative)
+            .show()
     }
 
     private fun setUserDetails() {
