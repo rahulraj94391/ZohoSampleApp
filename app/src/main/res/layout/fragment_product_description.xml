@@ -166,6 +166,8 @@
         android:paddingEnd="4dp"
 
         >
+<!--        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--        style="?attr/materialButtonOutlinedStyle"-->
 
         <Button
             android:id="@+id/btn_at_start"
@@ -182,6 +184,7 @@
         <Button
             android:id="@+id/btn_at_end"
             style="?attr/materialButtonOutlinedStyle"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

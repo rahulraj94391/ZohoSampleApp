@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus {
             true
         }
 
-        bottomNavigationView.setOnItemReselectedListener {
+//        bottomNavigationView.setOnItemReselectedListener {
             // TODO: implement scroll to top position on reselect
 //            val toast: String = when (item.itemId) {
 //                R.id.bnv_category -> "CategoryFragment()"
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus {
 //                else -> "HomeFragment()"
 //            }
 //            Toast.makeText(this, "$toast reselected", Toast.LENGTH_SHORT).show();
-        }
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

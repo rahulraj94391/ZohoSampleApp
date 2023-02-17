@@ -3,7 +3,13 @@ package com.example.mall.ModelClass
 import android.os.Parcel
 import android.os.Parcelable
 
-data class CartItemModel(val pid: Int, val productName: String?, val price: Int, val quantity: Int, val thumbnailURL: String?) : Parcelable {
+data class CartItemModel(
+    val pid: Int,
+    val productName: String?,
+    val price: Int,
+    val quantity: Int,
+    val thumbnailURL: String?
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),
