@@ -112,7 +112,7 @@ class AccountFragment : Fragment() {
         Log.d(TAG, "currentUserId = $currentUserId")
         if (currentUserId != -1) {
             val db = DB(requireActivity().applicationContext)
-            currentProfileDetails = db.uerProfileInfo(currentUserId)
+            currentProfileDetails = db.userDetailsModel(currentUserId)
             setUserDetails()
         }
     }

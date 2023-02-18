@@ -19,15 +19,15 @@ class WishlistAdapter(
     inner class WishlistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         init {
-            itemView.findViewById<Button>(R.id.btn_wishlist_remove_top).setOnClickListener(){
+            itemView.setOnClickListener(){
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    listener.onTopBtnClicked(adapterPosition)
+                    listener.onItemClicked(adapterPosition)
                 }
             }
 
-            itemView.findViewById<Button>(R.id.btn_wishlist_remove_bottom).setOnClickListener(){
+            itemView.findViewById<Button>(R.id.btn_wishlist_remove_top).setOnClickListener(){
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    listener.onBottomBtnClicked(adapterPosition)
+                    listener.onTopBtnClicked(adapterPosition)
                 }
             }
         }
@@ -53,11 +53,11 @@ class WishlistAdapter(
             .into(holder.img)
 
         holder.prodName.text = wishlistItems[position].prodName
-        holder.prodPrice.text = wishlistItems[position].prodPrice.toString()
+        holder.prodPrice.text = "₹ ${wishlistItems[position].prodPrice}"
     }
 }
 
 interface WishlistItemClickListener {
+    fun onItemClicked(position: Int)
     fun onTopBtnClicked(position: Int)
-    fun onBottomBtnClicked(position: Int)
 }

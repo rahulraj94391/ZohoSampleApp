@@ -21,7 +21,6 @@ private const val TAG = "Common_Tag_SingleProductDescriptionFragment"
 
 class SingleProductDescriptionFragment(
     private val pid: Int,
-    private val statusSwitcher: ChangeBottomNavigationStatus
 ) : Fragment() {
     private lateinit var productImages: ViewPager2
     private lateinit var productName: TextView
@@ -105,7 +104,7 @@ class SingleProductDescriptionFragment(
                 addToBackStack(backStackName)
                 commit()
             }
-            statusSwitcher.changeIndicator(3)
+
         }
 
         val addToCartAction = View.OnClickListener {

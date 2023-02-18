@@ -31,7 +31,7 @@ class ProductsListViewFragment(private val listOfProducts: MutableList<ProductLi
 
     override fun onItemClicked(position: Int) {
         requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frag_container, SingleProductDescriptionFragment(listOfProducts[position].pid, activity as ChangeBottomNavigationStatus))
+            replace(R.id.frag_container, SingleProductDescriptionFragment(listOfProducts[position].pid))
             addToBackStack(backStackName)
             commit()
         }

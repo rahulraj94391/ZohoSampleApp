@@ -31,7 +31,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
 
     }
 
-    fun uerProfileInfo(uid: Int): UserDetailsModel {
+    fun userDetailsModel(uid: Int): UserDetailsModel {
         lateinit var profileData: UserDetailsModel
         val query = "SELECT * FROM ${ProfileTable.PROFILE_TABLE_NAME} WHERE ${ProfileTable.COL_UID} = ?"
         val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString()))
@@ -64,6 +64,26 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         val userId = cursor.getInt(0)
         cursor.close()
         return userId
+    }
+
+    fun getAddresses(uid: Int): MutableList<DeliveryAddressModel> {
+        val addresses: MutableList<DeliveryAddressModel> = mutableListOf()
+        val query = "SELECT full_name, mobile, pin_code, address FROM addresses WHERE addresses.uid = ?"
+        val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString()))
+        if (cursor.moveToFirst()) {
+            do {
+                addresses.add(
+                    DeliveryAddressModel(
+                        cursor.getString(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                    )
+                )
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return addresses
     }
 
     fun getCartItems(userId: Int): ArrayList<CartItemModel> {

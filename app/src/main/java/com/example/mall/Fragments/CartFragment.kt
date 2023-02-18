@@ -75,6 +75,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         if (itemWentOutOfStockList.size > 0) showItemOutOfStockDialog(itemWentOutOfStockList)
         val intent: Intent = Intent(requireContext(), OrderActivity::class.java)
         intent.putExtra("orderList", cartItemList)
+        intent.putExtra("uid", uid)
         startActivity(intent)
     }
 
@@ -154,7 +155,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
 
     override fun onItemClicked(position: Int) {
         requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frag_container, SingleProductDescriptionFragment(cartItemList[position].pid, activity as ChangeBottomNavigationStatus))
+            replace(R.id.frag_container, SingleProductDescriptionFragment(cartItemList[position].pid))
             addToBackStack(backStackName)
             commit()
         }

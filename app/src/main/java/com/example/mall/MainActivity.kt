@@ -18,8 +18,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 private const val TAG = "Common_Tag_MainActivity"
 const val backStackName = "Main_Back_Stack"
 
-class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus {
-    private lateinit var toolbar: Toolbar
+class MainActivity : AppCompatActivity() {
+    lateinit var toolbar: Toolbar
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var fm: FragmentManager
 
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus {
         }
 
 //        bottomNavigationView.setOnItemReselectedListener {
-            // TODO: implement scroll to top position on reselect
+        // TODO: implement scroll to top position on reselect
 //            val toast: String = when (item.itemId) {
 //                R.id.bnv_category -> "CategoryFragment()"
 //                R.id.bnv_account -> "AccountFragment()"
@@ -154,9 +154,6 @@ class MainActivity : AppCompatActivity(), ChangeBottomNavigationStatus {
         Log.d(TAG, "onRestart: called")
     }
 
-    override fun changeIndicator(position: Int) {
-        bottomNavigationView.menu.getItem(position).isChecked = true
-    }
 }
 
 

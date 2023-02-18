@@ -2,27 +2,28 @@ package com.example.mall
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.mall.Adapters.OrderActivityAdapter
-import com.example.mall.ModelClass.CartItemModel
+import com.example.mall.Fragments.CheckoutDescriptionFragment
 
 class OrderActivity : AppCompatActivity() {
 
-    private lateinit var rvCheckout: RecyclerView
-    private lateinit var adapter: OrderActivityAdapter
+
+    lateinit var toolbar: Toolbar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order)
+        toolbar = findViewById(R.id.checkout_toolbar)
+        setSupportActionBar(toolbar)
         window.statusBarColor = ContextCompat.getColor(this, R.color.primary)
         window.navigationBarColor = ContextCompat.getColor(this, R.color.primary)
-        rvCheckout = findViewById(R.id.rv_checkout)
-        val cartList: ArrayList<CartItemModel>? = intent.getParcelableArrayListExtra("orderList")
-        adapter = OrderActivityAdapter(cartList!!)
+//        val cartList: ArrayList<CartItemModel>? = intent.getParcelableArrayListExtra("orderList")
 
-        rvCheckout.adapter = adapter
-        rvCheckout.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frag_container_checkout, CheckoutDescriptionFragment())
+            commit()
+        }
     }
 }
