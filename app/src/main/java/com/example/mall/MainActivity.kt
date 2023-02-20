@@ -20,14 +20,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 private const val TAG = "Common_Tag_MainActivity"
 const val backStackName = "Main_Back_Stack"
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
     lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var fm: FragmentManager
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
         Log.d(TAG, "onCreate: called")
         window.statusBarColor = ContextCompat.getColor(this, R.color.primary)
         window.navigationBarColor = ContextCompat.getColor(this, R.color.primary)
@@ -36,10 +39,16 @@ class MainActivity : AppCompatActivity(){
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        fm.beginTransaction().apply {
-            replace(R.id.frag_container, HomeFragment())
-            commit()
+        Log.d(TAG, "Saved Instance State = ${savedInstanceState == null}")
+
+        if (savedInstanceState == null) {
+            fm.beginTransaction().apply {
+                replace(R.id.frag_container, HomeFragment())
+                commit()
+            }
         }
+
+
         bottomNavViewAndListenerConfig()
     }
 
@@ -124,6 +133,7 @@ class MainActivity : AppCompatActivity(){
 
     override fun onSaveInstanceState(outState: Bundle) {
         Log.d(TAG, "onSaveInstanceState: called")
+        outState.putBoolean("flag", false)
         super.onSaveInstanceState(outState)
     }
 
@@ -156,7 +166,6 @@ class MainActivity : AppCompatActivity(){
         super.onRestart()
         Log.d(TAG, "onRestart: called")
     }
-
 
 
 }

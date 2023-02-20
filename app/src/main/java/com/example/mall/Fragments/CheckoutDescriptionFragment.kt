@@ -1,7 +1,6 @@
 package com.example.mall.Fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,21 +10,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.Adapters.OrderActivityAdapter
 import com.example.mall.Adapters.PaymentType
 import com.example.mall.DB
+import com.example.mall.Interface.BindNewAddress
 import com.example.mall.Interface.CheckoutDescriptionListener
 import com.example.mall.ModelClass.CartItemModel
 import com.example.mall.ModelClass.DeliveryAddressModel
 import com.example.mall.ModelClass.PriceDetailsModel
 import com.example.mall.OrderActivity
 import com.example.mall.R
+import kotlinx.coroutines.NonDisposableHandle.parent
 
 private const val TAG = "Common_Tag_CheckoutDescriptionFrag"
 
-class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
+class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener, BindNewAddress {
     private var cartList: ArrayList<CartItemModel>? = null
     private lateinit var rvCheckout: RecyclerView
     private lateinit var adapter: OrderActivityAdapter
     var uid: Int = -1
-    private lateinit var addresses: MutableList<DeliveryAddressModel>
+    lateinit var addresses: MutableList<DeliveryAddressModel>
+    var addressIdx: Int = 0
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_checkout_description, container, false)
@@ -37,7 +40,7 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
         cartList = (activity as OrderActivity).intent.getParcelableArrayListExtra("orderList")
         uid = (activity as OrderActivity).intent.getIntExtra("uid", -1)
         addresses = DB(requireContext()).getAddresses(uid)
-        adapter = OrderActivityAdapter(cartList!!, getCheckoutDetails(), addresses[0], this@CheckoutDescriptionFragment)
+        adapter = OrderActivityAdapter(cartList!!, getCheckoutDetails(), addresses[addressIdx], this@CheckoutDescriptionFragment)
         rvCheckout.adapter = adapter
         rvCheckout.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
@@ -61,7 +64,11 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
     }
 
     override fun changeDeliveryAddress() {
-
+        activity?.supportFragmentManager?.beginTransaction()?.apply {
+            replace(R.id.frag_container_checkout, SelectDeliveryAddressFragment(addresses, this@CheckoutDescriptionFragment))
+            addToBackStack(null)
+            commit()
+        }
     }
 
     override fun redirectToPaymentPortal(id: Int) {
@@ -79,4 +86,7 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
         }
     }
 
+    override fun displayNewAddress(position: Int) {
+        addressIdx = position
+    }
 }

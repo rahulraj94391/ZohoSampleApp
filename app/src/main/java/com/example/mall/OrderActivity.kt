@@ -1,6 +1,7 @@
 package com.example.mall
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -18,9 +19,17 @@ class OrderActivity : AppCompatActivity() {
         window.navigationBarColor = ContextCompat.getColor(this, R.color.primary)
 //        val cartList: ArrayList<CartItemModel>? = intent.getParcelableArrayListExtra("orderList")
 
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frag_container_checkout, CheckoutDescriptionFragment())
-            commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.frag_container_checkout, CheckoutDescriptionFragment())
+                commit()
+            }
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState.putBoolean("flag", false)
+    }
+
 }
