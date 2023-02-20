@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mall.Interface.OnClickListener
+
 import com.example.mall.ModelClass.ProductListModel
 import com.example.mall.R
 import com.squareup.picasso.Picasso
@@ -15,7 +17,7 @@ class ProductListAdapter(
     private val products: MutableList<ProductListModel>,
     private val listener: OnClickListener
 
-                        ) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
+) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
 
     inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
@@ -55,17 +57,16 @@ class ProductListAdapter(
         if (stock > 5) {
             holder.isInStock.text = "In Stock"
             holder.isInStock.setTextColor(Color.parseColor("#0A9900"))
-        } else if (stock in 1..5) {
+        }
+        else if (stock in 1..5) {
             holder.isInStock.text = "Order soon"
             holder.isInStock.setTextColor(Color.parseColor("#CD9B00"))
 
-        } else if (stock == 0) {
+        }
+        else if (stock == 0) {
             holder.isInStock.text = "Out of Stock"
             holder.isInStock.setTextColor(Color.parseColor("#990000"))
         }
     }
 }
 
-interface OnClickListener {
-    fun onItemClicked(position: Int)
-}

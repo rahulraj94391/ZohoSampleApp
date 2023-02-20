@@ -8,7 +8,9 @@ import android.widget.ImageView
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mall.Interface.CheckoutDescriptionListener
 import com.example.mall.ModelClass.CartItemModel
+import com.example.mall.ModelClass.DeliveryAddressModel
 import com.example.mall.ModelClass.PriceDetailsModel
 import com.example.mall.R
 import com.squareup.picasso.Picasso
@@ -22,10 +24,47 @@ private const val TAG = "Common_Tag_OrderActivityAdapter"
 
 class OrderActivityAdapter(
     private val cartItems: ArrayList<CartItemModel>,
-    private val checkoutDetails: PriceDetailsModel,
-
+    private val checkoutPriceDetails: PriceDetailsModel,
+    private val deliveryAddressModel: DeliveryAddressModel,
+    private val listener: CheckoutDescriptionListener
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    inner class AddressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        init {
+            itemView.findViewById<Button>(R.id.btn_change_delivery_address).setOnClickListener() {
+                listener.changeDeliveryAddress()
+            }
+        }
+
+        val deliverToPersonName: TextView = itemView.findViewById(R.id.tv_delivery_to_person_name)
+        val deliveryAddress: TextView = itemView.findViewById(R.id.tv_delivery_address)
+        val deliveryPhNumber: TextView = itemView.findViewById(R.id.tv_delivery_to_phone)
+    }
+
+    inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val prodImage: ImageView = itemView.findViewById(R.id.iv_checkout_prod_img)
+        val prodName: TextView = itemView.findViewById(R.id.tv_checkout_prod_name)
+        val prodPrice: TextView = itemView.findViewById(R.id.tv_checkout_prod_price)
+        val prodQuantity: TextView = itemView.findViewById(R.id.tv_checkout_prod_qty)
+    }
+
+    inner class PaymentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        init {
+            itemView.findViewById<Button>(R.id.btn_proceed_to_payment).setOnClickListener() {
+                listener.redirectToPaymentPortal(
+                    itemView.findViewById<RadioGroup>(R.id.rg_payment_selector).checkedRadioButtonId
+                )
+            }
+        }
+    }
+
+    inner class PriceDetailsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val itemCount: TextView = itemView.findViewById(R.id.tv_price_x_items)
+        val priceBeforeDiscount: TextView = itemView.findViewById(R.id.tv_price_before_discount)
+        val discount: TextView = itemView.findViewById(R.id.tv_discount)
+        val finalTotalAmount: TextView = itemView.findViewById(R.id.tv_total_amount)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -40,7 +79,9 @@ class OrderActivityAdapter(
         when (holder.itemViewType) {
             ADDRESS_ROW -> {
                 (holder as AddressViewHolder).apply {
-
+                    deliverToPersonName.text = deliveryAddressModel.fullName
+                    deliveryAddress.text = deliveryAddressModel.address
+                    deliveryPhNumber.text = deliveryAddressModel.mobile
                 }
             }
 
@@ -52,10 +93,10 @@ class OrderActivityAdapter(
 
             PRICE_DETAIL_ROW -> {
                 (holder as PriceDetailsViewHolder).apply {
-                    itemCount.text = "Price ("+checkoutDetails.totalItemCount.toString()+" items)"
-                    priceBeforeDiscount.text = "₹ " + checkoutDetails.priceBeforeDiscount.toString()
-                    discount.text = "₹ " + checkoutDetails.discount.toString()
-                    finalTotalAmount.text = "₹ " + checkoutDetails.totalPriceToPay.toString()
+                    itemCount.text = "Price (" + checkoutPriceDetails.totalItemCount.toString() + " items)"
+                    priceBeforeDiscount.text = "₹ " + checkoutPriceDetails.priceBeforeDiscount.toString()
+                    discount.text = "₹ " + checkoutPriceDetails.discount.toString()
+                    finalTotalAmount.text = "₹ " + checkoutPriceDetails.totalPriceToPay.toString()
                 }
             }
 
@@ -89,27 +130,4 @@ class OrderActivityAdapter(
 }
 
 
-class AddressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val deliverToPersonName: TextView = itemView.findViewById(R.id.tv_delivery_to_person_name)
-    val deliveryAddress: TextView = itemView.findViewById(R.id.tv_delivery_address)
-    val deliveryPhNumber: TextView = itemView.findViewById(R.id.tv_delivery_to_phone)
-}
 
-class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val prodImage: ImageView = itemView.findViewById(R.id.iv_checkout_prod_img)
-    val prodName: TextView = itemView.findViewById(R.id.tv_checkout_prod_name)
-    val prodPrice: TextView = itemView.findViewById(R.id.tv_checkout_prod_price)
-    val prodQuantity: TextView = itemView.findViewById(R.id.tv_checkout_prod_qty)
-}
-
-class PaymentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val paymentOptions: RadioGroup = itemView.findViewById(R.id.rg_payment_selector)
-    val payButton: Button = itemView.findViewById(R.id.btn_proceed_to_payment)
-}
-
-class PriceDetailsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val itemCount: TextView = itemView.findViewById(R.id.tv_price_x_items)
-    val priceBeforeDiscount: TextView = itemView.findViewById(R.id.tv_price_before_discount)
-    val discount: TextView = itemView.findViewById(R.id.tv_discount)
-    val finalTotalAmount: TextView = itemView.findViewById(R.id.tv_total_amount)
-}

@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mall.Adapters.OnClickListener
 import com.example.mall.Adapters.ProductListAdapter
+import com.example.mall.Interface.OnClickListener
 import com.example.mall.ModelClass.ProductListModel
 import com.example.mall.R
 import com.example.mall.backStackName

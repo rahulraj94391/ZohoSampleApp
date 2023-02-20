@@ -4,23 +4,25 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.example.mall.Fragments.*
+import com.example.mall.Fragments.AccountFragment
+import com.example.mall.Fragments.CartFragment
+import com.example.mall.Fragments.CategoriesFragment
+import com.example.mall.Fragments.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 //private const val TAG = "MainActivity_Mall"
 private const val TAG = "Common_Tag_MainActivity"
 const val backStackName = "Main_Back_Stack"
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
     lateinit var toolbar: Toolbar
-    private lateinit var bottomNavigationView: BottomNavigationView
+    lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var fm: FragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +63,6 @@ class MainActivity : AppCompatActivity() {
                 else -> HomeFragment().also {
                     fragmentTag = "HomeFragment"
                     toolbar.title = "Shopie"
-
                 }
             }
             fm.beginTransaction().apply {
@@ -72,8 +73,8 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-//        bottomNavigationView.setOnItemReselectedListener {
-        // TODO: implement scroll to top position on reselect
+        bottomNavigationView.setOnItemReselectedListener {
+//         TODO: implement scroll to top position on reselect
 //            val toast: String = when (item.itemId) {
 //                R.id.bnv_category -> "CategoryFragment()"
 //                R.id.bnv_account -> "AccountFragment()"
@@ -81,7 +82,7 @@ class MainActivity : AppCompatActivity() {
 //                else -> "HomeFragment()"
 //            }
 //            Toast.makeText(this, "$toast reselected", Toast.LENGTH_SHORT).show();
-//        }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -96,7 +97,9 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (fm.findFragmentById(R.id.frag_container) is HomeFragment && fm.backStackEntryCount > 0) {
             repeat(fm.backStackEntryCount) { fm.popBackStack() }
-            Toast.makeText(this, "Press Back Again to exit", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Press Back Again to exit", Toast.LENGTH_SHORT).show()
+            super.onBackPressed()
+
         }
         else {
             super.onBackPressed()
@@ -154,6 +157,10 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "onRestart: called")
     }
 
+
+
 }
+
+
 
 

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.*
 import com.example.mall.Adapters.WishlistAdapter
-import com.example.mall.Adapters.WishlistItemClickListener
+import com.example.mall.Interface.WishlistItemClickListener
 import com.example.mall.ModelClass.WishlistModel
 
 private const val TAG = "Common_Tag_MyWishlistFragment"

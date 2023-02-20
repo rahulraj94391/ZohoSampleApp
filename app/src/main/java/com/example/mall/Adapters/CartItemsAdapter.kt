@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mall.Interface.OnCartItemClickListener
 import com.example.mall.ModelClass.CartItemModel
 import com.example.mall.R
 import com.squareup.picasso.Picasso
@@ -60,7 +61,3 @@ class CartItemsAdapter(
     }
 }
 
-interface OnCartItemClickListener : OnClickListener {
-    fun onStartButtonClicked(position: Int)
-    fun onEndButtonClicked(position: Int)
-}

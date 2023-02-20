@@ -7,11 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.Fragments.Category
+import com.example.mall.Interface.OnCategoryClickListener
 import com.example.mall.ModelClass.AllCategoryModel
 import com.example.mall.R
 
 class AllCategoriesAdapter(
-    private val categories: MutableList<AllCategoryModel>, private val listener: OnItemClickListener
+    private val categories: MutableList<AllCategoryModel>, private val listener: OnCategoryClickListener
 ) : RecyclerView.Adapter<AllCategoriesAdapter.CategoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -43,6 +44,3 @@ class AllCategoriesAdapter(
 }
 
 
-interface OnItemClickListener {
-    fun onItemClick(category: Category)
-}

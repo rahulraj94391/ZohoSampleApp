@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.*
 import com.example.mall.Adapters.CartItemsAdapter
-import com.example.mall.Adapters.OnCartItemClickListener
+import com.example.mall.Interface.OnCartItemClickListener
 import com.example.mall.ModelClass.CartItemModel
 
 private const val TAG = "Common_Tag_CartFragment"

@@ -56,7 +56,6 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return result
     }
 
-    /** returns UID from username */
     fun getUserId(username: String): Int {
         val checkQuery = "SELECT ${UserTable.COL_UID} FROM ${UserTable.USER_TABLE_NAME} where ${UserTable.COL_USERNAME} = ?"
         val cursor: Cursor = readableDatabase.rawQuery(checkQuery, arrayOf(username))
@@ -277,4 +276,12 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         cursor.close()
         return wishListItems
     }
+
+
+    fun confirmOrdersOnPayment(uid: Int) {
+        // TODO: confirm the order after payment
+        // move the items from the "Cart" to the "Orders" with time stamp
+        // for "delivery date" set TIME for 5 min to deliver and show this on the "MyOrders"
+    }
+
 }

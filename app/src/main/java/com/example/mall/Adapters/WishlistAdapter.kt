@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mall.Interface.WishlistItemClickListener
 import com.example.mall.ModelClass.WishlistModel
 import com.example.mall.R
 import com.squareup.picasso.Picasso
@@ -55,9 +56,4 @@ class WishlistAdapter(
         holder.prodName.text = wishlistItems[position].prodName
         holder.prodPrice.text = "₹ ${wishlistItems[position].prodPrice}"
     }
-}
-
-interface WishlistItemClickListener {
-    fun onItemClicked(position: Int)
-    fun onTopBtnClicked(position: Int)
 }

@@ -7,10 +7,7 @@ import androidx.core.content.ContextCompat
 import com.example.mall.Fragments.CheckoutDescriptionFragment
 
 class OrderActivity : AppCompatActivity() {
-
-
     lateinit var toolbar: Toolbar
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
