@@ -34,5 +34,6 @@ class SelectDeliveryAddressFragment(
 
     override fun selectedNewAddress(position: Int) {
         listener.displayNewAddress(position)
+        activity?.supportFragmentManager?.popBackStack()
     }
 }

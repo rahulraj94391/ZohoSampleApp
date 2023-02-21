@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             fm.beginTransaction().apply {
-                replace(R.id.frag_container, HomeFragment())
+                replace(R.id.frag_container, HomeFragment(), "baseHomeFrag")
                 commit()
             }
         }

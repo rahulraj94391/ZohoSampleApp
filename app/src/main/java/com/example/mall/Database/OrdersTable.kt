@@ -5,7 +5,9 @@ object OrdersTable {
     const val COL_UID = "uid"
     const val COL_PID = "pid"
     const val COL_QUANTITY = "quantity"
-    const val COL_IS_DELIVERED = "is_delivered"
+    const val COL_DELIVERY_STATUS = "delivery_status"
     const val COL_DELIVERY_DATE = "delivery_date"
-    const val createTableStmt = "CREATE TABLE IF NOT EXISTS $ORDERS_TABLE_NAME ($COL_UID INTEGER, $COL_PID INTEGER, $COL_QUANTITY INTEGER, $COL_IS_DELIVERED BOOLEAN, $COL_DELIVERY_DATE )"
+    const val COL_ADDRESS_ID = "address_id"
+    const val COL_ORDER_DATE = "order_date"
+    const val createTableStmt = "CREATE TABLE IF NOT EXISTS $ORDERS_TABLE_NAME ($COL_UID INTEGER, $COL_PID INTEGER, $COL_QUANTITY INTEGER, $COL_DELIVERY_STATUS BOOLEAN, $COL_DELIVERY_DATE, $COL_ADDRESS_ID INTEGER, $COL_ORDER_DATE STRING)"
 }

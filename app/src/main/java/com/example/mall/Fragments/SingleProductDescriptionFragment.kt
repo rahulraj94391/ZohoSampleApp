@@ -12,9 +12,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.example.mall.*
 import com.example.mall.Adapters.ProductDescriptionImagesAdapter
+import com.example.mall.DB
+import com.example.mall.MSharedPreferences
 import com.example.mall.ModelClass.ProdDescPageModel
+import com.example.mall.R
+import com.example.mall.backStackName
 import com.google.android.material.button.MaterialButtonToggleGroup
 
 private const val TAG = "Common_Tag_SingleProductDescriptionFragment"

@@ -1,8 +1,8 @@
 package com.example.mall.Fragments
 
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +16,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mall.*
 import com.example.mall.Adapters.CartItemsAdapter
+import com.example.mall.DB
 import com.example.mall.Interface.OnCartItemClickListener
+import com.example.mall.MSharedPreferences
 import com.example.mall.ModelClass.CartItemModel
+import com.example.mall.R
+import com.example.mall.backStackName
 
 private const val TAG = "Common_Tag_CartFragment"
 
@@ -36,13 +39,26 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     private lateinit var db: DB
     private var uid: Int = -1
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(TAG, "onDestroyView: called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy: called")
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.d(TAG, "onCreateView: called")
         return inflater.inflate(R.layout.fragment_cart, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Log.d(TAG, "onViewCreated: called")
 
         rvCartList = view.findViewById(R.id.rv_cart)
         totalCartPrice = view.findViewById(R.id.tv_cart_total_price)
@@ -54,9 +70,10 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         db = DB(requireContext())
 
         cartItemList = db.getCartItems(uid)
+
         cartStatus()
-        calculateCartTotal()
-        totalCartPrice.text = cartTotal.toString()
+
+        totalCartPrice.text = calculateCartTotal().toString()
 
         rvCartList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         cartItemsAdapter = CartItemsAdapter(cartItemList, this@CartFragment)
@@ -73,10 +90,15 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         val itemWentOutOfStockList: MutableList<Int> = mutableListOf()
         for (i in cartItemList.indices) if (itemAvailability[i] == 0) itemWentOutOfStockList.add(i)
         if (itemWentOutOfStockList.size > 0) showItemOutOfStockDialog(itemWentOutOfStockList)
-        val intent: Intent = Intent(requireContext(), OrderActivity::class.java)
-        intent.putExtra("orderList", cartItemList)
-        intent.putExtra("uid", uid)
-        startActivity(intent)
+        else proceedToCheckoutPage()
+    }
+
+    private fun proceedToCheckoutPage() {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frag_container, CheckoutDescriptionFragment(uid, cartItemList), "paymentSuccessful")
+            addToBackStack(backStackName)
+            commit()
+        }
     }
 
     private fun moveOutOfStockItemsFromCartToWishlist(itemWentOutOfStockList: MutableList<Int>) {
@@ -92,6 +114,8 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     private fun showItemOutOfStockDialog(itemWentOutOfStockList: MutableList<Int>) {
         val positive = DialogInterface.OnClickListener { _, _ ->
             moveOutOfStockItemsFromCartToWishlist(itemWentOutOfStockList)
+            proceedToCheckoutPage()
+
         }
         val negative = DialogInterface.OnClickListener { dialogInterface, _ ->
             dialogInterface.cancel()
@@ -120,7 +144,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         }
     }
 
-    override fun onStartButtonClicked(position: Int) {
+    override fun onDeleteClicked(position: Int) {
         val rowsDeleted = db.deleteItemFromCart(uid, cartItemList[position].pid)
         if (rowsDeleted > 0) {
             val removedItem = cartItemList.removeAt(position)
@@ -128,18 +152,20 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             totalCartPrice.text = cartTotal.toString()
             cartItemsAdapter.notifyItemRemoved(position)
         }
-        if (cartItemList.size == 0) {
-            cartStatus()
-        }
+        if (cartItemList.size == 0) cartStatus()
+
     }
 
-    private fun calculateCartTotal() {
+    private fun calculateCartTotal(): Int {
+        Log.d(TAG, "calculateCartTotal: called")
+        var sum = 0
         for (item in cartItemList) {
-            cartTotal += item.price * item.quantity
+            sum += item.price * item.quantity
         }
+        return sum
     }
 
-    override fun onEndButtonClicked(position: Int) {
+    override fun onWishlistClicked(position: Int) {
         val isMoved = db.addItemFromCartToWishlist(uid, cartItemList[position].pid)
         if (isMoved) {
             val removedItem = cartItemList.removeAt(position)

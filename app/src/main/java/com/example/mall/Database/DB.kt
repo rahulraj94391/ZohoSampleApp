@@ -7,8 +7,11 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.example.mall.Database.*
-import com.example.mall.Fragments.Category
+import com.example.mall.Enum.Category
+import com.example.mall.Enum.DeliveryStatus
 import com.example.mall.ModelClass.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 const val DATABASE_NAME = "shopie.db"
 private const val TAG = "Common_Tag_DB"
@@ -67,16 +70,19 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
 
     fun getAddresses(uid: Int): MutableList<DeliveryAddressModel> {
         val addresses: MutableList<DeliveryAddressModel> = mutableListOf()
-        val query = "SELECT full_name, mobile, pin_code, address FROM addresses WHERE addresses.uid = ?"
+        val query = "SELECT address_id, full_name, mobile, pin_code, address FROM addresses WHERE addresses.uid = ?"
+
+//        SELECT address_id, full_name, mobile, pin_code, address FROM addresses WHERE addresses.uid = 1
         val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString()))
         if (cursor.moveToFirst()) {
             do {
                 addresses.add(
                     DeliveryAddressModel(
-                        cursor.getString(0),
+                        cursor.getInt(0),
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getString(3),
+                        cursor.getString(4)
                     )
                 )
             } while (cursor.moveToNext())
@@ -212,8 +218,11 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     }
 
     fun deleteItemFromCart(uid: Int, pid: Int): Int {
+        Log.d(TAG, "deleteItemFromCart called")
         val whereClause = "uid = ? AND pid = ?"
-        return writableDatabase.delete(CartTable.CART_TABLE_NAME, whereClause, arrayOf(uid.toString(), pid.toString()))
+        val rows = writableDatabase.delete(CartTable.CART_TABLE_NAME, whereClause, arrayOf(uid.toString(), pid.toString()))
+        Log.d(TAG, "deleteItemFromCart: rows deleted = $rows")
+        return rows
     }
 
     fun deleteItemFromWishlist(uid: Int, pid: Int): Int {
@@ -278,10 +287,49 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     }
 
 
-    fun confirmOrdersOnPayment(uid: Int) {
-        // TODO: confirm the order after payment
-        // move the items from the "Cart" to the "Orders" with time stamp
-        // for "delivery date" set TIME for 5 min to deliver and show this on the "MyOrders"
+    fun confirmOrdersOnPayment(uid: Int, addressId: Int) {
+        val cartItems: ArrayList<CartItemModel> = getCartItems(uid)
+        for (item in cartItems) {
+            val cv = ContentValues().apply {
+                val sdf = SimpleDateFormat(Calender.pattern)
+                val calendar = Calendar.getInstance();
+                calendar.time = Date()      // Using today's date
+                calendar.add(Calendar.DATE, (1..4).random()) // Adding x days
+                val deliveryDate = sdf.format(calendar.time)
+                val orderDate = sdf.format(Date())
+                put(OrdersTable.COL_UID, uid)
+                put(OrdersTable.COL_PID, item.pid)
+                put(OrdersTable.COL_QUANTITY, item.quantity)
+                put(OrdersTable.COL_DELIVERY_STATUS, DeliveryStatus.NOT_YET_DISPATCHED.status())
+                put(OrdersTable.COL_DELIVERY_DATE, deliveryDate)
+                put(OrdersTable.COL_ADDRESS_ID, addressId)
+                put(OrdersTable.COL_ORDER_DATE, orderDate)
+
+            }
+            Log.d(TAG, "Order datesss -  $cv")
+            writableDatabase.insert(OrdersTable.ORDERS_TABLE_NAME, null, cv)
+            deleteItemFromCart(uid, item.pid)
+        }
     }
 
+    fun getOrders(uid: Int) {
+        val query = ""
+    }
+
+
+
+}
+
+//data class OrdersModel(
+//    var uid: Int,
+//    var pid: Int,
+//    var qty: Int,
+//    var deliveryStatus: DeliveryStatus,
+//    var deliveryDate: Date,
+//    var orderDate: Date
+//)
+
+
+object Calender {
+    const val pattern = "EEE, d MMM yyyy HH:mm"
 }

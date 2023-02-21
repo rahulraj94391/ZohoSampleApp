@@ -26,12 +26,12 @@ class CartItemsAdapter(
             }
             itemView.findViewById<Button>(R.id.btn_start).setOnClickListener() {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    listener.onStartButtonClicked(adapterPosition)
+                    listener.onDeleteClicked(adapterPosition)
                 }
             }
             itemView.findViewById<Button>(R.id.btn_end).setOnClickListener() {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    listener.onEndButtonClicked(adapterPosition)
+                    listener.onWishlistClicked(adapterPosition)
                 }
             }
         }

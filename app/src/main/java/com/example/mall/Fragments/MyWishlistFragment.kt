@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,6 +23,19 @@ class MyWishlistFragment : Fragment(), WishlistItemClickListener {
     private lateinit var db: DB
     private var uid: Int = -1
     private lateinit var adapter: WishlistAdapter
+    private lateinit var tvWishlistEmpty: TextView
+
+    private fun wishListStatus() {
+        if (listOfProducts.size == 0) {
+            tvWishlistEmpty.visibility = View.VISIBLE
+            productsRV.visibility = View.GONE
+        }
+        else {
+            tvWishlistEmpty.visibility = View.GONE
+            productsRV.visibility = View.VISIBLE
+        }
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         db = DB(requireContext())
@@ -32,12 +46,15 @@ class MyWishlistFragment : Fragment(), WishlistItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         (activity as MainActivity).toolbar.title = "Wishlist"
         super.onViewCreated(view, savedInstanceState)
+        tvWishlistEmpty = view.findViewById(R.id.tv_wishlist_empty)
         productsRV = view.findViewById(R.id.rv_wishlist)
         listOfProducts = db.getWishlistItems(uid)
+        wishListStatus()
         adapter = WishlistAdapter(listOfProducts, this)
         productsRV.adapter = adapter
         productsRV.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
     }
+
 
     override fun onItemClicked(position: Int) {
         activity?.supportFragmentManager?.beginTransaction()?.apply {
@@ -48,12 +65,12 @@ class MyWishlistFragment : Fragment(), WishlistItemClickListener {
     }
 
     override fun onTopBtnClicked(position: Int) {
-
         val deletedRow = db.deleteItemFromWishlist(uid, listOfProducts[position].pid)
         if (deletedRow > 0) {
             listOfProducts.removeAt(position)
             adapter.notifyItemRemoved(position)
         }
+        if (listOfProducts.size == 0) wishListStatus()
     }
 
     override fun onDestroyView() {

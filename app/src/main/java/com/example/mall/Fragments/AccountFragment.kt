@@ -29,6 +29,8 @@ class AccountFragment : Fragment() {
     private lateinit var tvMyOrder: TextView
     private lateinit var tvMyWishlist: TextView
     private lateinit var tvContactUs: TextView
+    private lateinit var tvAddress: TextView
+    private lateinit var tvMyProfile: TextView
     private lateinit var builder: AlertDialog.Builder
 
     override fun onAttach(context: Context) {
@@ -47,21 +49,37 @@ class AccountFragment : Fragment() {
         Log.d(TAG, "onViewCreated: called")
         super.onViewCreated(view, savedInstanceState)
 
-        tvMyOrder = view.findViewById(R.id.tv_account_my_orders)
-        tvMyWishlist = view.findViewById(R.id.tv_account_my_wishlist)
-        tvContactUs = view.findViewById(R.id.tv_account_contact_us)
-
         etFullName = view.findViewById(R.id.tv_full_name)
         etMobile = view.findViewById(R.id.tv_mobile_number)
         etEMail = view.findViewById(R.id.tv_email)
+
+        tvMyProfile = view.findViewById(R.id.tv_account_my_profile)
+        tvMyOrder = view.findViewById(R.id.tv_account_my_orders)
+        tvMyWishlist = view.findViewById(R.id.tv_account_my_wishlist)
+        tvAddress = view.findViewById(R.id.tv_account_address)
+        tvContactUs = view.findViewById(R.id.tv_account_contact_us)
+
+
         btnLogout = view.findViewById(R.id.btn_logout)
 
         getProfileDetails()
 
+        tvMyProfile.setOnClickListener {
+            Log.d(TAG, "tvMyProfile clicked")
+        }
         tvMyOrder.setOnClickListener { myOrderAction() }
         tvMyWishlist.setOnClickListener { myWishlistAction() }
+        tvAddress.setOnClickListener { addressAction() }
         tvContactUs.setOnClickListener { contactUsAction() }
         btnLogout.setOnClickListener { logoutDecisionDialog() }
+    }
+
+    private fun addressAction() {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frag_container, AddressFragment(), "AddressFragment")
+            addToBackStack(backStackName)
+            commit()
+        }
     }
 
     private fun myOrderAction() {

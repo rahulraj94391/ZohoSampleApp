@@ -1,4 +1,4 @@
-package com.example.mall.Fragments
+package com.example.mall.Enum
 
 enum class Category(private val type: String) {
     ANDROID_PHONES("Android Phones"),

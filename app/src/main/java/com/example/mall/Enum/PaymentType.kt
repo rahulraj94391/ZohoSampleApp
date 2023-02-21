@@ -1,4 +1,4 @@
-package com.example.mall.Adapters
+package com.example.mall.Enum
 
 enum class PaymentType(private val paymentMethod: String) {
     UPI("UPI"),
