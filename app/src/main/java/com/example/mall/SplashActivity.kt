@@ -19,7 +19,7 @@ class SplashActivity : AppCompatActivity() {
         supportActionBar?.hide()
         window.navigationBarColor = ContextCompat.getColor(this, R.color.primary_container)
         CoroutineScope(Dispatchers.Main).launch {
-            delay(3000)
+            delay(1)
             if (isLoggedIn()) {
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             } else {

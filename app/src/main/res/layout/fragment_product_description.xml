@@ -11,14 +11,12 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        >
+        android:layout_weight="1">
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -26,15 +24,37 @@
 
                 >
 
+
                 <androidx.viewpager2.widget.ViewPager2
-                    android:layout_marginTop="4dp"
                     android:id="@+id/vp_prod_desc_images"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="400dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                     />
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/card_view"
+                    android:layout_height="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vp_prod_desc_images"
+                    >
+                    <me.relex.circleindicator.CircleIndicator3
+                        android:id="@+id/circle_indicator_3"
+                        android:paddingEnd="4dp"
+                        android:paddingStart="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp"
+                        android:background="@color/primary"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/vp_prod_desc_images"
+                        />
+
+                </com.google.android.material.card.MaterialCardView>
+
 
 
                 <TextView
@@ -47,7 +67,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/vp_prod_desc_images"
+                    app:layout_constraintTop_toBottomOf="@+id/card_view"
                     tools:text="In Stock"
 
 
@@ -137,8 +157,8 @@
                     android:id="@+id/tv_highlights_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Highlights"
                     android:padding="6dp"
+                    android:text="Highlights"
 
                     android:textSize="22sp"
                     android:textStyle="bold|italic"
@@ -166,8 +186,8 @@
         android:paddingEnd="4dp"
 
         >
-<!--        style="@style/Widget.MaterialComponents.Button.TextButton"-->
-<!--        style="?attr/materialButtonOutlinedStyle"-->
+        <!--        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+        <!--        style="?attr/materialButtonOutlinedStyle"-->
 
         <Button
             android:id="@+id/btn_at_start"

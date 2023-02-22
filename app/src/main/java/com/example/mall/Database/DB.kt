@@ -5,7 +5,6 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
 import com.example.mall.Database.*
 import com.example.mall.Enum.Category
 import com.example.mall.Enum.DeliveryStatus
@@ -100,7 +99,6 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
             put(AddressTable.COL_ADDRESS, newAddress.address)
         }
         val insert = writableDatabase.insert(AddressTable.ADDRESS_TABLE_NAME, null, cv)
-        Log.d(TAG, "new address insert row id = $insert")
         return insert != (-1).toLong()
     }
 
@@ -132,9 +130,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
             put(CartTable.COL_PID, pid)
             put(CartTable.COL_QUANTITY, quantity)
         }
-        Log.d(TAG, "add item to cart CV -> $cv")
         val insert = writableDatabase.insert(CartTable.CART_TABLE_NAME, null, cv)
-        Log.d(TAG, "insert value -> $insert")
         return insert != (-1).toLong()
     }
 
@@ -191,10 +187,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
 
     fun checkStocksForItems(items: MutableList<CartItemModel>): MutableList<Int> {
         val itemAvailability: MutableList<Int> = mutableListOf()
-        for (item in items) {
-            itemAvailability.add(checkProductStock(item.pid))
-        }
-        println(itemAvailability)
+        for (item in items) itemAvailability.add(checkProductStock(item.pid))
         return itemAvailability
     }
 
@@ -214,9 +207,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
             put(WishlistTable.COL_UID, uid)
             put(WishlistTable.COL_PID, pid)
         }
-        Log.d(TAG, "cv = $cv")
         val insert = writableDatabase.insert(WishlistTable.WISHLIST_TABLE_NAME, null, cv)
-        Log.d(TAG, "Insert in wishlist = $insert")
         return insert != (-1).toLong()
     }
 
@@ -232,11 +223,8 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     }
 
     fun deleteItemFromCart(uid: Int, pid: Int): Int {
-        Log.d(TAG, "deleteItemFromCart called")
         val whereClause = "uid = ? AND pid = ?"
-        val rows = writableDatabase.delete(CartTable.CART_TABLE_NAME, whereClause, arrayOf(uid.toString(), pid.toString()))
-        Log.d(TAG, "deleteItemFromCart: rows deleted = $rows")
-        return rows
+        return writableDatabase.delete(CartTable.CART_TABLE_NAME, whereClause, arrayOf(uid.toString(), pid.toString()))
     }
 
     fun deleteItemFromWishlist(uid: Int, pid: Int): Int {
@@ -305,7 +293,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         for (item in cartItems) {
             val cv = ContentValues().apply {
                 val sdf = SimpleDateFormat(Calender.pattern)
-                val calendar = Calendar.getInstance();
+                val calendar = Calendar.getInstance()
                 calendar.time = Date()      // Using today's date
                 calendar.add(Calendar.DATE, (1..4).random()) // Adding x days
                 val deliveryDate = sdf.format(calendar.time)
@@ -331,4 +319,5 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
 
 object Calender {
     const val pattern = "EEE, d MMM yyyy HH:mm"
+
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.mall.DB
@@ -61,6 +62,8 @@ class AddNewAddressFragment : Fragment() {
             val newAddress = DeliveryAddressModel(-1, name, mobile, pinCode, address)
             val success = db.addNewAddress(uid, newAddress)
             Log.d(TAG, "address inserted = $success")
+            Toast.makeText(requireContext(), "New address saved.", Toast.LENGTH_SHORT).show()
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 

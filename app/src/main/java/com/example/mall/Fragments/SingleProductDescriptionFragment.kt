@@ -16,6 +16,7 @@ import com.example.mall.*
 import com.example.mall.Adapters.ProductDescriptionImagesAdapter
 import com.example.mall.ModelClass.ProdDescPageModel
 import com.google.android.material.button.MaterialButtonToggleGroup
+import me.relex.circleindicator.CircleIndicator3
 
 private const val TAG = "Common_Tag_SingleProductDescriptionFragment"
 
@@ -32,6 +33,7 @@ class SingleProductDescriptionFragment(
     private lateinit var btnEnd: Button
     private lateinit var db: DB
     private var uid: Int = -1
+    private lateinit var indicator: CircleIndicator3
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -53,6 +55,7 @@ class SingleProductDescriptionFragment(
         uid = requireContext().getSharedPreferences(MSharedPreferences.NAME, AppCompatActivity.MODE_PRIVATE).getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
         db = DB(requireContext())
 
+        indicator = view.findViewById(R.id.circle_indicator_3)
         highlights = view.findViewById(R.id.tv_highlights)
         productName = view.findViewById(R.id.tv_prod_desc_title)
         productPrice = view.findViewById(R.id.tv_prod_desc_price)
@@ -89,6 +92,9 @@ class SingleProductDescriptionFragment(
         highlights.text = specs
         productImages = view.findViewById(R.id.vp_prod_desc_images)
         productImages.adapter = ProductDescriptionImagesAdapter(prodDetails.imagesURL)
+        indicator.setViewPager(productImages)
+
+
     }
 
     private fun setupEndBtn(stock: Int) {
