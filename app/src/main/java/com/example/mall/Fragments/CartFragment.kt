@@ -16,13 +16,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mall.*
 import com.example.mall.Adapters.CartItemsAdapter
-import com.example.mall.DB
 import com.example.mall.Interface.OnCartItemClickListener
-import com.example.mall.MSharedPreferences
 import com.example.mall.ModelClass.CartItemModel
-import com.example.mall.R
-import com.example.mall.backStackName
 
 private const val TAG = "Common_Tag_CartFragment"
 
@@ -50,6 +47,9 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        (activity as MainActivity).bottomNavigationView.menu.getItem(3).isChecked = true
+        (activity as MainActivity).toolbar.title = "Cart"
+
         Log.d(TAG, "onCreateView: called")
         return inflater.inflate(R.layout.fragment_cart, container, false)
     }
@@ -73,7 +73,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
 
         cartStatus()
 
-        totalCartPrice.text = calculateCartTotal().toString()
+        totalCartPrice.text = "Cart total ₹" + calculateCartTotal().toString()
 
         rvCartList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         cartItemsAdapter = CartItemsAdapter(cartItemList, this@CartFragment)

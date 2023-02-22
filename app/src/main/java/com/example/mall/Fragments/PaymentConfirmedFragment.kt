@@ -16,8 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-//private const val TAG = "Common_Tag_PaymentConfirmedFragment"
-private const val TAG = "Common_Tag_Check"
+private const val TAG = "Common_Tag_PaymentConfirmedFragment"
 
 class PaymentConfirmedFragment(
     private val paymentType: PaymentType
@@ -26,14 +25,12 @@ class PaymentConfirmedFragment(
     private lateinit var cnfPaymentMsg: TextView
 
     override fun onDestroyView() {
-        Log.d(TAG, "onDestroyView: PaymentConfirmedFragment:called")
         (activity as MainActivity).bottomNavigationView.visibility = View.VISIBLE
         (activity as MainActivity).toolbar.visibility = View.VISIBLE
         super.onDestroyView()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.d(TAG, "onCreateView: PaymentConfirmedFragment:called")
         (activity as MainActivity).bottomNavigationView.visibility = View.GONE
         (activity as MainActivity).toolbar.visibility = View.GONE
         return inflater.inflate(R.layout.fragment_payment_confirmed, container, false)
@@ -50,7 +47,9 @@ class PaymentConfirmedFragment(
                 progressBar.progress += 1
                 delay(50)
             }
-            requireActivity().supportFragmentManager.popBackStack(0, 1)
+            requireActivity().supportFragmentManager.apply {
+                repeat(backStackEntryCount) { popBackStack() }
+            }
             (activity as MainActivity).bottomNavigationView.menu.getItem(0).isChecked = true
         }
     }

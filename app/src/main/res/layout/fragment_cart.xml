@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/common_background"
     tools:context=".Fragments.CartFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -37,18 +38,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="#F3F3F3"
         app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/tv_rupee_symbol"
-            style="@style/left_right_padding_6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingStart="14dp"
-            android:text="₹"
-            android:textSize="20sp"
-            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_cart_total_price"
@@ -56,6 +47,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingStart="6dp"
             android:gravity="center_vertical"
             android:text="2963"
             android:textSize="20sp"

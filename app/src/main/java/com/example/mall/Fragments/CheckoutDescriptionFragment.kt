@@ -13,6 +13,7 @@ import com.example.mall.DB
 import com.example.mall.Enum.PaymentType
 import com.example.mall.Interface.BindNewAddress
 import com.example.mall.Interface.CheckoutDescriptionListener
+import com.example.mall.MainActivity
 import com.example.mall.ModelClass.CartItemModel
 import com.example.mall.ModelClass.DeliveryAddressModel
 import com.example.mall.ModelClass.PriceDetailsModel
@@ -34,22 +35,17 @@ class CheckoutDescriptionFragment(
     override fun onDestroyView() {
         super.onDestroyView()
         Log.d(TAG, "onDestroyView: CheckoutDescriptionListener:called")
-//        (activity as MainActivity).bottomNavigationView.visibility = View.VISIBLE
-//        (activity as MainActivity).toolbar.visibility = View.VISIBLE
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-//        (activity as MainActivity).bottomNavigationView.visibility = View.GONE
-//        (activity as MainActivity).toolbar.visibility = View.GONE
+        (activity as MainActivity).toolbar.title = "Checkout"
         Log.d(TAG, "onCreateView: CheckoutDescriptionListener:Called")
-
         return inflater.inflate(R.layout.fragment_checkout_description, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvCheckout = view.findViewById(R.id.rv_checkout)
-
         addresses = DB(requireContext()).getAddresses(uid)
         adapter = OrderActivityAdapter(cartList, getCheckoutDetails(), addresses[addressIdx], this@CheckoutDescriptionFragment)
         rvCheckout.adapter = adapter

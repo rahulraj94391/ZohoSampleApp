@@ -11,6 +11,7 @@
 
     
     <color name="primary">#6750A4</color>
+    <color name="common_background">#fdfbff</color>
     <color name="primary_container">#EADDFF</color>
     <color name="color_on_primary">#371E73</color>
 

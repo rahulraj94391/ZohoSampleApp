@@ -6,13 +6,13 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
+import android.view.*
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import com.example.mall.*
 import com.example.mall.ModelClass.UserDetailsModel
@@ -23,14 +23,12 @@ class AccountFragment : Fragment() {
     private lateinit var etFullName: TextView
     private lateinit var etMobile: TextView
     private lateinit var etEMail: TextView
-    private lateinit var btnLogout: Button
     private lateinit var sharedPreferences: SharedPreferences
     private var currentProfileDetails: UserDetailsModel? = null
-    private lateinit var tvMyOrder: TextView
-    private lateinit var tvMyWishlist: TextView
-    private lateinit var tvContactUs: TextView
-    private lateinit var tvAddress: TextView
-    private lateinit var tvMyProfile: TextView
+    private lateinit var llMyOrder: LinearLayout
+    private lateinit var llMyWishlist: LinearLayout
+    private lateinit var llContactUs: LinearLayout
+    private lateinit var llAddress: LinearLayout
     private lateinit var builder: AlertDialog.Builder
 
     override fun onAttach(context: Context) {
@@ -39,13 +37,34 @@ class AccountFragment : Fragment() {
         super.onAttach(context)
     }
 
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        (activity as MainActivity).bottomNavigationView.menu.getItem(2).isChecked = true
+        (activity as MainActivity).toolbar.title = "Accounts"
         Log.d(TAG, "onCreateView: called")
         val view: View = inflater.inflate(R.layout.fragment_account, container, false)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        val mMenuProvider = object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.toolbar_menu_account_frag, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.logout -> {
+                        logoutDecisionDialog()
+                        return true
+                    }
+                }
+                return false
+            }
+        }
+        (requireActivity() as MenuHost).addMenuProvider(mMenuProvider, viewLifecycleOwner)
         Log.d(TAG, "onViewCreated: called")
         super.onViewCreated(view, savedInstanceState)
 
@@ -53,25 +72,18 @@ class AccountFragment : Fragment() {
         etMobile = view.findViewById(R.id.tv_mobile_number)
         etEMail = view.findViewById(R.id.tv_email)
 
-        tvMyProfile = view.findViewById(R.id.tv_account_my_profile)
-        tvMyOrder = view.findViewById(R.id.tv_account_my_orders)
-        tvMyWishlist = view.findViewById(R.id.tv_account_my_wishlist)
-        tvAddress = view.findViewById(R.id.tv_account_address)
-        tvContactUs = view.findViewById(R.id.tv_account_contact_us)
+        llMyOrder = view.findViewById(R.id.ll_account_my_orders)
+        llMyWishlist = view.findViewById(R.id.ll_account_my_wishlist)
+        llAddress = view.findViewById(R.id.ll_account_address)
+        llContactUs = view.findViewById(R.id.ll_account_contact_us)
 
-
-        btnLogout = view.findViewById(R.id.btn_logout)
 
         getProfileDetails()
 
-        tvMyProfile.setOnClickListener {
-            Log.d(TAG, "tvMyProfile clicked")
-        }
-        tvMyOrder.setOnClickListener { myOrderAction() }
-        tvMyWishlist.setOnClickListener { myWishlistAction() }
-        tvAddress.setOnClickListener { addressAction() }
-        tvContactUs.setOnClickListener { contactUsAction() }
-        btnLogout.setOnClickListener { logoutDecisionDialog() }
+        llMyOrder.setOnClickListener { myOrderAction() }
+        llMyWishlist.setOnClickListener { myWishlistAction() }
+        llAddress.setOnClickListener { addressAction() }
+        llContactUs.setOnClickListener { contactUsAction() }
     }
 
     private fun addressAction() {

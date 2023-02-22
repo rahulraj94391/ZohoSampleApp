@@ -2,18 +2,13 @@ package com.example.mall
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.example.mall.Fragments.AccountFragment
-import com.example.mall.Fragments.CartFragment
-import com.example.mall.Fragments.CategoriesFragment
-import com.example.mall.Fragments.HomeFragment
+import com.example.mall.Fragments.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 //private const val TAG = "MainActivity_Mall"
@@ -57,22 +52,10 @@ class MainActivity : AppCompatActivity() {
         var fragmentTag: String
         bottomNavigationView.setOnItemSelectedListener { item: MenuItem ->
             val currentFrag: Fragment = when (item.itemId) {
-                R.id.bnv_category -> CategoriesFragment().also {
-                    fragmentTag = "CategoryFragment"
-                    toolbar.title = "All Categories"
-                }
-                R.id.bnv_account -> AccountFragment().also {
-                    fragmentTag = "AccountFragment"
-                    toolbar.title = "Account"
-                }
-                R.id.bnv_cart -> CartFragment().also {
-                    fragmentTag = "CartFragment"
-                    toolbar.title = "Cart"
-                }
-                else -> HomeFragment().also {
-                    fragmentTag = "HomeFragment"
-                    toolbar.title = "Shopie"
-                }
+                R.id.bnv_category -> CategoriesFragment().also { fragmentTag = "CategoryFragment" }
+                R.id.bnv_account -> AccountFragment().also { fragmentTag = "AccountFragment" }
+                R.id.bnv_cart -> CartFragment().also { fragmentTag = "CartFragment" }
+                else -> HomeFragment().also { fragmentTag = "HomeFragment" }
             }
             fm.beginTransaction().apply {
                 replace(R.id.frag_container, currentFrag, fragmentTag)
@@ -83,53 +66,30 @@ class MainActivity : AppCompatActivity() {
         }
 
         bottomNavigationView.setOnItemReselectedListener {
-//         TODO: implement scroll to top position on reselect
-//            val toast: String = when (item.itemId) {
-//                R.id.bnv_category -> "CategoryFragment()"
-//                R.id.bnv_account -> "AccountFragment()"
-//                R.id.bnv_cart -> "CartFragment()"
-//                else -> "HomeFragment()"
-//            }
-//            Toast.makeText(this, "$toast reselected", Toast.LENGTH_SHORT).show();
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        val search = menu?.findItem(R.id.search_product)
-        val searchView: SearchView = search?.actionView as SearchView
-        searchView.queryHint = "Search a product ..."
-        // TODO: searchView.setOnQueryTextListener()
-        return super.onCreateOptionsMenu(menu)
-    }
 
     override fun onBackPressed() {
         if (fm.findFragmentById(R.id.frag_container) is HomeFragment && fm.backStackEntryCount > 0) {
-            repeat(fm.backStackEntryCount) { fm.popBackStack() }
-//            Toast.makeText(this, "Press Back Again to exit", Toast.LENGTH_SHORT).show()
-            super.onBackPressed()
-
-        }
-        else {
+            fm.popBackStack(0, 1)
             super.onBackPressed()
         }
-        val position: Int = when (fm.findFragmentById(R.id.frag_container)) {
-            is HomeFragment -> 0.also {
-                toolbar.title = "Shopie"
-            }
-            is CategoriesFragment -> 1.also {
-                toolbar.title = "All Categories"
-            }
-            is AccountFragment -> 2.also {
-                toolbar.title = "Accounts"
-            }
-            is CartFragment -> 3.also {
-                toolbar.title = "Cart"
-            }
-            else -> -1
-        }
-        if (position != -1) bottomNavigationView.menu.getItem(position).isChecked = true
+        else if (fm.findFragmentById(R.id.frag_container) is PaymentConfirmedFragment){}
+        else super.onBackPressed()
+//        setIndicatorOnBackPress()
     }
+
+//    fun setIndicatorOnBackPress() {
+//        val position: Int = when (fm.findFragmentById(R.id.frag_container)) {
+//            is HomeFragment -> 0
+//            is CategoriesFragment -> 1
+//            is AccountFragment -> 2
+//            is CartFragment -> 3
+//            else -> -1
+//        }
+//        if (position != -1) bottomNavigationView.menu.getItem(position).isChecked = true
+//    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         Log.d(TAG, "onSaveInstanceState: called")

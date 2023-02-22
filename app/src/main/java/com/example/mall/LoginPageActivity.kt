@@ -70,7 +70,6 @@ class LoginPageActivity : AppCompatActivity() {
     }
 
     private fun confirmInputs() {
-        val homeScreen = Intent(this@LoginPageActivity, MainActivity::class.java)
         if (!validateEmail() || !validatePassword()) {
             return
         } else {
@@ -84,10 +83,10 @@ class LoginPageActivity : AppCompatActivity() {
                     editor.putBoolean(MSharedPreferences.IS_LOGGED_IN, true)
                     editor.putInt(MSharedPreferences.LOGGED_IN_USER_ID, db.getUserId(textInputUsername.editText!!.text.toString().trim()))
                     editor.apply()
-                    startActivity(homeScreen)
+                    startActivity(Intent(this@LoginPageActivity, MainActivity::class.java))
                     finish()
                 } else {
-                    Toast.makeText(this@LoginPageActivity, "Wrong Credentials.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this@LoginPageActivity, "Wrong Credentials.", Toast.LENGTH_LONG).show();
                 }
                 progressBar.visibility = View.INVISIBLE
             }

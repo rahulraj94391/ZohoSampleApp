@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:orientation="vertical"
 
     >
@@ -10,6 +11,7 @@
     <TextView
         android:id="@+id/tv_address_name_title"
         android:layout_width="wrap_content"
+        android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Name :"
@@ -23,6 +25,8 @@
     <TextView
         android:id="@+id/tv_address_name"
         android:layout_width="0dp"
+        android:textColor="@color/black"
+
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -38,6 +42,8 @@
         android:id="@+id/tv_address_phone_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+                android:textColor="@color/black"
+
         android:text="Phone :"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/guideline"
@@ -48,6 +54,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+                android:textColor="@color/black"
+
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:text="9155881234"
@@ -61,6 +69,8 @@
     <TextView
         android:id="@+id/tv_address_address_title"
         android:layout_width="wrap_content"
+                android:textColor="@color/black"
+
         android:layout_height="wrap_content"
         android:text="Address :"
         android:textSize="16sp"
@@ -71,6 +81,8 @@
         android:id="@+id/tv_address_delivery_address"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+                android:textColor="@color/black"
+
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
@@ -85,6 +97,8 @@
     <TextView
         android:id="@+id/tv_address_PIN_title"
         android:layout_width="wrap_content"
+                android:textColor="@color/black"
+
         android:layout_height="wrap_content"
         android:text="PIN Code :"
         android:textSize="16sp"
@@ -93,6 +107,8 @@
 
     <TextView
         android:id="@+id/tv_address_PIN_address"
+                android:textColor="@color/black"
+
         android:layout_width="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="8dp"

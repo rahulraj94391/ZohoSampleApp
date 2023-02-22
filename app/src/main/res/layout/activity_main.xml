@@ -16,10 +16,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/toolbar_menu"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="@string/store_name"
         app:titleTextColor="@color/color_on_secondary" />
+<!--        app:menu="@menu/toolbar_menu"-->
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/frag_container"

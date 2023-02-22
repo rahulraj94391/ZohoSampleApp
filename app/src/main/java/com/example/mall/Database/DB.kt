@@ -91,10 +91,24 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return addresses
     }
 
-    fun getCartItems(userId: Int): ArrayList<CartItemModel> {
+    fun addNewAddress(uid: Int, newAddress: DeliveryAddressModel): Boolean {
+        val cv = ContentValues().apply {
+            put(AddressTable.COL_FULL_NAME, newAddress.fullName)
+            put(AddressTable.COL_UID, uid)
+            put(AddressTable.COL_MOBILE, newAddress.mobile)
+            put(AddressTable.COL_PIN_CODE, newAddress.pinCode)
+            put(AddressTable.COL_ADDRESS, newAddress.address)
+        }
+        val insert = writableDatabase.insert(AddressTable.ADDRESS_TABLE_NAME, null, cv)
+        Log.d(TAG, "new address insert row id = $insert")
+        return insert != (-1).toLong()
+    }
+
+
+    fun getCartItems(uid: Int): ArrayList<CartItemModel> {
         val cartItemList: ArrayList<CartItemModel> = arrayListOf()
         val query = "SELECT cart.pid, prod_details.prod_name, prod_details.price, cart.quantity, prod_details.imgURL0 FROM cart LEFT JOIN prod_details ON prod_details.pid = cart.pid WHERE uid = ? AND quantity > 0"
-        val cursor: Cursor = readableDatabase.rawQuery(query, arrayOf(userId.toString()))
+        val cursor: Cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString()))
         if (cursor.moveToFirst()) {
             do {
                 cartItemList.add(
@@ -286,7 +300,6 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return wishListItems
     }
 
-
     fun confirmOrdersOnPayment(uid: Int, addressId: Int) {
         val cartItems: ArrayList<CartItemModel> = getCartItems(uid)
         for (item in cartItems) {
@@ -304,9 +317,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
                 put(OrdersTable.COL_DELIVERY_DATE, deliveryDate)
                 put(OrdersTable.COL_ADDRESS_ID, addressId)
                 put(OrdersTable.COL_ORDER_DATE, orderDate)
-
             }
-            Log.d(TAG, "Order datesss -  $cv")
             writableDatabase.insert(OrdersTable.ORDERS_TABLE_NAME, null, cv)
             deleteItemFromCart(uid, item.pid)
         }
@@ -315,19 +326,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     fun getOrders(uid: Int) {
         val query = ""
     }
-
-
-
 }
-
-//data class OrdersModel(
-//    var uid: Int,
-//    var pid: Int,
-//    var qty: Int,
-//    var deliveryStatus: DeliveryStatus,
-//    var deliveryDate: Date,
-//    var orderDate: Date
-//)
 
 
 object Calender {

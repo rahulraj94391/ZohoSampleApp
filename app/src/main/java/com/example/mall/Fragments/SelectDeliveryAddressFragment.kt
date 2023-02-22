@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.Adapters.SelectDeliveryAddressAdapter
 import com.example.mall.Interface.BindNewAddress
 import com.example.mall.Interface.OnNewAddressSelected
+import com.example.mall.MainActivity
 import com.example.mall.ModelClass.DeliveryAddressModel
 import com.example.mall.R
 
@@ -21,6 +22,8 @@ class SelectDeliveryAddressFragment(
     private lateinit var adapter: SelectDeliveryAddressAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        (activity as MainActivity).toolbar.title = "Select another address"
+
         return inflater.inflate(R.layout.fragment_select_delivery_address, container, false)
     }
 

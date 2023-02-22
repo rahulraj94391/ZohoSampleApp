@@ -12,6 +12,7 @@ import com.example.mall.Adapters.AllCategoriesAdapter
 import com.example.mall.DB
 import com.example.mall.Enum.Category
 import com.example.mall.Interface.OnCategoryClickListener
+import com.example.mall.MainActivity
 import com.example.mall.ModelClass.AllCategoryModel
 import com.example.mall.ModelClass.ProductListModel
 import com.example.mall.R
@@ -24,6 +25,8 @@ class CategoriesFragment : Fragment(), OnCategoryClickListener {
     private lateinit var categoriesList: MutableList<AllCategoryModel>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        (activity as MainActivity).bottomNavigationView.menu.getItem(1).isChecked = true
+        (activity as MainActivity).toolbar.title = "All Categories"
         categoriesList = getCategories()
         return inflater.inflate(R.layout.fragment_category, container, false)
     }
