@@ -321,3 +321,23 @@ object Calender {
     const val pattern = "EEE, d MMM yyyy HH:mm"
 
 }
+
+//fun main() {
+//    val timeInMillis: Long = System.currentTimeMillis()
+//    println("timeInMillis = $timeInMillis") // store in DB (Insert)
+//
+//    val date: Date = Date(timeInMillis)
+//    println("date = $date")
+//
+//    val simpleDateFormat: SimpleDateFormat = SimpleDateFormat("dd-MM-yy")
+//    val formattedDate: String = simpleDateFormat.format(date)
+//    println("simple date format = $formattedDate")
+//
+//    val cal = Calendar.getInstance()
+//    cal.timeInMillis = timeInMillis
+//
+//    cal.add(Calendar.DAY_OF_WEEK, (1..4).random())
+//
+//    println(simpleDateFormat.format(cal.time))
+//
+//}
