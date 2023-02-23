@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.MyOrdersFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:textSize="40sp"
         android:layout_height="match_parent"
-        android:text="My Orders Frag" />
+        android:id="@+id/rv_my_orders_list"
+
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

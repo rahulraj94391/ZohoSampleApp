@@ -35,7 +35,6 @@ class SelectDeliveryAddressAdapter(
     }
 
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
-
         holder.name.text = addressList[position].fullName
         holder.phoneNumber.text = addressList[position].mobile
         holder.address.text = addressList[position].address + ", " + addressList[position].pinCode

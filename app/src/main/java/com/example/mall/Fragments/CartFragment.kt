@@ -2,7 +2,6 @@ package com.example.mall.Fragments
 
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,41 +26,31 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     private lateinit var rvCartList: RecyclerView
     private lateinit var cartItemList: ArrayList<CartItemModel>
     private lateinit var cartItemsAdapter: CartItemsAdapter
-    private lateinit var totalCartPrice: TextView
+    private lateinit var tvTotalCartPrice: TextView
     private lateinit var btnPlaceOrder: Button
     private var cartTotal: Int = 0
+        set(value) {
+            field = value
+            tvTotalCartPrice.text = "Cart total ₹ $cartTotal"
+        }
+
     private lateinit var bottomCartLinearLayout: LinearLayout
     private lateinit var tvCartEmpty: TextView
     private lateinit var builder: AlertDialog.Builder
     private lateinit var db: DB
     private var uid: Int = -1
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d(TAG, "onDestroyView: called")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "onDestroy: called")
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         (activity as MainActivity).bottomNavigationView.menu.getItem(3).isChecked = true
         (activity as MainActivity).toolbar.title = "Cart"
-
-        Log.d(TAG, "onCreateView: called")
         return inflater.inflate(R.layout.fragment_cart, container, false)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d(TAG, "onViewCreated: called")
-
         rvCartList = view.findViewById(R.id.rv_cart)
-        totalCartPrice = view.findViewById(R.id.tv_cart_total_price)
+        tvTotalCartPrice = view.findViewById(R.id.tv_cart_total_price)
         btnPlaceOrder = view.findViewById(R.id.btn_place_order)
         bottomCartLinearLayout = view.findViewById(R.id.bottom_cart_linear_layout)
         tvCartEmpty = view.findViewById(R.id.tv_cart_empty)
@@ -73,7 +62,8 @@ class CartFragment : Fragment(), OnCartItemClickListener {
 
         cartStatus()
 
-        totalCartPrice.text = "Cart total ₹" + calculateCartTotal().toString()
+        cartTotal = calculateCartTotal()
+
 
         rvCartList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         cartItemsAdapter = CartItemsAdapter(cartItemList, this@CartFragment)
@@ -149,18 +139,16 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         if (rowsDeleted > 0) {
             val removedItem = cartItemList.removeAt(position)
             cartTotal -= removedItem.price * removedItem.quantity
-            totalCartPrice.text = cartTotal.toString()
             cartItemsAdapter.notifyItemRemoved(position)
         }
-        if (cartItemList.size == 0) cartStatus()
+        cartStatus()
 
     }
 
     private fun calculateCartTotal(): Int {
-        Log.d(TAG, "calculateCartTotal: called")
         var sum = 0
-        for (item in cartItemList) {
-            sum += item.price * item.quantity
+        cartItemList.forEach {
+            sum += it.price * it.quantity
         }
         return sum
     }
@@ -170,13 +158,10 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         if (isMoved) {
             val removedItem = cartItemList.removeAt(position)
             cartTotal -= removedItem.price * removedItem.quantity
-            totalCartPrice.text = cartTotal.toString()
             cartItemsAdapter.notifyItemRemoved(position)
             Toast.makeText(requireContext(), "Added in wishlist...", Toast.LENGTH_SHORT).show()
         }
-        if (cartItemList.size == 0) {
-            cartStatus()
-        }
+        cartStatus()
     }
 
     override fun onItemClicked(position: Int) {

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.example.mall.Database.*
 import com.example.mall.Enum.Category
 import com.example.mall.Enum.DeliveryStatus
+import com.example.mall.Enum.PaymentType
 import com.example.mall.ModelClass.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -70,8 +71,6 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     fun getAddresses(uid: Int): MutableList<DeliveryAddressModel> {
         val addresses: MutableList<DeliveryAddressModel> = mutableListOf()
         val query = "SELECT address_id, full_name, mobile, pin_code, address FROM addresses WHERE addresses.uid = ?"
-
-//        SELECT address_id, full_name, mobile, pin_code, address FROM addresses WHERE addresses.uid = 1
         val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString()))
         if (cursor.moveToFirst()) {
             do {
@@ -88,6 +87,15 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         }
         cursor.close()
         return addresses
+    }
+
+    fun getAddressAndPinCode(addressId: Int): DeliveryAddressModel? {
+        var address: DeliveryAddressModel? = null
+        val query = "SELECT addresses.address, addresses.pin_code FROM addresses WHERE addresses.address_id = ?"
+        val cursor = readableDatabase.rawQuery(query, arrayOf(addressId.toString()))
+        if (cursor.moveToFirst()) address = DeliveryAddressModel(address = cursor.getString(0), pinCode = cursor.getString(1))
+        cursor.close()
+        return address
     }
 
     fun addNewAddress(uid: Int, newAddress: DeliveryAddressModel): Boolean {
@@ -207,8 +215,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
             put(WishlistTable.COL_UID, uid)
             put(WishlistTable.COL_PID, pid)
         }
-        val insert = writableDatabase.insert(WishlistTable.WISHLIST_TABLE_NAME, null, cv)
-        return insert != (-1).toLong()
+        return (-1).toLong() != writableDatabase.insert(WishlistTable.WISHLIST_TABLE_NAME, null, cv)
     }
 
     fun isItemInWishlist(uid: Int, pid: Int): Boolean {
@@ -288,56 +295,42 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return wishListItems
     }
 
-    fun confirmOrdersOnPayment(uid: Int, addressId: Int) {
+    fun confirmOrdersOnPayment(uid: Int, addressId: Int, payment: PaymentType) {
         val cartItems: ArrayList<CartItemModel> = getCartItems(uid)
         for (item in cartItems) {
             val cv = ContentValues().apply {
-                val sdf = SimpleDateFormat(Calender.pattern)
-                val calendar = Calendar.getInstance()
-                calendar.time = Date()      // Using today's date
-                calendar.add(Calendar.DATE, (1..4).random()) // Adding x days
-                val deliveryDate = sdf.format(calendar.time)
-                val orderDate = sdf.format(Date())
                 put(OrdersTable.COL_UID, uid)
                 put(OrdersTable.COL_PID, item.pid)
                 put(OrdersTable.COL_QUANTITY, item.quantity)
-                put(OrdersTable.COL_DELIVERY_STATUS, DeliveryStatus.NOT_YET_DISPATCHED.status())
-                put(OrdersTable.COL_DELIVERY_DATE, deliveryDate)
+                put(OrdersTable.COL_DELIVERY_STATUS, DeliveryStatus.IN_TRANSIT.status())
+                put(OrdersTable.COL_DELIVERY_DATE, DateUtil.randomDate())
                 put(OrdersTable.COL_ADDRESS_ID, addressId)
-                put(OrdersTable.COL_ORDER_DATE, orderDate)
+                put(OrdersTable.COL_ORDER_DATE, DateUtil.currentDate())
+                put(OrdersTable.COL_PAID_THROUGH, payment.paymentMethod())
             }
             writableDatabase.insert(OrdersTable.ORDERS_TABLE_NAME, null, cv)
             deleteItemFromCart(uid, item.pid)
         }
     }
 
-    fun getOrders(uid: Int) {
-        val query = ""
+    fun getOrders(uid: Int): MutableList<OrdersModel> {
+        val orders: MutableList<OrdersModel> = mutableListOf()
+        val query = "SELECT orders.oid, orders.delivery_status, prod_details.imgURL0, prod_details.prod_name, orders.order_date FROM orders LEFT JOIN prod_details ON orders.pid = prod_details.pid WHERE orders.uid = ?"
+        val cursor: Cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString()))
+        if (cursor.moveToFirst()) {
+            do orders.add(OrdersModel(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getLong(4)))
+            while (cursor.moveToNext())
+        }
+        cursor.close()
+        return orders
     }
+
+    fun getOrderHistory(oid: Int){
+
+    }
+
 }
 
 
-object Calender {
-    const val pattern = "EEE, d MMM yyyy HH:mm"
 
-}
 
-//fun main() {
-//    val timeInMillis: Long = System.currentTimeMillis()
-//    println("timeInMillis = $timeInMillis") // store in DB (Insert)
-//
-//    val date: Date = Date(timeInMillis)
-//    println("date = $date")
-//
-//    val simpleDateFormat: SimpleDateFormat = SimpleDateFormat("dd-MM-yy")
-//    val formattedDate: String = simpleDateFormat.format(date)
-//    println("simple date format = $formattedDate")
-//
-//    val cal = Calendar.getInstance()
-//    cal.timeInMillis = timeInMillis
-//
-//    cal.add(Calendar.DAY_OF_WEEK, (1..4).random())
-//
-//    println(simpleDateFormat.format(cal.time))
-//
-//}

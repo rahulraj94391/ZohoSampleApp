@@ -86,7 +86,7 @@ class CheckoutDescriptionFragment(
             R.id.rb_payment_EMI -> PaymentType.EMI
             else -> throw java.lang.Exception("Undefined Payment Method Selected")
         }
-        DB(requireContext()).confirmOrdersOnPayment(uid, addresses[addressIdx].addressId)
+        DB(requireContext()).confirmOrdersOnPayment(uid, addresses[addressIdx].addressId, payment)
         requireActivity().supportFragmentManager.beginTransaction().apply {
             replace(R.id.frag_container, PaymentConfirmedFragment(payment))
             addToBackStack(backStackName)
