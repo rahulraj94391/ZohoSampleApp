@@ -70,7 +70,7 @@ class LoginPageActivity : AppCompatActivity() {
     }
 
     private fun confirmInputs() {
-        if (!validateEmail() || !validatePassword()) {
+        if (!validateEmail() or !validatePassword()) {
             return
         } else {
             progressBar.visibility = View.VISIBLE
