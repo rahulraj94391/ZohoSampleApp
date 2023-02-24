@@ -2,8 +2,6 @@ package com.example.mall.ModelClass
 
 data class OrderDescriptionModel(
 
-    var oid: Int,
-
     var orderDate: Long,
     var deliveryDate: Long,
     var deliveryStatus: String,
@@ -15,3 +13,5 @@ data class OrderDescriptionModel(
     var prodPrice: Int,
     var addressModel: DeliveryAddressModel
 )
+
+

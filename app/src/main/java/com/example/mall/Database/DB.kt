@@ -10,8 +10,6 @@ import com.example.mall.Enum.Category
 import com.example.mall.Enum.DeliveryStatus
 import com.example.mall.Enum.PaymentType
 import com.example.mall.ModelClass.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 const val DATABASE_NAME = "shopie.db"
 private const val TAG = "Common_Tag_DB"
@@ -168,9 +166,8 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
 
         cursor = readableDatabase.rawQuery(querySpecs, arrayOf(pid.toString()))
         if (cursor.moveToFirst()) {
-            do {
-                specs[cursor.getString(1)] = cursor.getString(2)
-            } while (cursor.moveToNext())
+            do specs[cursor.getString(1)] = cursor.getString(2)
+            while (cursor.moveToNext())
         }
         cursor.close()
         return ProdDescPageModel(imageURLs, pid, prodName, prodPrice, stock, specs)
@@ -280,16 +277,8 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         val query = "SELECT wishlists.pid, prod_details.prod_name, prod_details.price, prod_details.imgURL0 FROM wishlists LEFT JOIN prod_details ON prod_details.pid = wishlists.pid WHERE uid = ?"
         val cursor: Cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString()))
         if (cursor.moveToFirst()) {
-            do {
-                wishListItems.add(
-                    WishlistModel(
-                        cursor.getInt(0),
-                        cursor.getString(1),
-                        cursor.getInt(2),
-                        cursor.getString(3)
-                    )
-                )
-            } while (cursor.moveToNext())
+            do wishListItems.add(WishlistModel(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3)))
+            while (cursor.moveToNext())
         }
         cursor.close()
         return wishListItems
@@ -325,10 +314,31 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return orders
     }
 
-    fun getOrderHistory(oid: Int){
-
+    fun getOrderHistory(oid: Int): OrderDescriptionModel {
+        var orderHistory: OrderDescriptionModel? = null
+        val query = "SELECT orders.order_date, orders.delivery_date, orders.delivery_status, orders.paid_through, orders.quantity, prod_details.imgURL0, prod_details.prod_name, prod_details.price, addresses.full_name, addresses.mobile, addresses.pin_code, addresses.address  FROM orders LEFT JOIN prod_details ON orders.pid = prod_details.pid LEFT JOIN addresses ON orders.address_id = addresses.address_id WHERE oid = ?"
+        val cursor = readableDatabase.rawQuery(query, arrayOf(oid.toString()))
+        if (cursor.moveToFirst()) {
+            orderHistory = OrderDescriptionModel(
+                cursor.getLong(0),
+                cursor.getLong(1),
+                cursor.getString(2),
+                cursor.getString(3),
+                cursor.getInt(4),
+                cursor.getString(5),
+                cursor.getString(6),
+                cursor.getInt(7),
+                DeliveryAddressModel(
+                    fullName = cursor.getString(8),
+                    mobile = cursor.getString(9),
+                    pinCode = cursor.getString(10),
+                    address = cursor.getString(11)
+                )
+            )
+        }
+        cursor.close()
+        return orderHistory ?: throw Exception("Unable to query order details for orderId = $oid")
     }
-
 }
 
 

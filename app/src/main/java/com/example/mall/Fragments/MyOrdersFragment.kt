@@ -9,13 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mall.*
 import com.example.mall.Adapters.MyOrdersAdapter
-import com.example.mall.DB
 import com.example.mall.Interface.OnClickListener
-import com.example.mall.MSharedPreferences
-import com.example.mall.MainActivity
 import com.example.mall.ModelClass.OrdersModel
-import com.example.mall.R
 
 class MyOrdersFragment : Fragment(), OnClickListener {
     private lateinit var rvOrdersList: RecyclerView
@@ -42,6 +39,10 @@ class MyOrdersFragment : Fragment(), OnClickListener {
     }
 
     override fun onItemClicked(position: Int) {
-        // TODO: Open single order info
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frag_container, SingleOrderFragment(ordersList[position].oid))
+            addToBackStack(backStackName)
+            commit()
+        }
     }
 }
