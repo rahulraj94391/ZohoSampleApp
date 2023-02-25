@@ -13,7 +13,8 @@ import com.example.mall.Enum.PaymentType
 import com.example.mall.ModelClass.*
 
 const val DATABASE_NAME = "shopie.db"
-private const val TAG = "Common_Tag_DB"
+//private const val TAG = "Common_Tag_DB"
+private const val TAG = "Common_Tag_RANDOM"
 
 class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     override fun onCreate(db: SQLiteDatabase?) {
@@ -315,31 +316,32 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return orders
     }
 
-    fun randomFourProducts(uid: Int): MutableList<ItemImgNamePriceModel> {
+    fun randomFourProducts(): MutableList<ItemImgNamePriceModel> {
         val prodIds = mutableSetOf<Int>()
         val query = "SELECT MAX(prod_details.pid) FROM prod_details"
         val cursor = readableDatabase.rawQuery(query, null)
         var prodInInventory: Int = -1
         if (cursor.moveToFirst()) prodInInventory = cursor.getInt(0)
         cursor.close()
-        Log.d(TAG, "Products in stock = $prodInInventory")
-        while (prodIds.size <= 4) prodIds.add((1..prodInInventory).random())
-        Log.d(TAG, "prod ids = $prodIds")
+        while (prodIds.size <= 3) prodIds.add((1..prodInInventory).random())
         val items: MutableList<ItemImgNamePriceModel> = mutableListOf()
         for (itemID in prodIds) items.add(getItemImgNamePrice(itemID))
+        for (i in items) {
+            Log.e(TAG, "${i.pid}, ${i.prodName}")
+        }
         return items
     }
 
     private fun getItemImgNamePrice(pid: Int): ItemImgNamePriceModel {
         val query = "SELECT prod_details.pid, prod_details.prod_name, prod_details.price, prod_details.imgURL0 FROM prod_details WHERE pid = ?"
         val cursor = readableDatabase.rawQuery(query, arrayOf(pid.toString()))
-        val model: ItemImgNamePriceModel? = null
+        var model: ItemImgNamePriceModel? = null
         if (cursor.moveToFirst()) {
-            ItemImgNamePriceModel(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3))
+            model = ItemImgNamePriceModel(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3))
         }
-        else throw Exception("Cant query prod details for pid = $pid")
+        else throw Exception("Cant query prod details")
         cursor.close()
-        return model!!
+        return model
     }
 
     fun getOrderHistory(oid: Int): OrderDescriptionModel {

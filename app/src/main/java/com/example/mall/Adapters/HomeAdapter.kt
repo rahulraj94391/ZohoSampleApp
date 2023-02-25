@@ -1,6 +1,5 @@
 package com.example.mall.Adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +17,14 @@ const val SINGLE_OFFER = 2
 const val BACK_IN_STOCK = 3
 const val TOP_SELLING = 4
 
-private const val TAG = "Common_Tag_HomeAdapter"
+//private const val TAG = "Common_Tag_HomeAdapter"
+private const val TAG = "Common_Tag_RANDOM"
 
 
 class HomeAdapter(
 
-    private val topSelling: MutableList<ItemImgNamePriceModel>,
     private val backInStock: MutableList<ItemImgNamePriceModel>,
+    private val topSelling: MutableList<ItemImgNamePriceModel>,
     private val listener: HomeItemClickListeners
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -37,7 +37,32 @@ class HomeAdapter(
     }
 
     inner class BackInStockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val card1: MaterialCardView = itemView.findViewById(R.id.back_in_stock_1)
+        val img1: ImageView = card1.findViewById(R.id.iv_wishlist_prod_img)
+        val prodName1: TextView = card1.findViewById(R.id.tv_wishlist_product_name)
+        val prodPrice1: TextView = card1.findViewById(R.id.tv_wishlist_product_price)
 
+        val card2: MaterialCardView = itemView.findViewById(R.id.back_in_stock_2)
+        val img2: ImageView = card2.findViewById(R.id.iv_wishlist_prod_img)
+        val prodName2: TextView = card2.findViewById(R.id.tv_wishlist_product_name)
+        val prodPrice2: TextView = card2.findViewById(R.id.tv_wishlist_product_price)
+
+        val card3: MaterialCardView = itemView.findViewById(R.id.back_in_stock_3)
+        val img3: ImageView = card3.findViewById(R.id.iv_wishlist_prod_img)
+        val prodName3: TextView = card3.findViewById(R.id.tv_wishlist_product_name)
+        val prodPrice3: TextView = card3.findViewById(R.id.tv_wishlist_product_price)
+
+        val card4: MaterialCardView = itemView.findViewById(R.id.back_in_stock_4)
+        val img4: ImageView = card4.findViewById(R.id.iv_wishlist_prod_img)
+        val prodName4: TextView = card4.findViewById(R.id.tv_wishlist_product_name)
+        val prodPrice4: TextView = card4.findViewById(R.id.tv_wishlist_product_price)
+
+        init {
+            card1.setOnClickListener { listener.backInStockCardClicked(0) }
+            card2.setOnClickListener { listener.backInStockCardClicked(1) }
+            card3.setOnClickListener { listener.backInStockCardClicked(2) }
+            card4.setOnClickListener { listener.backInStockCardClicked(3) }
+        }
     }
 
     inner class TopSellingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -66,8 +91,14 @@ class HomeAdapter(
 
         init {
             seeMore.setOnClickListener() {
-                Log.d(TAG, "see more clicked of Top Selling")
+
             }
+
+            card1.setOnClickListener { listener.topSellingCardClicked(0) }
+            card2.setOnClickListener { listener.topSellingCardClicked(1) }
+            card3.setOnClickListener { listener.topSellingCardClicked(2) }
+            card4.setOnClickListener { listener.topSellingCardClicked(3) }
+
         }
     }
 
@@ -100,7 +131,21 @@ class HomeAdapter(
 
             BACK_IN_STOCK -> {
                 (holder as BackInStockViewHolder).apply {
+                    Picasso.get().load(backInStock[0].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img1)
+                    prodName1.text = backInStock[0].prodName
+                    prodPrice1.text = backInStock[0].prodPrice.toString()
 
+                    Picasso.get().load(backInStock[1].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img2)
+                    prodName2.text = backInStock[1].prodName
+                    prodPrice2.text = backInStock[1].prodPrice.toString()
+
+                    Picasso.get().load(backInStock[2].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img3)
+                    prodName3.text = backInStock[2].prodName
+                    prodPrice3.text = backInStock[2].prodPrice.toString()
+
+                    Picasso.get().load(backInStock[3].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img4)
+                    prodName4.text = backInStock[3].prodName
+                    prodPrice4.text = backInStock[3].prodPrice.toString()
                 }
             }
 
