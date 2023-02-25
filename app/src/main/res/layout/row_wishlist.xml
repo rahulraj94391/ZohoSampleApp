@@ -53,13 +53,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/iv_wishlist_prod_img"
             tools:text="Product Name"
-            android:scrollHorizontally="true"
-            android:ellipsize="end"
-            android:maxLines="1"
 
             />
 

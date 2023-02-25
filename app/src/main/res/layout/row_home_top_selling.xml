@@ -16,7 +16,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="Top Selling"
-        android:textSize="18sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
 
     <include
         android:id="@+id/top_selling_1"
-        layout="@layout/row_back_in_stock"
+        layout="@layout/row_home_4x4_template"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -40,7 +40,7 @@
 
     <include
         android:id="@+id/top_selling_2"
-        layout="@layout/row_back_in_stock"
+        layout="@layout/row_home_4x4_template"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -53,7 +53,7 @@
 
     <include
         android:id="@+id/top_selling_3"
-        layout="@layout/row_back_in_stock"
+        layout="@layout/row_home_4x4_template"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -67,7 +67,7 @@
 
     <include
         android:id="@+id/top_selling_4"
-        layout="@layout/row_back_in_stock"
+        layout="@layout/row_home_4x4_template"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

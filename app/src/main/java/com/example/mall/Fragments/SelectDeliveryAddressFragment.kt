@@ -23,7 +23,6 @@ class SelectDeliveryAddressFragment(
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         (activity as MainActivity).toolbar.title = "Select another address"
-
         return inflater.inflate(R.layout.fragment_select_delivery_address, container, false)
     }
 

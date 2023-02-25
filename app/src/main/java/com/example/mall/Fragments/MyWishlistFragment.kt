@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.*
 import com.example.mall.Adapters.WishlistAdapter
 import com.example.mall.Interface.WishlistItemClickListener
-import com.example.mall.ModelClass.WishlistModel
+import com.example.mall.ModelClass.ItemImgNamePriceModel
 
 private const val TAG = "Common_Tag_MyWishlistFragment"
 
 class MyWishlistFragment : Fragment(), WishlistItemClickListener {
-    private lateinit var listOfProducts: MutableList<WishlistModel>
+    private lateinit var listOfProducts: MutableList<ItemImgNamePriceModel>
     private lateinit var productsRV: RecyclerView
     private lateinit var db: DB
     private var uid: Int = -1

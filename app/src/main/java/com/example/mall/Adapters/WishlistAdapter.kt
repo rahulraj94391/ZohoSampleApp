@@ -8,12 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.Interface.WishlistItemClickListener
-import com.example.mall.ModelClass.WishlistModel
+import com.example.mall.ModelClass.ItemImgNamePriceModel
 import com.example.mall.R
 import com.squareup.picasso.Picasso
 
 class WishlistAdapter(
-    private val wishlistItems: MutableList<WishlistModel>,
+    private val wishlistItems: MutableList<ItemImgNamePriceModel>,
     private val listener: WishlistItemClickListener
 ) : RecyclerView.Adapter<WishlistAdapter.WishlistViewHolder>() {
 

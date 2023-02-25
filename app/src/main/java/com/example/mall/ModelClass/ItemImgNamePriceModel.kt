@@ -1,6 +1,6 @@
 package com.example.mall.ModelClass
 
-data class WishlistModel(
+data class ItemImgNamePriceModel(
     val pid: Int,
     val prodName: String,
     val prodPrice: Int,

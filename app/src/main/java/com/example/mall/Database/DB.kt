@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.example.mall.Database.*
 import com.example.mall.Enum.Category
 import com.example.mall.Enum.DeliveryStatus
@@ -272,12 +273,12 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return products
     }
 
-    fun getWishlistItems(uid: Int): MutableList<WishlistModel> {
-        val wishListItems: MutableList<WishlistModel> = mutableListOf()
+    fun getWishlistItems(uid: Int): MutableList<ItemImgNamePriceModel> {
+        val wishListItems: MutableList<ItemImgNamePriceModel> = mutableListOf()
         val query = "SELECT wishlists.pid, prod_details.prod_name, prod_details.price, prod_details.imgURL0 FROM wishlists LEFT JOIN prod_details ON prod_details.pid = wishlists.pid WHERE uid = ?"
         val cursor: Cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString()))
         if (cursor.moveToFirst()) {
-            do wishListItems.add(WishlistModel(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3)))
+            do wishListItems.add(ItemImgNamePriceModel(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3)))
             while (cursor.moveToNext())
         }
         cursor.close()
@@ -312,6 +313,33 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         }
         cursor.close()
         return orders
+    }
+
+    fun randomFourProducts(uid: Int): MutableList<ItemImgNamePriceModel> {
+        val prodIds = mutableSetOf<Int>()
+        val query = "SELECT MAX(prod_details.pid) FROM prod_details"
+        val cursor = readableDatabase.rawQuery(query, null)
+        var prodInInventory: Int = -1
+        if (cursor.moveToFirst()) prodInInventory = cursor.getInt(0)
+        cursor.close()
+        Log.d(TAG, "Products in stock = $prodInInventory")
+        while (prodIds.size <= 4) prodIds.add((1..prodInInventory).random())
+        Log.d(TAG, "prod ids = $prodIds")
+        val items: MutableList<ItemImgNamePriceModel> = mutableListOf()
+        for (itemID in prodIds) items.add(getItemImgNamePrice(itemID))
+        return items
+    }
+
+    private fun getItemImgNamePrice(pid: Int): ItemImgNamePriceModel {
+        val query = "SELECT prod_details.pid, prod_details.prod_name, prod_details.price, prod_details.imgURL0 FROM prod_details WHERE pid = ?"
+        val cursor = readableDatabase.rawQuery(query, arrayOf(pid.toString()))
+        val model: ItemImgNamePriceModel? = null
+        if (cursor.moveToFirst()) {
+            ItemImgNamePriceModel(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3))
+        }
+        else throw Exception("Cant query prod details for pid = $pid")
+        cursor.close()
+        return model!!
     }
 
     fun getOrderHistory(oid: Int): OrderDescriptionModel {

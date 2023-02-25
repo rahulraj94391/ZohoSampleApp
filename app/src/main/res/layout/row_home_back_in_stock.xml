@@ -27,7 +27,7 @@
 
     <include
         android:id="@+id/back_in_stock_1"
-        layout="@layout/row_back_in_stock"
+        layout="@layout/row_home_4x4_template"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -40,7 +40,7 @@
 
     <include
         android:id="@+id/back_in_stock_2"
-        layout="@layout/row_back_in_stock"
+        layout="@layout/row_home_4x4_template"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -53,7 +53,7 @@
 
     <include
         android:id="@+id/back_in_stock_3"
-        layout="@layout/row_back_in_stock"
+        layout="@layout/row_home_4x4_template"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -67,7 +67,7 @@
 
     <include
         android:id="@+id/back_in_stock_4"
-        layout="@layout/row_back_in_stock"
+        layout="@layout/row_home_4x4_template"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
