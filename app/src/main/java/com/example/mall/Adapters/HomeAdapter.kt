@@ -1,39 +1,44 @@
 package com.example.mall.Adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.example.mall.Interface.HomeItemClickListeners
 import com.example.mall.ModelClass.ItemImgNamePriceModel
 import com.example.mall.R
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
+import me.relex.circleindicator.CircleIndicator3
 
 const val SALES_OFFERS = 1
 const val SINGLE_OFFER = 2
 const val BACK_IN_STOCK = 3
 const val TOP_SELLING = 4
 
-//private const val TAG = "Common_Tag_HomeAdapter"
-private const val TAG = "Common_Tag_RANDOM"
-
+private const val TAG = "Common_Tag_HomeAdapter"
 
 class HomeAdapter(
-
+    private val offersAdapter: HomeOffersAdapter,
     private val backInStock: MutableList<ItemImgNamePriceModel>,
     private val topSelling: MutableList<ItemImgNamePriceModel>,
     private val listener: HomeItemClickListeners
-
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class SalesOfferViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+        val viewPage2: ViewPager2 = itemView.findViewById(R.id.vp_home_offers)
+        val circleIndicator3: CircleIndicator3 = itemView.findViewById(R.id.home_circle_indicator_3)
     }
 
     inner class SingleOfferViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val image: ImageView = itemView.findViewById(R.id.home_single_offer_1)
 
+        init {
+            image.setOnClickListener { listener.singleOfferBannerClicked() }
+        }
     }
 
     inner class BackInStockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -87,18 +92,11 @@ class HomeAdapter(
         val prodPrice4: TextView = card4.findViewById(R.id.tv_wishlist_product_price)
 
 
-        val seeMore: TextView = itemView.findViewById(R.id.see_more)
-
         init {
-            seeMore.setOnClickListener() {
-
-            }
-
             card1.setOnClickListener { listener.topSellingCardClicked(0) }
             card2.setOnClickListener { listener.topSellingCardClicked(1) }
             card3.setOnClickListener { listener.topSellingCardClicked(2) }
             card4.setOnClickListener { listener.topSellingCardClicked(3) }
-
         }
     }
 
@@ -111,15 +109,31 @@ class HomeAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return 6
-    }
+    override fun getItemCount() = 4
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
             SALES_OFFERS -> {
                 (holder as SalesOfferViewHolder).apply {
+                    viewPage2.adapter = offersAdapter
+                    viewPage2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
+                        override fun onPageSelected(position: Int) {
+                            super.onPageSelected(position)
+                            Log.d(TAG, "onPageSelected: called")
+                        }
+
+                        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                            super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                            Log.d(TAG, "onPageScrolled: called")
+                        }
+
+                        override fun onPageScrollStateChanged(state: Int) {
+                            super.onPageScrollStateChanged(state)
+                            Log.d(TAG, "onPageScrollStateChanged: called")
+                        }
+                    })
+                    circleIndicator3.setViewPager(viewPage2)
                 }
             }
 
@@ -174,9 +188,9 @@ class HomeAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
-            0, 2 -> SALES_OFFERS
-            1, 3 -> SINGLE_OFFER
-            4 -> BACK_IN_STOCK
+            0 -> SALES_OFFERS
+            1 -> SINGLE_OFFER
+            2 -> BACK_IN_STOCK
             else -> TOP_SELLING
         }
     }

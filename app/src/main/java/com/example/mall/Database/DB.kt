@@ -13,6 +13,7 @@ import com.example.mall.Enum.PaymentType
 import com.example.mall.ModelClass.*
 
 const val DATABASE_NAME = "shopie.db"
+
 //private const val TAG = "Common_Tag_DB"
 private const val TAG = "Common_Tag_RANDOM"
 
@@ -316,19 +317,18 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return orders
     }
 
-    fun randomFourProducts(): MutableList<ItemImgNamePriceModel> {
-        val prodIds = mutableSetOf<Int>()
+    fun itemsInInventory(): Int {
         val query = "SELECT MAX(prod_details.pid) FROM prod_details"
         val cursor = readableDatabase.rawQuery(query, null)
-        var prodInInventory: Int = -1
-        if (cursor.moveToFirst()) prodInInventory = cursor.getInt(0)
+        var items: Int = -1
+        if (cursor.moveToFirst()) items = cursor.getInt(0)
         cursor.close()
-        while (prodIds.size <= 3) prodIds.add((1..prodInInventory).random())
+        return items
+    }
+
+    fun randomFourProducts(prodIds: List<Int>): MutableList<ItemImgNamePriceModel> {
         val items: MutableList<ItemImgNamePriceModel> = mutableListOf()
         for (itemID in prodIds) items.add(getItemImgNamePrice(itemID))
-        for (i in items) {
-            Log.e(TAG, "${i.pid}, ${i.prodName}")
-        }
         return items
     }
 
