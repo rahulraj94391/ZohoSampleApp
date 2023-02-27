@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.Interface.OnCartItemClickListener
 import com.example.mall.ModelClass.CartItemModel
 import com.example.mall.R
+import com.example.mall.rupeeString
 import com.squareup.picasso.Picasso
 
 private const val TAG = "Common_Tag_CartItemsAdapter"
@@ -54,7 +55,7 @@ class CartItemsAdapter(
 
     override fun onBindViewHolder(holder: CartItemsAdapter.CartItemViewHolder, position: Int) {
         holder.prodName.text = cartItems[position].productName
-        holder.prodPrice.text = "₹ ${cartItems[position].price}"
+        holder.prodPrice.text = String().rupeeString(cartItems[position].price)
         holder.quantity.text = "Quantity - ${cartItems[position].quantity}"
         val imageURL = cartItems[position].thumbnailURL
         Picasso.get().load(imageURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(holder.imageView)

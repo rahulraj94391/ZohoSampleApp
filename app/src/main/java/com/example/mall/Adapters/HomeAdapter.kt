@@ -1,5 +1,6 @@
 package com.example.mall.Adapters
 
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +12,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.mall.Interface.HomeItemClickListeners
 import com.example.mall.ModelClass.ItemImgNamePriceModel
 import com.example.mall.R
+import com.example.mall.rupeeString
 import com.google.android.material.card.MaterialCardView
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Runnable
 import me.relex.circleindicator.CircleIndicator3
 
 const val SALES_OFFERS = 1
@@ -27,7 +30,11 @@ class HomeAdapter(
     private val backInStock: MutableList<ItemImgNamePriceModel>,
     private val topSelling: MutableList<ItemImgNamePriceModel>,
     private val listener: HomeItemClickListeners
+
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val handler: Handler = Handler()
+
     inner class SalesOfferViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val viewPage2: ViewPager2 = itemView.findViewById(R.id.vp_home_offers)
         val circleIndicator3: CircleIndicator3 = itemView.findViewById(R.id.home_circle_indicator_3)
@@ -117,20 +124,16 @@ class HomeAdapter(
                 (holder as SalesOfferViewHolder).apply {
                     viewPage2.adapter = offersAdapter
                     viewPage2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-
                         override fun onPageSelected(position: Int) {
+                            Log.d(TAG, "page position of OFFERS = $position")
                             super.onPageSelected(position)
-                            Log.d(TAG, "onPageSelected: called")
-                        }
-
-                        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                            super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                            Log.d(TAG, "onPageScrolled: called")
-                        }
-
-                        override fun onPageScrollStateChanged(state: Int) {
-                            super.onPageScrollStateChanged(state)
-                            Log.d(TAG, "onPageScrollStateChanged: called")
+                            handler.removeCallbacksAndMessages(null)
+                            handler.postDelayed(
+                                Runnable {
+                                    if (viewPage2.currentItem == 2) viewPage2.currentItem = 0
+                                    else viewPage2.currentItem = viewPage2.currentItem + 1
+                                }, 5000
+                            )
                         }
                     })
                     circleIndicator3.setViewPager(viewPage2)
@@ -147,19 +150,19 @@ class HomeAdapter(
                 (holder as BackInStockViewHolder).apply {
                     Picasso.get().load(backInStock[0].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img1)
                     prodName1.text = backInStock[0].prodName
-                    prodPrice1.text = backInStock[0].prodPrice.toString()
+                    prodPrice1.text = String().rupeeString(backInStock[0].prodPrice)
 
                     Picasso.get().load(backInStock[1].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img2)
                     prodName2.text = backInStock[1].prodName
-                    prodPrice2.text = backInStock[1].prodPrice.toString()
+                    prodPrice2.text = String().rupeeString(backInStock[1].prodPrice)
 
                     Picasso.get().load(backInStock[2].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img3)
                     prodName3.text = backInStock[2].prodName
-                    prodPrice3.text = backInStock[2].prodPrice.toString()
+                    prodPrice3.text = String().rupeeString(backInStock[2].prodPrice)
 
                     Picasso.get().load(backInStock[3].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img4)
                     prodName4.text = backInStock[3].prodName
-                    prodPrice4.text = backInStock[3].prodPrice.toString()
+                    prodPrice4.text = String().rupeeString(backInStock[3].prodPrice)
                 }
             }
 
@@ -167,19 +170,19 @@ class HomeAdapter(
                 (holder as TopSellingViewHolder).apply {
                     Picasso.get().load(topSelling[0].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img1)
                     prodName1.text = topSelling[0].prodName
-                    prodPrice1.text = topSelling[0].prodPrice.toString()
+                    prodPrice1.text = String().rupeeString(topSelling[0].prodPrice)
 
                     Picasso.get().load(topSelling[1].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img2)
                     prodName2.text = topSelling[1].prodName
-                    prodPrice2.text = topSelling[1].prodPrice.toString()
+                    prodPrice2.text = String().rupeeString(topSelling[1].prodPrice)
 
                     Picasso.get().load(topSelling[2].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img3)
                     prodName3.text = topSelling[2].prodName
-                    prodPrice3.text = topSelling[2].prodPrice.toString()
+                    prodPrice3.text = String().rupeeString(topSelling[2].prodPrice)
 
                     Picasso.get().load(topSelling[3].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img4)
                     prodName4.text = topSelling[3].prodName
-                    prodPrice4.text = topSelling[3].prodPrice.toString()
+                    prodPrice4.text = String().rupeeString(topSelling[3].prodPrice)
 
                 }
             }

@@ -12,13 +12,14 @@ import com.example.mall.*
 import com.example.mall.Adapters.HomeAdapter
 import com.example.mall.Adapters.HomeOffersAdapter
 import com.example.mall.Interface.HomeItemClickListeners
+import com.example.mall.Interface.OnClickListener
 import com.example.mall.ModelClass.ItemImgNamePriceModel
 
 //private const val TAG = "HomeFragment"
 private const val TAG = "Common_Tag_RANDOM"
 
 
-class HomeFragment : Fragment(), HomeItemClickListeners {
+class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
     lateinit var rvHome: RecyclerView
     lateinit var adapter: HomeAdapter
     lateinit var db: DB
@@ -75,7 +76,7 @@ class HomeFragment : Fragment(), HomeItemClickListeners {
         }
         (requireActivity() as MenuHost).addMenuProvider(mMenuProvider, viewLifecycleOwner)
         rvHome = view.findViewById(R.id.rv_home)
-        homeOffersAdapter = HomeOffersAdapter(offersImagesResId())
+        homeOffersAdapter = HomeOffersAdapter(offersImagesResId(), this)
         adapter = HomeAdapter(homeOffersAdapter, backInStock, topSelling, this)
         rvHome.adapter = adapter
         rvHome.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -111,5 +112,20 @@ class HomeFragment : Fragment(), HomeItemClickListeners {
             addToBackStack(backStackName)
             commit()
         }
+    }
+
+    override fun onItemClicked(position: Int) {
+        val pid = when (position) {
+            0 -> 15
+            1 -> 16
+            else -> 14
+        }
+
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frag_container, SingleProductDescriptionFragment(pid))
+            addToBackStack(backStackName)
+            commit()
+        }
+
     }
 }
