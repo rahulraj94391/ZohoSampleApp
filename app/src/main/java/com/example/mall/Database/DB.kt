@@ -412,7 +412,6 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         }
         val rows = writableDatabase.update(CartTable.CART_TABLE_NAME, cv, whereClause, arrayOf(uid.toString(), pid.toString()))
         if (rows < 1) Log.e(TAG, "cannot increment quantity for an item in cart with pid = $pid")
-        else Log.d(TAG, "rows affected = $rows")
     }
 
     fun decrementItemQuantityInCart(uid: Int, pid: Int) {
@@ -422,7 +421,6 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         }
         val rows = writableDatabase.update(CartTable.CART_TABLE_NAME, cv, whereClause, arrayOf(uid.toString(), pid.toString()))
         if (rows < 1) Log.e(TAG, "cannot decrement quantity for an item in cart with pid = $pid")
-        else Log.d(TAG, "rows affected = $rows")
     }
 
 

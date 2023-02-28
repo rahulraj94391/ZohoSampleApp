@@ -49,11 +49,6 @@ class AddressAdapter(
 
             else -> {
                 (holder as SavedAddressViewHolder).apply {
-//                    deliveryName.text = addresses[position].fullName
-//                    deliveryPhone.text = addresses[position].mobile
-//                    deliveryAddress.text = addresses[position].address
-//                    deliveryPinCode.text = addresses[position].pinCode
-
                     addresses[position ].apply {
                         deliveryName.text = fullName
                         deliveryPhone.text = mobile
@@ -62,7 +57,6 @@ class AddressAdapter(
                     }
                 }
             }
-
         }
     }
 
