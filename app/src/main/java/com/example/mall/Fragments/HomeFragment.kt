@@ -1,8 +1,10 @@
 package com.example.mall.Fragments
 
 import android.os.Bundle
+import android.text.TextUtils.replace
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -14,6 +16,7 @@ import com.example.mall.Adapters.HomeOffersAdapter
 import com.example.mall.Interface.HomeItemClickListeners
 import com.example.mall.Interface.OnClickListener
 import com.example.mall.ModelClass.ItemImgNamePriceModel
+import com.example.mall.ModelClass.ProductListModel
 
 //private const val TAG = "HomeFragment"
 private const val TAG = "Common_Tag_RANDOM"
@@ -54,25 +57,40 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
         val mMenuProvider = object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.toolbar_menu_home_frag, menu)
+
+
+                val searchFun = menu.findItem(R.id.search_view)
+                val searchView: SearchView = searchFun.actionView as SearchView
+
+                searchView.queryHint = "Search product to buy ..."
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        var set: MutableSet<ProductListModel> = db.searchViewResult(query)
+                        val prodList: MutableList<ProductListModel> = mutableListOf()
+                        prodList.addAll(set)
+
+
+                        requireActivity().supportFragmentManager.beginTransaction().apply {
+                            replace(R.id.frag_container, ProductsListViewFragment(prodList), "SearchView")
+                            addToBackStack(backStackName)
+                            commit()
+                        }
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        return true
+                    }
+                })
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
-                    R.id.search_product -> {
-                        // TODO: Search query for keyword
+                    R.id.search_view ->
                         return true
-                    }
                 }
                 return false
             }
-//        override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.toolbar_menu, menu)
-//        val search = menu?.findItem(R.id.search_product)
-//        val searchView: SearchView = search?.actionView as SearchView
-//        searchView.queryHint = "Search a product ..."
-//        return super.onCreateOptionsMenu(menu)
-//    }
-
         }
         (requireActivity() as MenuHost).addMenuProvider(mMenuProvider, viewLifecycleOwner)
         rvHome = view.findViewById(R.id.rv_home)
@@ -126,6 +144,5 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
             addToBackStack(backStackName)
             commit()
         }
-
     }
 }
