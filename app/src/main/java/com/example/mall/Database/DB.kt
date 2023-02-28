@@ -199,7 +199,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return itemAvailability
     }
 
-    private fun checkProductStock(pid: Int): Int {
+    fun checkProductStock(pid: Int): Int {
         val query = "SELECT prod_details.stock FROM prod_details WHERE prod_details.pid = ?"
         val cursor = readableDatabase.rawQuery(query, arrayOf(pid.toString()))
         cursor.moveToFirst()
@@ -344,6 +344,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return model
     }
 
+
     fun getOrderHistory(oid: Int): OrderDescriptionModel {
         var orderHistory: OrderDescriptionModel? = null
         val query = "SELECT orders.order_date, orders.delivery_date, orders.delivery_status, orders.paid_through, orders.quantity, prod_details.imgURL0, prod_details.prod_name, prod_details.price, addresses.full_name, addresses.mobile, addresses.pin_code, addresses.address  FROM orders LEFT JOIN prod_details ON orders.pid = prod_details.pid LEFT JOIN addresses ON orders.address_id = addresses.address_id WHERE oid = ?"
@@ -368,6 +369,36 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         }
         cursor.close()
         return orderHistory ?: throw Exception("Unable to query order details for orderId = $oid")
+    }
+
+    fun currentItemQuantityInCart(uid: Int, pid: Int): Int {
+        val query = "SELECT cart.quantity FROM cart WHERE uid = ? AND pid = ?"
+        val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString(), pid.toString()))
+        var quantity = 0
+        cursor.moveToFirst()
+        quantity = cursor.getInt(0)
+        cursor.close()
+        return quantity
+    }
+
+    fun incrementItemQuantityInCart(uid: Int, pid: Int) {
+        val whereClause: String = "uid = ? and pid = ?"
+        val cv = ContentValues().apply {
+            put(CartTable.COL_QUANTITY, currentItemQuantityInCart(uid, pid) + 1)
+        }
+        val rows = writableDatabase.update(CartTable.CART_TABLE_NAME, cv, whereClause, arrayOf(uid.toString(), pid.toString()))
+        if (rows < 1) Log.e(TAG, "cannot increment quantity for an item in cart with pid = $pid")
+        else Log.d(TAG, "rows affected = $rows")
+    }
+
+    fun decrementItemQuantityInCart(uid: Int, pid: Int) {
+        val whereClause: String = "uid = ? and pid = ?"
+        val cv = ContentValues().apply {
+            put(CartTable.COL_QUANTITY, currentItemQuantityInCart(uid, pid) - 1)
+        }
+        val rows = writableDatabase.update(CartTable.CART_TABLE_NAME, cv, whereClause, arrayOf(uid.toString(), pid.toString()))
+        if (rows < 1) Log.e(TAG, "cannot decrement quantity for an item in cart with pid = $pid")
+        else Log.d(TAG, "rows affected = $rows")
     }
 }
 

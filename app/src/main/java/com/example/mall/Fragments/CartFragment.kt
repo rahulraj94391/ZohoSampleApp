@@ -171,4 +171,42 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             commit()
         }
     }
+
+    override fun changeQtyBtn(plus: Button, position: Int, minus: Button) {
+        if (cartItemList[position].quantity == 1) {
+            minus.isEnabled = false
+            /*if(cartItemList[position].quantity == db.checkProductStock(cartItemList[position].pid)){
+                plus.isEnabled = false
+            }*/
+        }
+        else if (cartItemList[position].quantity == 4 /*|| cartItemList[position].quantity >= db.checkProductStock(cartItemList[position].pid)*/) {
+            plus.isEnabled = false
+        }
+        else {
+            minus.isEnabled = true
+            plus.isEnabled = true
+        }
+        if (cartItemList[position].quantity == db.checkProductStock(cartItemList[position].pid)) {
+            plus.isEnabled = false
+        }
+
+    }
+
+    override fun onQuantityIncrease(plus: Button, position: Int, minus: Button) {
+        cartItemList[position].quantity++
+        db.incrementItemQuantityInCart(uid, cartItemList[position].pid)
+
+        changeQtyBtn(plus, position, minus)
+        cartTotal = calculateCartTotal()
+        cartItemsAdapter.notifyItemChanged(position)
+    }
+
+    override fun onQuantityDecrease(minus: Button, position: Int, plus: Button) {
+        cartItemList[position].quantity--
+        db.decrementItemQuantityInCart(uid, cartItemList[position].pid)
+
+        changeQtyBtn(plus, position, minus)
+        cartTotal = calculateCartTotal()
+        cartItemsAdapter.notifyItemChanged(position)
+    }
 }

@@ -7,7 +7,7 @@ data class CartItemModel(
     val pid: Int,
     val productName: String?,
     val price: Int,
-    val quantity: Int,
+    var quantity: Int,
     val thumbnailURL: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(

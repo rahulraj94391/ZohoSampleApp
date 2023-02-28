@@ -85,7 +85,7 @@ class OrderActivityAdapter(
             }
 
             PAYMENT_ROW -> {
-                (holder as PaymentViewHolder).apply{}
+                (holder as PaymentViewHolder).apply {}
             }
 
             PRICE_DETAIL_ROW -> {

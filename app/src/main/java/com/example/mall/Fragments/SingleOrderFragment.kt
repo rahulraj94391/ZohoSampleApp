@@ -11,6 +11,7 @@ import com.example.mall.DB
 import com.example.mall.DateUtil
 import com.example.mall.ModelClass.OrderDescriptionModel
 import com.example.mall.R
+import com.example.mall.rupeeString
 import com.squareup.picasso.Picasso
 
 class SingleOrderFragment(private val oid: Int) : Fragment() {
@@ -59,7 +60,7 @@ class SingleOrderFragment(private val oid: Int) : Fragment() {
             tvDeliveryStatus.text = deliveryStatus
             tvProductName.text = prodName
             tvProductQty.text = "Qty: $qty"
-            tvProductPrice.text = "₹ $prodPrice"
+            tvProductPrice.text = String().rupeeString(prodPrice * qty)
             tvPaymentMethod.text = "Payment is done using $paymentType"
 
             addressModel.apply {

@@ -16,32 +16,26 @@ import com.squareup.picasso.Picasso
 private const val TAG = "Common_Tag_CartItemsAdapter"
 
 class CartItemsAdapter(
-    private val cartItems: MutableList<CartItemModel>, private val listener: OnCartItemClickListener
+
+    private val cartItems: MutableList<CartItemModel>,
+    private val listener: OnCartItemClickListener
+
 ) : RecyclerView.Adapter<CartItemsAdapter.CartItemViewHolder>() {
     inner class CartItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        init {
-            itemView.setOnClickListener() {
-                if (adapterPosition != RecyclerView.NO_POSITION) {
-                    listener.onItemClicked(adapterPosition)
-                }
-            }
-            itemView.findViewById<Button>(R.id.btn_start).setOnClickListener() {
-                if (adapterPosition != RecyclerView.NO_POSITION) {
-                    listener.onDeleteClicked(adapterPosition)
-                }
-            }
-            itemView.findViewById<Button>(R.id.btn_end).setOnClickListener() {
-                if (adapterPosition != RecyclerView.NO_POSITION) {
-                    listener.onWishlistClicked(adapterPosition)
-                }
-            }
-        }
-
+        var minus: Button = itemView.findViewById(R.id.btn_item_decrease)
+        var plus: Button = itemView.findViewById(R.id.btn_item_increase)
         var prodPrice: TextView = itemView.findViewById(R.id.tv_prod_price)
         var quantity: TextView = itemView.findViewById(R.id.tv_prod_quantity)
         val imageView: ImageView = itemView.findViewById(R.id.iv_product_image)
         var prodName: TextView = itemView.findViewById(R.id.tv_prod_name)
 
+        init {
+            itemView.setOnClickListener { listener.onItemClicked(adapterPosition) }
+            itemView.findViewById<Button>(R.id.btn_start).setOnClickListener { listener.onDeleteClicked(adapterPosition) }
+            itemView.findViewById<Button>(R.id.btn_end).setOnClickListener { listener.onWishlistClicked(adapterPosition) }
+            plus.setOnClickListener { listener.onQuantityIncrease(plus, adapterPosition, minus) }
+            minus.setOnClickListener { listener.onQuantityDecrease(minus, adapterPosition, plus) }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemsAdapter.CartItemViewHolder {
@@ -56,7 +50,8 @@ class CartItemsAdapter(
     override fun onBindViewHolder(holder: CartItemsAdapter.CartItemViewHolder, position: Int) {
         holder.prodName.text = cartItems[position].productName
         holder.prodPrice.text = String().rupeeString(cartItems[position].price)
-        holder.quantity.text = "Quantity - ${cartItems[position].quantity}"
+        holder.quantity.text = cartItems[position].quantity.toString()
+        listener.changeQtyBtn(holder.plus, position, holder.minus)
         val imageURL = cartItems[position].thumbnailURL
         Picasso.get().load(imageURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(holder.imageView)
     }

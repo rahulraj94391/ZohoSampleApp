@@ -65,7 +65,8 @@ class CheckoutDescriptionFragment(
             priceBeforeDiscount += (itemPrice * itemQty)
 
         }
-        discount = (priceBeforeDiscount * 0.02).toInt()
+//        discount = (priceBeforeDiscount * 0.02).toInt()
+        discount = 0
         totalPriceToPay = priceBeforeDiscount - discount
         return PriceDetailsModel(totalItemNumber, priceBeforeDiscount, discount, totalPriceToPay)
     }
