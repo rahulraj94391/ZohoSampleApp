@@ -69,8 +69,8 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return userId
     }
 
-    fun getAddresses(uid: Int): MutableList<DeliveryAddressModel> {
-        val addresses: MutableList<DeliveryAddressModel> = mutableListOf()
+    fun getAddresses(uid: Int): ArrayList<DeliveryAddressModel> {
+        val addresses: ArrayList<DeliveryAddressModel> = arrayListOf()
         val query = "SELECT address_id, full_name, mobile, pin_code, address FROM addresses WHERE addresses.uid = ?"
         val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString()))
         if (cursor.moveToFirst()) {
@@ -263,7 +263,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return set
     }
 
-    fun queryProductsBasedOnCategory(category: Category): MutableList<ProductListModel> {
+    fun queryProductsBasedOnCategory(category: Category): ArrayList<ProductListModel> {
         val baseQuery = "SELECT pid, prod_name, imgURL0, price, stock FROM prod_details"
         val categorySpecificQuery = " WHERE pid IN (SELECT pid FROM category_tags WHERE category_tags.category_tag = ?)"
         val keyword: String = when (category) {
@@ -280,7 +280,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         var selectionArgs: Array<String>? = null
         val finalQuery = if (keyword != "-1") (baseQuery + categorySpecificQuery).also { selectionArgs = arrayOf(keyword) } else baseQuery
         val cursor = readableDatabase.rawQuery(finalQuery, selectionArgs)
-        val products: MutableList<ProductListModel> = mutableListOf()
+        val products: ArrayList<ProductListModel> = arrayListOf()
 
         if (cursor.moveToFirst()) {
             do {

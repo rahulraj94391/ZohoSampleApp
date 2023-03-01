@@ -39,9 +39,9 @@ class CategoriesFragment : Fragment(), OnCategoryClickListener {
     }
 
     override fun onItemClick(category: Category) {
-        val listOfProducts: MutableList<ProductListModel> = DB(requireContext()).queryProductsBasedOnCategory(category)
+        val listOfProducts: ArrayList<ProductListModel> = DB(requireContext()).queryProductsBasedOnCategory(category)
         Log.d(TAG, "listOfProducts.size ${listOfProducts.size}")
-        val fragment = if (listOfProducts.size > 0) ProductsListViewFragment(listOfProducts) else ProductNotAvailable()
+        val fragment = if (listOfProducts.size > 0) ProductsListViewFragment.newInstance(listOfProducts) else ProductNotAvailable()
         requireActivity().supportFragmentManager.beginTransaction().apply {
             replace(R.id.frag_container, fragment)
             addToBackStack(backStackName)

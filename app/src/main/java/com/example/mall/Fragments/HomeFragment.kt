@@ -1,7 +1,6 @@
 package com.example.mall.Fragments
 
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -66,12 +65,11 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
                         var set: MutableSet<ProductListModel> = db.searchViewResult(query)
-                        val prodList: MutableList<ProductListModel> = mutableListOf()
+                        val prodList: ArrayList<ProductListModel> = arrayListOf()
                         prodList.addAll(set)
 
-
                         requireActivity().supportFragmentManager.beginTransaction().apply {
-                            replace(R.id.frag_container, ProductsListViewFragment(prodList), "SearchView")
+                            replace(R.id.frag_container, ProductsListViewFragment.newInstance(prodList), "SearchView")
                             addToBackStack(backStackName)
                             commit()
                         }
@@ -110,7 +108,7 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
 
     override fun singleOfferBannerClicked() {
         requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frag_container, SingleProductDescriptionFragment(17))
+            replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(17))
             addToBackStack(backStackName)
             commit()
         }
@@ -118,7 +116,7 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
 
     override fun topSellingCardClicked(index: Int) {
         requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frag_container, SingleProductDescriptionFragment(topSelling[index].pid))
+            replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(topSelling[index].pid))
             addToBackStack(backStackName)
             commit()
         }
@@ -126,7 +124,7 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
 
     override fun backInStockCardClicked(index: Int) {
         requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frag_container, SingleProductDescriptionFragment(backInStock[index].pid))
+            replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(backInStock[index].pid))
             addToBackStack(backStackName)
             commit()
         }
@@ -140,7 +138,7 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
         }
 
         requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frag_container, SingleProductDescriptionFragment(pid))
+            replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(pid))
             addToBackStack(backStackName)
             commit()
         }

@@ -1,7 +1,6 @@
 package com.example.mall.Fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,11 +17,30 @@ import kotlinx.coroutines.launch
 
 private const val TAG = "Common_Tag_PaymentConfirmedFragment"
 
-class PaymentConfirmedFragment(
-    private val paymentType: PaymentType
-) : Fragment() {
+private const val ARG_PAYMENT_TYPE = "paymentType"
+
+
+class PaymentConfirmedFragment : Fragment() {
     private lateinit var progressBar: LinearProgressIndicator
     private lateinit var cnfPaymentMsg: TextView
+    private lateinit var paymentType: PaymentType
+
+    companion object {
+        fun newInstance(paymentType: PaymentType) =
+            PaymentConfirmedFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(ARG_PAYMENT_TYPE, paymentType)
+                }
+            }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            paymentType = it.getSerializable(ARG_PAYMENT_TYPE) as PaymentType
+        }
+    }
 
     override fun onDestroyView() {
         (activity as MainActivity).bottomNavigationView.visibility = View.VISIBLE

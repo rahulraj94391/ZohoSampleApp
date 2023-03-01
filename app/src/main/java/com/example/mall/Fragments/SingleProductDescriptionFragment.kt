@@ -17,12 +17,17 @@ import com.example.mall.Adapters.ProductDescriptionImagesAdapter
 import com.example.mall.ModelClass.ProdDescPageModel
 import com.google.android.material.button.MaterialButtonToggleGroup
 import me.relex.circleindicator.CircleIndicator3
+import kotlin.properties.Delegates
 
 private const val TAG = "Common_Tag_SingleProductDescriptionFragment"
 
+
+private const val ARG_PID = "pid"
+
 class SingleProductDescriptionFragment(
-    private val pid: Int,
+
 ) : Fragment() {
+    private var pid: Int by Delegates.notNull()
     private lateinit var productImages: ViewPager2
     private lateinit var productName: TextView
     private lateinit var productPrice: TextView
@@ -35,6 +40,21 @@ class SingleProductDescriptionFragment(
     private var uid: Int = -1
     private lateinit var indicator: CircleIndicator3
 
+    companion object {
+        fun newInstance(pid: Int) =
+            SingleProductDescriptionFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_PID, pid)
+                }
+            }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            pid = it.getInt(ARG_PID)
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_product_description, container, false)

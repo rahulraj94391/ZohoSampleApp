@@ -60,7 +60,7 @@ class MyWishlistFragment : Fragment(), WishlistItemClickListener {
 
     override fun onItemClicked(position: Int) {
         activity?.supportFragmentManager?.beginTransaction()?.apply {
-            replace(R.id.frag_container, SingleProductDescriptionFragment(listOfProducts[position].pid))
+            replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(listOfProducts[position].pid))
             addToBackStack(backStackName)
             commit()
         }

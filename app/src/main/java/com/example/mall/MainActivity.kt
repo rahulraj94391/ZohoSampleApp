@@ -8,10 +8,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProvider
 import com.example.mall.Fragments.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-//private const val TAG = "MainActivity_Mall"
 private const val TAG = "Common_Tag_MainActivity"
 const val backStackName = "Main_Back_Stack"
 
@@ -19,30 +19,27 @@ class MainActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
     lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var fm: FragmentManager
+    private lateinit var sharedViewModel: SharedViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-        Log.d(TAG, "onCreate: called")
         window.statusBarColor = ContextCompat.getColor(this, R.color.primary)
         window.navigationBarColor = ContextCompat.getColor(this, R.color.primary)
         fm = supportFragmentManager
-
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        Log.d(TAG, "Saved Instance State = ${savedInstanceState == null}")
-
+        sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
+        sharedViewModel.uid.value = getSharedPreferences(MSharedPreferences.NAME, MODE_PRIVATE).getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
+        Log.d(TAG, "UID from shared view model = ${sharedViewModel.uid}")
         if (savedInstanceState == null) {
             fm.beginTransaction().apply {
                 replace(R.id.frag_container, HomeFragment(), "baseHomeFrag")
                 commit()
             }
         }
-
 
         bottomNavViewAndListenerConfig()
     }
@@ -75,59 +72,17 @@ class MainActivity : AppCompatActivity() {
             fm.popBackStack(0, 1)
             super.onBackPressed()
         }
-        else if (fm.findFragmentById(R.id.frag_container) is PaymentConfirmedFragment){}
+        else if (fm.findFragmentById(R.id.frag_container) is PaymentConfirmedFragment) {
+        }
         else super.onBackPressed()
-//        setIndicatorOnBackPress()
     }
 
-//    fun setIndicatorOnBackPress() {
-//        val position: Int = when (fm.findFragmentById(R.id.frag_container)) {
-//            is HomeFragment -> 0
-//            is CategoriesFragment -> 1
-//            is AccountFragment -> 2
-//            is CartFragment -> 3
-//            else -> -1
-//        }
-//        if (position != -1) bottomNavigationView.menu.getItem(position).isChecked = true
-//    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         Log.d(TAG, "onSaveInstanceState: called")
         outState.putBoolean("flag", false)
         super.onSaveInstanceState(outState)
     }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG, "onStart: called")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "onResume: called")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG, "onPause: called")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG, "onStop: called")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "onDestroy: called")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Log.d(TAG, "onRestart: called")
-    }
-
-
 }
 
 

@@ -40,7 +40,7 @@ class MyOrdersFragment : Fragment(), OnClickListener {
 
     override fun onItemClicked(position: Int) {
         requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frag_container, SingleOrderFragment(ordersList[position].oid))
+            replace(R.id.frag_container, SingleOrderFragment.newInstance(ordersList[position].oid))
             addToBackStack(backStackName)
             commit()
         }

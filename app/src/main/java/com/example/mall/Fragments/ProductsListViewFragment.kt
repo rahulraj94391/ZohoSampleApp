@@ -14,8 +14,27 @@ import com.example.mall.ModelClass.ProductListModel
 import com.example.mall.R
 import com.example.mall.backStackName
 
-class ProductsListViewFragment(private val listOfProducts: MutableList<ProductListModel>) : Fragment(), OnClickListener {
+private const val ARG_PRODUCT_LIST = "productList"
+
+class ProductsListViewFragment() : Fragment(), OnClickListener {
     private lateinit var productList: RecyclerView
+    private lateinit var listOfProducts: ArrayList<ProductListModel>
+
+    companion object {
+        fun newInstance(list: ArrayList<ProductListModel>) =
+            ProductsListViewFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelableArrayList(ARG_PRODUCT_LIST, list)
+                }
+            }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            listOfProducts = it.getParcelableArrayList(ARG_PRODUCT_LIST)!!
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_products_list_view, container, false)
@@ -31,7 +50,7 @@ class ProductsListViewFragment(private val listOfProducts: MutableList<ProductLi
 
     override fun onItemClicked(position: Int) {
         requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frag_container, SingleProductDescriptionFragment(listOfProducts[position].pid))
+            replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(listOfProducts[position].pid))
             addToBackStack(backStackName)
             commit()
         }

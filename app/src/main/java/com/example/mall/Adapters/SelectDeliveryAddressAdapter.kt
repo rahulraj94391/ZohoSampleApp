@@ -15,7 +15,7 @@ class SelectDeliveryAddressAdapter(
 ) : RecyclerView.Adapter<SelectDeliveryAddressAdapter.AddressViewHolder>() {
     inner class AddressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
-            itemView.setOnClickListener() {
+            itemView.setOnClickListener {
                 listener.selectedNewAddress(adapterPosition)
             }
         }

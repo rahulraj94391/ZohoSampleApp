@@ -85,7 +85,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
 
     private fun proceedToCheckoutPage() {
         requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frag_container, CheckoutDescriptionFragment(uid, cartItemList), "paymentSuccessful")
+            replace(R.id.frag_container, CheckoutDescriptionFragment.newInstance(uid, cartItemList), "paymentSuccessful")
             addToBackStack(backStackName)
             commit()
         }
@@ -166,7 +166,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
 
     override fun onItemClicked(position: Int) {
         requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frag_container, SingleProductDescriptionFragment(cartItemList[position].pid))
+            replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(cartItemList[position].pid))
             addToBackStack(backStackName)
             commit()
         }
