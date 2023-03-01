@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,18 +13,25 @@ import com.example.mall.*
 import com.example.mall.Adapters.MyOrdersAdapter
 import com.example.mall.Interface.OnClickListener
 import com.example.mall.ModelClass.OrdersModel
+import kotlin.properties.Delegates
 
 class MyOrdersFragment : Fragment(), OnClickListener {
-    private lateinit var rvOrdersList: RecyclerView
-    private lateinit var db: DB
     private lateinit var ordersList: MutableList<OrdersModel>
-    private var uid = -1
+    private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var rvOrdersList: RecyclerView
     private lateinit var adapter: MyOrdersAdapter
+    private lateinit var db: DB
+    private var uid: Int by Delegates.notNull()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+        uid = sharedViewModel.uid.value!!
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).toolbar.title = "My Orders"
+        (activity as MainActivity).toolbar.title = ToolbarTitle.MY_ORDERS
         db = DB(requireContext())
-        uid = requireContext().getSharedPreferences(MSharedPreferences.NAME, AppCompatActivity.MODE_PRIVATE).getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
         return inflater.inflate(R.layout.fragment_my_orders, container, false)
     }
 

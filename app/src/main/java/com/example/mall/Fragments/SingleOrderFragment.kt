@@ -18,7 +18,7 @@ import kotlin.properties.Delegates
 private const val ARG_ORDER_ID = "oid"
 
 
-class SingleOrderFragment() : Fragment() {
+class SingleOrderFragment : Fragment() {
     private var oid: Int by Delegates.notNull()
     private lateinit var tvOrderDate: TextView
     private lateinit var tvDeliveryDate: TextView

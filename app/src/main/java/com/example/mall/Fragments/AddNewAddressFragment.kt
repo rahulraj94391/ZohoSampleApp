@@ -7,31 +7,34 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.mall.DB
-import com.example.mall.MSharedPreferences
-import com.example.mall.MainActivity
+import androidx.lifecycle.ViewModelProvider
+import com.example.mall.*
 import com.example.mall.ModelClass.DeliveryAddressModel
-import com.example.mall.R
 import com.google.android.material.textfield.TextInputLayout
 import java.util.regex.Pattern
 
 private const val TAG = "Common_Tag_AddNewAddressFragment"
 
 class AddNewAddressFragment : Fragment() {
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var fullName: TextInputLayout
-    private lateinit var mobile: TextInputLayout
     private lateinit var pinCode: TextInputLayout
     private lateinit var address: TextInputLayout
+    private lateinit var mobile: TextInputLayout
     private lateinit var btnSaveAddress: Button
     private lateinit var db: DB
     private var uid: Int = -1
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).toolbar.title = "Add new address"
-        uid = requireContext().getSharedPreferences(MSharedPreferences.NAME, AppCompatActivity.MODE_PRIVATE).getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
+        (activity as MainActivity).toolbar.title = ToolbarTitle.ADD_NEW_ADDRESS
+        uid = sharedViewModel.uid.value!!
         db = DB(requireContext())
         return inflater.inflate(R.layout.fragment_add_new_address, container, false)
     }
@@ -43,11 +46,7 @@ class AddNewAddressFragment : Fragment() {
         pinCode = view.findViewById(R.id.til_pin_code)
         address = view.findViewById(R.id.til_address)
         btnSaveAddress = view.findViewById(R.id.btn_save_new_address)
-
-        btnSaveAddress.setOnClickListener() {
-            confirmInputs()
-        }
-
+        btnSaveAddress.setOnClickListener { confirmInputs() }
     }
 
     private fun confirmInputs() {
@@ -61,7 +60,6 @@ class AddNewAddressFragment : Fragment() {
             val address = address.editText!!.text.toString().trim()
             val newAddress = DeliveryAddressModel(-1, name, mobile, pinCode, address)
             val success = db.addNewAddress(uid, newAddress)
-            Log.d(TAG, "address inserted = $success")
             Toast.makeText(requireContext(), "New address saved.", Toast.LENGTH_SHORT).show()
             requireActivity().supportFragmentManager.popBackStack()
         }
@@ -98,7 +96,7 @@ class AddNewAddressFragment : Fragment() {
 
     private fun validatePINCode(): Boolean {
         val pin: String = pinCode.editText!!.text.toString().trim()
-        val regex: String = "^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$"
+        val regex = "^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$"
         val pattern = Pattern.compile(regex)
         val matcher = pattern.matcher(pin)
         return if (!matcher.matches()) {

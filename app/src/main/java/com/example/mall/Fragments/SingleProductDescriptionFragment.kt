@@ -2,7 +2,6 @@ package com.example.mall.Fragments
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,25 +19,21 @@ import me.relex.circleindicator.CircleIndicator3
 import kotlin.properties.Delegates
 
 private const val TAG = "Common_Tag_SingleProductDescriptionFragment"
-
-
 private const val ARG_PID = "pid"
 
-class SingleProductDescriptionFragment(
-
-) : Fragment() {
-    private var pid: Int by Delegates.notNull()
-    private lateinit var productImages: ViewPager2
-    private lateinit var productName: TextView
-    private lateinit var productPrice: TextView
+class SingleProductDescriptionFragment : Fragment() {
     private lateinit var quantityBtn: MaterialButtonToggleGroup
-    private lateinit var highlights: TextView
+    private lateinit var indicator: CircleIndicator3
+    private lateinit var productImages: ViewPager2
     private lateinit var stockIndicator: TextView
+    private lateinit var productPrice: TextView
+    private var pid: Int by Delegates.notNull()
+    private lateinit var productName: TextView
+    private lateinit var highlights: TextView
     private lateinit var btnStart: Button
     private lateinit var btnEnd: Button
     private lateinit var db: DB
     private var uid: Int = -1
-    private lateinit var indicator: CircleIndicator3
 
     companion object {
         fun newInstance(pid: Int) =
@@ -84,18 +79,18 @@ class SingleProductDescriptionFragment(
         btnEnd = view.findViewById(R.id.btn_at_end)
         quantityBtn = view.findViewById(R.id.select_qty_segmented)
 
-        // get the product details from DB using pid, store in model_class
+
         val prodDetails: ProdDescPageModel = db.singleProdDesc(pid)
         val stock = prodDetails.stock
         setupStartBtn()
         setupEndBtn(stock)
-        var specs: String = "" // get the specs from model_class
+        var specs= "" // get the specs from model_class
         for ((k, v) in prodDetails.specs) {
             specs += "$k -> $v\n"
         }
 
         if (stock > 5) {
-            stockIndicator.text = "In Stock"
+            stockIndicator.text = getString(R.string.in_stock)
             stockIndicator.setTextColor(Color.parseColor("#0A9900"))
         }
         else if (stock in 1..5) {
@@ -103,12 +98,12 @@ class SingleProductDescriptionFragment(
             stockIndicator.setTextColor(Color.parseColor("#CD9B00"))
         }
         else if (stock == 0) {
-            stockIndicator.text = "Out of Stock"
+            stockIndicator.text = getString(R.string.out_of_stock)
             stockIndicator.setTextColor(Color.parseColor("#990000"))
         }
 
         productName.text = prodDetails.name
-        productPrice.text = prodDetails.price.toString()
+        productPrice.text = String().rupeeString(prodDetails.price)
         highlights.text = specs
         productImages = view.findViewById(R.id.vp_prod_desc_images)
         productImages.adapter = ProductDescriptionImagesAdapter(prodDetails.imagesURL)
@@ -120,7 +115,7 @@ class SingleProductDescriptionFragment(
     private fun setupEndBtn(stock: Int) {
         if (stock == 0) {
             btnEnd.isEnabled = false
-            btnEnd.text = "Out of Stock"
+            btnEnd.text = getString(R.string.out_of_stock)
             return
         }
 
@@ -137,9 +132,8 @@ class SingleProductDescriptionFragment(
         val addToCartAction = View.OnClickListener {
             val quantity = getSelectedQuantity(quantityBtn.checkedButtonId)
             if (quantity != -1 && quantity <= stock) {
-                val success = db.addItemToCart(uid, pid, quantity)
-                Log.d(TAG, "item added to cart, success = $success")
-                btnEnd.text = "Go to Cart"
+                db.addItemToCart(uid, pid, quantity)
+                btnEnd.text = getString(R.string.go_to_cart)
                 btnEnd.setOnClickListener(goToCartAction)
             }
             else if (quantity != -1 && quantity > stock) {
@@ -148,11 +142,11 @@ class SingleProductDescriptionFragment(
         }
 
         if (db.isItemInCart(uid, pid)) {
-            btnEnd.text = "Go to Cart"
+            btnEnd.text = getString(R.string.go_to_cart)
             btnEnd.setOnClickListener(goToCartAction)
         }
         else {
-            btnEnd.text = "Add to Cart"
+            btnEnd.text = getString(R.string.add_to_cart)
             btnEnd.setOnClickListener(addToCartAction)
         }
 
@@ -169,16 +163,16 @@ class SingleProductDescriptionFragment(
 
         val addToWishlistAction = View.OnClickListener {
             db.addItemToWishlist(uid, pid)
-            btnStart.text = "Go to Wishlist"
+            btnStart.text = getString(R.string.go_to_wishlist)
             btnStart.setOnClickListener(goToWishlistAction)
         }
 
         if (db.isItemInWishlist(uid, pid)) {
-            btnStart.text = "Go to Wishlist"
+            btnStart.text = getString(R.string.go_to_wishlist)
             btnStart.setOnClickListener(goToWishlistAction)
         }
         else {
-            btnStart.text = "Add in Wishlist"
+            btnStart.text = getString(R.string.add_in_wishlist)
             btnStart.setOnClickListener(addToWishlistAction)
         }
     }

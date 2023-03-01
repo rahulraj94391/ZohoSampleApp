@@ -10,8 +10,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,10 +39,16 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     private lateinit var builder: AlertDialog.Builder
     private lateinit var db: DB
     private var uid: Int = -1
+    private lateinit var sharedViewModel: SharedViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         (activity as MainActivity).bottomNavigationView.menu.getItem(3).isChecked = true
-        (activity as MainActivity).toolbar.title = "Cart"
+        (activity as MainActivity).toolbar.title = ToolbarTitle.CART
         return inflater.inflate(R.layout.fragment_cart, container, false)
     }
 
@@ -54,17 +60,11 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         btnPlaceOrder = view.findViewById(R.id.btn_place_order)
         bottomCartLinearLayout = view.findViewById(R.id.bottom_cart_linear_layout)
         tvCartEmpty = view.findViewById(R.id.tv_cart_empty)
-
-        uid = requireContext().getSharedPreferences(MSharedPreferences.NAME, AppCompatActivity.MODE_PRIVATE).getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
+        uid = sharedViewModel.uid.value!!
         db = DB(requireContext())
-
         cartItemList = db.getCartItems(uid)
-
         cartStatus()
-
         cartTotal = calculateCartTotal()
-
-
         rvCartList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         cartItemsAdapter = CartItemsAdapter(cartItemList, this@CartFragment)
         rvCartList.adapter = cartItemsAdapter
@@ -85,7 +85,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
 
     private fun proceedToCheckoutPage() {
         requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frag_container, CheckoutDescriptionFragment.newInstance(uid, cartItemList), "paymentSuccessful")
+            replace(R.id.frag_container, CheckoutDescriptionFragment.newInstance(cartItemList), "paymentSuccessful")
             addToBackStack(backStackName)
             commit()
         }
@@ -173,29 +173,23 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     }
 
     override fun changeQtyBtn(plus: Button, position: Int, minus: Button) {
-        if (cartItemList[position].quantity == 1) {
-            minus.isEnabled = false
-            /*if(cartItemList[position].quantity == db.checkProductStock(cartItemList[position].pid)){
-                plus.isEnabled = false
-            }*/
+        when (cartItemList[position].quantity) {
+            1 -> minus.isEnabled = false
+            4 -> plus.isEnabled = false
+            else -> {
+                minus.isEnabled = true
+                plus.isEnabled = true
+            }
         }
-        else if (cartItemList[position].quantity == 4 /*|| cartItemList[position].quantity >= db.checkProductStock(cartItemList[position].pid)*/) {
-            plus.isEnabled = false
-        }
-        else {
-            minus.isEnabled = true
-            plus.isEnabled = true
-        }
+
         if (cartItemList[position].quantity == db.checkProductStock(cartItemList[position].pid)) {
             plus.isEnabled = false
         }
-
     }
 
     override fun onQuantityIncrease(plus: Button, position: Int, minus: Button) {
         cartItemList[position].quantity++
         db.incrementItemQuantityInCart(uid, cartItemList[position].pid)
-
         changeQtyBtn(plus, position, minus)
         cartTotal = calculateCartTotal()
         cartItemsAdapter.notifyItemChanged(position)
@@ -204,7 +198,6 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     override fun onQuantityDecrease(minus: Button, position: Int, plus: Button) {
         cartItemList[position].quantity--
         db.decrementItemQuantityInCart(uid, cartItemList[position].pid)
-
         changeQtyBtn(plus, position, minus)
         cartTotal = calculateCartTotal()
         cartItemsAdapter.notifyItemChanged(position)

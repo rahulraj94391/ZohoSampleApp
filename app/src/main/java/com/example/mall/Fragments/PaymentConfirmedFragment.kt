@@ -16,9 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 private const val TAG = "Common_Tag_PaymentConfirmedFragment"
-
 private const val ARG_PAYMENT_TYPE = "paymentType"
-
 
 class PaymentConfirmedFragment : Fragment() {
     private lateinit var progressBar: LinearProgressIndicator

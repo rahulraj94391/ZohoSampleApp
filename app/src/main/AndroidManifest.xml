@@ -14,11 +14,6 @@
         android:theme="@style/Theme.Mall"
         tools:targetApi="31">
         <activity
-            android:name=".OrderActivity"
-            android:exported="false"
-            android:label="@string/title_activity_order"
-            android:theme="@style/Theme.Mall.NoActionBar" />
-        <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>

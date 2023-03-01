@@ -16,11 +16,9 @@ import com.example.mall.ModelClass.CartItemModel
 import com.example.mall.ModelClass.DeliveryAddressModel
 import com.example.mall.ModelClass.PriceDetailsModel
 
-//private const val TAG = "Common_Tag_CheckoutDescriptionFrag"
-private const val TAG = "Common_Tag_Check"
+private const val TAG = "Common_Tag_CheckoutDescriptionFrag"
 
-private const val ARG_UID = "uid"
-private const val ARG_CARTLIST = "cartList"
+private const val ARG_CART_LIST = "cartList"
 
 class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
     private lateinit var rvCheckout: RecyclerView
@@ -28,38 +26,38 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
     private lateinit var addresses: ArrayList<DeliveryAddressModel>
     private var addressIdx: Int = 0
     private lateinit var sharedViewModel: SharedViewModel
-    private var uid: Int? = null
+    private var uid: Int = -1
     private lateinit var cartList: ArrayList<CartItemModel>
 
+
     companion object {
-        fun newInstance(uid: Int, cartList: ArrayList<CartItemModel>) =
+        fun newInstance(cartList: ArrayList<CartItemModel>) =
             CheckoutDescriptionFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(ARG_UID, uid)
-                    putParcelableArrayList(ARG_CARTLIST, cartList)
+                    putParcelableArrayList(ARG_CART_LIST, cartList)
                 }
             }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+        uid = sharedViewModel.uid.value!!
+        addressIdx = sharedViewModel.addressId.value!!
         arguments?.let {
-            uid = it.getInt(ARG_UID)
-            cartList = it.getParcelableArrayList(ARG_CARTLIST)!!
+            cartList = it.getParcelableArrayList(ARG_CART_LIST)!!
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).toolbar.title = "Checkout"
-        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        addressIdx = sharedViewModel.addressId.value!!
+        (activity as MainActivity).toolbar.title = ToolbarTitle.CHECKOUT
         return inflater.inflate(R.layout.fragment_checkout_description, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvCheckout = view.findViewById(R.id.rv_checkout)
-        addresses = DB(requireContext()).getAddresses(uid!!)
+        addresses = DB(requireContext()).getAddresses(uid)
         adapter = OrderActivityAdapter(cartList, getCheckoutDetails(), addresses[addressIdx], this@CheckoutDescriptionFragment)
         rvCheckout.adapter = adapter
         rvCheckout.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -67,10 +65,9 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
 
 
     private fun getCheckoutDetails(): PriceDetailsModel {
-        var totalItemNumber: Int = 0
+        var totalItemNumber = 0
         var priceBeforeDiscount = 0
-        var discount: Int = 0
-        var totalPriceToPay: Int = 0
+        val totalPriceToPay: Int
         for (item in cartList) {
             totalItemNumber += item.quantity
             val itemPrice = item.price
@@ -79,7 +76,7 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
 
         }
 //        discount = (priceBeforeDiscount * 0.02).toInt()
-        discount = 0
+        val discount = 0
         totalPriceToPay = priceBeforeDiscount - discount
         return PriceDetailsModel(totalItemNumber, priceBeforeDiscount, discount, totalPriceToPay)
     }
@@ -100,7 +97,7 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
             R.id.rb_payment_EMI -> PaymentType.EMI
             else -> throw java.lang.Exception("Undefined Payment Method Selected")
         }
-        DB(requireContext()).confirmOrdersOnPayment(uid!!, addresses[addressIdx].addressId, payment)
+        DB(requireContext()).confirmOrdersOnPayment(uid, addresses[addressIdx].addressId, payment)
         requireActivity().supportFragmentManager.beginTransaction().apply {
             replace(R.id.frag_container, PaymentConfirmedFragment.newInstance(payment))
             addToBackStack(backStackName)

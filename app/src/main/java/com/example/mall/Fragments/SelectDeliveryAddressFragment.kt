@@ -14,14 +14,16 @@ import com.example.mall.MainActivity
 import com.example.mall.ModelClass.DeliveryAddressModel
 import com.example.mall.R
 import com.example.mall.SharedViewModel
+import com.example.mall.ToolbarTitle
 
+private const val TAG = "Common_Tag_SDAF"
 private const val ARG_ADDRESSES = "addresses"
 
 class SelectDeliveryAddressFragment : Fragment(), OnNewAddressSelected {
     private lateinit var addresses: ArrayList<DeliveryAddressModel>
-    private lateinit var sharedViewModel: SharedViewModel
-    private lateinit var newDeliveryAddress: RecyclerView
     private lateinit var adapter: SelectDeliveryAddressAdapter
+    private lateinit var newDeliveryAddress: RecyclerView
+    private lateinit var sharedViewModel: SharedViewModel
 
     companion object {
         fun newInstance(addresses: ArrayList<DeliveryAddressModel>) =
@@ -38,11 +40,10 @@ class SelectDeliveryAddressFragment : Fragment(), OnNewAddressSelected {
             addresses = it.getParcelableArrayList(ARG_ADDRESSES)!!
         }
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).toolbar.title = "Select another address"
+        (activity as MainActivity).toolbar.title = ToolbarTitle.SELECT_ANOTHER_ADDRESS
         return inflater.inflate(R.layout.fragment_select_delivery_address, container, false)
     }
 
@@ -55,7 +56,6 @@ class SelectDeliveryAddressFragment : Fragment(), OnNewAddressSelected {
     }
 
     override fun selectedNewAddress(position: Int) {
-        // shared view model me new address Id set kar de
         sharedViewModel.addressId.value = position
         activity?.supportFragmentManager?.popBackStack()
     }

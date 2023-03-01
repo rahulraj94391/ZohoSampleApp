@@ -6,17 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mall.*
 import com.example.mall.Adapters.AllCategoriesAdapter
-import com.example.mall.DB
 import com.example.mall.Enum.Category
 import com.example.mall.Interface.OnCategoryClickListener
-import com.example.mall.MainActivity
 import com.example.mall.ModelClass.AllCategoryModel
 import com.example.mall.ModelClass.ProductListModel
-import com.example.mall.R
-import com.example.mall.backStackName
 
 private const val TAG = "Common_Tag_CategoryFragment"
 
@@ -26,7 +24,7 @@ class CategoriesFragment : Fragment(), OnCategoryClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         (activity as MainActivity).bottomNavigationView.menu.getItem(1).isChecked = true
-        (activity as MainActivity).toolbar.title = "All Categories"
+        (activity as MainActivity).toolbar.title = ToolbarTitle.ALL_CATEGORIES
         categoriesList = getCategories()
         return inflater.inflate(R.layout.fragment_category, container, false)
     }
@@ -40,7 +38,6 @@ class CategoriesFragment : Fragment(), OnCategoryClickListener {
 
     override fun onItemClick(category: Category) {
         val listOfProducts: ArrayList<ProductListModel> = DB(requireContext()).queryProductsBasedOnCategory(category)
-        Log.d(TAG, "listOfProducts.size ${listOfProducts.size}")
         val fragment = if (listOfProducts.size > 0) ProductsListViewFragment.newInstance(listOfProducts) else ProductNotAvailable()
         requireActivity().supportFragmentManager.beginTransaction().apply {
             replace(R.id.frag_container, fragment)

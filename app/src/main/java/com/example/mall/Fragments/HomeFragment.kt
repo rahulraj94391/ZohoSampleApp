@@ -22,13 +22,13 @@ private const val TAG = "Common_Tag_RANDOM"
 
 
 class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
-    lateinit var rvHome: RecyclerView
+    private lateinit var rvHome: RecyclerView
     lateinit var adapter: HomeAdapter
     lateinit var db: DB
     private var uid: Int = -1
-    lateinit var backInStock: MutableList<ItemImgNamePriceModel>
-    lateinit var topSelling: MutableList<ItemImgNamePriceModel>
-    lateinit var homeOffersAdapter: HomeOffersAdapter
+    private lateinit var backInStock: MutableList<ItemImgNamePriceModel>
+    private lateinit var topSelling: MutableList<ItemImgNamePriceModel>
+    private lateinit var homeOffersAdapter: HomeOffersAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,15 +39,15 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
         val prodIds = mutableSetOf<Int>()
         while (prodIds.size <= 7) prodIds.add((1..prodInInventory).random())
 
-        val x = prodIds.chunked(4)
+        val splitSet = prodIds.chunked(4)
 
-        backInStock = db.randomFourProducts(x[0])
-        topSelling = db.randomFourProducts(x[1])
+        backInStock = db.randomFourProducts(splitSet[0])
+        topSelling = db.randomFourProducts(splitSet[1])
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         (activity as MainActivity).bottomNavigationView.menu.getItem(0).isChecked = true
-        (activity as MainActivity).toolbar.title = "Shopie"
+        (activity as MainActivity).toolbar.title = ToolbarTitle.HOME
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -64,7 +64,7 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
                 searchView.queryHint = "Search product to buy ..."
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
-                        var set: MutableSet<ProductListModel> = db.searchViewResult(query)
+                        val set: MutableSet<ProductListModel> = db.searchViewResult(query)
                         val prodList: ArrayList<ProductListModel> = arrayListOf()
                         prodList.addAll(set)
 

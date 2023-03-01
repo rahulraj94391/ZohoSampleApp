@@ -52,7 +52,13 @@
         <item>3</item>
         <item>4</item>
     </string-array>
-    <string name="title_activity_order">OrderActivity</string>
+
+    <string name="out_of_stock">Out of Stock</string>
+    <string name="go_to_cart">Go to Cart</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="go_to_wishlist">Go to Wishlist</string>
+    <string name="add_in_wishlist">Add in Wishlist</string>
+    <string name="in_stock">In Stock</string>
 
 
 </resources>
