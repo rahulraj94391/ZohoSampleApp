@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.Interface.WishlistItemClickListener
 import com.example.mall.ModelClass.ItemImgNamePriceModel
 import com.example.mall.R
+import com.example.mall.rupeeString
 import com.squareup.picasso.Picasso
 
 class WishlistAdapter(
@@ -20,18 +21,19 @@ class WishlistAdapter(
     inner class WishlistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         init {
-            itemView.setOnClickListener(){
+            itemView.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
                     listener.onItemClicked(adapterPosition)
                 }
             }
 
-            itemView.findViewById<Button>(R.id.btn_wishlist_remove_top).setOnClickListener(){
+            itemView.findViewById<Button>(R.id.btn_wishlist_remove_top).setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
                     listener.onTopBtnClicked(adapterPosition)
                 }
             }
         }
+
         var img: ImageView = itemView.findViewById(R.id.iv_wishlist_prod_img)
         var prodName: TextView = itemView.findViewById(R.id.tv_wishlist_product_name)
         var prodPrice: TextView = itemView.findViewById(R.id.tv_wishlist_product_price)
@@ -54,6 +56,6 @@ class WishlistAdapter(
             .into(holder.img)
 
         holder.prodName.text = wishlistItems[position].prodName
-        holder.prodPrice.text = "₹ ${wishlistItems[position].prodPrice}"
+        holder.prodPrice.text = String().rupeeString(wishlistItems[position].prodPrice)
     }
 }

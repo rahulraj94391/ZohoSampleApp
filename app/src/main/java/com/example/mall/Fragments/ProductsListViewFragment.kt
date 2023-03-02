@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -50,6 +51,7 @@ class ProductsListViewFragment() : Fragment(), OnClickListener {
 
     override fun onItemClicked(position: Int) {
         requireActivity().supportFragmentManager.beginTransaction().apply {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(listOfProducts[position].pid))
             addToBackStack(backStackName)
             commit()

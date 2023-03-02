@@ -84,7 +84,7 @@ class SingleProductDescriptionFragment : Fragment() {
         val stock = prodDetails.stock
         setupStartBtn()
         setupEndBtn(stock)
-        var specs= "" // get the specs from model_class
+        var specs = "" // get the specs from model_class
         for ((k, v) in prodDetails.specs) {
             specs += "$k -> $v\n"
         }
@@ -122,11 +122,16 @@ class SingleProductDescriptionFragment : Fragment() {
         val goToCartAction = View.OnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().apply {
                 (activity as MainActivity).bottomNavigationView.menu.getItem(3).isChecked = true
+                setCustomAnimations(
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_left,
+                    R.anim.enter_from_left,
+                    R.anim.exit_to_right
+                )
                 replace(R.id.frag_container, CartFragment())
                 addToBackStack(backStackName)
                 commit()
             }
-
         }
 
         val addToCartAction = View.OnClickListener {
@@ -155,6 +160,12 @@ class SingleProductDescriptionFragment : Fragment() {
     private fun setupStartBtn() {
         val goToWishlistAction = View.OnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().apply {
+                setCustomAnimations(
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_left,
+                    R.anim.enter_from_left,
+                    R.anim.exit_to_right
+                )
                 replace(R.id.frag_container, MyWishlistFragment())
                 addToBackStack(backStackName)
                 commit()

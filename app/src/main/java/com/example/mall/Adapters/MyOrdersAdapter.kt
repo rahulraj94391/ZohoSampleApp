@@ -21,7 +21,7 @@ class MyOrdersAdapter(
         var deliveryStatus: TextView = itemView.findViewById(R.id.tv_my_order_delivery_status)
 
         init {
-            itemView.setOnClickListener() {
+            itemView.setOnClickListener {
                 mClickListener.onItemClicked(adapterPosition)
             }
         }

@@ -41,7 +41,7 @@ class HomeAdapter(
     }
 
     inner class SingleOfferViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val image: ImageView = itemView.findViewById(R.id.home_single_offer_1)
+        private val image: ImageView = itemView.findViewById(R.id.home_single_offer_1)
 
         init {
             image.setOnClickListener { listener.singleOfferBannerClicked() }
@@ -49,22 +49,22 @@ class HomeAdapter(
     }
 
     inner class BackInStockViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val card1: MaterialCardView = itemView.findViewById(R.id.back_in_stock_1)
+        private val card1: MaterialCardView = itemView.findViewById(R.id.back_in_stock_1)
         val img1: ImageView = card1.findViewById(R.id.iv_wishlist_prod_img)
         val prodName1: TextView = card1.findViewById(R.id.tv_wishlist_product_name)
         val prodPrice1: TextView = card1.findViewById(R.id.tv_wishlist_product_price)
 
-        val card2: MaterialCardView = itemView.findViewById(R.id.back_in_stock_2)
+        private val card2: MaterialCardView = itemView.findViewById(R.id.back_in_stock_2)
         val img2: ImageView = card2.findViewById(R.id.iv_wishlist_prod_img)
         val prodName2: TextView = card2.findViewById(R.id.tv_wishlist_product_name)
         val prodPrice2: TextView = card2.findViewById(R.id.tv_wishlist_product_price)
 
-        val card3: MaterialCardView = itemView.findViewById(R.id.back_in_stock_3)
+        private val card3: MaterialCardView = itemView.findViewById(R.id.back_in_stock_3)
         val img3: ImageView = card3.findViewById(R.id.iv_wishlist_prod_img)
         val prodName3: TextView = card3.findViewById(R.id.tv_wishlist_product_name)
         val prodPrice3: TextView = card3.findViewById(R.id.tv_wishlist_product_price)
 
-        val card4: MaterialCardView = itemView.findViewById(R.id.back_in_stock_4)
+        private val card4: MaterialCardView = itemView.findViewById(R.id.back_in_stock_4)
         val img4: ImageView = card4.findViewById(R.id.iv_wishlist_prod_img)
         val prodName4: TextView = card4.findViewById(R.id.tv_wishlist_product_name)
         val prodPrice4: TextView = card4.findViewById(R.id.tv_wishlist_product_price)
@@ -78,22 +78,22 @@ class HomeAdapter(
     }
 
     inner class TopSellingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val card1: MaterialCardView = itemView.findViewById(R.id.top_selling_1)
+        private val card1: MaterialCardView = itemView.findViewById(R.id.top_selling_1)
         val img1: ImageView = card1.findViewById(R.id.iv_wishlist_prod_img)
         val prodName1: TextView = card1.findViewById(R.id.tv_wishlist_product_name)
         val prodPrice1: TextView = card1.findViewById(R.id.tv_wishlist_product_price)
 
-        val card2: MaterialCardView = itemView.findViewById(R.id.top_selling_2)
+        private val card2: MaterialCardView = itemView.findViewById(R.id.top_selling_2)
         val img2: ImageView = card2.findViewById(R.id.iv_wishlist_prod_img)
         val prodName2: TextView = card2.findViewById(R.id.tv_wishlist_product_name)
         val prodPrice2: TextView = card2.findViewById(R.id.tv_wishlist_product_price)
 
-        val card3: MaterialCardView = itemView.findViewById(R.id.top_selling_3)
+        private val card3: MaterialCardView = itemView.findViewById(R.id.top_selling_3)
         val img3: ImageView = card3.findViewById(R.id.iv_wishlist_prod_img)
         val prodName3: TextView = card3.findViewById(R.id.tv_wishlist_product_name)
         val prodPrice3: TextView = card3.findViewById(R.id.tv_wishlist_product_price)
 
-        val card4: MaterialCardView = itemView.findViewById(R.id.top_selling_4)
+        private val card4: MaterialCardView = itemView.findViewById(R.id.top_selling_4)
         val img4: ImageView = card4.findViewById(R.id.iv_wishlist_prod_img)
         val prodName4: TextView = card4.findViewById(R.id.tv_wishlist_product_name)
         val prodPrice4: TextView = card4.findViewById(R.id.tv_wishlist_product_price)

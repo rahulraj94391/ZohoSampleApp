@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.*
@@ -37,7 +38,11 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
         uid = requireContext().getSharedPreferences(MSharedPreferences.NAME, AppCompatActivity.MODE_PRIVATE).getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
         val prodInInventory = db.itemsInInventory()
         val prodIds = mutableSetOf<Int>()
-        while (prodIds.size <= 7) prodIds.add((1..prodInInventory).random())
+        while (prodIds.size <= 7) {
+            val pid = (1..prodInInventory).random()
+            if (db.checkProductStock(pid) > 0)
+                prodIds.add(pid)
+        }
 
         val splitSet = prodIds.chunked(4)
 
@@ -46,8 +51,11 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).bottomNavigationView.menu.getItem(0).isChecked = true
-        (activity as MainActivity).toolbar.title = ToolbarTitle.HOME
+        (activity as MainActivity).apply {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            bottomNavigationView.menu.getItem(0).isChecked = true
+            toolbar.title = ToolbarTitle.HOME
+        }
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -56,19 +64,17 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
         val mMenuProvider = object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.toolbar_menu_home_frag, menu)
-
-
                 val searchFun = menu.findItem(R.id.search_view)
                 val searchView: SearchView = searchFun.actionView as SearchView
-
                 searchView.queryHint = "Search product to buy ..."
                 searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(query: String?): Boolean {
-                        val set: MutableSet<ProductListModel> = db.searchViewResult(query)
+                        val set: MutableSet<ProductListModel> = db.searchViewResult(query?.trim())
                         val prodList: ArrayList<ProductListModel> = arrayListOf()
                         prodList.addAll(set)
 
                         requireActivity().supportFragmentManager.beginTransaction().apply {
+                            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                             replace(R.id.frag_container, ProductsListViewFragment.newInstance(prodList), "SearchView")
                             addToBackStack(backStackName)
                             commit()
@@ -84,8 +90,7 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
-                    R.id.search_view ->
-                        return true
+                    R.id.search_view -> return true
                 }
                 return false
             }
@@ -108,14 +113,27 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
 
     override fun singleOfferBannerClicked() {
         requireActivity().supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_left,
+                R.anim.enter_from_left,
+                R.anim.exit_to_right
+            )
             replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(17))
             addToBackStack(backStackName)
             commit()
         }
     }
 
+
     override fun topSellingCardClicked(index: Int) {
         requireActivity().supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_left,
+                R.anim.enter_from_left,
+                R.anim.exit_to_right
+            )
             replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(topSelling[index].pid))
             addToBackStack(backStackName)
             commit()
@@ -124,6 +142,12 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
 
     override fun backInStockCardClicked(index: Int) {
         requireActivity().supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_left,
+                R.anim.enter_from_left,
+                R.anim.exit_to_right
+            )
             replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(backInStock[index].pid))
             addToBackStack(backStackName)
             commit()
@@ -138,9 +162,23 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
         }
 
         requireActivity().supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_left,
+                R.anim.enter_from_left,
+                R.anim.exit_to_right
+            )
             replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(pid))
             addToBackStack(backStackName)
             commit()
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as MainActivity).apply {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
+    }
+
 }

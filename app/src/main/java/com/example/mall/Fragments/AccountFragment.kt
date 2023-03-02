@@ -5,7 +5,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -14,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.example.mall.*
 import com.example.mall.ModelClass.UserDetailsModel
@@ -46,15 +46,15 @@ class AccountFragment : Fragment() {
         uid = sharedViewModel.uid.value!!
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        (activity as MainActivity).bottomNavigationView.menu.getItem(2).isChecked = true
-        (activity as MainActivity).toolbar.title = ToolbarTitle.ACCOUNT
+        (activity as MainActivity).apply {
+            bottomNavigationView.menu.getItem(2).isChecked = true
+            toolbar.title = ToolbarTitle.ACCOUNT
+        }
         return inflater.inflate(R.layout.fragment_account, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         val mMenuProvider = object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.toolbar_menu_account_frag, menu)
@@ -81,34 +81,43 @@ class AccountFragment : Fragment() {
         llMyWishlist = view.findViewById(R.id.ll_account_my_wishlist)
         llAddress = view.findViewById(R.id.ll_account_address)
         llContactUs = view.findViewById(R.id.ll_account_contact_us)
-
-
         getProfileDetails()
-
-        llMyOrder.setOnClickListener { myOrderAction() }
-        llMyWishlist.setOnClickListener { myWishlistAction() }
-        llAddress.setOnClickListener { addressAction() }
-        llContactUs.setOnClickListener { contactUsAction() }
+        llMyOrder.setOnClickListener { openMyOrders() }
+        llMyWishlist.setOnClickListener { openMyWishlist() }
+        llAddress.setOnClickListener { openSavedAddresses() }
+        llContactUs.setOnClickListener { openContactUs() }
     }
 
-    private fun addressAction() {
+    private fun openSavedAddresses() {
         requireActivity().supportFragmentManager.beginTransaction().apply {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             replace(R.id.frag_container, AddressFragment(), "AddressFragment")
             addToBackStack(backStackName)
             commit()
         }
     }
 
-    private fun myOrderAction() {
+    private fun openContactUs() {
         requireActivity().supportFragmentManager.beginTransaction().apply {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            replace(R.id.frag_container, ContactUsFragment(), "ContactUsFragment")
+            addToBackStack(backStackName)
+            commit()
+        }
+    }
+
+    private fun openMyOrders() {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             replace(R.id.frag_container, MyOrdersFragment(), "MyOrdersFragment")
             addToBackStack(backStackName)
             commit()
         }
     }
 
-    private fun myWishlistAction() {
+    private fun openMyWishlist() {
         requireActivity().supportFragmentManager.beginTransaction().apply {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             replace(R.id.frag_container, MyWishlistFragment(), "MyWishlistFragment")
             addToBackStack(backStackName)
             commit()
@@ -124,8 +133,7 @@ class AccountFragment : Fragment() {
         }
 
         builder = AlertDialog.Builder(requireContext())
-        builder
-            .setMessage("Logout current user ?")
+        builder.setMessage("Logout current user ?")
             .setCancelable(false)
             .setPositiveButton("yes", positive)
             .setNegativeButton("no", negative)
@@ -159,13 +167,5 @@ class AccountFragment : Fragment() {
         }
         startActivity(Intent(activity, LoginPageActivity::class.java))
         requireActivity().finish()
-    }
-
-    private fun contactUsAction() {
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.frag_container, ContactUsFragment(), "ContactUsFragment")
-            addToBackStack(backStackName)
-            commit()
-        }
     }
 }

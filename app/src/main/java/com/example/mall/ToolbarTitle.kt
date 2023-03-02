@@ -12,5 +12,4 @@ object ToolbarTitle {
     const val MY_ORDERS = "My Orders"
     const val MY_WISHLIST = "My Wishlist"
     const val SELECT_ANOTHER_ADDRESS = "Select another address"
-
 }

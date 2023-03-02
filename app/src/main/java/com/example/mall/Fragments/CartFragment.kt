@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,8 +48,10 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).bottomNavigationView.menu.getItem(3).isChecked = true
-        (activity as MainActivity).toolbar.title = ToolbarTitle.CART
+        (activity as MainActivity).apply {
+            bottomNavigationView.menu.getItem(3).isChecked = true
+            toolbar.title = ToolbarTitle.CART
+        }
         return inflater.inflate(R.layout.fragment_cart, container, false)
     }
 
@@ -85,6 +88,12 @@ class CartFragment : Fragment(), OnCartItemClickListener {
 
     private fun proceedToCheckoutPage() {
         requireActivity().supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_left,
+                R.anim.enter_from_left,
+                R.anim.exit_to_right
+            )
             replace(R.id.frag_container, CheckoutDescriptionFragment.newInstance(cartItemList), "paymentSuccessful")
             addToBackStack(backStackName)
             commit()
@@ -166,6 +175,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
 
     override fun onItemClicked(position: Int) {
         requireActivity().supportFragmentManager.beginTransaction().apply {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(cartItemList[position].pid))
             addToBackStack(backStackName)
             commit()

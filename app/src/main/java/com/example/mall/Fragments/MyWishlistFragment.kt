@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -63,6 +64,8 @@ class MyWishlistFragment : Fragment(), WishlistItemClickListener {
 
     override fun onItemClicked(position: Int) {
         activity?.supportFragmentManager?.beginTransaction()?.apply {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+
             replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(listOfProducts[position].pid))
             addToBackStack(backStackName)
             commit()

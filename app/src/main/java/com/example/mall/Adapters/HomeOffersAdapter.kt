@@ -17,7 +17,7 @@ class HomeOffersAdapter(
         val offerImagePlaceHolder: ImageView = itemView.findViewById(R.id.ivImage)
 
         init {
-            offerImagePlaceHolder.setOnClickListener() {
+            offerImagePlaceHolder.setOnClickListener {
                 listener.onItemClicked(adapterPosition)
             }
         }

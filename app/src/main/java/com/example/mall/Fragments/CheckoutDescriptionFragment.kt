@@ -1,10 +1,12 @@
 package com.example.mall.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,8 +18,7 @@ import com.example.mall.ModelClass.CartItemModel
 import com.example.mall.ModelClass.DeliveryAddressModel
 import com.example.mall.ModelClass.PriceDetailsModel
 
-private const val TAG = "Common_Tag_CheckoutDescriptionFrag"
-
+private const val TAG = "Common_Tag_CheckoutDescFrag"
 private const val ARG_CART_LIST = "cartList"
 
 class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
@@ -40,10 +41,11 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d(TAG, "onCreate: called")
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         uid = sharedViewModel.uid.value!!
-        addressIdx = sharedViewModel.addressId.value!!
+
         arguments?.let {
             cartList = it.getParcelableArrayList(ARG_CART_LIST)!!
         }
@@ -51,6 +53,7 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         (activity as MainActivity).toolbar.title = ToolbarTitle.CHECKOUT
+        addressIdx = sharedViewModel.addressId.value!!
         return inflater.inflate(R.layout.fragment_checkout_description, container, false)
     }
 
@@ -75,14 +78,15 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
             priceBeforeDiscount += (itemPrice * itemQty)
 
         }
+        var discount = 0
 //        discount = (priceBeforeDiscount * 0.02).toInt()
-        val discount = 0
         totalPriceToPay = priceBeforeDiscount - discount
         return PriceDetailsModel(totalItemNumber, priceBeforeDiscount, discount, totalPriceToPay)
     }
 
     override fun changeDeliveryAddress() {
         activity?.supportFragmentManager?.beginTransaction()?.apply {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             replace(R.id.frag_container, SelectDeliveryAddressFragment.newInstance(addresses))
             addToBackStack(backStackName)
             commit()
@@ -99,10 +103,15 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
         }
         DB(requireContext()).confirmOrdersOnPayment(uid, addresses[addressIdx].addressId, payment)
         requireActivity().supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_left,
+                R.anim.enter_from_left,
+                R.anim.exit_to_right
+            )
             replace(R.id.frag_container, PaymentConfirmedFragment.newInstance(payment))
             addToBackStack(backStackName)
             commit()
         }
     }
-
 }

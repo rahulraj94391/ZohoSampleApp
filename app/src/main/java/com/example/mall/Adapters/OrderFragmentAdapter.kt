@@ -13,6 +13,7 @@ import com.example.mall.ModelClass.CartItemModel
 import com.example.mall.ModelClass.DeliveryAddressModel
 import com.example.mall.ModelClass.PriceDetailsModel
 import com.example.mall.R
+import com.example.mall.rupeeString
 import com.squareup.picasso.Picasso
 
 const val ADDRESS_ROW: Int = 0
@@ -31,7 +32,7 @@ class OrderActivityAdapter(
 
     inner class AddressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
-            itemView.findViewById<Button>(R.id.btn_change_delivery_address).setOnClickListener() {
+            itemView.findViewById<Button>(R.id.btn_change_delivery_address).setOnClickListener {
                 listener.changeDeliveryAddress()
             }
         }
@@ -50,7 +51,7 @@ class OrderActivityAdapter(
 
     inner class PaymentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
-            itemView.findViewById<Button>(R.id.btn_proceed_to_payment).setOnClickListener() {
+            itemView.findViewById<Button>(R.id.btn_proceed_to_payment).setOnClickListener {
                 listener.redirectToPaymentPortal(
                     itemView.findViewById<RadioGroup>(R.id.rg_payment_selector).checkedRadioButtonId
                 )
@@ -90,18 +91,18 @@ class OrderActivityAdapter(
 
             PRICE_DETAIL_ROW -> {
                 (holder as PriceDetailsViewHolder).apply {
-                    itemCount.text = "Price (" + checkoutPriceDetails.totalItemCount.toString() + " items)"
-                    priceBeforeDiscount.text = "₹ " + checkoutPriceDetails.priceBeforeDiscount.toString()
-                    discount.text = "₹ " + checkoutPriceDetails.discount.toString()
-                    finalTotalAmount.text = "₹ " + checkoutPriceDetails.totalPriceToPay.toString()
+                    itemCount.text = "Price (${checkoutPriceDetails.totalItemCount} items)"
+                    priceBeforeDiscount.text = String().rupeeString(checkoutPriceDetails.priceBeforeDiscount)
+                    discount.text = String().rupeeString(checkoutPriceDetails.discount)
+                    finalTotalAmount.text = String().rupeeString(checkoutPriceDetails.totalPriceToPay)
                 }
             }
 
             else -> {
                 (holder as CartViewHolder).apply {
                     prodName.text = cartItems[position - 1].productName
-                    prodPrice.text = "₹ " + cartItems[position - 1].price.toString()
-                    prodQuantity.text = "Qty: " + cartItems[position - 1].quantity.toString()
+                    prodPrice.text = String().rupeeString(cartItems[position - 1].price)
+                    prodQuantity.text = "Qty: ${cartItems[position - 1].quantity}"
                     Picasso.get()
                         .load(cartItems[position - 1].thumbnailURL)
                         .placeholder(R.drawable.img_placeholder)

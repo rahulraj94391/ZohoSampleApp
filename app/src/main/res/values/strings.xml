@@ -36,6 +36,7 @@
     <string name="rupee_symbol">"₹"</string>
 
 
+
     <string-array name="order_quantity">
         <item>1</item>
         <item>2</item>
@@ -59,6 +60,7 @@
     <string name="go_to_wishlist">Go to Wishlist</string>
     <string name="add_in_wishlist">Add in Wishlist</string>
     <string name="in_stock">In Stock</string>
+    <string name="order_soon">Order soon</string>
 
 
 </resources>

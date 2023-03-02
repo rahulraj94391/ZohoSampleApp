@@ -1,12 +1,10 @@
 package com.example.mall.Fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.*
@@ -40,6 +38,12 @@ class CategoriesFragment : Fragment(), OnCategoryClickListener {
         val listOfProducts: ArrayList<ProductListModel> = DB(requireContext()).queryProductsBasedOnCategory(category)
         val fragment = if (listOfProducts.size > 0) ProductsListViewFragment.newInstance(listOfProducts) else ProductNotAvailable()
         requireActivity().supportFragmentManager.beginTransaction().apply {
+            setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_left,
+                R.anim.enter_from_left,
+                R.anim.exit_to_right
+            )
             replace(R.id.frag_container, fragment)
             addToBackStack(backStackName)
             commit()

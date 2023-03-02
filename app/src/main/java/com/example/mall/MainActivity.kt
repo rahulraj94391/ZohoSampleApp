@@ -1,13 +1,13 @@
 package com.example.mall
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.example.mall.Fragments.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -30,10 +30,13 @@ class MainActivity : AppCompatActivity() {
         fm = supportFragmentManager
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
         sharedViewModel.uid.value = getSharedPreferences(MSharedPreferences.NAME, MODE_PRIVATE).getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
-        Log.d(TAG, "UID from shared view model = ${sharedViewModel.uid}")
         if (savedInstanceState == null) {
             fm.beginTransaction().apply {
                 replace(R.id.frag_container, HomeFragment(), "baseHomeFrag")
@@ -55,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                 else -> HomeFragment().also { fragmentTag = "HomeFragment" }
             }
             fm.beginTransaction().apply {
+                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 replace(R.id.frag_container, currentFrag, fragmentTag)
                 addToBackStack(backStackName)
                 commit()
@@ -77,9 +81,7 @@ class MainActivity : AppCompatActivity() {
         else super.onBackPressed()
     }
 
-
     override fun onSaveInstanceState(outState: Bundle) {
-        Log.d(TAG, "onSaveInstanceState: called")
         outState.putBoolean("flag", false)
         super.onSaveInstanceState(outState)
     }
