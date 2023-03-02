@@ -2,6 +2,7 @@ package com.example.mall
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -20,7 +21,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var fm: FragmentManager
     private lateinit var sharedViewModel: SharedViewModel
-
+    private var backPressedTime: Long = 0
+    private lateinit var toast: Toast
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,18 +30,16 @@ class MainActivity : AppCompatActivity() {
         window.statusBarColor = ContextCompat.getColor(this, R.color.primary)
         window.navigationBarColor = ContextCompat.getColor(this, R.color.primary)
         fm = supportFragmentManager
+
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }
+
 
         sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
         sharedViewModel.uid.value = getSharedPreferences(MSharedPreferences.NAME, MODE_PRIVATE).getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
         if (savedInstanceState == null) {
             fm.beginTransaction().apply {
-                replace(R.id.frag_container, HomeFragment(), "baseHomeFrag")
+                replace(R.id.frag_container, HomeFragment())
                 commit()
             }
         }
@@ -47,36 +47,51 @@ class MainActivity : AppCompatActivity() {
         bottomNavViewAndListenerConfig()
     }
 
+    override fun onStart() {
+        super.onStart()
+
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+    }
+
     private fun bottomNavViewAndListenerConfig() {
         bottomNavigationView = findViewById(R.id.bnv_bottom_menu_container)
-        var fragmentTag: String
         bottomNavigationView.setOnItemSelectedListener { item: MenuItem ->
             val currentFrag: Fragment = when (item.itemId) {
-                R.id.bnv_category -> CategoriesFragment().also { fragmentTag = "CategoryFragment" }
-                R.id.bnv_account -> AccountFragment().also { fragmentTag = "AccountFragment" }
-                R.id.bnv_cart -> CartFragment().also { fragmentTag = "CartFragment" }
-                else -> HomeFragment().also { fragmentTag = "HomeFragment" }
+                R.id.bnv_category -> CategoriesFragment()
+                R.id.bnv_account -> AccountFragment()
+                R.id.bnv_cart -> CartFragment()
+                else -> HomeFragment()
             }
             fm.beginTransaction().apply {
                 setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                replace(R.id.frag_container, currentFrag, fragmentTag)
+                replace(R.id.frag_container, currentFrag)
                 addToBackStack(backStackName)
                 commit()
             }
             true
         }
-
-        bottomNavigationView.setOnItemReselectedListener {
-        }
+        bottomNavigationView.setOnItemReselectedListener {}
     }
 
 
     override fun onBackPressed() {
-        if (fm.findFragmentById(R.id.frag_container) is HomeFragment && fm.backStackEntryCount > 0) {
-            fm.popBackStack(0, 1)
-            super.onBackPressed()
+        if (fm.findFragmentById(R.id.frag_container) is HomeFragment) {
+            if (backPressedTime + 2000 > System.currentTimeMillis()) {
+                toast.cancel()
+                finish()
+            }
+            else {
+                backPressedTime = System.currentTimeMillis()
+                toast = Toast.makeText(this, "Press Back Again", Toast.LENGTH_LONG)
+                toast.show()
+            }
         }
         else if (fm.findFragmentById(R.id.frag_container) is PaymentConfirmedFragment) {
+            // do nothing
         }
         else super.onBackPressed()
     }

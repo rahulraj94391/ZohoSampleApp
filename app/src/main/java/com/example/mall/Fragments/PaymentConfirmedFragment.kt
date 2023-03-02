@@ -34,7 +34,6 @@ class PaymentConfirmedFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         arguments?.let {
             paymentType = it.getSerializable(ARG_PAYMENT_TYPE) as PaymentType
         }
@@ -59,8 +58,8 @@ class PaymentConfirmedFragment : Fragment() {
         cnfPaymentMsg.text = "Your Order is confirmed.\nYou paid through ${paymentType.paymentMethod()}"
 
         CoroutineScope(Dispatchers.Main).launch {
-            repeat(100) {
-                progressBar.progress += 1
+            repeat(50) {
+                progressBar.progress += 2
                 delay(50)
             }
             requireActivity().supportFragmentManager.apply {

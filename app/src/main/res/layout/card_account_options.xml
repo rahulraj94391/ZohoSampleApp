@@ -21,10 +21,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
             android:gravity="center"
-            android:layout_marginTop="12dp"
+            app:layout_constraintBottom_toTopOf="@+id/ll_account_my_wishlist"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -41,14 +43,13 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="10dp"
-                android:fontFamily="sans-serif-medium"
                 android:layout_weight="1"
-                android:textColor="@color/primary"
+                android:fontFamily="sans-serif-medium"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:text="My Orders"
-                android:textSize="20sp"
-                 />
+                android:textColor="@color/primary"
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -64,7 +65,9 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/ll_account_address"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_account_my_orders">
 
@@ -81,14 +84,13 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="10dp"
-                android:textColor="@color/primary"
                 android:layout_weight="1"
-                android:paddingStart="12dp"
                 android:fontFamily="sans-serif-medium"
+                android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:text="My Wishlist"
-                android:textSize="20sp"
-                 />
+                android:textColor="@color/primary"
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -104,7 +106,9 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/ll_account_contact_us"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_account_my_wishlist">
 
@@ -121,14 +125,13 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="10dp"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/primary"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:text="Saved Address"
-                android:textSize="20sp"
-                 />
+                android:textColor="@color/primary"
+                android:textSize="20sp" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -143,10 +146,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="12dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_account_address">
 
@@ -162,16 +166,16 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="4dp"
-                android:textColor="@color/primary"
                 android:layout_marginBottom="10dp"
-                android:fontFamily="sans-serif-medium"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:text="Contact Us"
+                android:textColor="@color/primary"
                 android:textSize="20sp"
 
-                 />
+                />
 
             <ImageView
                 android:layout_width="20dp"

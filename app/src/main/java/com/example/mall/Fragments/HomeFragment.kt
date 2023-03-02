@@ -19,8 +19,7 @@ import com.example.mall.ModelClass.ItemImgNamePriceModel
 import com.example.mall.ModelClass.ProductListModel
 
 //private const val TAG = "HomeFragment"
-private const val TAG = "Common_Tag_RANDOM"
-
+private const val TAG = "Common_Tag_HomeFragment"
 
 class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
     private lateinit var rvHome: RecyclerView
@@ -33,7 +32,6 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         db = DB(requireContext())
         uid = requireContext().getSharedPreferences(MSharedPreferences.NAME, AppCompatActivity.MODE_PRIVATE).getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
         val prodInInventory = db.itemsInInventory()
@@ -176,9 +174,7 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as MainActivity).apply {
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        }
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
 }

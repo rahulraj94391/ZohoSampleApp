@@ -30,9 +30,7 @@ class HomeAdapter(
     private val backInStock: MutableList<ItemImgNamePriceModel>,
     private val topSelling: MutableList<ItemImgNamePriceModel>,
     private val listener: HomeItemClickListeners
-
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
     private val handler: Handler = Handler()
 
     inner class SalesOfferViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -124,16 +122,17 @@ class HomeAdapter(
                 (holder as SalesOfferViewHolder).apply {
                     viewPage2.adapter = offersAdapter
                     viewPage2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+
+                        val runnable = Runnable {
+                            if (viewPage2.currentItem == 2) viewPage2.currentItem = 0
+                            else viewPage2.currentItem = viewPage2.currentItem + 1
+                        }
+
                         override fun onPageSelected(position: Int) {
                             Log.d(TAG, "page position of OFFERS = $position")
                             super.onPageSelected(position)
-                            handler.removeCallbacksAndMessages(null)
-                            handler.postDelayed(
-                                Runnable {
-                                    if (viewPage2.currentItem == 2) viewPage2.currentItem = 0
-                                    else viewPage2.currentItem = viewPage2.currentItem + 1
-                                }, 5000
-                            )
+                            handler.removeCallbacks(runnable)
+                            handler.postDelayed(runnable, 5000)
                         }
                     })
                     circleIndicator3.setViewPager(viewPage2)
