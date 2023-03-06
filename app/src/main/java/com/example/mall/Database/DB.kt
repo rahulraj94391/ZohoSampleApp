@@ -14,8 +14,7 @@ import com.example.mall.ModelClass.*
 
 const val DATABASE_NAME = "shopie.db"
 
-//private const val TAG = "Common_Tag_DB"
-private const val TAG = "Common_Tag_RANDOM"
+private const val TAG = "Common_Tag_DB"
 
 class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     override fun onCreate(db: SQLiteDatabase?) {
