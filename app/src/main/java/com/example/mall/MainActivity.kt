@@ -81,12 +81,12 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (fm.findFragmentById(R.id.frag_container) is HomeFragment) {
             if (backPressedTime + 2000 > System.currentTimeMillis()) {
-                toast.cancel()
                 finish()
+                toast.cancel()
             }
             else {
                 backPressedTime = System.currentTimeMillis()
-                toast = Toast.makeText(this, "Press Back Again", Toast.LENGTH_LONG)
+                toast = Toast.makeText(this, "Press Back Again", Toast.LENGTH_SHORT)
                 toast.show()
             }
         }

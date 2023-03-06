@@ -83,36 +83,31 @@
             android:text="Proceed to Pay"
             android:textAllCaps="false"
             android:textColor="@color/white"
-
-
-            app:layout_constraintTop_toBottomOf="@id/rg_payment_selector"
-
-            />
+            app:layout_constraintTop_toBottomOf="@id/rg_payment_selector" />
 
         <ImageView
             android:id="@+id/iv_secure_pay_icon"
-            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            app:layout_constraintTop_toBottomOf="@id/btn_proceed_to_payment"
+            android:layout_marginTop="30dp"
             android:src="@drawable/secure_payment_icon"
+            app:layout_constraintTop_toBottomOf="@id/btn_proceed_to_payment"
 
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.30"
             android:text="SECURE PAY"
-            app:layout_constraintTop_toBottomOf="@id/iv_secure_pay_icon"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/iv_secure_pay_icon"
             app:layout_constraintStart_toStartOf="@id/iv_secure_pay_icon"
-            android:layout_marginTop="8dp"
-            android:textStyle="bold"
-            android:textSize="10sp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:alpha="0.30"
-            />
+            app:layout_constraintTop_toBottomOf="@id/iv_secure_pay_icon" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

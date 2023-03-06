@@ -239,9 +239,9 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return writableDatabase.delete(WishlistTable.WISHLIST_TABLE_NAME, whereClause, arrayOf(uid.toString(), pid.toString()))
     }
 
-    fun searchViewResult(query: String?): MutableSet<ProductListModel> {
+    fun searchViewResult(search: String?): MutableSet<ProductListModel> {
         val set: MutableSet<ProductListModel> = mutableSetOf()
-        val query = "SELECT pid, prod_name, imgURL0, price, stock FROM prod_details WHERE prod_details.prod_name LIKE '%$query%'"
+        val query = "SELECT pid, prod_name, imgURL0, price, stock FROM prod_details WHERE prod_details.prod_name LIKE '%$search%'"
         val cursor = readableDatabase.rawQuery(query, null)
         if (cursor.moveToFirst()) {
             do {
@@ -257,11 +257,29 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
             } while (cursor.moveToNext())
         }
         cursor.close()
-        for (i in set) {
-            println(i)
-        }
         return set
     }
+
+//    fun getProductsBetweenPriceRange(min: Int, max: Int): ArrayList<ProductListModel> {
+//        val filteredList: ArrayList<ProductListModel> = arrayListOf()
+//        val query = "SELECT pid, prod_name, imgURL0, price, stock FROM prod_details WHERE price BETWEEN $min AND $max"
+//        val cursor = readableDatabase.rawQuery(query, null)
+//        if (cursor.moveToFirst()) {
+//            do {
+//                filteredList.add(
+//                    ProductListModel(
+//                        pid = cursor.getInt(0),
+//                        prodName = cursor.getString(1),
+//                        imgURL = cursor.getString(2),
+//                        prodPrice = cursor.getInt(3),
+//                        stock = cursor.getInt(4)
+//                    )
+//                )
+//            } while (cursor.moveToNext())
+//        }
+//        cursor.close()
+//        return filteredList
+//    }
 
     fun queryProductsBasedOnCategory(category: Category): ArrayList<ProductListModel> {
         val baseQuery = "SELECT pid, prod_name, imgURL0, price, stock FROM prod_details"
@@ -324,6 +342,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
                 put(OrdersTable.COL_ORDER_DATE, DateUtil.currentDate())
                 put(OrdersTable.COL_PAID_THROUGH, payment.paymentMethod())
             }
+            decrementStock(item.quantity, item.pid)
             writableDatabase.insert(OrdersTable.ORDERS_TABLE_NAME, null, cv)
             deleteItemFromCart(uid, item.pid)
         }
@@ -341,6 +360,17 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return orders
     }
 
+//    fun getMinMaxPriceRange(): Pair<Float, Float> {
+//        val query = "SELECT MIN(${ProductDetails.COL_PRICE}), MAX(${ProductDetails.COL_PRICE}) FROM ${ProductDetails.PRODUCT_DETAILS_TABLE_NAME}"
+//        val cursor = readableDatabase.rawQuery(query, null)
+//        var pair: Pair<Float, Float> = Pair(-1.0f, -1.0f)
+//        if (cursor.moveToFirst()) pair = Pair(cursor.getInt(0).toFloat(), cursor.getInt(1).toFloat())
+//        cursor.close()
+//        Log.d(TAG, "getMinMaxPriceRange: $pair")
+//        return pair
+//    }
+
+
     fun itemsInInventory(): Int {
         val query = "SELECT MAX(prod_details.pid) FROM prod_details"
         val cursor = readableDatabase.rawQuery(query, null)
@@ -350,16 +380,26 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return items
     }
 
-    fun randomFourProducts(prodIds: List<Int>): MutableList<ItemImgNamePriceModel> {
+    fun randomProducts(prodIds: List<Int>): MutableList<ItemImgNamePriceModel> {
         val items: MutableList<ItemImgNamePriceModel> = mutableListOf()
         for (itemID in prodIds) items.add(getItemImgNamePrice(itemID))
         return items
     }
 
+    fun decrementStock(quantity: Int, pid: Int) {
+        val prevStock: Int = checkProductStock(pid)
+        val cv = ContentValues().apply {
+            put(ProductDetails.COL_STOCK, (prevStock - quantity))
+        }
+        val whereClause = "pid = ?"
+        val row = writableDatabase.update(ProductDetails.PRODUCT_DETAILS_TABLE_NAME, cv, whereClause, arrayOf(pid.toString()))
+        Log.d(TAG, "rows affected = $row")
+    }
+
     private fun getItemImgNamePrice(pid: Int): ItemImgNamePriceModel {
         val query = "SELECT prod_details.pid, prod_details.prod_name, prod_details.price, prod_details.imgURL0 FROM prod_details WHERE pid = ?"
         val cursor = readableDatabase.rawQuery(query, arrayOf(pid.toString()))
-        var model: ItemImgNamePriceModel? = null
+        val model: ItemImgNamePriceModel?
         if (cursor.moveToFirst()) {
             model = ItemImgNamePriceModel(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getString(3))
         }
@@ -398,15 +438,14 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     fun currentItemQuantityInCart(uid: Int, pid: Int): Int {
         val query = "SELECT cart.quantity FROM cart WHERE uid = ? AND pid = ?"
         val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString(), pid.toString()))
-        var quantity = 0
         cursor.moveToFirst()
-        quantity = cursor.getInt(0)
+        var quantity: Int = cursor.getInt(0)
         cursor.close()
         return quantity
     }
 
     fun incrementItemQuantityInCart(uid: Int, pid: Int) {
-        val whereClause: String = "uid = ? and pid = ?"
+        val whereClause = "uid = ? and pid = ?"
         val cv = ContentValues().apply {
             put(CartTable.COL_QUANTITY, currentItemQuantityInCart(uid, pid) + 1)
         }
@@ -415,15 +454,13 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     }
 
     fun decrementItemQuantityInCart(uid: Int, pid: Int) {
-        val whereClause: String = "uid = ? and pid = ?"
+        val whereClause = "uid = ? and pid = ?"
         val cv = ContentValues().apply {
             put(CartTable.COL_QUANTITY, currentItemQuantityInCart(uid, pid) - 1)
         }
         val rows = writableDatabase.update(CartTable.CART_TABLE_NAME, cv, whereClause, arrayOf(uid.toString(), pid.toString()))
         if (rows < 1) Log.e(TAG, "cannot decrement quantity for an item in cart with pid = $pid")
     }
-
-
 }
 
 

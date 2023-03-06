@@ -1,7 +1,6 @@
 package com.example.mall.Adapters
 
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -129,7 +128,7 @@ class HomeAdapter(
                         }
 
                         override fun onPageSelected(position: Int) {
-                            Log.d(TAG, "page position of OFFERS = $position")
+//                            Log.d(TAG, "page position of OFFERS = $position")
                             super.onPageSelected(position)
                             handler.removeCallbacks(runnable)
                             handler.postDelayed(runnable, 5000)

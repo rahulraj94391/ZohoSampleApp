@@ -1,10 +1,12 @@
 package com.example.mall.Fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.*
@@ -14,11 +16,14 @@ import com.example.mall.Interface.OnCategoryClickListener
 import com.example.mall.ModelClass.AllCategoryModel
 import com.example.mall.ModelClass.ProductListModel
 
-private const val TAG = "Common_Tag_CategoryFragment"
+//private const val TAG = "Common_Tag_CategoryFragment"
+private const val TAG = "macbook2"
+
 
 class CategoriesFragment : Fragment(), OnCategoryClickListener {
     private lateinit var allCategories: RecyclerView
     private lateinit var categoriesList: MutableList<AllCategoryModel>
+    private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         (activity as MainActivity).bottomNavigationView.menu.getItem(1).isChecked = true
@@ -29,6 +34,7 @@ class CategoriesFragment : Fragment(), OnCategoryClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         allCategories = view.findViewById(R.id.rv_all_categories)
         allCategories.adapter = AllCategoriesAdapter(categoriesList, this)
         allCategories.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -36,7 +42,9 @@ class CategoriesFragment : Fragment(), OnCategoryClickListener {
 
     override fun onItemClick(category: Category) {
         val listOfProducts: ArrayList<ProductListModel> = DB(requireContext()).queryProductsBasedOnCategory(category)
-        val fragment = if (listOfProducts.size > 0) ProductsListViewFragment.newInstance(listOfProducts) else ProductNotAvailable()
+        Log.d(TAG, "listOfProducts = ${listOfProducts.size}")
+        sharedViewModel.prodList.value = listOfProducts
+        val fragment = if (sharedViewModel.prodList.value!!.size > 0) ProductsListViewFragment.newInstance() else ProductNotAvailable()
         requireActivity().supportFragmentManager.beginTransaction().apply {
             setCustomAnimations(
                 R.anim.enter_from_right,

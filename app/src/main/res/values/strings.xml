@@ -36,7 +36,6 @@
     <string name="rupee_symbol">"₹"</string>
 
 
-
     <string-array name="order_quantity">
         <item>1</item>
         <item>2</item>

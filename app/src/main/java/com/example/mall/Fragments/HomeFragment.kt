@@ -8,6 +8,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.*
@@ -18,7 +19,6 @@ import com.example.mall.Interface.OnClickListener
 import com.example.mall.ModelClass.ItemImgNamePriceModel
 import com.example.mall.ModelClass.ProductListModel
 
-//private const val TAG = "HomeFragment"
 private const val TAG = "Common_Tag_HomeFragment"
 
 class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
@@ -29,6 +29,8 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
     private lateinit var backInStock: MutableList<ItemImgNamePriceModel>
     private lateinit var topSelling: MutableList<ItemImgNamePriceModel>
     private lateinit var homeOffersAdapter: HomeOffersAdapter
+    private lateinit var sharedViewModel: SharedViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +45,9 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
         }
 
         val splitSet = prodIds.chunked(4)
-
-        backInStock = db.randomFourProducts(splitSet[0])
-        topSelling = db.randomFourProducts(splitSet[1])
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+        backInStock = db.randomProducts(splitSet[0])
+        topSelling = db.randomProducts(splitSet[1])
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -70,10 +72,11 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
                         val set: MutableSet<ProductListModel> = db.searchViewResult(query?.trim())
                         val prodList: ArrayList<ProductListModel> = arrayListOf()
                         prodList.addAll(set)
+                        sharedViewModel.prodList.value = prodList
 
                         requireActivity().supportFragmentManager.beginTransaction().apply {
                             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            replace(R.id.frag_container, ProductsListViewFragment.newInstance(prodList), "SearchView")
+                            replace(R.id.frag_container, ProductsListViewFragment.newInstance(), "SearchView")
                             addToBackStack(backStackName)
                             commit()
                         }
