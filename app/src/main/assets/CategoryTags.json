@@ -1,0 +1,264 @@
+{
+  "category_tags": [
+    {
+      "pid": 1,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 1,
+      "category_tag": "phone"
+    },
+    {
+      "pid": 1,
+      "category_tag": "android"
+    },
+    {
+      "pid": 1,
+      "category_tag": "smartphone"
+    },
+    {
+      "pid": 1,
+      "category_tag": "samsung"
+    },
+    {
+      "pid": 2,
+      "category_tag": "android"
+    },
+    {
+      "pid": 2,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 2,
+      "category_tag": "phone"
+    },
+    {
+      "pid": 2,
+      "category_tag": "smartphone"
+    },
+    {
+      "pid": 3,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 3,
+      "category_tag": "phone"
+    },
+    {
+      "pid": 3,
+      "category_tag": "smartphone"
+    },
+    {
+      "pid": 3,
+      "category_tag": "iPhone"
+    },
+    {
+      "pid": 4,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 4,
+      "category_tag": "phone"
+    },
+    {
+      "pid": 4,
+      "category_tag": "smartphone"
+    },
+    {
+      "pid": 4,
+      "category_tag": "iPhone"
+    },
+    {
+      "pid": 5,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 5,
+      "category_tag": "phone"
+    },
+    {
+      "pid": 5,
+      "category_tag": "smartphone"
+    },
+    {
+      "pid": 5,
+      "category_tag": "iPhone"
+    },
+    {
+      "pid": 6,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 6,
+      "category_tag": "phone"
+    },
+    {
+      "pid": 6,
+      "category_tag": "smartphone"
+    },
+    {
+      "pid": 6,
+      "category_tag": "android"
+    },
+    {
+      "pid": 7,
+      "category_tag": "earphone"
+    },
+    {
+      "pid": 7,
+      "category_tag": "tws"
+    },
+    {
+      "pid": 7,
+      "category_tag": "airpods"
+    },
+    {
+      "pid": 8,
+      "category_tag": "headphone"
+    },
+    {
+      "pid": 9,
+      "category_tag": "earphone"
+    },
+    {
+      "pid": 9,
+      "category_tag": "tws"
+    },
+    {
+      "pid": 9,
+      "category_tag": "earpods"
+    },
+    {
+      "pid": 10,
+      "category_tag": "television"
+    },
+    {
+      "pid": 10,
+      "category_tag": "android television"
+    },
+    {
+      "pid": 10,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 11,
+      "category_tag": "television"
+    },
+    {
+      "pid": 11,
+      "category_tag": "android television"
+    },
+    {
+      "pid": 11,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 12,
+      "category_tag": "television"
+    },
+    {
+      "pid": 12,
+      "category_tag": "android television"
+    },
+    {
+      "pid": 12,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 13,
+      "category_tag": "television"
+    },
+    {
+      "pid": 13,
+      "category_tag": "android television"
+    },
+    {
+      "pid": 13,
+      "category_tag": "appliance"
+    },
+    {
+      "pid": 13,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 14,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 14,
+      "category_tag": "phone"
+    },
+    {
+      "pid": 14,
+      "category_tag": "android"
+    },
+    {
+      "pid": 14,
+      "category_tag": "smartphone"
+    },
+    {
+      "pid": 15,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 15,
+      "category_tag": "phone"
+    },
+    {
+      "pid": 15,
+      "category_tag": "android"
+    },
+    {
+      "pid": 15,
+      "category_tag": "smartphone"
+    },
+    {
+      "pid": 15,
+      "category_tag": "xiaomi"
+    },
+    {
+      "pid": 15,
+      "category_tag": "mi"
+    },
+    {
+      "pid": 16,
+      "category_tag": "infix"
+    },
+    {
+      "pid": 16,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 16,
+      "category_tag": "phone"
+    },
+    {
+      "pid": 16,
+      "category_tag": "android"
+    },
+    {
+      "pid": 16,
+      "category_tag": "smartphone"
+    },
+    {
+      "pid": 17,
+      "category_tag": "appliance"
+    },
+    {
+      "pid": 17,
+      "category_tag": "fridge"
+    },
+    {
+      "pid": 17,
+      "category_tag": "refrigerator"
+    },
+    {
+      "pid": 17,
+      "category_tag": "cold storage"
+    },
+    {
+      "pid": 17,
+      "category_tag": "electronics"
+    }
+  ]
+}

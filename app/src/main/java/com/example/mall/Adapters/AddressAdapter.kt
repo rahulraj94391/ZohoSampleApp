@@ -13,10 +13,8 @@ const val USER_ADDRESS_ROW: Int = 0
 const val ADD_NEW_ADDRESS: Int = 1
 
 class AddressAdapter(
-
     private val addresses: MutableList<DeliveryAddressModel>,
     private val listener: OnClickListener
-
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class SavedAddressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val deliveryName: TextView = itemView.findViewById(R.id.tv_address_name)
@@ -27,7 +25,7 @@ class AddressAdapter(
 
     inner class AddNewAddressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
-            itemView.setOnClickListener() {
+            itemView.setOnClickListener {
                 listener.onItemClicked(adapterPosition)
             }
         }
@@ -49,7 +47,7 @@ class AddressAdapter(
 
             else -> {
                 (holder as SavedAddressViewHolder).apply {
-                    addresses[position ].apply {
+                    addresses[position].apply {
                         deliveryName.text = fullName
                         deliveryPhone.text = mobile
                         deliveryAddress.text = address
@@ -65,11 +63,9 @@ class AddressAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-//        return super.getItemViewType(position)
         return when (position) {
             addresses.size -> ADD_NEW_ADDRESS
             else -> USER_ADDRESS_ROW
         }
     }
-
 }

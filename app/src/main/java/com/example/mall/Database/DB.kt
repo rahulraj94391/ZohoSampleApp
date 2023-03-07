@@ -11,12 +11,13 @@ import com.example.mall.Enum.Category
 import com.example.mall.Enum.DeliveryStatus
 import com.example.mall.Enum.PaymentType
 import com.example.mall.ModelClass.*
+import org.json.JSONObject
 
 const val DATABASE_NAME = "shopie.db"
 
 private const val TAG = "Common_Tag_DB"
 
-class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
+class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(AddressTable.createTableStmt)
         db?.execSQL(CartTable.createTableStmt)
@@ -27,11 +28,133 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         db?.execSQL(ProfileTable.createTableStmt)
         db?.execSQL(UserTable.createTableStmt)
         db?.execSQL(WishlistTable.createTableStmt)
-        // 9 tables
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
+    }
+
+    fun insertAddresses() {
+        val cv1 = ContentValues().apply {
+            put(AddressTable.COL_UID, "1")
+            put(AddressTable.COL_FULL_NAME, "Rahul Raj")
+            put(AddressTable.COL_MOBILE, "9155881234")
+            put(AddressTable.COL_PIN_CODE, "826003")
+            put(AddressTable.COL_ADDRESS, "Nutandih, PO Jagjiwan Nagar, Dhanbad, Jharkhand")
+        }
+        writableDatabase.insert(AddressTable.ADDRESS_TABLE_NAME, null, cv1)
+
+        val cv2 = ContentValues().apply {
+            put(AddressTable.COL_UID, "1")
+            put(AddressTable.COL_FULL_NAME, "Rahul Raj")
+            put(AddressTable.COL_MOBILE, "9155881234")
+            put(AddressTable.COL_PIN_CODE, "603210")
+            put(AddressTable.COL_ADDRESS, "Sivram Homes, Vagai Nagar, Urapakkam, Tamil Nadu")
+        }
+        writableDatabase.insert(AddressTable.ADDRESS_TABLE_NAME, null, cv2)
+
+
+        val cv3 = ContentValues().apply {
+            put(AddressTable.COL_UID, "2")
+            put(AddressTable.COL_FULL_NAME, "Shaurya Rai")
+            put(AddressTable.COL_MOBILE, "7033667099")
+            put(AddressTable.COL_PIN_CODE, "826001")
+            put(AddressTable.COL_ADDRESS, "City Center, Dhanbad, Jharkhand")
+        }
+        writableDatabase.insert(AddressTable.ADDRESS_TABLE_NAME, null, cv3)
+
+        val cv4 = ContentValues().apply {
+            put(AddressTable.COL_UID, "2")
+            put(AddressTable.COL_FULL_NAME, "Sumit")
+            put(AddressTable.COL_MOBILE, "7050662288")
+            put(AddressTable.COL_PIN_CODE, "826003")
+            put(AddressTable.COL_ADDRESS, "BCCL Colony, Dhanbad, Jharkhand")
+        }
+        writableDatabase.insert(AddressTable.ADDRESS_TABLE_NAME, null, cv4)
+    }
+
+    fun insertProfileData() {
+        val cv1 = ContentValues().apply {
+            put(ProfileTable.COL_UID, "1")
+            put(ProfileTable.COL_FIRST_NAME, "Rahul")
+            put(ProfileTable.COL_LAST_NAME, "Raj")
+            put(ProfileTable.COL_MOBILE, "9155881234")
+            put(ProfileTable.COL_EMAIL, "rahulraj94391@gmail.com")
+        }
+        writableDatabase.insert(ProfileTable.PROFILE_TABLE_NAME, null, cv1)
+
+        val cv2 = ContentValues().apply {
+            put(ProfileTable.COL_UID, "2")
+            put(ProfileTable.COL_FIRST_NAME, "Vivek")
+            put(ProfileTable.COL_LAST_NAME, "Dubey")
+            put(ProfileTable.COL_MOBILE, "8264551128")
+            put(ProfileTable.COL_EMAIL, "vivek.dubey@gmail.com")
+        }
+        writableDatabase.insert(ProfileTable.PROFILE_TABLE_NAME, null, cv2)
+    }
+
+    fun insertUsers() {
+        val cv1 = ContentValues().apply {
+            put(UserTable.COL_UID, "1")
+            put(UserTable.COL_USERNAME, "rahul")
+            put(UserTable.COL_PASSWORD, "12345678")
+        }
+        writableDatabase.insert(UserTable.USER_TABLE_NAME, null, cv1)
+
+        val cv2 = ContentValues().apply {
+            put(UserTable.COL_UID, "2")
+            put(UserTable.COL_USERNAME, "vivek")
+            put(UserTable.COL_PASSWORD, "87654321")
+        }
+        writableDatabase.insert(UserTable.USER_TABLE_NAME, null, cv2)
+    }
+
+    fun insertProdSpecs() {
+        val s = context.assets.open("ProdSpecs.json").bufferedReader().use { it.readText() }
+        val jsonArray = JSONObject(s).getJSONArray("prod_specs")
+        val jsonArrayLength = jsonArray.length()
+        for (i in 0 until jsonArrayLength) {
+            val obj = jsonArray.getJSONObject(i)
+            val cv = ContentValues().apply {
+                put(ProdSpecsTable.COL_PID, obj.getString(ProdSpecsTable.COL_PID))
+                put(ProdSpecsTable.COL_KEY, obj.getString(ProdSpecsTable.COL_KEY))
+                put(ProdSpecsTable.COL_VAL, obj.getString(ProdSpecsTable.COL_VAL))
+            }
+            writableDatabase.insert(ProdSpecsTable.PRODUCT_SPECS_TABLE_NAME, null, cv)
+        }
+    }
+
+    fun insertProdDetails() {
+        val s = context.assets.open("ProdDetails.json").bufferedReader().use { it.readText() }
+        val jsonArray = JSONObject(s).getJSONArray("prod_details")
+        val jsonArrayLength = jsonArray.length()
+        for (i in 0 until jsonArrayLength) {
+            val obj = jsonArray.getJSONObject(i)
+            val cv = ContentValues().apply {
+                put(ProductDetails.COL_PID, obj.getString(ProductDetails.COL_PID))
+                put(ProductDetails.COL_PROD_NAME, obj.getString(ProductDetails.COL_PROD_NAME))
+                put(ProductDetails.COL_PRICE, obj.getString(ProductDetails.COL_PRICE))
+                put(ProductDetails.COL_STOCK, obj.getString(ProductDetails.COL_STOCK))
+                put(ProductDetails.COL_IMG0, obj.getString(ProductDetails.COL_IMG0))
+                put(ProductDetails.COL_IMG1, obj.getString(ProductDetails.COL_IMG1))
+                put(ProductDetails.COL_IMG2, obj.getString(ProductDetails.COL_IMG2))
+            }
+            writableDatabase.insert(ProductDetails.PRODUCT_DETAILS_TABLE_NAME, null, cv)
+        }
+    }
+
+    fun insertCategoryTags() {
+        val s = context.assets.open("CategoryTags.json").bufferedReader().use { it.readText() }
+        val jsonArray = JSONObject(s).getJSONArray("category_tags")
+        val jsonArrayLength = jsonArray.length()
+        for (i in 0 until jsonArrayLength) {
+            val obj = jsonArray.getJSONObject(i)
+            val cv = ContentValues().apply {
+                put(CategoryTagTable.COL_PID, obj.getString(CategoryTagTable.COL_PID))
+                put(CategoryTagTable.COL_CATEGORY_TAG, obj.getString(CategoryTagTable.COL_CATEGORY_TAG))
+            }
+            writableDatabase.insert(CategoryTagTable.CATEGORY_TAG_TABLE_NAME, null, cv)
+        }
     }
 
     fun userDetailsModel(uid: Int): UserDetailsModel {
@@ -110,7 +233,6 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return insert != (-1).toLong()
     }
 
-
     fun getCartItems(uid: Int): ArrayList<CartItemModel> {
         val cartItemList: ArrayList<CartItemModel> = arrayListOf()
         val query = "SELECT cart.pid, prod_details.prod_name, prod_details.price, cart.quantity, prod_details.imgURL0 FROM cart LEFT JOIN prod_details ON prod_details.pid = cart.pid WHERE uid = ?"
@@ -141,7 +263,6 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         val insert = writableDatabase.insert(CartTable.CART_TABLE_NAME, null, cv)
         return insert != (-1).toLong()
     }
-
 
     fun singleProdDesc(pid: Int): ProdDescPageModel {
         var prodName = "Not specified"
@@ -207,7 +328,6 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return stock
     }
 
-
     fun addItemToWishlist(uid: Int, pid: Int): Boolean {
         if (isItemInWishlist(uid, pid)) return true
         val cv = ContentValues().apply {
@@ -258,27 +378,6 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         cursor.close()
         return set
     }
-
-//    fun getProductsBetweenPriceRange(min: Int, max: Int): ArrayList<ProductListModel> {
-//        val filteredList: ArrayList<ProductListModel> = arrayListOf()
-//        val query = "SELECT pid, prod_name, imgURL0, price, stock FROM prod_details WHERE price BETWEEN $min AND $max"
-//        val cursor = readableDatabase.rawQuery(query, null)
-//        if (cursor.moveToFirst()) {
-//            do {
-//                filteredList.add(
-//                    ProductListModel(
-//                        pid = cursor.getInt(0),
-//                        prodName = cursor.getString(1),
-//                        imgURL = cursor.getString(2),
-//                        prodPrice = cursor.getInt(3),
-//                        stock = cursor.getInt(4)
-//                    )
-//                )
-//            } while (cursor.moveToNext())
-//        }
-//        cursor.close()
-//        return filteredList
-//    }
 
     fun queryProductsBasedOnCategory(category: Category): ArrayList<ProductListModel> {
         val baseQuery = "SELECT pid, prod_name, imgURL0, price, stock FROM prod_details"
@@ -359,17 +458,6 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return orders
     }
 
-//    fun getMinMaxPriceRange(): Pair<Float, Float> {
-//        val query = "SELECT MIN(${ProductDetails.COL_PRICE}), MAX(${ProductDetails.COL_PRICE}) FROM ${ProductDetails.PRODUCT_DETAILS_TABLE_NAME}"
-//        val cursor = readableDatabase.rawQuery(query, null)
-//        var pair: Pair<Float, Float> = Pair(-1.0f, -1.0f)
-//        if (cursor.moveToFirst()) pair = Pair(cursor.getInt(0).toFloat(), cursor.getInt(1).toFloat())
-//        cursor.close()
-//        Log.d(TAG, "getMinMaxPriceRange: $pair")
-//        return pair
-//    }
-
-
     fun itemsInInventory(): Int {
         val query = "SELECT MAX(prod_details.pid) FROM prod_details"
         val cursor = readableDatabase.rawQuery(query, null)
@@ -407,7 +495,6 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return model
     }
 
-
     fun getOrderHistory(oid: Int): OrderDescriptionModel {
         var orderHistory: OrderDescriptionModel? = null
         val query = "SELECT orders.order_date, orders.delivery_date, orders.delivery_status, orders.paid_through, orders.quantity, prod_details.imgURL0, prod_details.prod_name, prod_details.price, addresses.full_name, addresses.mobile, addresses.pin_code, addresses.address  FROM orders LEFT JOIN prod_details ON orders.pid = prod_details.pid LEFT JOIN addresses ON orders.address_id = addresses.address_id WHERE oid = ?"
@@ -434,7 +521,7 @@ class DB(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
         return orderHistory ?: throw Exception("Unable to query order details for orderId = $oid")
     }
 
-    fun currentItemQuantityInCart(uid: Int, pid: Int): Int {
+    private fun currentItemQuantityInCart(uid: Int, pid: Int): Int {
         val query = "SELECT cart.quantity FROM cart WHERE uid = ? AND pid = ?"
         val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString(), pid.toString()))
         cursor.moveToFirst()

@@ -14,14 +14,6 @@ class SelectDeliveryAddressAdapter(
     private val addressList: MutableList<DeliveryAddressModel>,
     private val listener: OnNewAddressSelected
 ) : RecyclerView.Adapter<SelectDeliveryAddressAdapter.AddressViewHolder>() {
-
-    private lateinit var context: Context
-
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        context = recyclerView.context
-        super.onAttachedToRecyclerView(recyclerView)
-    }
-
     inner class AddressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
             itemView.setOnClickListener {

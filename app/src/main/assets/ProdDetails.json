@@ -1,0 +1,157 @@
+{
+  "prod_details": [
+    {
+      "pid": 1,
+      "prod_name": "SAMSUNG Galaxy F23 5G (Aqua Blue, 128 GB) (6 GB RAM)",
+      "price": 14999,
+      "stock": 50,
+      "imgURL0": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/0/h/k/-original-imagcg22czc3ggvw.jpeg?q=70",
+      "imgURL1": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/b/d/n/-original-imagc829xnfx6mgf.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/e/l/j/-original-imagc829zajwazfm.jpeg?q=70"
+    },
+    {
+      "pid": 2,
+      "prod_name": "Nothing Phone (1) (White, 256 GB)  (12 GB RAM)",
+      "price": 35999,
+      "stock": 50,
+      "imgURL0": "https://rukminim1.flixcart.com/image/832/832/l5h2xe80/mobile/4/7/l/-original-imagg4y3grhaxckf.jpeg?q=70",
+      "imgURL1": "https://rukminim1.flixcart.com/image/832/832/l5h2xe80/mobile/c/x/k/-original-imagg4y3sfjgezzg.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/832/832/l5h2xe80/mobile/j/j/j/-original-imagg4y3saxve3hy.jpeg?q=70"
+    },
+    {
+      "pid": 3,
+      "prod_name": "APPLE iPhone 12 (White, 128 GB)",
+      "price": 56999,
+      "stock": 50,
+      "imgURL0": "https://rukminim1.flixcart.com/image/832/832/kg8avm80/mobile/j/f/9/apple-iphone-12-dummyapplefsn-original-imafwg8dkyh2zgrh.jpeg?q=70",
+      "imgURL1": "https://rukminim1.flixcart.com/image/832/832/kg8avm80/mobile/j/f/9/apple-iphone-12-dummyapplefsn-original-imafwg8dszwspt8f.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/832/832/kg8avm80/mobile/q/8/f/apple-iphone-12-dummyapplefsn-original-imafwg8dfrjcn9hc.jpeg?q=70"
+    },
+    {
+      "pid": 4,
+      "prod_name": "APPLE iPhone 14 (Blue, 256 GB)",
+      "price": 75999,
+      "stock": 50,
+      "imgURL0": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/3/5/l/-original-imaghx9qmgqsk9s4.jpeg?q=70",
+      "imgURL1": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/n/b/z/-original-imaghxcpwuhbghgh.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/1/d/y/-original-imaghxcpvtta2hzs.jpeg?q=70"
+    },
+    {
+      "pid": 5,
+      "prod_name": "APPLE iPhone 14 (Purple, 512 GB)",
+      "price": 95999,
+      "stock": 50,
+      "imgURL0": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/b/u/f/-original-imaghxa5hvapbfds.jpeg?q=70",
+      "imgURL1": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/q/m/2/-original-imaghxcp4sfjxhva.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/n/t/g/-original-imaghxcp4ctcfwff.jpeg?q=70"
+    },
+    {
+      "pid": 6,
+      "prod_name": "SAMSUNG Galaxy Z Fold4 5G (Phantom Black, 256 GB)  (12 GB RAM)",
+      "price": 146999,
+      "stock": 50,
+      "imgURL0": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/f/n/h/-original-imagh7nzh2gcdj2x.jpeg",
+      "imgURL1": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/t/k/8/-original-imagh7nzqym8rng7.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/f/i/b/-original-imagh7nzkzdpgh3p.jpeg?q=70"
+    },
+    {
+      "pid": 7,
+      "prod_name": "APPLE Airpods Pro 2nd Generation Bluetooth Headset  (White, True Wireless)",
+      "price": 27999,
+      "stock": 50,
+      "imgURL0": "https://rukminim1.flixcart.com/image/832/832/xif0q/headphone/s/t/m/-original-imaghxgnjdgyghfw.jpeg?q=70",
+      "imgURL1": "https://rukminim1.flixcart.com/image/832/832/xif0q/headphone/5/5/0/-original-imaghxgn2dyhnvkx.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/832/832/xif0q/headphone/r/z/3/-original-imaghxgngaqtavwm.jpeg?q=70"
+    },
+    {
+      "pid": 8,
+      "prod_name": "APPLE Airpods Max Bluetooth Headset  (Green, On the Ear)",
+      "price": 58999,
+      "stock": 50,
+      "imgURL0": "https://rukminim1.flixcart.com/image/832/832/kigbjbk0-0/headphone/i/j/i/mgyn3hn-a-apple-original-imafy8wcgvdhsyjj.jpeg?q=70",
+      "imgURL1": "https://rukminim1.flixcart.com/image/832/832/kigbjbk0-0/headphone/k/u/2/mgyn3hn-a-apple-original-imafy8wcge5pbjzh.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/832/832/kirr24w0-0/headphone/j/a/f/mgyn3hn-a-apple-original-imafyhgzd85tvzgg.jpeg?q=70"
+    },
+    {
+      "pid": 9,
+      "prod_name": "SAMSUNG Galaxy Buds Live Bluetooth Headset",
+      "price": 8999,
+      "stock": 50,
+      "imgURL0": "https://rukminim1.flixcart.com/image/832/832/ktyp8cw0/headphone/c/z/i/sm-r180nznainu-samsung-original-imag77fzwryhaybg.jpeg?q=70",
+      "imgURL1": "https://rukminim1.flixcart.com/image/832/832/ktyp8cw0/headphone/c/9/p/sm-r180nznainu-samsung-original-imag77fzkxfvzvgu.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/832/832/ktyp8cw0/headphone/j/3/p/sm-r180nznainu-samsung-original-imag77fzbgtghwh6.jpeg?q=70"
+    },
+    {
+      "pid": 10,
+      "prod_name": "Mi 5A 100 cm (40 inch) Full HD LED Smart Android TV with Dolby Audio (2022 Model)",
+      "price": 19999,
+      "stock": 50,
+      "imgURL0": "https://rukminim1.flixcart.com/image/832/832/l2ghgnk0/television/b/h/f/l40m7-eain-mi-original-imagdsdw9gkhscmb.jpeg?q=70",
+      "imgURL1": "https://rukminim1.flixcart.com/image/832/832/l2ghgnk0/television/k/t/h/l40m7-eain-mi-original-imagdsdwkephupc5.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/832/832/l2ghgnk0/television/9/e/r/l40m7-eain-mi-original-imagdsdwyphy2zzx.jpeg?q=70"
+    },
+    {
+      "pid": 11,
+      "prod_name": "OnePlus Y1S Pro ",
+      "price": 39999,
+      "stock": 50,
+      "imgURL0": "https://rukminim1.flixcart.com/image/416/416/xif0q/television/r/n/x/55ud2a00-55-y1s-pro-oneplus-original-imagk9wcydhe7pbv.jpeg?q=70",
+      "imgURL1": "https://rukminim1.flixcart.com/image/416/416/xif0q/television/s/f/d/55ud2a00-55-y1s-pro-oneplus-original-imagk9wch8vntrnh.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/416/416/xif0q/television/4/q/n/55ud2a00-55-y1s-pro-oneplus-original-imagk9wcfbyvsdcn.jpeg?q=70"
+    },
+    {
+      "pid": 12,
+      "prod_name": "SONY 138.8 cm (55 inch) Ultra HD (4K) LED Smart Google TV  (KD-55X74K)",
+      "price": 59990,
+      "stock": 50,
+      "imgURL0": "https://rukminim1.flixcart.com/image/416/416/xif0q/television/d/k/e/-original-imagm2e6ztgrawkg.jpeg?q=70",
+      "imgURL1": "https://rukminim1.flixcart.com/image/416/416/xif0q/television/c/i/r/-original-imagm2e6nhdhjps8.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/416/416/xif0q/television/s/w/0/kd-65x74k-sony-original-imaghsdyuhbz5f8t.jpeg?q=70"
+    },
+    {
+      "pid": 13,
+      "prod_name": "Hisense 164 cm (65 inch) QLED Ultra HD (4K)",
+      "price": 76990,
+      "stock": 50,
+      "imgURL0": "https://rukminim1.flixcart.com/image/416/416/xif0q/television/y/n/l/-original-imagkbyeqf5zxt6e.jpeg?q=70",
+      "imgURL1": "https://rukminim1.flixcart.com/image/416/416/xif0q/television/k/m/a/-original-imagkbyemggeughy.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/416/416/xif0q/television/i/3/v/-original-imagkbyefshyrhyd.jpeg?q=70"
+    },
+    {
+      "pid": 14,
+      "prod_name": "Samsung Galaxy S23 5G",
+      "price": 79999,
+      "stock": 30,
+      "imgURL0": "https://m.media-amazon.com/images/I/61RZDb2mQxL._SX679_.jpg",
+      "imgURL1": "https://m.media-amazon.com/images/I/61JW7tAxBML._SL1500_.jpg",
+      "imgURL2": "https://m.media-amazon.com/images/I/6168dvBwOdL._SL1500_.jpg"
+    },
+    {
+      "pid": 15,
+      "prod_name": "Xiaomi 13 Pro",
+      "price": 63900,
+      "stock": 12,
+      "imgURL0": "https://rukminim1.flixcart.com/image/416/416/xif0q/mobile/s/y/g/-original-imaghkvu2zjxutmk.jpeg?q=70",
+      "imgURL1": "https://rukminim1.flixcart.com/image/416/416/xif0q/mobile/3/z/9/-original-imaghkvuhpjuvbmg.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/416/416/xif0q/mobile/h/w/9/-original-imagnfnnte37ayw6.jpeg?q=70"
+    },
+    {
+      "pid": 16,
+      "prod_name": "Infix 13 Pro",
+      "price": 7300,
+      "stock": 29,
+      "imgURL0": "https://rukminim1.flixcart.com/image/416/416/xif0q/mobile/r/u/n/-original-imagnfnnk7ftqwxe.jpeg?q=70",
+      "imgURL1": "https://rukminim1.flixcart.com/image/416/416/xif0q/mobile/h/w/9/-original-imagnfnnte37ayw6.jpeg?q=70",
+      "imgURL2": "https://rukminim1.flixcart.com/image/416/416/xif0q/mobile/7/y/z/-original-imagnfnnwdh9mygu.jpeg?q=70"
+    },
+    {
+      "pid": 17,
+      "prod_name": "Samsung Convertible 5-in-1 Refrigerator",
+      "price": 84399,
+      "stock": 3,
+      "imgURL0": "https://m.media-amazon.com/images/I/61T71ciGZ6L._SY879_.jpg",
+      "imgURL1": "https://m.media-amazon.com/images/I/71Hk8HL9ltL._SX679_.jpg",
+      "imgURL2": "https://m.media-amazon.com/images/I/71XSzqEvssL._SX679_.jpg"
+    }
+  ]
+}

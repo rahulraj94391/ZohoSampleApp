@@ -16,10 +16,10 @@ import com.example.mall.R
 import com.example.mall.rupeeString
 import com.squareup.picasso.Picasso
 
-const val ADDRESS_ROW: Int = 0
-const val CART_ROW: Int = 1
-const val PRICE_DETAIL_ROW = 2
-const val PAYMENT_ROW: Int = 3
+private const val ADDRESS_ROW: Int = 0
+private const val CART_ROW: Int = 1
+private const val PRICE_DETAIL_ROW = 2
+private const val PAYMENT_ROW: Int = 3
 private const val TAG = "Common_Tag_OrderActivityAdapter"
 
 class OrderActivityAdapter(

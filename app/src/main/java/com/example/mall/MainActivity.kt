@@ -49,8 +49,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
-
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         toolbar.setNavigationOnClickListener {
             onBackPressed()
