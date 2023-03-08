@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.*
@@ -38,6 +39,7 @@ class CategoriesFragment : Fragment(), OnCategoryClickListener {
         allCategories = view.findViewById(R.id.rv_all_categories)
         allCategories.adapter = AllCategoriesAdapter(categoriesList, this)
         allCategories.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        allCategories.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
     override fun onItemClick(category: Category) {

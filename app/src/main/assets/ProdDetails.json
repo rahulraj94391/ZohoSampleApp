@@ -2,7 +2,7 @@
   "prod_details": [
     {
       "pid": 1,
-      "prod_name": "SAMSUNG Galaxy F23 5G (Aqua Blue, 128 GB) (6 GB RAM)",
+      "prod_name": "SAMSUNG Galaxy F23 5G",
       "price": 14999,
       "stock": 50,
       "imgURL0": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/0/h/k/-original-imagcg22czc3ggvw.jpeg?q=70",
@@ -11,7 +11,7 @@
     },
     {
       "pid": 2,
-      "prod_name": "Nothing Phone (1) (White, 256 GB)  (12 GB RAM)",
+      "prod_name": "Nothing Phone (1)",
       "price": 35999,
       "stock": 50,
       "imgURL0": "https://rukminim1.flixcart.com/image/832/832/l5h2xe80/mobile/4/7/l/-original-imagg4y3grhaxckf.jpeg?q=70",
@@ -20,7 +20,7 @@
     },
     {
       "pid": 3,
-      "prod_name": "APPLE iPhone 12 (White, 128 GB)",
+      "prod_name": "APPLE iPhone 12",
       "price": 56999,
       "stock": 50,
       "imgURL0": "https://rukminim1.flixcart.com/image/832/832/kg8avm80/mobile/j/f/9/apple-iphone-12-dummyapplefsn-original-imafwg8dkyh2zgrh.jpeg?q=70",
@@ -29,7 +29,7 @@
     },
     {
       "pid": 4,
-      "prod_name": "APPLE iPhone 14 (Blue, 256 GB)",
+      "prod_name": "APPLE iPhone 14 (256 GB)",
       "price": 75999,
       "stock": 50,
       "imgURL0": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/3/5/l/-original-imaghx9qmgqsk9s4.jpeg?q=70",
@@ -38,7 +38,7 @@
     },
     {
       "pid": 5,
-      "prod_name": "APPLE iPhone 14 (Purple, 512 GB)",
+      "prod_name": "APPLE iPhone 14 (512 GB)",
       "price": 95999,
       "stock": 50,
       "imgURL0": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/b/u/f/-original-imaghxa5hvapbfds.jpeg?q=70",
@@ -47,7 +47,7 @@
     },
     {
       "pid": 6,
-      "prod_name": "SAMSUNG Galaxy Z Fold4 5G (Phantom Black, 256 GB)  (12 GB RAM)",
+      "prod_name": "SAMSUNG Galaxy Z Fold4",
       "price": 146999,
       "stock": 50,
       "imgURL0": "https://rukminim1.flixcart.com/image/832/832/xif0q/mobile/f/n/h/-original-imagh7nzh2gcdj2x.jpeg",
@@ -56,7 +56,7 @@
     },
     {
       "pid": 7,
-      "prod_name": "APPLE Airpods Pro 2nd Generation Bluetooth Headset  (White, True Wireless)",
+      "prod_name": "APPLE Airpods Pro 2nd Gen",
       "price": 27999,
       "stock": 50,
       "imgURL0": "https://rukminim1.flixcart.com/image/832/832/xif0q/headphone/s/t/m/-original-imaghxgnjdgyghfw.jpeg?q=70",
@@ -65,7 +65,7 @@
     },
     {
       "pid": 8,
-      "prod_name": "APPLE Airpods Max Bluetooth Headset  (Green, On the Ear)",
+      "prod_name": "APPLE Airpods Max",
       "price": 58999,
       "stock": 50,
       "imgURL0": "https://rukminim1.flixcart.com/image/832/832/kigbjbk0-0/headphone/i/j/i/mgyn3hn-a-apple-original-imafy8wcgvdhsyjj.jpeg?q=70",
@@ -74,7 +74,7 @@
     },
     {
       "pid": 9,
-      "prod_name": "SAMSUNG Galaxy Buds Live Bluetooth Headset",
+      "prod_name": "SAMSUNG Galaxy Buds Live",
       "price": 8999,
       "stock": 50,
       "imgURL0": "https://rukminim1.flixcart.com/image/832/832/ktyp8cw0/headphone/c/z/i/sm-r180nznainu-samsung-original-imag77fzwryhaybg.jpeg?q=70",
@@ -83,7 +83,7 @@
     },
     {
       "pid": 10,
-      "prod_name": "Mi 5A 100 cm (40 inch) Full HD LED Smart Android TV with Dolby Audio (2022 Model)",
+      "prod_name": "Mi 5A Smart Android TV",
       "price": 19999,
       "stock": 50,
       "imgURL0": "https://rukminim1.flixcart.com/image/832/832/l2ghgnk0/television/b/h/f/l40m7-eain-mi-original-imagdsdw9gkhscmb.jpeg?q=70",
@@ -101,7 +101,7 @@
     },
     {
       "pid": 12,
-      "prod_name": "SONY 138.8 cm (55 inch) Ultra HD (4K) LED Smart Google TV  (KD-55X74K)",
+      "prod_name": "SONY (4K) Smart Google TV",
       "price": 59990,
       "stock": 50,
       "imgURL0": "https://rukminim1.flixcart.com/image/416/416/xif0q/television/d/k/e/-original-imagm2e6ztgrawkg.jpeg?q=70",
@@ -110,7 +110,7 @@
     },
     {
       "pid": 13,
-      "prod_name": "Hisense 164 cm (65 inch) QLED Ultra HD (4K)",
+      "prod_name": "Hisense (65 inch) QLED (4K)",
       "price": 76990,
       "stock": 50,
       "imgURL0": "https://rukminim1.flixcart.com/image/416/416/xif0q/television/y/n/l/-original-imagkbyeqf5zxt6e.jpeg?q=70",
@@ -137,7 +137,7 @@
     },
     {
       "pid": 16,
-      "prod_name": "Infix 13 Pro",
+      "prod_name": "Infix SMART 7",
       "price": 7300,
       "stock": 29,
       "imgURL0": "https://rukminim1.flixcart.com/image/416/416/xif0q/mobile/r/u/n/-original-imagnfnnk7ftqwxe.jpeg?q=70",
