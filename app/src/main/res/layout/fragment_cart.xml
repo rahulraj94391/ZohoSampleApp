@@ -43,17 +43,20 @@
 
         <TextView
             android:id="@+id/tv_cart_total_price"
-            style="@style/left_right_padding_6dp"
+            style="@style/left_right_padding_8dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:paddingStart="6dp"
             android:gravity="center_vertical"
             android:text="2963"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+
+            />
 
         <Button
+            android:textAllCaps="false"
             android:id="@+id/btn_place_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,7 +64,10 @@
             android:paddingStart="40dp"
             android:paddingEnd="40dp"
             android:text="Place Order"
-            android:textColor="@color/white" />
+            android:textSize="13sp"
+            android:textColor="@color/white"
+
+            />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

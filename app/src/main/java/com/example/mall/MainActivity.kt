@@ -30,11 +30,8 @@ class MainActivity : AppCompatActivity() {
         window.statusBarColor = ContextCompat.getColor(this, R.color.primary)
         window.navigationBarColor = ContextCompat.getColor(this, R.color.primary)
         fm = supportFragmentManager
-
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
-
         sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
         sharedViewModel.uid.value = getSharedPreferences(MSharedPreferences.NAME, MODE_PRIVATE).getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
         if (savedInstanceState == null) {

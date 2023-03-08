@@ -7,17 +7,12 @@
     android:layout_margin="4dp"
     app:cardElevation="0dp"
     app:strokeColor="@color/primary"
-    app:strokeWidth="0.3dp"
-
-
-    >
+    app:strokeWidth="0.3dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/common_background"
-
-        >
+        android:background="@color/common_background">
 
         <ImageView
             android:id="@+id/iv_wishlist_prod_img"
@@ -29,38 +24,34 @@
             app:layout_constraintBottom_toTopOf="@+id/tv_wishlist_product_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_wishlist_product_name"
-            style="@style/left_right_padding_6dp"
+            style="@style/prod_name_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="2dp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:scrollHorizontally="true"
             android:text="Product Name"
-            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tv_wishlist_product_price"
-            app:layout_constraintTop_toBottomOf="@+id/iv_wishlist_prod_img"
-
-
-            />
+            app:layout_constraintTop_toBottomOf="@+id/iv_wishlist_prod_img" />
 
         <TextView
             android:id="@+id/tv_wishlist_product_price"
-            style="@style/left_right_padding_6dp"
+            style="@style/prod_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:text="$ 3000"
-            android:textSize="16sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_wishlist_product_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>

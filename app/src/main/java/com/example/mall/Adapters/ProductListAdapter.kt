@@ -42,7 +42,7 @@ class ProductListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.products_list_result, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.row_product_list_result, parent, false)
         return ProductViewHolder(view)
     }
 
@@ -51,7 +51,6 @@ class ProductListAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-
         Picasso.get()
             .load(products[position].imgURL)
             .placeholder(R.drawable.img_placeholder)

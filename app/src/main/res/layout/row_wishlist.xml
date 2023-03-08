@@ -8,32 +8,24 @@
     android:layout_margin="4dp"
     app:cardElevation="0dp"
     app:strokeColor="@color/primary"
-    app:strokeWidth="0.3dp"
-
-
-    >
+    app:strokeWidth="0.3dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/common_background"
-
-        >
+        android:background="@color/common_background">
 
         <Button
             android:id="@+id/btn_wishlist_remove_top"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/roundedbutton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-
             android:id="@+id/iv_wishlist_prod_img"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
@@ -41,17 +33,16 @@
             android:src="@drawable/img_placeholder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-
-
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_wishlist_product_name"
-            style="@style/left_right_padding_6dp"
+            style="@style/prod_name_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="2dp"
             android:ellipsize="end"
             android:maxLines="1"
@@ -59,16 +50,15 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/iv_wishlist_prod_img"
-            tools:text="Product Name"
-
-            />
+            tools:text="Product Name" />
 
         <TextView
             android:id="@+id/tv_wishlist_product_price"
-
-            style="@style/left_right_padding_6dp"
+            style="@style/prod_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="6dp"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -76,6 +66,4 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_wishlist_product_name"
             tools:text="$ 3000" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </com.google.android.material.card.MaterialCardView>

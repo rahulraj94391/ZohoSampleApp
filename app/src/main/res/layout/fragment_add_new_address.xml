@@ -14,19 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:gravity="center"
-            android:text="Enter new address"
-            android:textSize="24sp"
-            android:textStyle="bold"
 
-            />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_full_name"
@@ -44,7 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/common_background"
-
                 android:hint="Full Name"
                 android:inputType="textPersonName"
                 android:maxLength="40" />

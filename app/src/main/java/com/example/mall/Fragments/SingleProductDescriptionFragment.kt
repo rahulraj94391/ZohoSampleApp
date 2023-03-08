@@ -8,12 +8,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mall.*
+import com.example.mall.Adapters.HighlightsAdapter
 import com.example.mall.Adapters.ProductDescriptionImagesAdapter
 import com.example.mall.ModelClass.ProdDescPageModel
+import com.example.mall.ModelClass.ProductHighlightsModel
 import com.google.android.material.button.MaterialButtonToggleGroup
 import me.relex.circleindicator.CircleIndicator3
 import kotlin.properties.Delegates
@@ -33,7 +37,9 @@ class SingleProductDescriptionFragment : Fragment() {
     private lateinit var btnStart: Button
     private lateinit var btnEnd: Button
     private lateinit var db: DB
-    private var uid: Int = -1
+    private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var prodHighlights: RecyclerView
+
 
     companion object {
         fun newInstance(pid: Int) =
@@ -52,6 +58,7 @@ class SingleProductDescriptionFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         return inflater.inflate(R.layout.fragment_product_description, container, false)
     }
 
@@ -67,27 +74,28 @@ class SingleProductDescriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        uid = requireContext().getSharedPreferences(MSharedPreferences.NAME, AppCompatActivity.MODE_PRIVATE).getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
         db = DB(requireContext())
 
         indicator = view.findViewById(R.id.circle_indicator_3)
-        highlights = view.findViewById(R.id.tv_highlights)
         productName = view.findViewById(R.id.tv_prod_desc_title)
         productPrice = view.findViewById(R.id.tv_prod_desc_price)
         stockIndicator = view.findViewById(R.id.tv_is_in_stock)
         btnStart = view.findViewById(R.id.btn_at_start)
         btnEnd = view.findViewById(R.id.btn_at_end)
         quantityBtn = view.findViewById(R.id.select_qty_segmented)
-
+        prodHighlights = view.findViewById(R.id.rv_highlights)
 
         val prodDetails: ProdDescPageModel = db.singleProdDesc(pid)
         val stock = prodDetails.stock
         setupStartBtn()
         setupEndBtn(stock)
+        val highlightsList = mutableListOf<ProductHighlightsModel>()
         var specs = "" // get the specs from model_class
         for ((k, v) in prodDetails.specs) {
-            specs += "$k -> $v\n"
+            highlightsList.add(ProductHighlightsModel(k, v))
         }
+
+
 
         if (stock > 5) {
             stockIndicator.text = getString(R.string.in_stock)
@@ -104,7 +112,12 @@ class SingleProductDescriptionFragment : Fragment() {
 
         productName.text = prodDetails.name
         productPrice.text = String().rupeeString(prodDetails.price)
-        highlights.text = specs
+
+        val adapter = HighlightsAdapter(highlightsList)
+        prodHighlights.adapter = adapter
+        prodHighlights.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+
         productImages = view.findViewById(R.id.vp_prod_desc_images)
         productImages.adapter = ProductDescriptionImagesAdapter(prodDetails.imagesURL)
         indicator.setViewPager(productImages)
@@ -137,7 +150,7 @@ class SingleProductDescriptionFragment : Fragment() {
         val addToCartAction = View.OnClickListener {
             val quantity = getSelectedQuantity(quantityBtn.checkedButtonId)
             if (quantity != -1 && quantity <= stock) {
-                db.addItemToCart(uid, pid, quantity)
+                db.addItemToCart(sharedViewModel.uid.value!!, pid, quantity)
                 btnEnd.text = getString(R.string.go_to_cart)
                 btnEnd.setOnClickListener(goToCartAction)
             }
@@ -146,7 +159,7 @@ class SingleProductDescriptionFragment : Fragment() {
             }
         }
 
-        if (db.isItemInCart(uid, pid)) {
+        if (db.isItemInCart(sharedViewModel.uid.value!!, pid)) {
             btnEnd.text = getString(R.string.go_to_cart)
             btnEnd.setOnClickListener(goToCartAction)
         }
@@ -154,7 +167,6 @@ class SingleProductDescriptionFragment : Fragment() {
             btnEnd.text = getString(R.string.add_to_cart)
             btnEnd.setOnClickListener(addToCartAction)
         }
-
     }
 
     private fun setupStartBtn() {
@@ -173,12 +185,12 @@ class SingleProductDescriptionFragment : Fragment() {
         }
 
         val addToWishlistAction = View.OnClickListener {
-            db.addItemToWishlist(uid, pid)
+            db.addItemToWishlist(sharedViewModel.uid.value!!, pid)
             btnStart.text = getString(R.string.go_to_wishlist)
             btnStart.setOnClickListener(goToWishlistAction)
         }
 
-        if (db.isItemInWishlist(uid, pid)) {
+        if (db.isItemInWishlist(sharedViewModel.uid.value!!, pid)) {
             btnStart.text = getString(R.string.go_to_wishlist)
             btnStart.setOnClickListener(goToWishlistAction)
         }

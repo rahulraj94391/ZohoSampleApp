@@ -75,7 +75,7 @@ class LoginPageActivity : AppCompatActivity() {
         } else {
             progressBar.visibility = View.VISIBLE
             CoroutineScope(Dispatchers.Main).launch {
-                delay(2000)
+                delay(800)
                 val db = DB(this@LoginPageActivity)
                 val isValid = db.isExistingUser(textInputUsername.editText?.text.toString(), textInputPassword.editText?.text.toString())
                 if (isValid) {

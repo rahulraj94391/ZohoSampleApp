@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,32 +12,29 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="Price Details"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_price_x_items"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:text="Price (4 items)"
         app:layout_constraintStart_toStartOf="@+id/tv_price_details_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_price_details_title"
-        android:text="Price (4 items)" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_price_details_title" />
 
 
     <TextView
         android:id="@+id/tv_price_before_discount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="14,000"
         app:layout_constraintEnd_toEndOf="@+id/tv_price_details_title"
-        app:layout_constraintTop_toTopOf="@+id/tv_price_x_items"
-        android:text="14,000" />
+        app:layout_constraintTop_toTopOf="@+id/tv_price_x_items" />
 
 
     <TextView
@@ -46,9 +42,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:text="Discount"
         app:layout_constraintStart_toStartOf="@+id/tv_price_details_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_price_x_items"
-        android:text="Discount"
 
 
         />
@@ -58,9 +54,9 @@
         android:id="@+id/tv_discount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="2,345"
         app:layout_constraintEnd_toEndOf="@+id/tv_price_details_title"
         app:layout_constraintTop_toTopOf="@+id/tv_discount_title"
-        android:text="2,345"
 
         />
 
@@ -69,9 +65,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:text="Delivery charges"
         app:layout_constraintStart_toStartOf="@+id/tv_price_details_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_discount_title"
-        android:text="Delivery charges"
 
 
         />
@@ -81,10 +77,10 @@
         android:id="@+id/tv_delivery_charges"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="FREE Delivery"
         android:textColor="#389B42"
         app:layout_constraintEnd_toEndOf="@+id/tv_price_details_title"
         app:layout_constraintTop_toTopOf="@+id/tv_delivery_chargers_title"
-        android:text="FREE Delivery"
 
 
         />
@@ -104,10 +100,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:text="Total Amount"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tv_price_details_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_div1"
-        android:text="Total Amount"
 
 
         />
@@ -117,11 +113,10 @@
         android:id="@+id/tv_total_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="8,235"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/tv_price_details_title"
-        app:layout_constraintTop_toTopOf="@+id/tv_total_amount_title"
-        android:text="8,235"
-        />
+        app:layout_constraintTop_toTopOf="@+id/tv_total_amount_title" />
 
 
     <TextView
@@ -132,8 +127,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_div1" />
 
 

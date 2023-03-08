@@ -14,7 +14,6 @@ import com.example.mall.R
 import com.example.mall.ToolbarTitle
 
 class ContactUsFragment : Fragment() {
-
     private lateinit var rvContactUs: RecyclerView
     private lateinit var adapter: ContactUsAdapter
 
@@ -29,6 +28,5 @@ class ContactUsFragment : Fragment() {
         adapter = ContactUsAdapter(Constants.contactUsList)
         rvContactUs.adapter = adapter
         rvContactUs.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
     }
 }

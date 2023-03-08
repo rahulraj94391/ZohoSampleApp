@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/common_background"
-
     android:orientation="horizontal">
 
     <ImageView
@@ -22,7 +21,7 @@
 
     <TextView
         android:id="@+id/tv_category_type"
-        style="@style/left_right_padding_6dp"
+        style="@style/left_right_padding_8dp"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="4dp"

@@ -33,24 +33,25 @@
 
             <TextView
                 android:id="@+id/tv_prod_name"
-                style="@style/text_black_theme"
+                style="@style/prod_name_style"
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
                 android:text="Product Name"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+
+                />
 
             <TextView
                 android:id="@+id/tv_prod_price"
-                style="@style/text_black_theme"
+                style="@style/prod_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
                 android:layout_marginBottom="6dp"
                 android:text="Product Price"
-                android:textSize="20sp" />
+
+                />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -69,7 +70,6 @@
 
                 <TextView
                     android:id="@+id/tv_prod_quantity"
-                    style="@style/text_black_theme"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
@@ -118,7 +118,9 @@
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
             android:text="delete"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_end"

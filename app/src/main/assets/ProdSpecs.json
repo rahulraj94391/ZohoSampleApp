@@ -2,502 +2,502 @@
   "prod_specs": [
     {
       "pid": 1,
-      "key": "cpu",
+      "key": "Processor",
       "val": "SD 750G"
     },
     {
       "pid": 1,
-      "key": "gpu",
+      "key": "GPU",
       "val": "Adreno 619"
     },
     {
       "pid": 1,
-      "key": "ram",
+      "key": "RAM",
       "val": "6GB"
     },
     {
       "pid": 1,
-      "key": "rom",
+      "key": "ROM",
       "val": "128GB"
     },
     {
       "pid": 1,
-      "key": "display_size",
+      "key": "Screen size",
       "val": "6.6 Inch"
     },
     {
       "pid": 1,
-      "key": "color",
+      "key": "Color",
       "val": "Blue"
     },
     {
       "pid": 1,
-      "key": "model",
+      "key": "Model",
       "val": "F23 5G"
     },
     {
       "pid": 1,
-      "key": "resolution",
+      "key": "Resolution",
       "val": "1080p"
     },
     {
       "pid": 1,
-      "key": "os_version",
+      "key": "OS version",
       "val": "Android 12"
     },
     {
       "pid": 1,
-      "key": "primary_camera",
+      "key": "Main camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 1,
-      "key": "secondary_camera",
+      "key": "Secondary camera",
       "val": "8MP"
     },
     {
       "pid": 2,
-      "key": "cpu",
+      "key": "Processor",
       "val": "SD 750G"
     },
     {
       "pid": 2,
-      "key": "gpu",
+      "key": "GPU",
       "val": "Adreno 619"
     },
     {
       "pid": 2,
-      "key": "ram",
+      "key": "RAM",
       "val": "6GB"
     },
     {
       "pid": 2,
-      "key": "rom",
+      "key": "ROM",
       "val": "128GB"
     },
     {
       "pid": 2,
-      "key": "display_size",
+      "key": "Screen size",
       "val": "6.6 Inch"
     },
     {
       "pid": 2,
-      "key": "color",
+      "key": "Color",
       "val": "Blue"
     },
     {
       "pid": 2,
-      "key": "model",
+      "key": "Model",
       "val": "F23 5G"
     },
     {
       "pid": 2,
-      "key": "resolution",
+      "key": "Resolution",
       "val": "1080p"
     },
     {
       "pid": 2,
-      "key": "os_version",
+      "key": "OS version",
       "val": "Android 12"
     },
     {
       "pid": 2,
-      "key": "primary_camera",
+      "key": "Main camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 2,
-      "key": "secondary_camera",
+      "key": "Secondary camera",
       "val": "8MP"
     },
     {
       "pid": 3,
-      "key": "cpu",
+      "key": "Processor",
       "val": "SD 750G"
     },
     {
       "pid": 3,
-      "key": "gpu",
+      "key": "GPU",
       "val": "Adreno 619"
     },
     {
       "pid": 3,
-      "key": "ram",
+      "key": "RAM",
       "val": "6GB"
     },
     {
       "pid": 3,
-      "key": "rom",
+      "key": "ROM",
       "val": "128GB"
     },
     {
       "pid": 3,
-      "key": "display_size",
+      "key": "Screen size",
       "val": "6.6 Inch"
     },
     {
       "pid": 3,
-      "key": "color",
+      "key": "Color",
       "val": "Blue"
     },
     {
       "pid": 3,
-      "key": "model",
+      "key": "Model",
       "val": "F23 5G"
     },
     {
       "pid": 3,
-      "key": "resolution",
+      "key": "Resolution",
       "val": "1080p"
     },
     {
       "pid": 3,
-      "key": "os_version",
+      "key": "OS version",
       "val": "Android 12"
     },
     {
       "pid": 3,
-      "key": "primary_camera",
+      "key": "Main camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 3,
-      "key": "secondary_camera",
+      "key": "Secondary camera",
       "val": "8MP"
     },
     {
       "pid": 4,
-      "key": "cpu",
+      "key": "Processor",
       "val": "SD 750G"
     },
     {
       "pid": 4,
-      "key": "gpu",
+      "key": "GPU",
       "val": "Adreno 619"
     },
     {
       "pid": 4,
-      "key": "ram",
+      "key": "RAM",
       "val": "6GB"
     },
     {
       "pid": 4,
-      "key": "rom",
+      "key": "ROM",
       "val": "128GB"
     },
     {
       "pid": 4,
-      "key": "display_size",
+      "key": "Screen size",
       "val": "6.6 Inch"
     },
     {
       "pid": 4,
-      "key": "color",
+      "key": "Color",
       "val": "Blue"
     },
     {
       "pid": 4,
-      "key": "model",
+      "key": "Model",
       "val": "F23 5G"
     },
     {
       "pid": 4,
-      "key": "resolution",
+      "key": "Resolution",
       "val": "1080p"
     },
     {
       "pid": 4,
-      "key": "os_version",
+      "key": "OS version",
       "val": "Android 12"
     },
     {
       "pid": 4,
-      "key": "primary_camera",
+      "key": "Main camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 4,
-      "key": "secondary_camera",
+      "key": "Secondary camera",
       "val": "8MP"
     },
     {
       "pid": 5,
-      "key": "cpu",
+      "key": "Processor",
       "val": "SD 750G"
     },
     {
       "pid": 5,
-      "key": "gpu",
+      "key": "GPU",
       "val": "Adreno 619"
     },
     {
       "pid": 5,
-      "key": "ram",
+      "key": "RAM",
       "val": "6GB"
     },
     {
       "pid": 5,
-      "key": "rom",
+      "key": "ROM",
       "val": "128GB"
     },
     {
       "pid": 5,
-      "key": "display_size",
+      "key": "Screen size",
       "val": "6.6 Inch"
     },
     {
       "pid": 5,
-      "key": "color",
+      "key": "Color",
       "val": "Blue"
     },
     {
       "pid": 5,
-      "key": "model",
+      "key": "Model",
       "val": "F23 5G"
     },
     {
       "pid": 5,
-      "key": "resolution",
+      "key": "Resolution",
       "val": "1080p"
     },
     {
       "pid": 5,
-      "key": "os_version",
+      "key": "OS version",
       "val": "Android 12"
     },
     {
       "pid": 5,
-      "key": "primary_camera",
+      "key": "Main camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 5,
-      "key": "secondary_camera",
+      "key": "Secondary camera",
       "val": "8MP"
     },
     {
       "pid": 6,
-      "key": "cpu",
+      "key": "Processor",
       "val": "SD 750G"
     },
     {
       "pid": 6,
-      "key": "gpu",
+      "key": "GPU",
       "val": "Adreno 619"
     },
     {
       "pid": 6,
-      "key": "ram",
+      "key": "RAM",
       "val": "6GB"
     },
     {
       "pid": 6,
-      "key": "rom",
+      "key": "ROM",
       "val": "128GB"
     },
     {
       "pid": 6,
-      "key": "display_size",
+      "key": "Screen size",
       "val": "6.6 Inch"
     },
     {
       "pid": 6,
-      "key": "color",
+      "key": "Color",
       "val": "Blue"
     },
     {
       "pid": 6,
-      "key": "model",
+      "key": "Model",
       "val": "F23 5G"
     },
     {
       "pid": 6,
-      "key": "resolution",
+      "key": "Resolution",
       "val": "1080p"
     },
     {
       "pid": 6,
-      "key": "os_version",
+      "key": "OS version",
       "val": "Android 12"
     },
     {
       "pid": 6,
-      "key": "primary_camera",
+      "key": "Main camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 6,
-      "key": "secondary_camera",
+      "key": "Secondary camera",
       "val": "8MP"
     },
     {
       "pid": 7,
-      "key": "bluetooth_version",
+      "key": "BT version",
       "val": "5.3.1"
     },
     {
       "pid": 7,
-      "key": "play_time",
+      "key": "Playback time",
       "val": "40hr"
     },
     {
       "pid": 7,
-      "key": "weight",
+      "key": "Weight",
       "val": "140 gm"
     },
     {
       "pid": 7,
-      "key": "connectivity",
-      "val": "bluetooth"
+      "key": "Connectivity",
+      "val": "Bluetooth"
     },
     {
       "pid": 7,
-      "key": "model",
+      "key": "Model",
       "val": "MQD83HN/A"
     },
     {
       "pid": 7,
-      "key": "color",
+      "key": "Color",
       "val": "White"
     },
     {
       "pid": 8,
-      "key": "bluetooth_version",
+      "key": "BT version",
       "val": "5"
     },
     {
       "pid": 8,
-      "key": "play_time",
+      "key": "Playback time",
       "val": "20hr"
     },
     {
       "pid": 8,
-      "key": "weight",
+      "key": "Weight",
       "val": "380 gm"
     },
     {
       "pid": 8,
-      "key": "connectivity",
-      "val": "bluetooth"
+      "key": "Connectivity",
+      "val": "Bluetooth"
     },
     {
       "pid": 8,
-      "key": "model",
+      "key": "Model",
       "val": "MGYN3HN"
     },
     {
       "pid": 8,
-      "key": "color",
+      "key": "Color",
       "val": "Green"
     },
     {
       "pid": 9,
-      "key": "bluetooth_version",
+      "key": "BT version",
       "val": "5"
     },
     {
       "pid": 9,
-      "key": "play_time",
+      "key": "Playback time",
       "val": "32hr"
     },
     {
       "pid": 9,
-      "key": "weight",
+      "key": "Weight",
       "val": "138gm"
     },
     {
       "pid": 9,
-      "key": "connectivity",
-      "val": "bluetooth"
+      "key": "Connectivity",
+      "val": "Bluetooth"
     },
     {
       "pid": 9,
-      "key": "model",
+      "key": "Model",
       "val": "SM-R180NZNAINU"
     },
     {
       "pid": 9,
-      "key": "color",
+      "key": "Color",
       "val": "Mystic Bronze"
     },
     {
       "pid": 10,
-      "key": "display_size",
+      "key": "Screen size",
       "val": "40 inch"
     },
     {
       "pid": 10,
-      "key": "resolution",
+      "key": "Resolution",
       "val": "1920x1080"
     },
     {
       "pid": 10,
       "key": "OS",
-      "val": "android"
+      "val": "Android"
     },
     {
       "pid": 10,
-      "key": "speaker_output",
+      "key": "Speaker Output",
       "val": "24 W"
     },
     {
       "pid": 10,
-      "key": "refresh_rate",
+      "key": "Refresh rate",
       "val": "60 FPS"
     },
     {
       "pid": 10,
-      "key": "model",
+      "key": "Model",
       "val": "L40FJSDF-90"
     },
     {
       "pid": 10,
-      "key": "color",
+      "key": "Color",
       "val": "Black"
     },
     {
       "pid": 11,
-      "key": "display_size",
+      "key": "Screen size",
       "val": "55 inch"
     },
     {
       "pid": 11,
-      "key": "resolution",
+      "key": "Resolution",
       "val": "3840 x 2160"
     },
     {
       "pid": 11,
-      "key": "OS_version",
+      "key": "OS",
       "val": "android"
     },
     {
       "pid": 11,
-      "key": "speaker_output",
+      "key": "Speaker Output",
       "val": "24 W"
     },
     {
       "pid": 11,
-      "key": "refresh_rate",
+      "key": "Refresh rate",
       "val": "60 Hz"
     },
     {
       "pid": 11,
-      "key": "model",
+      "key": "Model",
       "val": "55UD2A00"
     },
     {
       "pid": 11,
-      "key": "color",
+      "key": "Color",
       "val": "Black"
     },
     {
       "pid": 12,
-      "key": "display_size",
+      "key": "Screen size",
       "val": "55 inch"
     },
     {
       "pid": 12,
-      "key": "resolution",
+      "key": "Resolution",
       "val": "3840 x 2160"
     },
     {
@@ -507,227 +507,227 @@
     },
     {
       "pid": 12,
-      "key": "speaker_output",
+      "key": "Speaker Output",
       "val": "24 W"
     },
     {
       "pid": 12,
-      "key": "refresh_rate",
+      "key": "Refresh rate",
       "val": "60 Hz"
     },
     {
       "pid": 12,
-      "key": "model",
+      "key": "Model",
       "val": "55UD2A00"
     },
     {
       "pid": 12,
-      "key": "color",
+      "key": "Color",
       "val": "Black"
     },
     {
       "pid": 13,
-      "key": "display_size",
+      "key": "Screen size",
       "val": "55 inch"
     },
     {
       "pid": 13,
-      "key": "resolution",
+      "key": "Resolution",
       "val": "3840 x 2160"
     },
     {
       "pid": 13,
-      "key": "OS_version",
+      "key": "OS",
       "val": "android"
     },
     {
       "pid": 13,
-      "key": "speaker_output",
+      "key": "Speaker Output",
       "val": "24 W"
     },
     {
       "pid": 13,
-      "key": "refresh_rate",
+      "key": "Refresh rate",
       "val": "60 Hz"
     },
     {
       "pid": 13,
-      "key": "model",
+      "key": "Model",
       "val": "55UD2A00"
     },
     {
       "pid": 13,
-      "key": "color",
+      "key": "Color",
       "val": "Black"
     },
     {
       "pid": 14,
-      "key": "cpu",
+      "key": "Processor",
       "val": "SD 750G"
     },
     {
       "pid": 14,
-      "key": "gpu",
+      "key": "GPU",
       "val": "Adreno 619"
     },
     {
       "pid": 14,
-      "key": "ram",
+      "key": "RAM",
       "val": "6GB"
     },
     {
       "pid": 14,
-      "key": "rom",
+      "key": "ROM",
       "val": "128GB"
     },
     {
       "pid": 14,
-      "key": "display_size",
+      "key": "Screen size",
       "val": "6.6 Inch"
     },
     {
       "pid": 14,
-      "key": "color",
+      "key": "Color",
       "val": "Blue"
     },
     {
       "pid": 14,
-      "key": "model",
+      "key": "Model",
       "val": "F23 5G"
     },
     {
       "pid": 14,
-      "key": "resolution",
+      "key": "Resolution",
       "val": "1080p"
     },
     {
       "pid": 14,
-      "key": "os_version",
+      "key": "OS version",
       "val": "Android 12"
     },
     {
       "pid": 14,
-      "key": "primary_camera",
+      "key": "Main camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 14,
-      "key": "secondary_camera",
+      "key": "Secondary camera",
       "val": "8MP"
     },
     {
       "pid": 15,
-      "key": "cpu",
+      "key": "Processor",
       "val": "SD 750G"
     },
     {
       "pid": 15,
-      "key": "gpu",
+      "key": "GPU",
       "val": "Adreno 619"
     },
     {
       "pid": 15,
-      "key": "ram",
+      "key": "RAM",
       "val": "6GB"
     },
     {
       "pid": 15,
-      "key": "rom",
+      "key": "ROM",
       "val": "128GB"
     },
     {
       "pid": 15,
-      "key": "display_size",
+      "key": "Screen size",
       "val": "6.6 Inch"
     },
     {
       "pid": 15,
-      "key": "color",
+      "key": "Color",
       "val": "Blue"
     },
     {
       "pid": 15,
-      "key": "model",
+      "key": "Model",
       "val": "F23 5G"
     },
     {
       "pid": 15,
-      "key": "resolution",
+      "key": "Resolution",
       "val": "1080p"
     },
     {
       "pid": 15,
-      "key": "os_version",
+      "key": "OS version",
       "val": "Android 12"
     },
     {
       "pid": 15,
-      "key": "primary_camera",
+      "key": "Main camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 15,
-      "key": "secondary_camera",
+      "key": "Secondary camera",
       "val": "8MP"
     },
     {
       "pid": 16,
-      "key": "cpu",
+      "key": "Processor",
       "val": "SD 750G"
     },
     {
       "pid": 16,
-      "key": "gpu",
+      "key": "GPU",
       "val": "Adreno 619"
     },
     {
       "pid": 16,
-      "key": "ram",
+      "key": "RAM",
       "val": "6GB"
     },
     {
       "pid": 16,
-      "key": "rom",
+      "key": "ROM",
       "val": "128GB"
     },
     {
       "pid": 16,
-      "key": "display_size",
+      "key": "Screen size",
       "val": "6.6 Inch"
     },
     {
       "pid": 16,
-      "key": "color",
+      "key": "Color",
       "val": "Blue"
     },
     {
       "pid": 16,
-      "key": "model",
+      "key": "Model",
       "val": "F23 5G"
     },
     {
       "pid": 16,
-      "key": "resolution",
+      "key": "Resolution",
       "val": "1080p"
     },
     {
       "pid": 16,
-      "key": "os_version",
+      "key": "OS version",
       "val": "Android 12"
     },
     {
       "pid": 16,
-      "key": "primary_camera",
+      "key": "Main camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 16,
-      "key": "secondary_camera",
+      "key": "Secondary camera",
       "val": "8MP"
     },
     {
       "pid": 17,
-      "key": "capacity",
+      "key": "Capacity",
       "val": "652L"
     },
     {
@@ -737,7 +737,7 @@
     },
     {
       "pid": 17,
-      "key": "color",
+      "key": "Color",
       "val": "Black"
     },
     {

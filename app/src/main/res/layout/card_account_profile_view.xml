@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    app:strokeColor="@color/primary"
-    app:strokeWidth="1dp"
+    android:layout_height="wrap_content"
     app:cardCornerRadius="20dp"
     app:cardElevation="0dp"
-    android:layout_height="wrap_content">
+    app:strokeColor="@color/primary"
+    app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ll_profile_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#fcf9ff"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="#fcf9ff"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -37,33 +37,33 @@
 
         <TextView
             android:id="@+id/tv_full_name"
+            style="@style/large_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="30dp"
-            android:gravity="center"
             android:fontFamily="sans-serif-medium"
+            android:gravity="center"
             android:textColor="@color/primary"
-
-            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@+id/siv_profile_pic"
-            tools:text="Full Name" />
+            tools:text="Full Name"
+
+            />
 
         <TextView
             android:id="@+id/tv_mobile_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/primary"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="30dp"
-
             android:layout_marginBottom="4dp"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:textSize="15sp"
+            android:textColor="@color/primary"
+            style="@style/headings_and_imp_text"
             app:layout_constraintTop_toBottomOf="@+id/tv_full_name"
             tools:text="91XXXXXXXX" />
 
@@ -73,15 +73,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/primary"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center"
-            android:textSize="15sp"
+            android:textColor="@color/primary"
+            style="@style/headings_and_imp_text"
             app:layout_constraintBottom_toTopOf="@+id/btn_save_details"
             app:layout_constraintTop_toBottomOf="@+id/tv_mobile_number"
-            tools:text="username@domain.com" />
+            tools:text="username@domain.com"
+
+            />
 
         <Button
             android:id="@+id/btn_save_details"
