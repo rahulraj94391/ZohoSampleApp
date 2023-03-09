@@ -62,6 +62,15 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        rvHome = view.findViewById(R.id.rv_home)
+        homeOffersAdapter = HomeOffersAdapter(offersImagesResId(), this)
+        adapter = HomeAdapter(homeOffersAdapter, backInStock, topSelling, this)
+        rvHome.adapter = adapter
+        rvHome.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
         mMenuProvider = object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.toolbar_menu_home_frag, menu)
@@ -98,11 +107,6 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
             }
         }
         (requireActivity() as MenuHost).addMenuProvider(mMenuProvider, viewLifecycleOwner)
-        rvHome = view.findViewById(R.id.rv_home)
-        homeOffersAdapter = HomeOffersAdapter(offersImagesResId(), this)
-        adapter = HomeAdapter(homeOffersAdapter, backInStock, topSelling, this)
-        rvHome.adapter = adapter
-        rvHome.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
 
     private fun offersImagesResId(): MutableList<Int> {

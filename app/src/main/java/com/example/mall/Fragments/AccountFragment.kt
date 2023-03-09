@@ -56,22 +56,6 @@ class AccountFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        mMenuProvider = object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.toolbar_menu_account_frag, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when (menuItem.itemId) {
-                    R.id.logout -> {
-                        logoutDecisionDialog()
-                        return true
-                    }
-                }
-                return false
-            }
-        }
-        (requireActivity() as MenuHost).addMenuProvider(mMenuProvider, viewLifecycleOwner)
         super.onViewCreated(view, savedInstanceState)
 
         etFullName = view.findViewById(R.id.tv_full_name)
@@ -120,6 +104,26 @@ class AccountFragment : Fragment() {
         super.onPause()
         (requireActivity() as MenuHost).removeMenuProvider(mMenuProvider)
 
+    }
+
+    override fun onStart() {
+        mMenuProvider = object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.toolbar_menu_account_frag, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.logout -> {
+                        logoutDecisionDialog()
+                        return true
+                    }
+                }
+                return false
+            }
+        }
+        (requireActivity() as MenuHost).addMenuProvider(mMenuProvider, viewLifecycleOwner)
+        super.onStart()
     }
 
     private fun openMyWishlist() {
@@ -176,6 +180,4 @@ class AccountFragment : Fragment() {
         startActivity(Intent(activity, LoginPageActivity::class.java))
         requireActivity().finish()
     }
-
-
 }
