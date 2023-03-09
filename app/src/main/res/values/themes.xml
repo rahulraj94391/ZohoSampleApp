@@ -71,5 +71,18 @@
         <item name="android:textSize">13sp</item>
     </style>
 
+    <style name="MyDialogStyle">
+        <!-- Background Color-->
+        <item name="android:background">@color/primary_container</item>
+        <!-- Text Color for title and message -->
+        <!-- <item name="colorOnSurface">@color/primary_container</item>-->
+        <!-- Style for positive button -->
+<!--        <item name="buttonBarPositiveButtonStyle">@style/DialogBtnStyle</item>-->
+        <!-- Style for negative button -->
+<!--        <item name="buttonBarNegativeButtonStyle">@style/DialogBtnStyle</item>-->
+
+    </style>
+
+
 
 </resources>

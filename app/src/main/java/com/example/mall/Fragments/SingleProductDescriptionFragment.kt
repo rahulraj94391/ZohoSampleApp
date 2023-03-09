@@ -33,7 +33,6 @@ class SingleProductDescriptionFragment : Fragment() {
     private lateinit var productPrice: TextView
     private var pid: Int by Delegates.notNull()
     private lateinit var productName: TextView
-    private lateinit var highlights: TextView
     private lateinit var btnStart: Button
     private lateinit var btnEnd: Button
     private lateinit var db: DB
@@ -90,13 +89,9 @@ class SingleProductDescriptionFragment : Fragment() {
         setupStartBtn()
         setupEndBtn(stock)
         val highlightsList = mutableListOf<ProductHighlightsModel>()
-        var specs = "" // get the specs from model_class
         for ((k, v) in prodDetails.specs) {
             highlightsList.add(ProductHighlightsModel(k, v))
         }
-
-
-
         if (stock > 5) {
             stockIndicator.text = getString(R.string.in_stock)
             stockIndicator.setTextColor(Color.parseColor("#0A9900"))
@@ -109,20 +104,25 @@ class SingleProductDescriptionFragment : Fragment() {
             stockIndicator.text = getString(R.string.out_of_stock)
             stockIndicator.setTextColor(Color.parseColor("#990000"))
         }
-
         productName.text = prodDetails.name
         productPrice.text = String().rupeeString(prodDetails.price)
-
         val adapter = HighlightsAdapter(highlightsList)
         prodHighlights.adapter = adapter
-        prodHighlights.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
+        val myLinearLayoutManager = object : LinearLayoutManager(requireContext()) {
+            override fun canScrollVertically(): Boolean {
+                return false
+            }
 
+            override fun canScrollHorizontally(): Boolean {
+                return false
+            }
+        }
+
+        prodHighlights.layoutManager = myLinearLayoutManager
         productImages = view.findViewById(R.id.vp_prod_desc_images)
         productImages.adapter = ProductDescriptionImagesAdapter(prodDetails.imagesURL)
         indicator.setViewPager(productImages)
-
-
     }
 
     private fun setupEndBtn(stock: Int) {

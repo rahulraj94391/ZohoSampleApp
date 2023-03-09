@@ -19,7 +19,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="@string/store_name"
         app:titleTextColor="@color/color_on_secondary" />
-<!--        app:menu="@menu/toolbar_menu"-->
+    <!--        app:menu="@menu/toolbar_menu"-->
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/frag_container"

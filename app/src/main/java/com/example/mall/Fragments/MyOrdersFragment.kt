@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +24,19 @@ class MyOrdersFragment : Fragment(), OnClickListener {
     private lateinit var adapter: MyOrdersAdapter
     private lateinit var db: DB
     private var uid: Int by Delegates.notNull()
+    private lateinit var tvOrdersEmpty: TextView
+
+
+    private fun ordersEmptyStatus() {
+        if (ordersList.size == 0) {
+            tvOrdersEmpty.visibility = View.VISIBLE
+            rvOrdersList.visibility = View.GONE
+        }
+        else {
+            tvOrdersEmpty.visibility = View.GONE
+            rvOrdersList.visibility = View.VISIBLE
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +52,10 @@ class MyOrdersFragment : Fragment(), OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        tvOrdersEmpty = view.findViewById(R.id.tv_orders_empty)
         rvOrdersList = view.findViewById(R.id.rv_my_orders_list)
         ordersList = db.getOrders(uid)
+        ordersEmptyStatus()
         adapter = MyOrdersAdapter(ordersList, this)
         rvOrdersList.adapter = adapter
         rvOrdersList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

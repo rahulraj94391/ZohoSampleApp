@@ -78,7 +78,7 @@ class MyWishlistFragment : Fragment(), WishlistItemClickListener {
             listOfProducts.removeAt(position)
             adapter.notifyItemRemoved(position)
         }
-        if (listOfProducts.size == 0) wishListStatus()
+        wishListStatus()
     }
 }
 

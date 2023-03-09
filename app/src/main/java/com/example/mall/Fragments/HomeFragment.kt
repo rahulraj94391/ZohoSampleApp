@@ -30,6 +30,7 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
     private lateinit var topSelling: MutableList<ItemImgNamePriceModel>
     private lateinit var homeOffersAdapter: HomeOffersAdapter
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var mMenuProvider: MenuProvider
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +62,7 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mMenuProvider = object : MenuProvider {
+        mMenuProvider = object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.toolbar_menu_home_frag, menu)
                 val searchFun = menu.findItem(R.id.search_view)
@@ -175,9 +176,18 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        (activity as MainActivity).apply {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
+        (requireActivity() as MenuHost).removeMenuProvider(mMenuProvider)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
     }
 
 }

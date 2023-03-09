@@ -3,13 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/common_background"
     tools:context=".Fragments.MyOrdersFragment">
+
+    <TextView
+        android:id="@+id/tv_orders_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.3"
+        android:clickable="false"
+        android:gravity="center"
+        android:text="No Orders Yet"
+        android:textColor="@color/secondary_container"
+        android:textSize="40sp" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/common_background"
         android:id="@+id/rv_my_orders_list"
+        android:visibility="gone"
 
         />
 

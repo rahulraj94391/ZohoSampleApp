@@ -2,6 +2,7 @@ package com.example.mall
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -40,9 +41,32 @@ class MainActivity : AppCompatActivity() {
                 commit()
             }
         }
-
         bottomNavViewAndListenerConfig()
+
+        val backStackListener = FragmentManager.OnBackStackChangedListener {
+            val backStackSize = supportFragmentManager.backStackEntryCount
+            if (backStackSize > 0) {
+                val topFragment: Fragment = supportFragmentManager.findFragmentById(R.id.frag_container)!!
+                if (topFragment is HomeFragment ||
+                    topFragment is CategoriesFragment ||
+                    topFragment is AccountFragment ||
+                    topFragment is CartFragment) {
+                    bottomNavigationView.visibility = View.VISIBLE
+                }
+                else {
+                    bottomNavigationView.visibility = View.GONE
+                }
+            }
+            else {
+                bottomNavigationView.visibility = View.VISIBLE
+            }
+
+        }
+
+        supportFragmentManager.addOnBackStackChangedListener(backStackListener)
+
     }
+
 
     override fun onStart() {
         super.onStart()

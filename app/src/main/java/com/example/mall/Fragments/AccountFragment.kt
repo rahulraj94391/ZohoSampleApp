@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -17,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.example.mall.*
 import com.example.mall.ModelClass.UserDetailsModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.properties.Delegates
 
 private const val TAG = "Common_Tag_AccountFragment"
@@ -33,7 +33,8 @@ class AccountFragment : Fragment() {
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var llAddress: LinearLayout
     private var uid: Int by Delegates.notNull()
-    private lateinit var builder: AlertDialog.Builder
+    private lateinit var builder: MaterialAlertDialogBuilder
+    private lateinit var mMenuProvider: MenuProvider
 
     override fun onAttach(context: Context) {
         sharedPreferences = context.getSharedPreferences(MSharedPreferences.NAME, AppCompatActivity.MODE_PRIVATE)
@@ -55,7 +56,7 @@ class AccountFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val mMenuProvider = object : MenuProvider {
+        mMenuProvider = object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.toolbar_menu_account_frag, menu)
             }
@@ -115,6 +116,12 @@ class AccountFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        (requireActivity() as MenuHost).removeMenuProvider(mMenuProvider)
+
+    }
+
     private fun openMyWishlist() {
         requireActivity().supportFragmentManager.beginTransaction().apply {
             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -125,20 +132,21 @@ class AccountFragment : Fragment() {
     }
 
     private fun logoutDecisionDialog() {
-        val positive = DialogInterface.OnClickListener { _, _ ->
+        val positiveAction = DialogInterface.OnClickListener { _, _ ->
             logoutUser()
         }
-        val negative = DialogInterface.OnClickListener { dialogInterface, _ ->
+        val negativeAction = DialogInterface.OnClickListener { dialogInterface, _ ->
             dialogInterface.cancel()
         }
 
-        builder = AlertDialog.Builder(requireContext())
+        builder = MaterialAlertDialogBuilder(requireContext(), R.style.MyDialogStyle)
         builder.setMessage("Logout current user ?")
-            .setCancelable(false)
-            .setPositiveButton("yes", positive)
-            .setNegativeButton("no", negative)
+            .setCancelable(true)
+            .setPositiveButton("yes", positiveAction)
+            .setNegativeButton("no", negativeAction)
             .show()
     }
+
 
     private fun setUserDetails() {
         etFullName.text = currentProfileDetails?.userName
@@ -168,4 +176,6 @@ class AccountFragment : Fragment() {
         startActivity(Intent(activity, LoginPageActivity::class.java))
         requireActivity().finish()
     }
+
+
 }

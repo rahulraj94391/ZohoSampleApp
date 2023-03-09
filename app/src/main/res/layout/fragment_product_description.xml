@@ -190,33 +190,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+
         android:paddingStart="4sp"
         android:paddingEnd="4dp"
 
         >
 
-        <Button
+        <android.widget.Button
             android:id="@+id/btn_at_start"
-            style="?attr/materialButtonOutlinedStyle"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/custom_button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginEnd="4dp"
             android:layout_weight="1"
             android:text="btn_start"
             android:textAllCaps="false"
+            android:textSize="16sp"
 
             />
 
-        <Button
+        <android.widget.Button
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
             android:id="@+id/btn_at_end"
-            style="?attr/materialButtonOutlinedStyle"
+            android:background="@drawable/custom_button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:text="btn_end"
             android:textAllCaps="false"
-
-
+            android:textSize="16sp"
             />
 
     </LinearLayout>

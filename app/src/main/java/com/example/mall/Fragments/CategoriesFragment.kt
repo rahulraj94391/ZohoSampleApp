@@ -27,8 +27,10 @@ class CategoriesFragment : Fragment(), OnCategoryClickListener {
     private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).bottomNavigationView.menu.getItem(1).isChecked = true
-        (activity as MainActivity).toolbar.title = ToolbarTitle.ALL_CATEGORIES
+        (activity as MainActivity).apply {
+            bottomNavigationView.menu.getItem(1).isChecked = true
+            toolbar.title = ToolbarTitle.ALL_CATEGORIES
+        }
         categoriesList = getCategories()
         return inflater.inflate(R.layout.fragment_category, container, false)
     }
