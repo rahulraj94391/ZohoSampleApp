@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/bnv_home"
-        android:icon="@drawable/home_icon_selector"
+        android:icon="@drawable/selector_home_icon"
         android:title="@string/bnv_home" />
     <item
         android:id="@+id/bnv_category"
-        android:icon="@drawable/category_icon_selector"
+        android:icon="@drawable/selector_category_icon"
         android:title="@string/bnv_category" />
     <item
         android:id="@+id/bnv_account"
-        android:icon="@drawable/account_icon_selector"
+        android:icon="@drawable/selector_account_icon"
         android:title="@string/bnv_account" />
     <item
         android:id="@+id/bnv_cart"
-        android:icon="@drawable/cart_icon_selector"
+        android:icon="@drawable/selector_cart_icon"
         android:title="@string/bnv_cart" />
 
 </menu>

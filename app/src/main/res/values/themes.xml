@@ -86,5 +86,16 @@
 
     </style>
 
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Entry">
+
+        <item name="chipBackgroundColor">@color/selector_filter_chip_bg_color</item>
+        <item name="checkedIcon">@null</item>
+        <item name="closeIcon">@drawable/down_arrow</item>
+        <item name="closeIconTint">@color/primary</item>
+        <item name="strokeWidth">1dp</item>
+
+
+    </style>
+
 
 </resources>

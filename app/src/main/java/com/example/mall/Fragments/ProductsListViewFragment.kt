@@ -1,5 +1,6 @@
 package com.example.mall.Fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,12 +17,14 @@ import com.example.mall.ModelClass.ProductListModel
 import com.example.mall.R
 import com.example.mall.SharedViewModel
 import com.example.mall.backStackName
+import com.google.android.material.chip.Chip
 import com.google.android.material.divider.MaterialDividerItemDecoration
 
 //private const val TAG = "Common_Tag_ProdLstViewFrag"
 private const val TAG = "MACBOOK"
 
 class ProductsListViewFragment : Fragment(), OnClickListener {
+    private lateinit var chipSortBy: Chip
     private lateinit var productList: RecyclerView
     private lateinit var listLength: TextView
     private lateinit var filters: TextView
@@ -44,8 +47,9 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        filters = view.findViewById(R.id.tv_filter)
-        listLength = view.findViewById(R.id.tv_found_x_items)
+        /*filters = view.findViewById(R.id.tv_filter)
+        listLength = view.findViewById(R.id.tv_found_x_items)*/
+        chipSortBy = view.findViewById(R.id.chip_sort_by)
         productList = view.findViewById(R.id.rv_product_list)
         listOfProducts = sharedViewModel.prodList.value!!
         adapter = ProductListAdapter(listOfProducts, this)
@@ -56,16 +60,19 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
         divider.dividerInsetEnd = 15
         productList.addItemDecoration(divider)
 
-        listLength.text = "Found ${listOfProducts.size} items"
 
-        filters.setOnClickListener {
+        chipSortBy
+
+//        listLength.text = "Found ${listOfProducts.size} items"
+
+        /*filters.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().apply {
                 setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 replace(R.id.frag_container, FiltersFragment.newInstance())
                 addToBackStack(backStackName)
                 commit()
             }
-        }
+        }*/
     }
 
     override fun onItemClicked(position: Int) {

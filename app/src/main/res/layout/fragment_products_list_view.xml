@@ -7,35 +7,89 @@
     android:background="@color/common_background"
     tools:context=".Fragments.ProductsListViewFragment">
 
-    <TextView
-        android:id="@+id/tv_found_x_items"
-        style="@style/headings_and_imp_text"
-        android:layout_width="0dp"
+    <HorizontalScrollView
+        android:id="@+id/hsv_filter"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:paddingStart="12dp"
-        android:text="Found x items"
-        android:textStyle="bold"
-
-        app:layout_constraintEnd_toStartOf="@+id/tv_filter"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
-        />
+        >
 
-    <TextView
-        android:id="@+id/tv_filter"
-        style="@style/headings_and_imp_text"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="12dp"
-        android:gravity="center"
-        android:text="Filter"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_found_x_items"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
 
-        />
+
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:text="Filters:"
+                android:textSize="16sp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_sort_by"
+                style="@style/Widget.MaterialComponents.Chip.Entry"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginEnd="8dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="80dp"
+                android:text="Sort by"
+                android:textColor="@color/primary"
+                app:checkedIcon="@null"
+                app:chipBackgroundColor="@android:color/transparent"
+                app:chipStrokeColor="@color/primary"
+                app:chipStrokeWidth="1dp"
+                app:closeIcon="@drawable/down_arrow"
+                app:closeIconSize="18dp"
+                app:closeIconTint="@color/primary"
+                app:rippleColor="#6C5A9F" />
+
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_price"
+                style="@style/Widget.MaterialComponents.Chip.Entry"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginEnd="8dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="80dp"
+                android:text="Price"
+                android:textColor="@color/primary"
+                app:checkedIcon="@null"
+                app:chipBackgroundColor="@android:color/transparent"
+                app:chipStrokeColor="@color/primary"
+                app:chipStrokeWidth="1dp"
+                app:closeIcon="@drawable/down_arrow"
+                app:closeIconSize="18dp"
+                app:closeIconTint="@color/primary"
+                app:rippleColor="#6C5A9F" />
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="Clear All"
+                android:textColor="@color/primary"
+
+                />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -46,7 +100,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_found_x_items"
+        app:layout_constraintTop_toBottomOf="@+id/hsv_filter"
 
         />
 
