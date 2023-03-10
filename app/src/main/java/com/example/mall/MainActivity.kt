@@ -44,23 +44,19 @@ class MainActivity : AppCompatActivity() {
         bottomNavViewAndListenerConfig()
 
         val backStackListener = FragmentManager.OnBackStackChangedListener {
-            val backStackSize = supportFragmentManager.backStackEntryCount
-            if (backStackSize > 0) {
-                val topFragment: Fragment = supportFragmentManager.findFragmentById(R.id.frag_container)!!
-                if (topFragment is HomeFragment ||
-                    topFragment is CategoriesFragment ||
-                    topFragment is AccountFragment ||
-                    topFragment is CartFragment) {
-                    bottomNavigationView.visibility = View.VISIBLE
-                }
-                else {
-                    bottomNavigationView.visibility = View.GONE
-                }
-            }
-            else {
+            val topFragment: Fragment = supportFragmentManager.findFragmentById(R.id.frag_container)!!
+            if (topFragment is HomeFragment ||
+                topFragment is CategoriesFragment ||
+                topFragment is AccountFragment ||
+                topFragment is CartFragment) {
                 bottomNavigationView.visibility = View.VISIBLE
             }
+            else bottomNavigationView.visibility = View.GONE
 
+            if (supportFragmentManager.findFragmentById(R.id.frag_container)!! is HomeFragment) {
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            }
+            else supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
 
         supportFragmentManager.addOnBackStackChangedListener(backStackListener)

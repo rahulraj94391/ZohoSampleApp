@@ -32,6 +32,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             app:layout_constraintTop_toBottomOf="@+id/iv_wishlist_prod_img" />
+
         <TextView
             android:id="@+id/tv_wishlist_product_name"
             style="@style/prod_name_style"
@@ -45,7 +46,7 @@
             android:paddingEnd="8dp"
             android:scrollHorizontally="true"
             android:text="Product Name"
-            android:textStyle="bold"
+            android:textStyle="normal"
             app:layout_constraintBottom_toTopOf="@+id/tv_wishlist_product_price"
             app:layout_constraintTop_toBottomOf="@+id/iv_wishlist_prod_img" />
 
@@ -56,6 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:paddingStart="8dp"
+            android:textStyle="normal"
             android:paddingEnd="8dp"
             android:text="$ 3000"
             app:layout_constraintBottom_toBottomOf="parent"

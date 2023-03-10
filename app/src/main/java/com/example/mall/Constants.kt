@@ -28,7 +28,7 @@ object Constants {
         contactUsList.add(
             ContactUsModel(
                 "I want help with return & refund",
-                "Manage ad track returns"
+                "Manage and track returns"
             )
         )
 
@@ -46,5 +46,4 @@ object Constants {
             )
         )
     }
-
 }

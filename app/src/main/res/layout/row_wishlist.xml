@@ -48,7 +48,7 @@
             android:maxLines="1"
             android:scrollHorizontally="true"
             android:textSize="18sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             app:layout_constraintTop_toBottomOf="@+id/iv_wishlist_prod_img"
             tools:text="Product Name" />
 
@@ -61,7 +61,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="6dp"
             android:textSize="16sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_wishlist_product_name"
             tools:text="$ 3000" />

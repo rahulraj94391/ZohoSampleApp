@@ -59,7 +59,6 @@ class ContactUsAdapter(private val list: MutableList<ContactUsModel>) : Recycler
         }
     }
 
-
     override fun getItemViewType(position: Int): Int {
         return when (position) {
             0 -> TITLE

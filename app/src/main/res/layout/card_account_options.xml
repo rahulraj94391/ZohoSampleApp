@@ -7,13 +7,11 @@
     app:cardCornerRadius="20dp"
     app:cardElevation="0dp"
     app:strokeColor="@color/primary"
-    app:strokeWidth="1dp"
-    >
+    app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:background="#fcf9ff">
 
         <LinearLayout
@@ -37,6 +35,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                style="@style/large_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -44,12 +43,10 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:fontFamily="sans-serif-medium"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:text="My Orders"
                 android:textColor="@color/primary"
-                style="@style/large_text"
 
                 />
 
@@ -80,6 +77,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                style="@style/large_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -87,12 +85,10 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:fontFamily="sans-serif-medium"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:text="My Wishlist"
                 android:textColor="@color/primary"
-                style="@style/large_text"
 
                 />
 
@@ -123,6 +119,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                style="@style/large_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -130,12 +127,10 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:fontFamily="sans-serif-medium"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:text="Saved Address"
                 android:textColor="@color/primary"
-                style="@style/large_text"
 
                 />
 
@@ -167,6 +162,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
+                style="@style/large_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -174,12 +170,10 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:fontFamily="sans-serif-medium"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
                 android:text="Contact Us"
                 android:textColor="@color/primary"
-                style="@style/large_text"
 
                 />
 

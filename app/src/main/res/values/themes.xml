@@ -12,6 +12,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">normal</item>
+
     </style>
 
     <style name="splash_screen">
@@ -77,12 +80,11 @@
         <!-- Text Color for title and message -->
         <!-- <item name="colorOnSurface">@color/primary_container</item>-->
         <!-- Style for positive button -->
-<!--        <item name="buttonBarPositiveButtonStyle">@style/DialogBtnStyle</item>-->
+        <!--        <item name="buttonBarPositiveButtonStyle">@style/DialogBtnStyle</item>-->
         <!-- Style for negative button -->
-<!--        <item name="buttonBarNegativeButtonStyle">@style/DialogBtnStyle</item>-->
+        <!--        <item name="buttonBarNegativeButtonStyle">@style/DialogBtnStyle</item>-->
 
     </style>
-
 
 
 </resources>

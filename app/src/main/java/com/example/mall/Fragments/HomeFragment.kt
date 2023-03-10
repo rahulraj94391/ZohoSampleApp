@@ -53,7 +53,7 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         (activity as MainActivity).apply {
-            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
             bottomNavigationView.menu.getItem(0).isChecked = true
             toolbar.title = ToolbarTitle.HOME
         }
@@ -182,16 +182,11 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
 
     override fun onPause() {
         super.onPause()
-        (activity as MainActivity).apply {
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        }
         (requireActivity() as MenuHost).removeMenuProvider(mMenuProvider)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-
-
     }
 
 }

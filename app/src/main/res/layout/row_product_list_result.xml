@@ -7,7 +7,11 @@
         android:id="@+id/iv_products_list_res"
         android:layout_width="120dp"
         android:layout_height="120dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:padding="2dp"
+        android:layout_marginEnd="4dp"
         android:src="@drawable/img_placeholder" />
 
     <LinearLayout
@@ -20,23 +24,21 @@
 
         <TextView
             android:id="@+id/tv_products_list_name"
+            style="@style/prod_name_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:text="Product Name"
-            style="@style/prod_name_style"
-
-            />
+            android:textStyle="normal" />
 
         <TextView
             android:id="@+id/tv_products_list_price"
+            style="@style/prod_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
             android:text="Product Price"
-            style="@style/prod_price"
-
-            />
+            android:textStyle="normal" />
 
         <TextView
             android:id="@+id/tv_products_list_stock"
@@ -44,7 +46,6 @@
             android:layout_height="wrap_content"
             android:text="In Stock"
             android:textSize="14sp"
-
-            />
+            android:textStyle="normal" />
     </LinearLayout>
 </LinearLayout>
