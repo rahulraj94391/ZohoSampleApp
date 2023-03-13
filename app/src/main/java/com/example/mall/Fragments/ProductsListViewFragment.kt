@@ -1,17 +1,22 @@
 package com.example.mall.Fragments
 
-import android.graphics.Color
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.Adapters.ProductListAdapter
+import com.example.mall.BottomSheetDialog.PriceFilter
+import com.example.mall.BottomSheetDialog.SortFilter
+import com.example.mall.Enum.SortBy
 import com.example.mall.Interface.OnClickListener
 import com.example.mall.ModelClass.ProductListModel
 import com.example.mall.R
@@ -20,17 +25,19 @@ import com.example.mall.backStackName
 import com.google.android.material.chip.Chip
 import com.google.android.material.divider.MaterialDividerItemDecoration
 
-//private const val TAG = "Common_Tag_ProdLstViewFrag"
-private const val TAG = "MACBOOK"
+private const val TAG = "CT_ProdLstViewFrag"
 
 class ProductsListViewFragment : Fragment(), OnClickListener {
     private lateinit var chipSortBy: Chip
-    private lateinit var productList: RecyclerView
-    private lateinit var listLength: TextView
-    private lateinit var filters: TextView
+    private lateinit var chipPrice: Chip
+    private lateinit var priceFilter: PriceFilter
+    private lateinit var sortFilter: SortFilter
+    private lateinit var clearAllFilters: TextView
+    private lateinit var rvProductList: RecyclerView
     private lateinit var adapter: ProductListAdapter
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var listOfProducts: ArrayList<ProductListModel>
+    private lateinit var filteredListOfProducts: ArrayList<ProductListModel>
 
     companion object {
         fun newInstance() = ProductsListViewFragment()
@@ -47,32 +54,98 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*filters = view.findViewById(R.id.tv_filter)
-        listLength = view.findViewById(R.id.tv_found_x_items)*/
+        rvProductList = view.findViewById(R.id.rv_product_list)
         chipSortBy = view.findViewById(R.id.chip_sort_by)
-        productList = view.findViewById(R.id.rv_product_list)
-        listOfProducts = sharedViewModel.prodList.value!!
+        chipPrice = view.findViewById(R.id.chip_price)
+        clearAllFilters = view.findViewById(R.id.clear_all_filter)
+
+        priceFilter = PriceFilter(
+            { selectStateChipBackgroundColor(chipPrice) },
+            { deselectStateChipBackgroundColor(chipPrice) },
+            { applyPriceFilters() },
+            { clearPriceFilter() }
+        )
+
+        sortFilter = SortFilter(
+            { selectStateChipBackgroundColor(chipSortBy) },
+            { deselectStateChipBackgroundColor(chipSortBy) },
+            { applySortFilter() },
+            { removeSortFilter() }
+        )
+
+        listOfProducts = ArrayList(sharedViewModel.prodList)
+        filteredListOfProducts = sharedViewModel.filteredList
         adapter = ProductListAdapter(listOfProducts, this)
-        productList.adapter = adapter
-        productList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        rvProductList.adapter = adapter
+        rvProductList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
         divider.dividerInsetStart = 15
         divider.dividerInsetEnd = 15
-        productList.addItemDecoration(divider)
+        rvProductList.addItemDecoration(divider)
+
+        clearAllFilters.setOnClickListener {
+            Log.d(TAG, "CLEAR ALL CLICKED")
+            deselectStateChipBackgroundColor(chipPrice)
+            deselectStateChipBackgroundColor(chipSortBy)
+
+            listOfProducts.clear()
+            listOfProducts.addAll(sharedViewModel.prodList)
+            adapter.notifyDataSetChanged()
+        }
+
+        chipSortBy.setOnClickListener { sortFilter.show(requireActivity().supportFragmentManager, "sortFilter") }
+        chipPrice.setOnClickListener { priceFilter.show(requireActivity().supportFragmentManager, "priceFilter") }
+
+    }
 
 
-        chipSortBy
+    private fun selectStateChipBackgroundColor(chip: Chip) {
+        chip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.primary_container))
+    }
 
-//        listLength.text = "Found ${listOfProducts.size} items"
+    private fun deselectStateChipBackgroundColor(chip: Chip) {
+        chip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.transparent))
+    }
 
-        /*filters.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().apply {
-                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                replace(R.id.frag_container, FiltersFragment.newInstance())
-                addToBackStack(backStackName)
-                commit()
+    private fun applyPriceFilters() {
+        val minPriceRange = sharedViewModel.priceRange.first
+        val maxPriceRange = sharedViewModel.priceRange.second
+
+        for (item in sharedViewModel.prodList)
+            if (item.prodPrice in minPriceRange..maxPriceRange)
+                filteredListOfProducts.add(item)
+
+
+        listOfProducts.clear()
+        listOfProducts.addAll(filteredListOfProducts)
+        filteredListOfProducts.clear()
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun applySortFilter() {
+        when (sharedViewModel.sortMethod) {
+            SortBy.LOW_TO_HIGH -> {
+                listOfProducts.sortWith(PriceComparator())
             }
-        }*/
+            SortBy.HIGH_TO_LOW -> {
+                listOfProducts.sortWith(PriceComparator().reversed())
+            }
+            SortBy.NONE -> {}
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun removeSortFilter() {
+        listOfProducts.sortWith(ProductIdComparator())
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun clearPriceFilter() {
+        with(listOfProducts) {
+            clear()
+            addAll(sharedViewModel.prodList)
+        }
+        adapter.notifyDataSetChanged()
     }
 
     override fun onItemClicked(position: Int) {
@@ -82,5 +155,23 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
             addToBackStack(backStackName)
             commit()
         }
+    }
+}
+
+class ProductIdComparator : Comparator<ProductListModel> {
+    override fun compare(o1: ProductListModel?, o2: ProductListModel?): Int {
+        if (o1 == null || o2 == null) {
+            return 0
+        }
+        return o1.pid.compareTo(o2.pid)
+    }
+}
+
+class PriceComparator : Comparator<ProductListModel> {
+    override fun compare(o1: ProductListModel?, o2: ProductListModel?): Int {
+        if (o1 == null || o2 == null) {
+            return 0
+        }
+        return o1.prodPrice.compareTo(o2.prodPrice)
     }
 }

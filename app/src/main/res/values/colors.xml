@@ -9,7 +9,6 @@
     <color name="white">#FFFFFFFF</color>
 
 
-    
     <color name="primary">#6750A4</color>
     <color name="common_background">#fdfbff</color>
     <color name="primary_container">#EADDFF</color>
@@ -18,4 +17,7 @@
     <color name="secondary">#625B71</color>
     <color name="secondary_container">#1E192B</color>
     <color name="color_on_secondary">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+
 </resources>

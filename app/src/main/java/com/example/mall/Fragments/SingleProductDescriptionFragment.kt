@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,11 +20,11 @@ import com.google.android.material.button.MaterialButtonToggleGroup
 import me.relex.circleindicator.CircleIndicator3
 import kotlin.properties.Delegates
 
-private const val TAG = "Common_Tag_SingleProductDescriptionFragment"
+private const val TAG = "CT_SingleProductDescriptionFragment"
 private const val ARG_PID = "pid"
 
 class SingleProductDescriptionFragment : Fragment() {
-    private lateinit var quantityBtn: MaterialButtonToggleGroup
+    private lateinit var spinnerQuantity: Spinner
     private lateinit var indicator: CircleIndicator3
     private lateinit var productImages: ViewPager2
     private lateinit var stockIndicator: TextView
@@ -36,6 +34,7 @@ class SingleProductDescriptionFragment : Fragment() {
     private lateinit var btnStart: Button
     private lateinit var btnEnd: Button
     private lateinit var db: DB
+    private lateinit var arrayAdapter: ArrayAdapter<Int>
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var prodHighlights: RecyclerView
 
@@ -58,17 +57,7 @@ class SingleProductDescriptionFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        return inflater.inflate(R.layout.fragment_product_description, container, false)
-    }
-
-    private fun getSelectedQuantity(id: Int): Int {
-        return when (id) {
-            R.id.quantity_1 -> 1
-            R.id.quantity_2 -> 2
-            R.id.quantity_3 -> 3
-            R.id.quantity_4 -> 4
-            else -> -1
-        }
+        return inflater.inflate(R.layout.fragment_single_product_description, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,8 +70,11 @@ class SingleProductDescriptionFragment : Fragment() {
         stockIndicator = view.findViewById(R.id.tv_is_in_stock)
         btnStart = view.findViewById(R.id.btn_at_start)
         btnEnd = view.findViewById(R.id.btn_at_end)
-        quantityBtn = view.findViewById(R.id.select_qty_segmented)
+        spinnerQuantity = view.findViewById(R.id.spinner_quantity)
         prodHighlights = view.findViewById(R.id.rv_highlights)
+
+        arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_spinner, Constants.itemQuantities)
+        spinnerQuantity.adapter = arrayAdapter
 
         val prodDetails: ProdDescPageModel = db.singleProdDesc(pid)
         val stock = prodDetails.stock
@@ -148,7 +140,7 @@ class SingleProductDescriptionFragment : Fragment() {
         }
 
         val addToCartAction = View.OnClickListener {
-            val quantity = getSelectedQuantity(quantityBtn.checkedButtonId)
+            val quantity = spinnerQuantity.selectedItem.toString().trim().toInt()
             if (quantity != -1 && quantity <= stock) {
                 db.addItemToCart(sharedViewModel.uid.value!!, pid, quantity)
                 btnEnd.text = getString(R.string.go_to_cart)

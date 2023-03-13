@@ -82,7 +82,7 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
                         val set: MutableSet<ProductListModel> = db.searchViewResult(query?.trim())
                         val prodList: ArrayList<ProductListModel> = arrayListOf()
                         prodList.addAll(set)
-                        sharedViewModel.prodList.value = prodList
+                        sharedViewModel.prodList = prodList
 
                         requireActivity().supportFragmentManager.beginTransaction().apply {
                             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)

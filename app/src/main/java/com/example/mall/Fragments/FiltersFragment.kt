@@ -73,7 +73,7 @@ class FiltersFragment : Fragment() {
         if (validation()) {
             val filteredList: ArrayList<ProductListModel> = arrayListOf()
 
-            listOfProducts = sharedViewModel.prodList.value!!
+            listOfProducts = sharedViewModel.prodList
 
             // add item from original List to filtered list within given price range
             for (item in listOfProducts) if (item.prodPrice in minRange..maxRange) filteredList.add(item)
@@ -92,7 +92,7 @@ class FiltersFragment : Fragment() {
 //            }
 //            parentFragmentManager.setFragmentResult("reqKeyOfFilteredList", bundle)
 
-            sharedViewModel.prodList.value = filteredList
+            sharedViewModel.prodList = filteredList
             requireActivity().supportFragmentManager.popBackStack()
         }
     }

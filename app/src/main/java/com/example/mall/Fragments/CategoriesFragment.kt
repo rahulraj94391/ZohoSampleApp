@@ -17,8 +17,7 @@ import com.example.mall.Interface.OnCategoryClickListener
 import com.example.mall.ModelClass.AllCategoryModel
 import com.example.mall.ModelClass.ProductListModel
 
-//private const val TAG = "Common_Tag_CategoryFragment"
-private const val TAG = "macbook2"
+private const val TAG = "CT_CategoryFragment"
 
 
 class CategoriesFragment : Fragment(), OnCategoryClickListener {
@@ -47,8 +46,8 @@ class CategoriesFragment : Fragment(), OnCategoryClickListener {
     override fun onItemClick(category: Category) {
         val listOfProducts: ArrayList<ProductListModel> = DB(requireContext()).queryProductsBasedOnCategory(category)
         Log.d(TAG, "listOfProducts = ${listOfProducts.size}")
-        sharedViewModel.prodList.value = listOfProducts
-        val fragment = if (sharedViewModel.prodList.value!!.size > 0) ProductsListViewFragment.newInstance() else ProductNotAvailable()
+        sharedViewModel.prodList = listOfProducts
+        val fragment = if (sharedViewModel.prodList.size > 0) ProductsListViewFragment.newInstance() else ProductNotAvailable()
         requireActivity().supportFragmentManager.beginTransaction().apply {
             setCustomAnimations(
                 R.anim.enter_from_right,

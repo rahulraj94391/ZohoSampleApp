@@ -3,6 +3,9 @@ package com.example.mall
 import com.example.mall.ModelClass.ContactUsModel
 
 object Constants {
+
+    val itemQuantities: Array<Int> = arrayOf(1, 2, 3, 4)
+
     var contactUsList: MutableList<ContactUsModel> = mutableListOf()
 
     init {

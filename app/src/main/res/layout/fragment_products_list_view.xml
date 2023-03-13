@@ -46,7 +46,8 @@
                 android:paddingBottom="80dp"
                 android:text="Sort by"
                 android:textColor="@color/primary"
-                app:checkedIcon="@null"
+                app:checkedIconTint="@color/primary"
+                app:checkedIconVisible="false"
                 app:chipBackgroundColor="@android:color/transparent"
                 app:chipStrokeColor="@color/primary"
                 app:chipStrokeWidth="1dp"
@@ -66,7 +67,8 @@
                 android:paddingBottom="80dp"
                 android:text="Price"
                 android:textColor="@color/primary"
-                app:checkedIcon="@null"
+                app:checkedIconTint="@color/primary"
+                app:checkedIconVisible="false"
                 app:chipBackgroundColor="@android:color/transparent"
                 app:chipStrokeColor="@color/primary"
                 app:chipStrokeWidth="1dp"
@@ -76,21 +78,15 @@
                 app:rippleColor="#6C5A9F" />
 
 
-
-
             <TextView
+                android:id="@+id/clear_all_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:text="Clear All"
-                android:textColor="@color/primary"
-
-                />
-
+                android:textColor="@color/primary" />
         </LinearLayout>
-
     </HorizontalScrollView>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_product_list"
@@ -100,9 +96,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hsv_filter"
-
-        />
+        app:layout_constraintTop_toBottomOf="@+id/hsv_filter" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
