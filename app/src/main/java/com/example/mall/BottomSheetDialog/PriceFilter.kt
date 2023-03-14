@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.example.mall.Fragments.ProductsListViewFragment
 import com.example.mall.R
 import com.example.mall.SharedViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -17,10 +18,10 @@ private const val MAX_RANGE: Int = 999999999
 
 
 class PriceFilter(
-    private val selectChipColor: () -> Unit,
+    /*private val selectChipColor: () -> Unit,
     private val deselectChipColor: () -> Unit,
-    private val applyFilters: () -> Unit,
-    private val clearPriceFilter: () -> Unit
+    private val applyPriceFilter: () -> Unit,
+    private val clearPriceFilter: () -> Unit*/
 ) : BottomSheetDialogFragment() {
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var tvMinPrice: TextView
@@ -54,18 +55,26 @@ class PriceFilter(
 
         btnClear.setOnClickListener {
             sharedViewModel.priceRange = Pair(MIN_RANGE, MAX_RANGE)
-            deselectChipColor.invoke()
             tvMinPrice.text = ""
             tvMaxPrice.text = ""
-            clearPriceFilter.invoke()
+//            deselectChipColor.invoke()
+//            clearPriceFilter.invoke()
+
+            val frag = requireActivity().supportFragmentManager.findFragmentByTag("ProductsListViewFragment") as ProductsListViewFragment
+            frag.deselectStateChipBackgroundColor(frag.chipPrice)
+            frag.removePriceFilter()
             dismiss()
         }
 
         btnApply.setOnClickListener {
             if (validation()) {
                 sharedViewModel.priceRange = Pair(minRange, maxRange)
-                selectChipColor.invoke()
-                applyFilters.invoke()
+
+//                selectChipColor.invoke()
+//                applyPriceFilter.invoke()
+                val frag = requireActivity().supportFragmentManager.findFragmentByTag("ProductsListViewFragment") as ProductsListViewFragment
+                frag.selectStateChipBackgroundColor(frag.chipPrice)
+                frag.applyPriceFilters()
                 dismiss()
             }
         }

@@ -19,9 +19,7 @@ class AllCategoriesAdapter(
         return CategoryViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return categories.size
-    }
+    override fun getItemCount(): Int = categories.size
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.image.setImageResource(categories[position].img)
@@ -32,7 +30,7 @@ class AllCategoriesAdapter(
         init {
             itemView.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
-                    listener.onItemClick(categories[adapterPosition].category)
+                    listener.onCategoryClicked(categories[adapterPosition].category)
                 }
             }
         }

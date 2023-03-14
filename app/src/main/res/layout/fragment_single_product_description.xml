@@ -166,6 +166,7 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="6dp"
                     android:id="@+id/rv_highlights"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

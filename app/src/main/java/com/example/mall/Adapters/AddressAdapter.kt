@@ -29,7 +29,6 @@ class AddressAdapter(
                 listener.onItemClicked(adapterPosition)
             }
         }
-//        val addNewAddress: ImageView = itemView.findViewById(R.id.iv_add_new_address)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -58,9 +57,7 @@ class AddressAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return addresses.size + 1
-    }
+    override fun getItemCount(): Int = addresses.size + 1
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {

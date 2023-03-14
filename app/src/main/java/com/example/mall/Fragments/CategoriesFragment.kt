@@ -43,11 +43,15 @@ class CategoriesFragment : Fragment(), OnCategoryClickListener {
         allCategories.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
     }
 
-    override fun onItemClick(category: Category) {
+    override fun onCategoryClicked(category: Category) {
+        var tag = ""
         val listOfProducts: ArrayList<ProductListModel> = DB(requireContext()).queryProductsBasedOnCategory(category)
         Log.d(TAG, "listOfProducts = ${listOfProducts.size}")
         sharedViewModel.prodList = listOfProducts
-        val fragment = if (sharedViewModel.prodList.size > 0) ProductsListViewFragment.newInstance() else ProductNotAvailable()
+        val fragment =
+            if (sharedViewModel.prodList.size > 0)
+                ProductsListViewFragment.newInstance().also { tag = "ProductsListViewFragment" }
+            else ProductNotAvailable().also { "ProductNotAvailable" }
         requireActivity().supportFragmentManager.beginTransaction().apply {
             setCustomAnimations(
                 R.anim.enter_from_right,
@@ -55,7 +59,7 @@ class CategoriesFragment : Fragment(), OnCategoryClickListener {
                 R.anim.enter_from_left,
                 R.anim.exit_to_right
             )
-            replace(R.id.frag_container, fragment)
+            replace(R.id.frag_container, fragment, tag)
             addToBackStack(backStackName)
             commit()
         }

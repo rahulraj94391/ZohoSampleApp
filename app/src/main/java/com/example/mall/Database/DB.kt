@@ -380,6 +380,7 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
     }
 
     fun queryProductsBasedOnCategory(category: Category): ArrayList<ProductListModel> {
+        val ALL: String = "All Products"
         val baseQuery = "SELECT pid, prod_name, imgURL0, price, stock FROM prod_details"
         val categorySpecificQuery = " WHERE pid IN (SELECT pid FROM category_tags WHERE category_tags.category_tag = ?)"
         val keyword: String = when (category) {
@@ -390,11 +391,11 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
             Category.HEADPHONES -> "headphone"
             Category.TELEVISON -> "television"
             Category.EARPHONES -> "earphone"
-            else -> "-1"
+            else -> ALL
         }
 
         var selectionArgs: Array<String>? = null
-        val finalQuery = if (keyword != "-1") (baseQuery + categorySpecificQuery).also { selectionArgs = arrayOf(keyword) } else baseQuery
+        val finalQuery = if (keyword != ALL) (baseQuery + categorySpecificQuery).also { selectionArgs = arrayOf(keyword) } else baseQuery
         val cursor = readableDatabase.rawQuery(finalQuery, selectionArgs)
         val products: ArrayList<ProductListModel> = arrayListOf()
 

@@ -86,7 +86,7 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
 
                         requireActivity().supportFragmentManager.beginTransaction().apply {
                             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            replace(R.id.frag_container, ProductsListViewFragment.newInstance(), "SearchView")
+                            replace(R.id.frag_container, ProductsListViewFragment.newInstance(), "ProductsListViewFragment")
                             addToBackStack(backStackName)
                             commit()
                         }

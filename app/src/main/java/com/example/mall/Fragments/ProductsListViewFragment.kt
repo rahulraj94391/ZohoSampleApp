@@ -28,8 +28,8 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 private const val TAG = "CT_ProdLstViewFrag"
 
 class ProductsListViewFragment : Fragment(), OnClickListener {
-    private lateinit var chipSortBy: Chip
-    private lateinit var chipPrice: Chip
+    lateinit var chipSortBy: Chip
+    lateinit var chipPrice: Chip
     private lateinit var priceFilter: PriceFilter
     private lateinit var sortFilter: SortFilter
     private lateinit var clearAllFilters: TextView
@@ -59,21 +59,12 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
         chipPrice = view.findViewById(R.id.chip_price)
         clearAllFilters = view.findViewById(R.id.clear_all_filter)
 
-        priceFilter = PriceFilter(
-            { selectStateChipBackgroundColor(chipPrice) },
-            { deselectStateChipBackgroundColor(chipPrice) },
-            { applyPriceFilters() },
-            { clearPriceFilter() }
-        )
+        priceFilter = PriceFilter()
+        sortFilter = SortFilter()
 
-        sortFilter = SortFilter(
-            { selectStateChipBackgroundColor(chipSortBy) },
-            { deselectStateChipBackgroundColor(chipSortBy) },
-            { applySortFilter() },
-            { removeSortFilter() }
-        )
-
-        listOfProducts = ArrayList(sharedViewModel.prodList)
+        listOfProducts =
+            if (savedInstanceState == null) ArrayList(sharedViewModel.prodList)
+            else savedInstanceState.getParcelableArrayList<ProductListModel>("prodList") as ArrayList<ProductListModel>
         filteredListOfProducts = sharedViewModel.filteredList
         adapter = ProductListAdapter(listOfProducts, this)
         rvProductList.adapter = adapter
@@ -99,15 +90,15 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
     }
 
 
-    private fun selectStateChipBackgroundColor(chip: Chip) {
+    fun selectStateChipBackgroundColor(chip: Chip) {
         chip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.primary_container))
     }
 
-    private fun deselectStateChipBackgroundColor(chip: Chip) {
+    fun deselectStateChipBackgroundColor(chip: Chip) {
         chip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.transparent))
     }
 
-    private fun applyPriceFilters() {
+    fun applyPriceFilters() {
         val minPriceRange = sharedViewModel.priceRange.first
         val maxPriceRange = sharedViewModel.priceRange.second
 
@@ -115,14 +106,14 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
             if (item.prodPrice in minPriceRange..maxPriceRange)
                 filteredListOfProducts.add(item)
 
-
         listOfProducts.clear()
         listOfProducts.addAll(filteredListOfProducts)
         filteredListOfProducts.clear()
+        applySortFilter()
         adapter.notifyDataSetChanged()
     }
 
-    private fun applySortFilter() {
+    fun applySortFilter() {
         when (sharedViewModel.sortMethod) {
             SortBy.LOW_TO_HIGH -> {
                 listOfProducts.sortWith(PriceComparator())
@@ -135,12 +126,12 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
         adapter.notifyDataSetChanged()
     }
 
-    private fun removeSortFilter() {
+    fun removeSortFilter() {
         listOfProducts.sortWith(ProductIdComparator())
         adapter.notifyDataSetChanged()
     }
 
-    private fun clearPriceFilter() {
+    fun removePriceFilter() {
         with(listOfProducts) {
             clear()
             addAll(sharedViewModel.prodList)
@@ -155,6 +146,12 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
             addToBackStack(backStackName)
             commit()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList("prodList", listOfProducts)
+
     }
 }
 
