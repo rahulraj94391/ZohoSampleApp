@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mall.Fragments.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-private const val TAG = "Common_Tag_MainActivity"
+private const val TAG = "CT_MainActivity"
 const val backStackName = "Main_Back_Stack"
 
 class MainActivity : AppCompatActivity() {
@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.primary)
-        window.navigationBarColor = ContextCompat.getColor(this, R.color.primary)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.status_bar_nav_bar)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.status_bar_nav_bar)
         fm = supportFragmentManager
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -58,9 +58,7 @@ class MainActivity : AppCompatActivity() {
             }
             else supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
-
         supportFragmentManager.addOnBackStackChangedListener(backStackListener)
-
     }
 
 
