@@ -25,7 +25,7 @@ import com.example.mall.Interface.OnCartItemClickListener
 import com.example.mall.ModelClass.CartItemModel
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
-private const val TAG = "Common_Tag_CartFragment"
+private const val TAG = "CT_CartFragment"
 
 class CartFragment : Fragment(), OnCartItemClickListener {
     private lateinit var rvCartList: RecyclerView
@@ -179,9 +179,9 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             val removedItem = cartItemList.removeAt(position)
             cartTotal -= removedItem.price * removedItem.quantity
             cartItemsAdapter.notifyItemRemoved(position)
+            Toast.makeText(requireContext(), "${removedItem.productName} deleted...", Toast.LENGTH_SHORT).show()
         }
         checkCartStatus()
-
     }
 
     fun swipeRightToWishlist(position: Int) {
@@ -190,7 +190,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             val removedItem = cartItemList.removeAt(position)
             cartTotal -= removedItem.price * removedItem.quantity
             cartItemsAdapter.notifyItemRemoved(position)
-            Toast.makeText(requireContext(), "Added in wishlist...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "${removedItem.productName} added to wishlist...", Toast.LENGTH_SHORT).show()
         }
         checkCartStatus()
     }
