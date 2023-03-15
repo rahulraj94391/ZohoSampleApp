@@ -16,11 +16,12 @@ import com.example.mall.Enum.Category
 import com.example.mall.Interface.OnCategoryClickListener
 import com.example.mall.ModelClass.AllCategoryModel
 import com.example.mall.ModelClass.ProductListModel
+import com.google.android.material.divider.MaterialDividerItemDecoration
 
 private const val TAG = "CT_CategoryFragment"
 
 
-class CategoriesFragment : Fragment(), OnCategoryClickListener {
+class AllCategoriesFragment : Fragment(), OnCategoryClickListener {
     private lateinit var allCategories: RecyclerView
     private lateinit var categoriesList: MutableList<AllCategoryModel>
     private lateinit var sharedViewModel: SharedViewModel
@@ -40,7 +41,10 @@ class CategoriesFragment : Fragment(), OnCategoryClickListener {
         allCategories = view.findViewById(R.id.rv_all_categories)
         allCategories.adapter = AllCategoriesAdapter(categoriesList, this)
         allCategories.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        allCategories.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+        divider.dividerInsetStart = 15
+        divider.dividerInsetEnd = 15
+        allCategories.addItemDecoration(divider)
     }
 
     override fun onCategoryClicked(category: Category) {

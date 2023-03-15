@@ -48,6 +48,11 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
     }
 
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause: called")
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_products_list_view, container, false)
     }
@@ -84,9 +89,10 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
             adapter.notifyDataSetChanged()
         }
 
+//        Log.d(TAG, "Checked Id Is : ---- ${sortFilter.getCheckItem()}")
+
         chipSortBy.setOnClickListener { sortFilter.show(requireActivity().supportFragmentManager, "sortFilter") }
         chipPrice.setOnClickListener { priceFilter.show(requireActivity().supportFragmentManager, "priceFilter") }
-
     }
 
 
@@ -151,8 +157,39 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList("prodList", listOfProducts)
-
     }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart: called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume: called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop: called")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(TAG, "onDestroyView: called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy: called")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d(TAG, "onDetach: called")
+    }
+
+
 }
 
 class ProductIdComparator : Comparator<ProductListModel> {

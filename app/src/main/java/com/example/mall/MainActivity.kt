@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         val backStackListener = FragmentManager.OnBackStackChangedListener {
             val topFragment: Fragment = supportFragmentManager.findFragmentById(R.id.frag_container)!!
             if (topFragment is HomeFragment ||
-                topFragment is CategoriesFragment ||
+                topFragment is AllCategoriesFragment ||
                 topFragment is AccountFragment ||
                 topFragment is CartFragment) {
                 bottomNavigationView.visibility = View.VISIBLE
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView = findViewById(R.id.bnv_bottom_menu_container)
         bottomNavigationView.setOnItemSelectedListener { item: MenuItem ->
             val currentFrag: Fragment = when (item.itemId) {
-                R.id.bnv_category -> CategoriesFragment()
+                R.id.bnv_category -> AllCategoriesFragment()
                 R.id.bnv_account -> AccountFragment()
                 R.id.bnv_cart -> CartFragment()
                 else -> HomeFragment()

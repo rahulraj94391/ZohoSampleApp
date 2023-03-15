@@ -33,13 +33,13 @@ class PriceFilter(
 
 //    private lateinit var changeChipColor: () -> Unit
 
-//    companion object {
-//        fun newInstance(changeChipColor: () -> Unit) = PriceFilter().apply {
-//            arguments = Bundle().apply {
-//
-//            }
-//        }
-//    }
+    companion object {
+        fun newInstance(changeChipColor: () -> Unit) = PriceFilter().apply {
+            arguments = Bundle().apply {
+
+            }
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]

@@ -131,6 +131,7 @@
                         />
 
                     <Spinner
+
                         android:background="@drawable/spinner_border"
                         android:id="@+id/spinner_quantity"
                         android:layout_width="100dp"

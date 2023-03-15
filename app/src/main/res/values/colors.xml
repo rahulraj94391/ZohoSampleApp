@@ -21,4 +21,7 @@
     <color name="transparent">#00000000</color>
 
 
+    <color name="rv_state_pressed">#FFDABB</color>
+
+
 </resources>

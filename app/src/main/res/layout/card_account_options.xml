@@ -16,11 +16,13 @@
 
         <LinearLayout
             android:id="@+id/ll_account_my_orders"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
+            android:background="@color/pressed_state_color"
             android:gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/ll_account_my_wishlist"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,6 +33,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_marginStart="8dp"
                 android:src="@drawable/my_orders"
                 tools:ignore="ContentDescription" />
 
@@ -53,16 +56,19 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/right_icon"
                 tools:ignore="ContentDescription" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_account_my_wishlist"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
+            android:background="@color/pressed_state_color"
             android:gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/ll_account_address"
             app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +78,9 @@
 
             <ImageView
                 android:layout_width="20dp"
+
                 android:layout_height="20dp"
+                android:layout_marginStart="8dp"
                 android:src="@drawable/my_wishlist_24"
                 tools:ignore="ContentDescription" />
 
@@ -95,16 +103,19 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/right_icon"
                 tools:ignore="ContentDescription" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_account_address"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
+            android:background="@color/pressed_state_color"
             android:gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/ll_account_contact_us"
             app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +125,9 @@
 
             <ImageView
                 android:layout_width="20dp"
+
                 android:layout_height="20dp"
+                android:layout_marginStart="8dp"
                 android:src="@drawable/address_24"
                 tools:ignore="ContentDescription" />
 
@@ -137,17 +150,20 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/right_icon"
                 tools:ignore="ContentDescription" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_account_contact_us"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="12dp"
+            android:background="@color/pressed_state_color"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -157,7 +173,9 @@
 
             <ImageView
                 android:layout_width="20dp"
+
                 android:layout_height="20dp"
+                android:layout_marginStart="8dp"
                 android:src="@drawable/contact_us_24"
                 tools:ignore="ContentDescription" />
 
@@ -180,6 +198,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:layout_marginEnd="8dp"
                 android:src="@drawable/right_icon"
                 tools:ignore="ContentDescription" />
         </LinearLayout>
