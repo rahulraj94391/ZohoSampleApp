@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="swipe_delete">#ed675c</color>
+    <color name="swipe_wishlist">#C6FF1E1E</color>
+
 
     <color name="primary">#6750A4</color>
     <color name="status_bar_nav_bar">#4A3976</color>

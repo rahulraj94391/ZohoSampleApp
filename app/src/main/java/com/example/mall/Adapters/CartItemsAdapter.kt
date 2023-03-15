@@ -31,8 +31,6 @@ class CartItemsAdapter(
 
         init {
             itemView.setOnClickListener { listener.onItemClicked(adapterPosition) }
-            itemView.findViewById<Button>(R.id.btn_start).setOnClickListener { listener.onDeleteClicked(adapterPosition) }
-            itemView.findViewById<Button>(R.id.btn_end).setOnClickListener { listener.onWishlistClicked(adapterPosition) }
             plus.setOnClickListener { listener.onQuantityIncrease(plus, adapterPosition, minus) }
             minus.setOnClickListener { listener.onQuantityDecrease(minus, adapterPosition, plus) }
         }

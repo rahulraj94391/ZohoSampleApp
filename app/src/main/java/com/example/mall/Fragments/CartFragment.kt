@@ -1,6 +1,7 @@
 package com.example.mall.Fragments
 
 import android.content.DialogInterface
+import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +11,19 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.*
 import com.example.mall.Adapters.CartItemsAdapter
 import com.example.mall.Interface.OnCartItemClickListener
 import com.example.mall.ModelClass.CartItemModel
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 private const val TAG = "Common_Tag_CartFragment"
 
@@ -42,6 +46,34 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     private var uid: Int = -1
     private lateinit var sharedViewModel: SharedViewModel
 
+    private val simpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.adapterPosition
+            when (direction) {
+                ItemTouchHelper.LEFT -> swipeLeftToDelete(position)
+                ItemTouchHelper.RIGHT -> swipeRightToWishlist(position)
+            }
+        }
+
+        override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+            RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                .addSwipeLeftBackgroundColor(ContextCompat.getColor(requireContext(), R.color.swipe_delete))
+                .addSwipeLeftActionIcon(R.drawable.swipe_delete)
+
+                .addSwipeRightBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary_container))
+                .addSwipeRightActionIcon(R.drawable.my_wishlist_24_black)
+                .create()
+                .decorate()
+
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
@@ -57,7 +89,6 @@ class CartFragment : Fragment(), OnCartItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         rvCartList = view.findViewById(R.id.rv_cart)
         tvTotalCartPrice = view.findViewById(R.id.tv_cart_total_price)
         btnPlaceOrder = view.findViewById(R.id.btn_place_order)
@@ -66,16 +97,15 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         uid = sharedViewModel.uid.value!!
         db = DB(requireContext())
         cartItemList = db.getCartItems(uid)
-        cartStatus()
+        checkCartStatus()
         cartTotal = calculateCartTotal()
         rvCartList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         cartItemsAdapter = CartItemsAdapter(cartItemList, this@CartFragment)
         rvCartList.adapter = cartItemsAdapter
         rvCartList.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-
-        btnPlaceOrder.setOnClickListener {
-            placeOrder()
-        }
+        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+        itemTouchHelper.attachToRecyclerView(rvCartList)
+        btnPlaceOrder.setOnClickListener { placeOrder() }
     }
 
     private fun placeOrder() {
@@ -130,7 +160,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             .show()
     }
 
-    private fun cartStatus() {
+    private fun checkCartStatus() {
         if (cartItemList.size == 0) {
             tvCartEmpty.visibility = View.VISIBLE
             bottomCartLinearLayout.visibility = View.GONE
@@ -143,15 +173,26 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         }
     }
 
-    override fun onDeleteClicked(position: Int) {
+    fun swipeLeftToDelete(position: Int) {
         val rowsDeleted = db.deleteItemFromCart(uid, cartItemList[position].pid)
         if (rowsDeleted > 0) {
             val removedItem = cartItemList.removeAt(position)
             cartTotal -= removedItem.price * removedItem.quantity
             cartItemsAdapter.notifyItemRemoved(position)
         }
-        cartStatus()
+        checkCartStatus()
 
+    }
+
+    fun swipeRightToWishlist(position: Int) {
+        val isMoved = db.addItemFromCartToWishlist(uid, cartItemList[position].pid)
+        if (isMoved) {
+            val removedItem = cartItemList.removeAt(position)
+            cartTotal -= removedItem.price * removedItem.quantity
+            cartItemsAdapter.notifyItemRemoved(position)
+            Toast.makeText(requireContext(), "Added in wishlist...", Toast.LENGTH_SHORT).show()
+        }
+        checkCartStatus()
     }
 
     private fun calculateCartTotal(): Int {
@@ -160,17 +201,6 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             sum += it.price * it.quantity
         }
         return sum
-    }
-
-    override fun onWishlistClicked(position: Int) {
-        val isMoved = db.addItemFromCartToWishlist(uid, cartItemList[position].pid)
-        if (isMoved) {
-            val removedItem = cartItemList.removeAt(position)
-            cartTotal -= removedItem.price * removedItem.quantity
-            cartItemsAdapter.notifyItemRemoved(position)
-            Toast.makeText(requireContext(), "Added in wishlist...", Toast.LENGTH_SHORT).show()
-        }
-        cartStatus()
     }
 
     override fun onItemClicked(position: Int) {
