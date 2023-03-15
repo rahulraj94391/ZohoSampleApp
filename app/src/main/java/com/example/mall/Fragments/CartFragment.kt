@@ -64,7 +64,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
                 .addSwipeLeftBackgroundColor(ContextCompat.getColor(requireContext(), R.color.swipe_delete))
                 .addSwipeLeftActionIcon(R.drawable.swipe_delete)
 
-                .addSwipeRightBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary_container))
+                .addSwipeRightBackgroundColor(ContextCompat.getColor(requireContext(), R.color.swipe_wishlist))
                 .addSwipeRightActionIcon(R.drawable.my_wishlist_24_black)
                 .create()
                 .decorate()
