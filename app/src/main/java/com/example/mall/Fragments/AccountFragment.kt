@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.example.mall.*
-import com.example.mall.ModelClass.UserDetailsModel
+import com.example.mall.UserDetailsModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.properties.Delegates
 
