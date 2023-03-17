@@ -1,58 +1,109 @@
 package com.example.mall.Fragments
 
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.example.mall.*
-import com.example.mall.ModelClass.UserDetailsModel
-import com.example.mall.databinding.FragmentAccountBinding
+import com.example.mall.UserDetailsModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.properties.Delegates
 
-private const val TAG = "CT_AccountFragment"
+private const val TAG = "Common_Tag_AccountFragment"
 
 class AccountFragment : Fragment() {
-    private lateinit var binding: FragmentAccountBinding
+    private lateinit var etFullName: TextView
+    private lateinit var etMobile: TextView
+    private lateinit var etEMail: TextView
     private lateinit var sharedPreferences: SharedPreferences
     private var currentProfileDetails: UserDetailsModel? = null
+    private lateinit var llMyOrder: LinearLayout
+    private lateinit var llMyWishlist: LinearLayout
+    private lateinit var llContactUs: LinearLayout
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var llAddress: LinearLayout
     private var uid: Int by Delegates.notNull()
     private lateinit var builder: MaterialAlertDialogBuilder
     private lateinit var mMenuProvider: MenuProvider
 
+    override fun onAttach(context: Context) {
+        sharedPreferences = context.getSharedPreferences(MSharedPreferences.NAME, AppCompatActivity.MODE_PRIVATE)
+        super.onAttach(context)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPreferences = requireContext().getSharedPreferences(MSharedPreferences.NAME, AppCompatActivity.MODE_PRIVATE)
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         uid = sharedViewModel.uid.value!!
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false)
-        return binding.root
+        (activity as MainActivity).apply {
+            bottomNavigationView.menu.getItem(2).isChecked = true
+            toolbar.title = ToolbarTitle.ACCOUNT
+        }
+        return inflater.inflate(R.layout.fragment_account, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        etFullName = view.findViewById(R.id.tv_full_name)
+        etMobile = view.findViewById(R.id.tv_mobile_number)
+        etEMail = view.findViewById(R.id.tv_email)
+
+        llMyOrder = view.findViewById(R.id.ll_account_my_orders)
+        llMyWishlist = view.findViewById(R.id.ll_account_my_wishlist)
+        llAddress = view.findViewById(R.id.ll_account_address)
+        llContactUs = view.findViewById(R.id.ll_account_contact_us)
         getProfileDetails()
-        with(binding) {
-            myOrders.setOnClickListener { navigateNextWithDefaultAnim(MyOrdersFragment(), "MyOrdersFragment") }
-            myWishlist.setOnClickListener { navigateNextWithDefaultAnim(MyWishlistFragment(), "MyWishlistFragment") }
-            savedAddresses.setOnClickListener { navigateNextWithDefaultAnim(AddressFragment(), "AddressFragment") }
-            contactUs.setOnClickListener { navigateNextWithDefaultAnim(ContactUsFragment(), "ContactUsFragment") }
+        llMyOrder.setOnClickListener { openMyOrders() }
+        llMyWishlist.setOnClickListener { openMyWishlist() }
+        llAddress.setOnClickListener { openSavedAddresses() }
+        llContactUs.setOnClickListener { openContactUs() }
+    }
+
+    private fun openSavedAddresses() {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            replace(R.id.frag_container, AddressFragment(), "AddressFragment")
+            addToBackStack(backStackName)
+            commit()
+        }
+    }
+
+    private fun openContactUs() {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            replace(R.id.frag_container, ContactUsFragment(), "ContactUsFragment")
+            addToBackStack(backStackName)
+            commit()
+        }
+    }
+
+    private fun openMyOrders() {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            replace(R.id.frag_container, MyOrdersFragment(), "MyOrdersFragment")
+            addToBackStack(backStackName)
+            commit()
         }
     }
 
     override fun onPause() {
         super.onPause()
         (requireActivity() as MenuHost).removeMenuProvider(mMenuProvider)
+
     }
 
     override fun onStart() {
@@ -75,19 +126,36 @@ class AccountFragment : Fragment() {
         super.onStart()
     }
 
+    private fun openMyWishlist() {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            replace(R.id.frag_container, MyWishlistFragment(), "MyWishlistFragment")
+            addToBackStack(backStackName)
+            commit()
+        }
+    }
+
     private fun logoutDecisionDialog() {
+        val positiveAction = DialogInterface.OnClickListener { _, _ ->
+            logoutUser()
+        }
+        val negativeAction = DialogInterface.OnClickListener { dialogInterface, _ ->
+            dialogInterface.cancel()
+        }
+
         builder = MaterialAlertDialogBuilder(requireContext(), R.style.MyDialogStyle)
         builder.setMessage("Logout current user ?")
             .setCancelable(true)
-            .setPositiveButton("yes") { _, _ -> logoutUser() }
-            .setNegativeButton("no") { dialogInterface, _ -> dialogInterface.cancel() }
+            .setPositiveButton("yes", positiveAction)
+            .setNegativeButton("no", negativeAction)
             .show()
     }
 
+
     private fun setUserDetails() {
-        binding.fullName.text = currentProfileDetails?.userName
-        binding.mobileNumber.text = currentProfileDetails?.mobileNo
-        binding.eMail.text = currentProfileDetails?.email
+        etFullName.text = currentProfileDetails?.userName
+        etMobile.text = currentProfileDetails?.mobileNo
+        etEMail.text = currentProfileDetails?.email
     }
 
     private fun getProfileDetails() {
