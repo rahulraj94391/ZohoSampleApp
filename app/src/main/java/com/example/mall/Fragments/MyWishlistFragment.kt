@@ -45,7 +45,6 @@ class MyWishlistFragment : Fragment(), WishlistItemClickListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).toolbar.title = ToolbarTitle.MY_WISHLIST
         db = DB(requireContext())
         return inflater.inflate(R.layout.fragment_my_wishlist, container, false)
     }

@@ -1,7 +1,6 @@
 package com.example.mall.Fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +24,6 @@ class AddNewAddressFragment : Fragment() {
     private lateinit var btnSaveAddress: Button
     private lateinit var db: DB
     private var uid: Int = -1
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

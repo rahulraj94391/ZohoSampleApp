@@ -33,7 +33,6 @@ class AddressFragment : Fragment(), OnClickListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).toolbar.title = ToolbarTitle.SAVED_ADDRESS
         db = DB(requireContext())
         uid = sharedViewModel.uid.value!!
         return inflater.inflate(R.layout.fragment_address, container, false)

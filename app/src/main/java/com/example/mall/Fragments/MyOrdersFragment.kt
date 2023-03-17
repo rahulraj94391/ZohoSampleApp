@@ -45,7 +45,6 @@ class MyOrdersFragment : Fragment(), OnClickListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).toolbar.title = ToolbarTitle.MY_ORDERS
         db = DB(requireContext())
         return inflater.inflate(R.layout.fragment_my_orders, container, false)
     }

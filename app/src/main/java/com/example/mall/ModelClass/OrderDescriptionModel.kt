@@ -1,7 +1,6 @@
 package com.example.mall.ModelClass
 
 data class OrderDescriptionModel(
-
     var orderDate: Long,
     var deliveryDate: Long,
     var deliveryStatus: String,

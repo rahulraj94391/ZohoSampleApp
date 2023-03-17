@@ -18,7 +18,6 @@ class ContactUsFragment : Fragment() {
     private lateinit var adapter: ContactUsAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).toolbar.title = ToolbarTitle.CONTACT_US
         return inflater.inflate(R.layout.fragment_contact_us, container, false)
     }
 

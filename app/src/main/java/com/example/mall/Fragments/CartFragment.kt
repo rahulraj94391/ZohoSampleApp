@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -45,6 +44,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     private lateinit var db: DB
     private var uid: Int = -1
     private lateinit var sharedViewModel: SharedViewModel
+    private val proceedToCheckoutPage = { navigateNextWithCustomAnim(CheckoutDescriptionFragment.newInstance(cartItemList), "CheckoutDescriptionFragment") }
 
     private val simpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
@@ -69,7 +69,6 @@ class CartFragment : Fragment(), OnCartItemClickListener {
                 .decorate()
 
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-
         }
     }
 
@@ -79,10 +78,6 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).apply {
-            bottomNavigationView.menu.getItem(3).isChecked = true
-            toolbar.title = ToolbarTitle.CART
-        }
         return inflater.inflate(R.layout.fragment_cart, container, false)
     }
 
@@ -98,8 +93,8 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         cartItemList = db.getCartItems(uid)
         checkCartStatus()
         cartTotal = calculateCartTotal()
-        rvCartList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         cartItemsAdapter = CartItemsAdapter(cartItemList, this@CartFragment)
+        rvCartList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         rvCartList.adapter = cartItemsAdapter
         rvCartList.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         val itemTouchHelper = ItemTouchHelper(simpleCallback)
@@ -113,20 +108,6 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         for (i in cartItemList.indices) if (itemAvailability[i] == 0) itemWentOutOfStockList.add(i)
         if (itemWentOutOfStockList.size > 0) showItemOutOfStockDialog(itemWentOutOfStockList)
         else proceedToCheckoutPage()
-    }
-
-    private fun proceedToCheckoutPage() {
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(
-                R.anim.enter_from_right,
-                R.anim.exit_to_left,
-                R.anim.enter_from_left,
-                R.anim.exit_to_right
-            )
-            replace(R.id.frag_container, CheckoutDescriptionFragment.newInstance(cartItemList), "paymentSuccessful")
-            addToBackStack(backStackName)
-            commit()
-        }
     }
 
     private fun moveOutOfStockItemsFromCartToWishlist(itemWentOutOfStockList: MutableList<Int>) {
@@ -203,12 +184,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     }
 
     override fun onItemClicked(position: Int) {
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(cartItemList[position].pid))
-            addToBackStack(backStackName)
-            commit()
-        }
+        navigateNextWithDefaultAnim(SingleProductDescriptionFragment.newInstance(cartItemList[position].pid), "SingleProductDescriptionFragment")
     }
 
     override fun changeQtyBtn(plus: Button, position: Int, minus: Button) {

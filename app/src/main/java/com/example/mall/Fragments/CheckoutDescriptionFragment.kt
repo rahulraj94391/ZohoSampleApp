@@ -52,7 +52,6 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).toolbar.title = ToolbarTitle.CHECKOUT
         addressIdx = sharedViewModel.addressId.value!!
         return inflater.inflate(R.layout.fragment_checkout_description, container, false)
     }

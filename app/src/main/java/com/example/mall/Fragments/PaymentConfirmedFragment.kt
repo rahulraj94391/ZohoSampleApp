@@ -39,15 +39,7 @@ class PaymentConfirmedFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        (activity as MainActivity).bottomNavigationView.visibility = View.VISIBLE
-        (activity as MainActivity).toolbar.visibility = View.VISIBLE
-        super.onDestroyView()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).bottomNavigationView.visibility = View.GONE
-        (activity as MainActivity).toolbar.visibility = View.GONE
         return inflater.inflate(R.layout.fragment_payment_confirmed, container, false)
     }
 

@@ -10,13 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.Adapters.SelectDeliveryAddressAdapter
 import com.example.mall.Interface.OnNewAddressSelected
-import com.example.mall.MainActivity
 import com.example.mall.ModelClass.DeliveryAddressModel
 import com.example.mall.R
 import com.example.mall.SharedViewModel
-import com.example.mall.ToolbarTitle
 
-private const val TAG = "Common_Tag_SDAF"
+private const val TAG = "CT_SelectDelAddFrag"
 private const val ARG_ADDRESSES = "addresses"
 
 class SelectDeliveryAddressFragment : Fragment(), OnNewAddressSelected {
@@ -43,7 +41,6 @@ class SelectDeliveryAddressFragment : Fragment(), OnNewAddressSelected {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).toolbar.title = ToolbarTitle.SELECT_ANOTHER_ADDRESS
         return inflater.inflate(R.layout.fragment_select_delivery_address, container, false)
     }
 

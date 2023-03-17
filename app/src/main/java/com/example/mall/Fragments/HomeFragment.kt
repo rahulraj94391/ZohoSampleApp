@@ -52,11 +52,6 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        (activity as MainActivity).apply {
-
-            bottomNavigationView.menu.getItem(0).isChecked = true
-            toolbar.title = ToolbarTitle.HOME
-        }
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 

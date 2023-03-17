@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +20,7 @@ import com.example.mall.Interface.OnClickListener
 import com.example.mall.ModelClass.ProductListModel
 import com.example.mall.R
 import com.example.mall.SharedViewModel
-import com.example.mall.backStackName
+import com.example.mall.navigateNextWithDefaultAnim
 import com.google.android.material.chip.Chip
 import com.google.android.material.divider.MaterialDividerItemDecoration
 
@@ -30,10 +29,11 @@ private const val TAG = "CT_ProdLstViewFrag"
 class ProductsListViewFragment : Fragment(), OnClickListener {
     lateinit var chipSortBy: Chip
     lateinit var chipPrice: Chip
-    private lateinit var priceFilter: PriceFilter
-    private lateinit var sortFilter: SortFilter
     private lateinit var clearAllFilters: TextView
     private lateinit var rvProductList: RecyclerView
+
+    private lateinit var priceFilter: PriceFilter
+    private lateinit var sortFilter: SortFilter
     private lateinit var adapter: ProductListAdapter
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var listOfProducts: ArrayList<ProductListModel>
@@ -46,11 +46,6 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG, "onPause: called")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -83,14 +78,10 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
             Log.d(TAG, "CLEAR ALL CLICKED")
             deselectStateChipBackgroundColor(chipPrice)
             deselectStateChipBackgroundColor(chipSortBy)
-
             listOfProducts.clear()
             listOfProducts.addAll(sharedViewModel.prodList)
             adapter.notifyDataSetChanged()
         }
-
-//        Log.d(TAG, "Checked Id Is : ---- ${sortFilter.getCheckItem()}")
-
         chipSortBy.setOnClickListener { sortFilter.show(requireActivity().supportFragmentManager, "sortFilter") }
         chipPrice.setOnClickListener { priceFilter.show(requireActivity().supportFragmentManager, "priceFilter") }
     }
@@ -146,50 +137,13 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
     }
 
     override fun onItemClicked(position: Int) {
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(listOfProducts[position].pid))
-            addToBackStack(backStackName)
-            commit()
-        }
+        navigateNextWithDefaultAnim(SingleProductDescriptionFragment.newInstance(listOfProducts[position].pid), "SingleProductDescriptionFragment")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList("prodList", listOfProducts)
     }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG, "onStart: called")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "onResume: called")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG, "onStop: called")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d(TAG, "onDestroyView: called")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "onDestroy: called")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d(TAG, "onDetach: called")
-    }
-
-
 }
 
 class ProductIdComparator : Comparator<ProductListModel> {
