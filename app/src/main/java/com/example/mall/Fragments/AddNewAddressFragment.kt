@@ -13,7 +13,7 @@ import com.example.mall.ModelClass.DeliveryAddressModel
 import com.google.android.material.textfield.TextInputLayout
 import java.util.regex.Pattern
 
-private const val TAG = "Common_Tag_AddNewAddressFragment"
+private const val TAG = "CT_AddNewAddressFrag"
 
 class AddNewAddressFragment : Fragment() {
     private lateinit var sharedViewModel: SharedViewModel
