@@ -9,15 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mall.*
 import com.example.mall.Adapters.AllCategoriesAdapter
-import com.example.mall.DB
 import com.example.mall.Enum.Category
 import com.example.mall.Interface.OnCategoryClickListener
 import com.example.mall.ModelClass.AllCategoryModel
 import com.example.mall.ModelClass.ProductListModel
-import com.example.mall.R
-import com.example.mall.SharedViewModel
-import com.example.mall.backStackName
 import com.google.android.material.divider.MaterialDividerItemDecoration
 
 private const val TAG = "CT_CategoryFragment"
@@ -46,25 +43,11 @@ class AllCategoriesFragment : Fragment(), OnCategoryClickListener {
     }
 
     override fun onCategoryClicked(category: Category) {
-        var tag = ""
         val listOfProducts: ArrayList<ProductListModel> = DB(requireContext()).queryProductsBasedOnCategory(category)
         Log.d(TAG, "listOfProducts = ${listOfProducts.size}")
         sharedViewModel.prodList = listOfProducts
-        val fragment =
-            if (sharedViewModel.prodList.size > 0)
-                ProductsListViewFragment.newInstance().also { tag = "ProductsListViewFragment" }
-            else ProductNotAvailable().also { "ProductNotAvailable" }
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(
-                R.anim.enter_from_right,
-                R.anim.exit_to_left,
-                R.anim.enter_from_left,
-                R.anim.exit_to_right
-            )
-            replace(R.id.frag_container, fragment, tag)
-            addToBackStack(backStackName)
-            commit()
-        }
+        navigateNextWithCustomAnim(ProductsListViewFragment.newInstance(), "ProductsListViewFragment")
+
     }
 
     private fun getCategories(): MutableList<AllCategoryModel> {

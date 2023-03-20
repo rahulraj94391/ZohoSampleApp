@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.HorizontalScrollView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -29,9 +30,10 @@ private const val TAG = "CT_ProdLstViewFrag"
 class ProductsListViewFragment : Fragment(), OnClickListener {
     lateinit var chipSortBy: Chip
     lateinit var chipPrice: Chip
+    private lateinit var filter: HorizontalScrollView
+    private lateinit var tvNoProductFound: TextView
     private lateinit var clearAllFilters: TextView
     private lateinit var rvProductList: RecyclerView
-
     private lateinit var priceFilter: PriceFilter
     private lateinit var sortFilter: SortFilter
     private lateinit var adapter: ProductListAdapter
@@ -58,13 +60,22 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
         chipSortBy = view.findViewById(R.id.chip_sort_by)
         chipPrice = view.findViewById(R.id.chip_price)
         clearAllFilters = view.findViewById(R.id.clear_all_filter)
-
-        priceFilter = PriceFilter()
-        sortFilter = SortFilter()
+        filter = view.findViewById(R.id.hsv_filter)
+        tvNoProductFound = view.findViewById(R.id.noProductFound)
 
         listOfProducts =
             if (savedInstanceState == null) ArrayList(sharedViewModel.prodList)
             else savedInstanceState.getParcelableArrayList<ProductListModel>("prodList") as ArrayList<ProductListModel>
+
+        if (listOfProducts.size == 0) {
+            filter.visibility = View.GONE
+            rvProductList.visibility = View.GONE
+            tvNoProductFound.visibility = View.VISIBLE
+            return
+        }
+
+        priceFilter = PriceFilter()
+        sortFilter = SortFilter()
         filteredListOfProducts = sharedViewModel.filteredList
         adapter = ProductListAdapter(listOfProducts, this)
         rvProductList.adapter = adapter

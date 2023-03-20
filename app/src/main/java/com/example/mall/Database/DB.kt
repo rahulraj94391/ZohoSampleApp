@@ -14,8 +14,7 @@ import com.example.mall.ModelClass.*
 import org.json.JSONObject
 
 const val DATABASE_NAME = "shopie.db"
-
-private const val TAG = "Common_Tag_DB"
+private const val TAG = "CT_DB"
 
 class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     override fun onCreate(db: SQLiteDatabase?) {
@@ -161,15 +160,11 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
         lateinit var profileData: UserDetailsModel
         val query = "SELECT * FROM ${ProfileTable.PROFILE_TABLE_NAME} WHERE ${ProfileTable.COL_UID} = ?"
         val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString()))
-        if (cursor.moveToFirst()) {
-            val fullName = cursor.getString(1) + " " + cursor.getString(2)
-            val mob = cursor.getString(3)
-            val email = cursor.getString(4)
-            profileData = UserDetailsModel(fullName, mob, email)
-        }
-        else {
-            profileData = UserDetailsModel("Update details", "-", "-")
-        }
+        profileData =
+            if (cursor.moveToFirst())
+                UserDetailsModel("${cursor.getString(1)} ${cursor.getString(2)}", cursor.getString(3), cursor.getString(4))
+            else
+                UserDetailsModel("Update details", "-", "-")
         cursor.close()
         return profileData
     }
@@ -270,7 +265,6 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
         var stock: Int = Int.MAX_VALUE
         val imageURLs: MutableList<String> = mutableListOf()
         val specs: MutableMap<String, String> = mutableMapOf()
-
         val queryProdDetails = "SELECT * FROM prod_details WHERE pid = ?"
         val querySpecs = "SELECT * FROM prod_specs WHERE pid = ?"
 
@@ -348,23 +342,21 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
         return false
     }
 
-    fun deleteItemFromCart(uid: Int, pid: Int): Int {
-        val whereClause = "uid = ? AND pid = ?"
-        return writableDatabase.delete(CartTable.CART_TABLE_NAME, whereClause, arrayOf(uid.toString(), pid.toString()))
+    val deleteItemFromCart: (uid: Int, pid: Int) -> Int = { uid, pid ->
+        writableDatabase.delete(CartTable.CART_TABLE_NAME, "uid = ? AND pid = ?", arrayOf(uid.toString(), pid.toString()))
     }
 
-    fun deleteItemFromWishlist(uid: Int, pid: Int): Int {
-        val whereClause = "uid = ? AND pid = ?"
-        return writableDatabase.delete(WishlistTable.WISHLIST_TABLE_NAME, whereClause, arrayOf(uid.toString(), pid.toString()))
+    val deleteItemFromWishlist: (uid: Int, pid: Int) -> Int = { uid, pid ->
+        writableDatabase.delete(WishlistTable.WISHLIST_TABLE_NAME, "uid = ? AND pid = ?", arrayOf(uid.toString(), pid.toString()))
     }
 
     fun searchViewResult(search: String?): MutableSet<ProductListModel> {
-        val set: MutableSet<ProductListModel> = mutableSetOf()
-        val query = "SELECT pid, prod_name, imgURL0, price, stock FROM prod_details WHERE prod_details.prod_name LIKE '%$search%'"
+        val searchedResult: MutableSet<ProductListModel> = mutableSetOf()
+        val query = "SELECT pid, prod_name, imgURL0, price, stock FROM prod_details WHERE pid IN (SELECT DISTINCT pid FROM category_tags WHERE category_tags.category_tag  = '$search' OR prod_details.prod_name LIKE '%$search%')"
         val cursor = readableDatabase.rawQuery(query, null)
         if (cursor.moveToFirst()) {
             do {
-                set.add(
+                searchedResult.add(
                     ProductListModel(
                         pid = cursor.getInt(0),
                         prodName = cursor.getString(1),
@@ -376,7 +368,7 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
             } while (cursor.moveToNext())
         }
         cursor.close()
-        return set
+        return searchedResult
     }
 
     fun queryProductsBasedOnCategory(category: Category): ArrayList<ProductListModel> {
@@ -526,7 +518,7 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
         val query = "SELECT cart.quantity FROM cart WHERE uid = ? AND pid = ?"
         val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString(), pid.toString()))
         cursor.moveToFirst()
-        var quantity: Int = cursor.getInt(0)
+        val quantity: Int = cursor.getInt(0)
         cursor.close()
         return quantity
     }

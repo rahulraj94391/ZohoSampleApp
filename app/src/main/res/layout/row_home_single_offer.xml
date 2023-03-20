@@ -8,5 +8,9 @@
     android:layout_height="340dp"
     android:scaleType="fitCenter"
     android:src="@drawable/single_offer"
-    tools:ignore="ContentDescription" />
+    tools:ignore="ContentDescription"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+
+    />
 

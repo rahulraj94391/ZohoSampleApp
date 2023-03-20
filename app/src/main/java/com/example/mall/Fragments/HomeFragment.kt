@@ -32,7 +32,6 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var mMenuProvider: MenuProvider
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         db = DB(requireContext())

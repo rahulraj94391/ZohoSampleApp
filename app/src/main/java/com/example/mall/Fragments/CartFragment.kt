@@ -7,11 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -22,29 +21,26 @@ import com.example.mall.*
 import com.example.mall.Adapters.CartItemsAdapter
 import com.example.mall.Interface.OnCartItemClickListener
 import com.example.mall.ModelClass.CartItemModel
+import com.example.mall.databinding.FragmentCartBinding
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 private const val TAG = "CT_CartFragment"
 
 class CartFragment : Fragment(), OnCartItemClickListener {
-    private lateinit var rvCartList: RecyclerView
+    private lateinit var binding: FragmentCartBinding
     private lateinit var cartItemList: ArrayList<CartItemModel>
     private lateinit var cartItemsAdapter: CartItemsAdapter
-    private lateinit var tvTotalCartPrice: TextView
-    private lateinit var btnPlaceOrder: Button
-    private var cartTotal: Int = 0
-        set(value) {
-            field = value
-            tvTotalCartPrice.text = "Cart total ₹ $cartTotal"
-        }
-
-    private lateinit var bottomCartLinearLayout: LinearLayout
-    private lateinit var tvCartEmpty: TextView
     private lateinit var builder: AlertDialog.Builder
     private lateinit var db: DB
     private var uid: Int = -1
     private lateinit var sharedViewModel: SharedViewModel
     private val proceedToCheckoutPage = { navigateNextWithCustomAnim(CheckoutDescriptionFragment.newInstance(cartItemList), "CheckoutDescriptionFragment") }
+    private var cartTotal: Int = 0
+        set(value) {
+            field = value
+            binding.cartTotalPrice.text = "Cart total ₹$cartTotal"
+        }
+
 
     private val simpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
@@ -78,28 +74,27 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_cart, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rvCartList = view.findViewById(R.id.rv_cart)
-        tvTotalCartPrice = view.findViewById(R.id.tv_cart_total_price)
-        btnPlaceOrder = view.findViewById(R.id.btn_place_order)
-        bottomCartLinearLayout = view.findViewById(R.id.bottom_cart_linear_layout)
-        tvCartEmpty = view.findViewById(R.id.tv_cart_empty)
         uid = sharedViewModel.uid.value!!
         db = DB(requireContext())
         cartItemList = db.getCartItems(uid)
         checkCartStatus()
         cartTotal = calculateCartTotal()
         cartItemsAdapter = CartItemsAdapter(cartItemList, this@CartFragment)
-        rvCartList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        rvCartList.adapter = cartItemsAdapter
-        rvCartList.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+
         val itemTouchHelper = ItemTouchHelper(simpleCallback)
-        itemTouchHelper.attachToRecyclerView(rvCartList)
-        btnPlaceOrder.setOnClickListener { placeOrder() }
+        binding.cartItemsList.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = cartItemsAdapter
+            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+            itemTouchHelper.attachToRecyclerView(this)
+        }
+        binding.placeOrder.setOnClickListener { placeOrder() }
     }
 
     private fun placeOrder() {
@@ -142,14 +137,18 @@ class CartFragment : Fragment(), OnCartItemClickListener {
 
     private fun checkCartStatus() {
         if (cartItemList.size == 0) {
-            tvCartEmpty.visibility = View.VISIBLE
-            bottomCartLinearLayout.visibility = View.GONE
-            rvCartList.visibility = View.GONE
+            binding.apply {
+                cartEmptyMessage.visibility = View.VISIBLE
+                bottomCartLinearLayout.visibility = View.GONE
+                cartItemsList.visibility = View.GONE
+            }
         }
         else {
-            tvCartEmpty.visibility = View.GONE
-            bottomCartLinearLayout.visibility = View.VISIBLE
-            rvCartList.visibility = View.VISIBLE
+            binding.apply {
+                cartEmptyMessage.visibility = View.GONE
+                bottomCartLinearLayout.visibility = View.VISIBLE
+                cartItemsList.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -188,13 +187,15 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     }
 
     override fun changeQtyBtn(plus: Button, position: Int, minus: Button) {
-        when (cartItemList[position].quantity) {
-            1 -> minus.isEnabled = false
-            4 -> plus.isEnabled = false
-            else -> {
-                minus.isEnabled = true
-                plus.isEnabled = true
-            }
+        if (cartItemList[position].quantity in 2..3) {
+            minus.isEnabled = true
+            plus.isEnabled = true
+        }
+        else if (cartItemList[position].quantity <= 1) {
+            minus.isEnabled = false
+        }
+        else if (cartItemList[position].quantity >= 4) {
+            plus.isEnabled = false
         }
 
         if (cartItemList[position].quantity == db.checkProductStock(cartItemList[position].pid)) {
