@@ -174,6 +174,7 @@ class SingleProductDescriptionFragment : Fragment() {
         return uri
     }
 
+    // not working, gives NPE
     private fun getBitmapFromURL(): Bitmap? {
         return try {
             val url = URL(prodDetails.imagesURL[0])
@@ -196,7 +197,7 @@ class SingleProductDescriptionFragment : Fragment() {
             return
         }
 
-        val goToCartAction = View.OnClickListener { navigateNextWithCustomAnim(CartFragment()) }
+        val goToCartAction = View.OnClickListener { navigateNextWithCustomAnim(CartFragment(), "CartFragment") }
 
         val addToCartAction = View.OnClickListener {
             val quantity = binding.qtySelector.selectedItem.toString().trim().toInt()
@@ -221,7 +222,7 @@ class SingleProductDescriptionFragment : Fragment() {
     }
 
     private fun setupStartBtn() {
-        val goToWishlistAction = View.OnClickListener { navigateNextWithCustomAnim(MyWishlistFragment()) }
+        val goToWishlistAction = View.OnClickListener { navigateNextWithCustomAnim(MyWishlistFragment(), "MyWishlistFragment") }
 
         val addToWishlistAction = View.OnClickListener {
             db.addItemToWishlist(sharedViewModel.uid.value!!, pid)
