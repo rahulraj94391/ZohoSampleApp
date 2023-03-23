@@ -9,6 +9,14 @@
         android:orientation="vertical"
         tools:context=".Fragments.SingleProductDescriptionFragment">
 
+        <ImageView
+            android:id="@+id/imageToShare"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:visibility="gone"
+            tools:ignore="ContentDescription" />
+
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -17,6 +25,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -171,12 +180,12 @@
             <android.widget.Button
                 android:id="@+id/startButton"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/custom_button"
+                android:background="@drawable/selector_btn"
                 android:text="btn_start"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
@@ -185,11 +194,11 @@
             <android.widget.Button
                 android:id="@+id/endButton"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
                 android:layout_weight="1"
-                android:background="@drawable/custom_button"
+                android:background="@drawable/selector_btn"
                 android:foregroundTint="@color/white"
                 android:text="btn_end"
                 android:textAllCaps="false"

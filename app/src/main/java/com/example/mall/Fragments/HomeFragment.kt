@@ -7,7 +7,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -77,13 +76,7 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
                         val prodList: ArrayList<ProductListModel> = arrayListOf()
                         prodList.addAll(set)
                         sharedViewModel.prodList = prodList
-
-                        requireActivity().supportFragmentManager.beginTransaction().apply {
-                            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                            replace(R.id.frag_container, ProductsListViewFragment.newInstance(), "ProductsListViewFragment")
-                            addToBackStack(backStackName)
-                            commit()
-                        }
+                        navigateNextWithDefaultAnim(ProductsListViewFragment.newInstance(), "ProductsListViewFragment")
                         return true
                     }
 
@@ -112,46 +105,15 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
     }
 
     override fun singleOfferBannerClicked() {
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(
-                R.anim.enter_from_right,
-                R.anim.exit_to_left,
-                R.anim.enter_from_left,
-                R.anim.exit_to_right
-            )
-            replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(17))
-            addToBackStack(backStackName)
-            commit()
-        }
+        navigateNextWithCustomAnim(SingleProductDescriptionFragment.newInstance(17), "SingleProductDescriptionFragment")
     }
 
-
     override fun topSellingCardClicked(index: Int) {
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(
-                R.anim.enter_from_right,
-                R.anim.exit_to_left,
-                R.anim.enter_from_left,
-                R.anim.exit_to_right
-            )
-            replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(topSelling[index].pid))
-            addToBackStack(backStackName)
-            commit()
-        }
+        navigateNextWithCustomAnim(SingleProductDescriptionFragment.newInstance(topSelling[index].pid), "SingleProductDescriptionFragment")
     }
 
     override fun backInStockCardClicked(index: Int) {
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(
-                R.anim.enter_from_right,
-                R.anim.exit_to_left,
-                R.anim.enter_from_left,
-                R.anim.exit_to_right
-            )
-            replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(backInStock[index].pid))
-            addToBackStack(backStackName)
-            commit()
-        }
+        navigateNextWithCustomAnim(SingleProductDescriptionFragment.newInstance(backInStock[index].pid), "SingleProductDescriptionFragment")
     }
 
     override fun onItemClicked(position: Int) {
@@ -160,27 +122,11 @@ class HomeFragment : Fragment(), HomeItemClickListeners, OnClickListener {
             1 -> 16
             else -> 14
         }
-
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(
-                R.anim.enter_from_right,
-                R.anim.exit_to_left,
-                R.anim.enter_from_left,
-                R.anim.exit_to_right
-            )
-            replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(pid))
-            addToBackStack(backStackName)
-            commit()
-        }
+        navigateNextWithCustomAnim(SingleProductDescriptionFragment.newInstance(pid), "SingleProductDescriptionFragment")
     }
 
     override fun onPause() {
         super.onPause()
         (requireActivity() as MenuHost).removeMenuProvider(mMenuProvider)
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
-
 }

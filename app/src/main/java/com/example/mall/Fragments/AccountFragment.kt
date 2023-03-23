@@ -16,7 +16,7 @@ import com.example.mall.databinding.FragmentAccountBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.properties.Delegates
 
-private const val TAG = "Common_Tag_AccountFragment"
+private const val TAG = "CT_AccountFragment"
 
 class AccountFragment : Fragment() {
     private lateinit var binding: FragmentAccountBinding
@@ -99,6 +99,7 @@ class AccountFragment : Fragment() {
             eMail.text = currentProfileDetails?.email
         }
     }
+
 
     private fun logoutUser() {
         sharedPreferences.edit().apply {

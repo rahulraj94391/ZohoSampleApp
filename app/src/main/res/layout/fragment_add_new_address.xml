@@ -15,7 +15,6 @@
         android:orientation="vertical">
 
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_full_name"
             android:layout_width="match_parent"
@@ -53,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/common_background"
                 android:hint="Mobile"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="10" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -61,9 +61,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:background="@color/common_background"
-
             android:layout_marginEnd="24dp"
+
+            android:background="@color/common_background"
             app:counterEnabled="true"
             app:counterMaxLength="6"
             app:errorEnabled="true"
@@ -95,9 +95,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/common_background"
-
                 android:hint="Address"
-                android:inputType="textShortMessage" />
+                android:inputType="textShortMessage"
+                android:maxLength="100" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
