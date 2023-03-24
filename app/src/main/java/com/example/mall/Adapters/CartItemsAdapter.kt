@@ -13,7 +13,7 @@ import com.example.mall.R
 import com.example.mall.rupeeString
 import com.squareup.picasso.Picasso
 
-private const val TAG = "Common_Tag_CartItemsAdapter"
+private const val TAG = "CT_CartItemsAdapter"
 
 class CartItemsAdapter(
 
@@ -47,7 +47,7 @@ class CartItemsAdapter(
 
     override fun onBindViewHolder(holder: CartItemsAdapter.CartItemViewHolder, position: Int) {
         holder.prodName.text = cartItems[position].productName
-        holder.prodPrice.text = String().rupeeString(cartItems[position].price)
+        holder.prodPrice.text = rupeeString(cartItems[position].price)
         holder.quantity.text = cartItems[position].quantity.toString()
         listener.changeQtyBtn(holder.plus, position, holder.minus)
         val imageURL = cartItems[position].thumbnailURL

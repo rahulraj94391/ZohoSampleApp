@@ -59,7 +59,7 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvCheckout = view.findViewById(R.id.rv_checkout)
-        addresses = DB(requireContext()).getAddresses(uid)
+        addresses = DB(requireContext()).getUserAddresses(uid)
         adapter = OrderActivityAdapter(cartList, getCheckoutDetails(), addresses[addressIdx], this@CheckoutDescriptionFragment)
         rvCheckout.adapter = adapter
         rvCheckout.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

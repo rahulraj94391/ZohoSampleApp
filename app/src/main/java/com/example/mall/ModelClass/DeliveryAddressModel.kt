@@ -39,4 +39,13 @@ data class DeliveryAddressModel(
             return arrayOfNulls(size)
         }
     }
+
+
+    override fun equals(other: Any?): Boolean {
+        (other as DeliveryAddressModel)
+        return this.fullName.equals(other.fullName) &&
+                this.mobile.equals(other.mobile) &&
+                this.pinCode.equals(other.pinCode) &&
+                this.address.equals(other.address)
+    }
 }

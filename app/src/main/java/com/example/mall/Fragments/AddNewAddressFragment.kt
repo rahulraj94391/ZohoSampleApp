@@ -1,9 +1,12 @@
 package com.example.mall.Fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -24,6 +27,9 @@ class AddNewAddressFragment : Fragment() {
     private lateinit var btnSaveAddress: Button
     private lateinit var db: DB
     private var uid: Int = -1
+    private var oldAddress: DeliveryAddressModel? = null
+    private var newAddress: DeliveryAddressModel? = null
+    private lateinit var toast: Toast
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +45,23 @@ class AddNewAddressFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fullName = view.findViewById(R.id.til_full_name)
-        mobile = view.findViewById(R.id.til_mobile)
-        pinCode = view.findViewById(R.id.til_pin_code)
-        address = view.findViewById(R.id.til_address)
-        btnSaveAddress = view.findViewById(R.id.btn_save_new_address)
+        fullName = view.findViewById(R.id.fullName)
+        mobile = view.findViewById(R.id.mobile)
+        pinCode = view.findViewById(R.id.pinCode)
+        address = view.findViewById(R.id.address)
+        if (sharedViewModel.updateAddressId != -1) {
+            fillTextFields()
+        }
+        btnSaveAddress = view.findViewById(R.id.saveAddress)
         btnSaveAddress.setOnClickListener { confirmInputs() }
+    }
+
+    private fun fillTextFields() {
+        oldAddress = db.getAddress(sharedViewModel.updateAddressId)
+        fullName.editText!!.setText(oldAddress!!.fullName)
+        mobile.editText!!.setText(oldAddress!!.mobile)
+        pinCode.editText!!.setText(oldAddress!!.pinCode)
+        address.editText!!.setText(oldAddress!!.address)
     }
 
     private fun confirmInputs() {
@@ -52,15 +69,34 @@ class AddNewAddressFragment : Fragment() {
             return
         }
         else {
+            val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.hideSoftInputFromWindow(this.mobile.windowToken, 0)
             val name = fullName.editText!!.text.toString().trim()
             val mobile = mobile.editText!!.text.toString().trim()
             val pinCode = pinCode.editText!!.text.toString().trim()
             val address = address.editText!!.text.toString().trim()
-            val newAddress = DeliveryAddressModel(-1, name, mobile, pinCode, address)
-            val success = db.addNewAddress(uid, newAddress)
-            Toast.makeText(requireContext(), "New address saved.", Toast.LENGTH_SHORT).show()
+            newAddress = DeliveryAddressModel(-1, name, mobile, pinCode, address)
+            toast = if (sharedViewModel.updateAddressId == -1) {
+                db.addNewAddress(uid, newAddress!!)
+                Toast.makeText(requireContext(), "New address saved.", Toast.LENGTH_SHORT)
+            }
+            else if (oldAddress?.equals(newAddress) == true) {
+                Log.d(TAG, "Address compare:\n$oldAddress\n$newAddress")
+                Toast.makeText(requireContext(), "Nothing updated.", Toast.LENGTH_SHORT)
+            }
+            else {
+                db.updateAddress(uid, sharedViewModel.updateAddressId, newAddress!!)
+                Toast.makeText(requireContext(), "Address updated.", Toast.LENGTH_SHORT)
+            }
+            toast.show()
             requireActivity().supportFragmentManager.popBackStack()
         }
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        sharedViewModel.updateAddressId = -1
     }
 
     private fun validateName(): Boolean {

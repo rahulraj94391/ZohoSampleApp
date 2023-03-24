@@ -98,7 +98,7 @@ class SingleProductDescriptionFragment : Fragment() {
             binding.stockIndicator.setTextColor(Color.parseColor("#990000"))
         }
         binding.prodName.text = prodDetails.name
-        binding.prodPrice.text = String().rupeeString(prodDetails.price)
+        binding.prodPrice.text = rupeeString(prodDetails.price)
         highlightsAdapter = HighlightsAdapter(highlightsList)
 
         binding.prodHighlights.apply {

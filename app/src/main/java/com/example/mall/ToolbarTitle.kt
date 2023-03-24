@@ -4,7 +4,7 @@ object ToolbarTitle {
     const val ACCOUNT = "Account"
     const val SAVED_ADDRESS = "Saved Addresses"
     const val CART = "Cart"
-    const val ADD_NEW_ADDRESS = "Add new address"
+    const val ADD_NEW_ADDRESS = "New address"
     const val ALL_CATEGORIES = "All Categories"
     const val CHECKOUT = "Checkout"
     const val CONTACT_US = "Contact Us"

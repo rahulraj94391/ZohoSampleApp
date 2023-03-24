@@ -53,7 +53,7 @@ class SingleOrderFragment : Fragment() {
             deliveryDate.text = DateUtil.millisToDate(orderHistory.deliveryDate)
             productName.text = orderHistory.prodName
             orderQuantity.text = "Qty: ${orderHistory.qty}"
-            productPrice.text = String().rupeeString(orderHistory.prodPrice * orderHistory.qty)
+            productPrice.text = rupeeString(orderHistory.prodPrice * orderHistory.qty)
             paymentMethod.text = "Payment is done using ${orderHistory.paymentType}"
             deliveryStatus.text = orderHistory.deliveryStatus
 

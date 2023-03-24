@@ -92,16 +92,16 @@ class OrderActivityAdapter(
             PRICE_DETAIL_ROW -> {
                 (holder as PriceDetailsViewHolder).apply {
                     itemCount.text = "Price (${checkoutPriceDetails.totalItemCount} items)"
-                    priceBeforeDiscount.text = String().rupeeString(checkoutPriceDetails.priceBeforeDiscount)
-                    discount.text = String().rupeeString(checkoutPriceDetails.discount)
-                    finalTotalAmount.text = String().rupeeString(checkoutPriceDetails.totalPriceToPay)
+                    priceBeforeDiscount.text = rupeeString(checkoutPriceDetails.priceBeforeDiscount)
+                    discount.text = rupeeString(checkoutPriceDetails.discount)
+                    finalTotalAmount.text = rupeeString(checkoutPriceDetails.totalPriceToPay)
                 }
             }
 
             else -> {
                 (holder as CartViewHolder).apply {
                     prodName.text = cartItems[position - 1].productName
-                    prodPrice.text = String().rupeeString(cartItems[position - 1].price)
+                    prodPrice.text = rupeeString(cartItems[position - 1].price)
                     prodQuantity.text = "Qty: ${cartItems[position - 1].quantity}"
                     Picasso.get()
                         .load(cartItems[position - 1].thumbnailURL)

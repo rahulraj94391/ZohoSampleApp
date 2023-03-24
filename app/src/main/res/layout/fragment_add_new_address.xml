@@ -1,118 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    android:background="@color/common_background"
-    tools:context=".Fragments.AddNewAddressFragment">
-
-    <LinearLayout
-
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/common_background"
+        android:fillViewport="true"
+        tools:context=".Fragments.AddNewAddressFragment">
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_full_name"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            app:counterMaxLength="30"
-            app:errorEnabled="true"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fullName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/common_background"
-                android:hint="Full Name"
-                android:inputType="textPersonName"
-                android:maxLength="40" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                app:counterMaxLength="30"
+                app:errorEnabled="true">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_mobile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            app:counterMaxLength="10"
-            app:errorEnabled="true"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/common_background"
+                    android:hint="Full Name"
+                    android:inputType="textPersonName"
+                    android:maxLength="40" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/common_background"
-                android:hint="Mobile"
-                android:inputType="number"
-                android:maxLength="10" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_below="@+id/fullName"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                app:counterMaxLength="10"
+                app:errorEnabled="true">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_pin_code"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/common_background"
+                    android:hint="Mobile"
+                    android:inputType="number"
+                    android:maxLength="10" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            android:background="@color/common_background"
-            app:counterEnabled="true"
-            app:counterMaxLength="6"
-            app:errorEnabled="true"
-
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/pinCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:layout_below="@+id/mobile"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
                 android:background="@color/common_background"
+                app:counterEnabled="true"
+                app:counterMaxLength="6"
+                app:errorEnabled="true">
 
-                android:hint="PIN Code"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/common_background"
+                    android:hint="PIN Code"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            app:counterMaxLength="60"
-            app:errorEnabled="true"
-
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/common_background"
-                android:hint="Address"
-                android:inputType="textShortMessage"
-                android:maxLength="100" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_below="@+id/pinCode"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                app:counterMaxLength="60"
+                app:errorEnabled="true">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/common_background"
+                    android:hint="Address"
+                    android:inputType="textShortMessage"
+                    android:maxLength="100" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_save_new_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="10dp"
-            android:text="Save Address"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/saveAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="Save Address"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
 
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

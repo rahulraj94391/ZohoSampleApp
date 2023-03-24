@@ -22,7 +22,7 @@ const val SINGLE_OFFER = 2
 const val BACK_IN_STOCK = 3
 const val TOP_SELLING = 4
 
-private const val TAG = "Common_Tag_HomeAdapter"
+private const val TAG = "CT_HomeAdapter"
 
 class HomeAdapter(
     private val offersAdapter: HomeOffersAdapter,
@@ -128,7 +128,6 @@ class HomeAdapter(
                         }
 
                         override fun onPageSelected(position: Int) {
-//                            Log.d(TAG, "page position of OFFERS = $position")
                             super.onPageSelected(position)
                             handler.removeCallbacks(runnable)
                             handler.postDelayed(runnable, 5000)
@@ -148,19 +147,19 @@ class HomeAdapter(
                 (holder as BackInStockViewHolder).apply {
                     Picasso.get().load(backInStock[0].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img1)
                     prodName1.text = backInStock[0].prodName
-                    prodPrice1.text = String().rupeeString(backInStock[0].prodPrice)
+                    prodPrice1.text = rupeeString(backInStock[0].prodPrice)
 
                     Picasso.get().load(backInStock[1].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img2)
                     prodName2.text = backInStock[1].prodName
-                    prodPrice2.text = String().rupeeString(backInStock[1].prodPrice)
+                    prodPrice2.text = rupeeString(backInStock[1].prodPrice)
 
                     Picasso.get().load(backInStock[2].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img3)
                     prodName3.text = backInStock[2].prodName
-                    prodPrice3.text = String().rupeeString(backInStock[2].prodPrice)
+                    prodPrice3.text = rupeeString(backInStock[2].prodPrice)
 
                     Picasso.get().load(backInStock[3].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img4)
                     prodName4.text = backInStock[3].prodName
-                    prodPrice4.text = String().rupeeString(backInStock[3].prodPrice)
+                    prodPrice4.text = rupeeString(backInStock[3].prodPrice)
                 }
             }
 
@@ -168,19 +167,19 @@ class HomeAdapter(
                 (holder as TopSellingViewHolder).apply {
                     Picasso.get().load(topSelling[0].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img1)
                     prodName1.text = topSelling[0].prodName
-                    prodPrice1.text = String().rupeeString(topSelling[0].prodPrice)
+                    prodPrice1.text = rupeeString(topSelling[0].prodPrice)
 
                     Picasso.get().load(topSelling[1].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img2)
                     prodName2.text = topSelling[1].prodName
-                    prodPrice2.text = String().rupeeString(topSelling[1].prodPrice)
+                    prodPrice2.text = rupeeString(topSelling[1].prodPrice)
 
                     Picasso.get().load(topSelling[2].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img3)
                     prodName3.text = topSelling[2].prodName
-                    prodPrice3.text = String().rupeeString(topSelling[2].prodPrice)
+                    prodPrice3.text = rupeeString(topSelling[2].prodPrice)
 
                     Picasso.get().load(topSelling[3].imgURL).placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(img4)
                     prodName4.text = topSelling[3].prodName
-                    prodPrice4.text = String().rupeeString(topSelling[3].prodPrice)
+                    prodPrice4.text = rupeeString(topSelling[3].prodPrice)
 
                 }
             }

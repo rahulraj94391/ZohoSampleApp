@@ -186,7 +186,7 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
         return userId
     }
 
-    fun getAddresses(uid: Int): ArrayList<DeliveryAddressModel> {
+    fun getUserAddresses(uid: Int): ArrayList<DeliveryAddressModel> {
         val addresses: ArrayList<DeliveryAddressModel> = arrayListOf()
         val query = "SELECT address_id, full_name, mobile, pin_code, address FROM addresses WHERE addresses.uid = ?"
         val cursor = readableDatabase.rawQuery(query, arrayOf(uid.toString()))
@@ -205,6 +205,24 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
         }
         cursor.close()
         return addresses
+    }
+
+    fun getAddress(addressId: Int): DeliveryAddressModel {
+        var newAddress: DeliveryAddressModel? = null
+        val query = "SELECT address_id, full_name, mobile, pin_code, address FROM addresses WHERE ${AddressTable.COL_ADDRESS_ID} = ?"
+        val cursor = readableDatabase.rawQuery(query, arrayOf(addressId.toString()))
+
+        return if (cursor.moveToFirst()) {
+            newAddress = DeliveryAddressModel(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3),
+                cursor.getString(4)
+            )
+            newAddress
+        }
+        else throw Exception("Can't find an address with address id = $addressId from DB.")
     }
 
     fun getAddressAndPinCode(addressId: Int): DeliveryAddressModel? {
@@ -540,6 +558,25 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
         val rows = writableDatabase.update(CartTable.CART_TABLE_NAME, cv, whereClause, arrayOf(uid.toString(), pid.toString()))
         if (rows < 1) Log.e(TAG, "cannot decrement quantity for an item in cart with pid = $pid")
     }
+
+    fun deleteAddress(addressId: Int) {
+//        val query = "DELETE FROM ${AddressTable.ADDRESS_TABLE_NAME} WHERE ${AddressTable.COL_ADDRESS_ID} = $addressId"
+        val success = writableDatabase.delete(AddressTable.ADDRESS_TABLE_NAME, "${AddressTable.COL_ADDRESS_ID} = ?", arrayOf(addressId.toString()))
+        Log.d(TAG, "Rows Address(es) Deleted = $success")
+    }
+
+    fun updateAddress(uid: Int, addressId: Int, model: DeliveryAddressModel) {
+        val cv = ContentValues().apply {
+            put(AddressTable.COL_UID, uid)
+            put(AddressTable.COL_FULL_NAME, model.fullName)
+            put(AddressTable.COL_MOBILE, model.mobile)
+            put(AddressTable.COL_PIN_CODE, model.pinCode)
+            put(AddressTable.COL_ADDRESS, model.address)
+        }
+        val rows = writableDatabase.update(AddressTable.ADDRESS_TABLE_NAME, cv, "${AddressTable.COL_ADDRESS_ID} = ?", arrayOf(addressId.toString()))
+        Log.d(TAG, "Address Update: Rows affected = $rows")
+    }
+
 }
 
 

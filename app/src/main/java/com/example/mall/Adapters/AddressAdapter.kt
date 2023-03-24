@@ -3,24 +3,34 @@ package com.example.mall.Adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mall.Interface.OnClickListener
+import com.example.mall.Interface.OnAddressRowClicked
 import com.example.mall.ModelClass.DeliveryAddressModel
 import com.example.mall.R
 
 const val USER_ADDRESS_ROW: Int = 0
 const val ADD_NEW_ADDRESS: Int = 1
 
+private const val TAG = "CT_AddressAdapter"
+
 class AddressAdapter(
     private val addresses: MutableList<DeliveryAddressModel>,
-    private val listener: OnClickListener
+    private val listener: OnAddressRowClicked
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class SavedAddressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val deliveryName: TextView = itemView.findViewById(R.id.tv_address_name)
-        val deliveryPhone: TextView = itemView.findViewById(R.id.tv_address_phone)
-        val deliveryAddress: TextView = itemView.findViewById(R.id.tv_address_delivery_address)
-        val deliveryPinCode: TextView = itemView.findViewById(R.id.tv_address_PIN_address)
+        val more: ImageView = itemView.findViewById(R.id.moreDots)
+        val deliveryName: TextView = itemView.findViewById(R.id.name)
+        val deliveryPhone: TextView = itemView.findViewById(R.id.phone)
+        val deliveryAddress: TextView = itemView.findViewById(R.id.address)
+        val deliveryPinCode: TextView = itemView.findViewById(R.id.pinCode)
+
+        init {
+            more.setOnClickListener() {
+                listener.showPopup(adapterPosition, it)
+            }
+        }
     }
 
     inner class AddNewAddressViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -28,6 +38,7 @@ class AddressAdapter(
             itemView.setOnClickListener {
                 listener.onItemClicked(adapterPosition)
             }
+
         }
     }
 

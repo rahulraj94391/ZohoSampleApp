@@ -28,10 +28,10 @@ fun Fragment.navigateNextWithCustomAnim(fragmentInstance: Fragment, tag: String 
 }
 
 
-fun String.rupeeString(price: Int): String {
+fun rupeeString(price: Int): String {
     return "₹ $price"
 }
 
-fun String.rupeeString(price: String): String {
+fun rupeeString(price: String): String {
     return "₹ $price"
 }

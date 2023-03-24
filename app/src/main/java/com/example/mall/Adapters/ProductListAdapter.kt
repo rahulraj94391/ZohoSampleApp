@@ -57,7 +57,7 @@ class ProductListAdapter(
             .error(R.drawable.img_placeholder)
             .into(holder.prodImage)
         holder.prodName.text = products[position].prodName
-        holder.prodPrice.text = String().rupeeString(products[position].prodPrice)
+        holder.prodPrice.text = rupeeString(products[position].prodPrice)
 
         val stock = products[position].stock
         if (stock > 5) {

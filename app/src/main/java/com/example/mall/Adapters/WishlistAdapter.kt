@@ -56,6 +56,6 @@ class WishlistAdapter(
             .into(holder.img)
 
         holder.prodName.text = wishlistItems[position].prodName
-        holder.prodPrice.text = String().rupeeString(wishlistItems[position].prodPrice)
+        holder.prodPrice.text = rupeeString(wishlistItems[position].prodPrice)
     }
 }

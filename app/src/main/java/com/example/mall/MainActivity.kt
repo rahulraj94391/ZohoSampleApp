@@ -25,6 +25,59 @@ class MainActivity : AppCompatActivity() {
     private var backPressedTime: Long = 0
     private lateinit var toast: Toast
 
+    private fun checkUpAndBottomNavBar() {
+        val topFragment: Fragment = supportFragmentManager.findFragmentById(R.id.frag_container)!!
+
+        // setup the visibility of the bottom navigation bar
+        if (topFragment is HomeFragment ||
+            topFragment is AllCategoriesFragment ||
+            topFragment is AccountFragment ||
+            topFragment is CartFragment) {
+            bottomNavigationView.visibility = View.VISIBLE
+        }
+        else bottomNavigationView.visibility = View.GONE
+
+        // change title
+        when (topFragment) {
+            is AccountFragment -> {
+                bottomNavigationView.menu.getItem(2).isChecked = true
+                toolbar.title = ToolbarTitle.ACCOUNT
+            }
+            is AddressFragment -> toolbar.title = ToolbarTitle.SAVED_ADDRESS
+            is AllCategoriesFragment -> {
+                bottomNavigationView.menu.getItem(1).isChecked = true
+                toolbar.title = ToolbarTitle.ALL_CATEGORIES
+            }
+            is CartFragment -> {
+                bottomNavigationView.menu.getItem(3).isChecked = true
+                toolbar.title = ToolbarTitle.CART
+            }
+            is CheckoutDescriptionFragment -> toolbar.title = ToolbarTitle.CHECKOUT
+            is ContactUsFragment -> toolbar.title = ToolbarTitle.CONTACT_US
+            is HomeFragment -> {
+                bottomNavigationView.menu.getItem(0).isChecked = true
+                toolbar.apply {
+                    visibility = View.VISIBLE
+                    title = ToolbarTitle.HOME
+                }
+            }
+            is MyOrdersFragment -> toolbar.title = ToolbarTitle.MY_ORDERS
+            is MyWishlistFragment -> toolbar.title = ToolbarTitle.MY_WISHLIST
+            is PaymentConfirmedFragment -> {
+                bottomNavigationView.visibility = View.GONE
+                toolbar.visibility = View.GONE
+            }
+            is SelectDeliveryAddressFragment -> toolbar.title = ToolbarTitle.SELECT_ANOTHER_ADDRESS
+        }
+
+
+        // hide and show the Navigate Up button in the action bar
+        if (supportFragmentManager.findFragmentById(R.id.frag_container)!! is HomeFragment) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        }
+        else supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -42,60 +95,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         bottomNavViewAndListenerConfig()
-
-        val backStackListener = FragmentManager.OnBackStackChangedListener {
-            val topFragment: Fragment = supportFragmentManager.findFragmentById(R.id.frag_container)!!
-
-            // setup the visibility of the bottom navigation bar
-            if (topFragment is HomeFragment ||
-                topFragment is AllCategoriesFragment ||
-                topFragment is AccountFragment ||
-                topFragment is CartFragment) {
-                bottomNavigationView.visibility = View.VISIBLE
-            }
-            else bottomNavigationView.visibility = View.GONE
-
-            // change title
-            when (topFragment) {
-                is AccountFragment -> {
-                    bottomNavigationView.menu.getItem(2).isChecked = true
-                    toolbar.title = ToolbarTitle.ACCOUNT
-                }
-                is AddressFragment -> toolbar.title = ToolbarTitle.SAVED_ADDRESS
-                is AllCategoriesFragment -> {
-                    bottomNavigationView.menu.getItem(1).isChecked = true
-                    toolbar.title = ToolbarTitle.ALL_CATEGORIES
-                }
-                is CartFragment -> {
-                    bottomNavigationView.menu.getItem(3).isChecked = true
-                    toolbar.title = ToolbarTitle.CART
-                }
-                is CheckoutDescriptionFragment -> toolbar.title = ToolbarTitle.CHECKOUT
-                is ContactUsFragment -> toolbar.title = ToolbarTitle.CONTACT_US
-                is HomeFragment -> {
-                    bottomNavigationView.menu.getItem(0).isChecked = true
-                    toolbar.apply {
-                        visibility = View.VISIBLE
-                        title = ToolbarTitle.HOME
-                    }
-                }
-                is MyOrdersFragment -> toolbar.title = ToolbarTitle.MY_ORDERS
-                is MyWishlistFragment -> toolbar.title = ToolbarTitle.MY_WISHLIST
-                is PaymentConfirmedFragment -> {
-                    bottomNavigationView.visibility = View.GONE
-                    toolbar.visibility = View.GONE
-                }
-                is SelectDeliveryAddressFragment -> toolbar.title = ToolbarTitle.SELECT_ANOTHER_ADDRESS
-            }
-
-
-            // hide and show the Navigate Up button in the action bar
-            if (supportFragmentManager.findFragmentById(R.id.frag_container)!! is HomeFragment) {
-                supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            }
-            else supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        }
-        supportFragmentManager.addOnBackStackChangedListener(backStackListener)
+        supportFragmentManager.addOnBackStackChangedListener { checkUpAndBottomNavBar() }
     }
 
 
@@ -106,6 +106,12 @@ class MainActivity : AppCompatActivity() {
             onBackPressed()
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        checkUpAndBottomNavBar()
+    }
+
 
     private fun bottomNavViewAndListenerConfig() {
         bottomNavigationView = findViewById(R.id.bnv_bottom_menu_container)

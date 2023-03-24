@@ -10,6 +10,8 @@ import com.example.mall.Interface.OnCategoryClickListener
 import com.example.mall.ModelClass.AllCategoryModel
 import com.example.mall.R
 
+private const val TAG = "CT_AllCategoriesAdapter"
+
 class AllCategoriesAdapter(
     private val categories: MutableList<AllCategoryModel>, private val listener: OnCategoryClickListener
 ) : RecyclerView.Adapter<AllCategoriesAdapter.CategoryViewHolder>() {
