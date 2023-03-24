@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-private const val TAG = "Common_Tag_LoginPageActivity"
+private const val TAG = "CT_LoginPageActivity"
 
 class LoginPageActivity : AppCompatActivity() {
     private lateinit var textInputUsername: TextInputLayout
@@ -61,11 +61,21 @@ class LoginPageActivity : AppCompatActivity() {
     }
 
     private fun confirmInputs() {
-        if (!validateUsername() or !validatePassword()) return
+
+
+        if (!validateUsername() or !validatePassword()) {
+            return
+        }
         else {
+            btnLogin.apply {
+                visibility = View.INVISIBLE
+                isEnabled = false
+            }
+
+
             progressBar.visibility = View.VISIBLE
             CoroutineScope(Dispatchers.Main).launch {
-                delay(800)
+                delay(1800)
                 val db = DB(this@LoginPageActivity)
                 val isValidUser = db.isExistingUser(textInputUsername.editText?.text.toString(), textInputPassword.editText?.text.toString())
                 if (isValidUser) {
@@ -77,7 +87,13 @@ class LoginPageActivity : AppCompatActivity() {
                     startActivity(Intent(this@LoginPageActivity, MainActivity::class.java))
                     finish()
                 }
-                else Toast.makeText(this@LoginPageActivity, "Wrong Credentials.", Toast.LENGTH_LONG).show();
+                else {
+                    Toast.makeText(this@LoginPageActivity, "Wrong Credentials.", Toast.LENGTH_LONG).show()
+                    btnLogin.apply {
+                        visibility = View.VISIBLE
+                        isEnabled = true
+                    }
+                }
                 progressBar.visibility = View.INVISIBLE
             }
         }
