@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+
 private const val TAG = "CT_LoginPageActivity"
 
 class LoginPageActivity : AppCompatActivity() {
@@ -25,6 +26,10 @@ class LoginPageActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        // changes the content color of the system bars
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
         sharedPreferences = getSharedPreferences(MSharedPreferences.NAME, MODE_PRIVATE)
@@ -61,8 +66,6 @@ class LoginPageActivity : AppCompatActivity() {
     }
 
     private fun confirmInputs() {
-
-
         if (!validateUsername() or !validatePassword()) {
             return
         }
@@ -72,10 +75,9 @@ class LoginPageActivity : AppCompatActivity() {
                 isEnabled = false
             }
 
-
             progressBar.visibility = View.VISIBLE
             CoroutineScope(Dispatchers.Main).launch {
-                delay(1800)
+                delay(4000)
                 val db = DB(this@LoginPageActivity)
                 val isValidUser = db.isExistingUser(textInputUsername.editText?.text.toString(), textInputPassword.editText?.text.toString())
                 if (isValidUser) {

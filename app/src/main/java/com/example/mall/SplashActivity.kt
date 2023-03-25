@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.*
@@ -14,6 +15,8 @@ private const val TAG = "Common_Tag_Splash"
 class SplashActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         sharedPreferences = getSharedPreferences(MSharedPreferences.NAME, MODE_PRIVATE)
@@ -28,7 +31,7 @@ class SplashActivity : AppCompatActivity() {
         }
 
         CoroutineScope(Dispatchers.Main).launch {
-            delay(800)
+            delay(4000)
             if (sharedPreferences.getBoolean(MSharedPreferences.IS_LOGGED_IN, false))
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             else

@@ -14,6 +14,8 @@
         <!-- Customize your theme here. -->
         <item name="fontFamily">sans-serif-medium</item>
         <item name="android:textStyle">normal</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:navigationBarColor">@color/color_on_primary</item>
 
     </style>
 
