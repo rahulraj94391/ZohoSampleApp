@@ -33,6 +33,11 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
 
     }
 
+    fun insertItemsToCart() {
+        addItemToCart(1, 8, 2)
+        addItemToCart(1, 6, 1)
+    }
+
     fun insertAddresses() {
         val cv1 = ContentValues().apply {
             put(AddressTable.COL_UID, "1")
@@ -578,7 +583,3 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
     }
 
 }
-
-
-
-

@@ -31,7 +31,7 @@ class SplashActivity : AppCompatActivity() {
         }
 
         CoroutineScope(Dispatchers.Main).launch {
-            delay(4000)
+            delay(800)
             if (sharedPreferences.getBoolean(MSharedPreferences.IS_LOGGED_IN, false))
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             else
@@ -48,6 +48,7 @@ class SplashActivity : AppCompatActivity() {
             insertProdSpecs()
             insertProdDetails()
             insertCategoryTags()
+            insertItemsToCart()
         }
     }
 }

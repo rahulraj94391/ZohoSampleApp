@@ -53,7 +53,7 @@ class SelectDeliveryAddressFragment : Fragment(), OnNewAddressSelected {
     }
 
     override fun selectedNewAddress(position: Int) {
-        sharedViewModel.addressId.value = position
+        sharedViewModel.addressId = position
         activity?.supportFragmentManager?.popBackStack()
     }
 }

@@ -1,6 +1,5 @@
 package com.example.mall.Fragments
 
-import android.content.DialogInterface
 import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -41,7 +40,6 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             binding.cartTotalPrice.text = "Cart total ₹$cartTotal"
         }
 
-
     private val simpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
         override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
             return false
@@ -80,7 +78,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        uid = sharedViewModel.uid.value!!
+        uid = sharedViewModel.uid
         db = DB(requireContext())
         cartItemList = db.getCartItems(uid)
         checkCartStatus()
@@ -100,7 +98,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     private fun placeOrder() {
         val itemAvailability: MutableList<Int> = db.checkStocksForItems(cartItemList)
         val itemWentOutOfStockList: MutableList<Int> = mutableListOf()
-        for (i in cartItemList.indices) if (itemAvailability[i] == 0) itemWentOutOfStockList.add(i)
+        for (i in cartItemList.indices) if (itemAvailability[i] < cartItemList[i].quantity) itemWentOutOfStockList.add(i)
         if (itemWentOutOfStockList.size > 0) showItemOutOfStockDialog(itemWentOutOfStockList)
         else proceedToCheckoutPage()
     }
@@ -116,22 +114,18 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     }
 
     private fun showItemOutOfStockDialog(itemWentOutOfStockList: MutableList<Int>) {
-        val positive = DialogInterface.OnClickListener { _, _ ->
-            moveOutOfStockItemsFromCartToWishlist(itemWentOutOfStockList)
-            proceedToCheckoutPage()
-
-        }
-        val negative = DialogInterface.OnClickListener { dialogInterface, _ ->
-            dialogInterface.cancel()
-        }
-
         builder = AlertDialog.Builder(requireContext())
         builder
             .setTitle("Item(s) out of stock!")
             .setMessage("Few items went out of stock.\nMove them to wishlist and proceed?")
             .setCancelable(false)
-            .setPositiveButton("Yes", positive)
-            .setNegativeButton("Cancel", negative)
+            .setPositiveButton("Yes") { _, _ ->
+                moveOutOfStockItemsFromCartToWishlist(itemWentOutOfStockList)
+                proceedToCheckoutPage()
+            }
+            .setNegativeButton("Cancel") { dialogInterface, _ ->
+                dialogInterface.cancel()
+            }
             .show()
     }
 

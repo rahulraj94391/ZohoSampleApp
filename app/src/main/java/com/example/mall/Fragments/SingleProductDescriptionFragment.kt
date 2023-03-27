@@ -74,7 +74,8 @@ class SingleProductDescriptionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_spinner, Constants.itemQuantities)
+        val itemQuantities: Array<Int> = arrayOf(1, 2, 3, 4)
+        arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_spinner, itemQuantities)
         binding.qtySelector.adapter = arrayAdapter
         val stock = prodDetails.stock
         setupStartBtn()
@@ -174,7 +175,7 @@ class SingleProductDescriptionFragment : Fragment() {
         return uri
     }
 
-    // not working, gives NPE
+    // not working, throws NPE
     private fun getBitmapFromURL(): Bitmap? {
         return try {
             val url = URL(prodDetails.imagesURL[0])
@@ -202,16 +203,16 @@ class SingleProductDescriptionFragment : Fragment() {
         val addToCartAction = View.OnClickListener {
             val quantity = binding.qtySelector.selectedItem.toString().trim().toInt()
             if (quantity != -1 && quantity <= stock) {
-                db.addItemToCart(sharedViewModel.uid.value!!, pid, quantity)
+                db.addItemToCart(sharedViewModel.uid, pid, quantity)
                 binding.endButton.text = getString(R.string.go_to_cart)
                 binding.endButton.setOnClickListener(goToCartAction)
             }
-            else if (quantity != -1 && quantity > stock) {
+            else if (quantity != -1 ) {
                 Toast.makeText(requireContext(), "Only $stock in stock", Toast.LENGTH_LONG).show()
             }
         }
 
-        if (db.isItemInCart(sharedViewModel.uid.value!!, pid)) {
+        if (db.isItemInCart(sharedViewModel.uid, pid)) {
             binding.endButton.text = getString(R.string.go_to_cart)
             binding.endButton.setOnClickListener(goToCartAction)
         }
@@ -225,12 +226,12 @@ class SingleProductDescriptionFragment : Fragment() {
         val goToWishlistAction = View.OnClickListener { navigateNextWithCustomAnim(MyWishlistFragment(), "MyWishlistFragment") }
 
         val addToWishlistAction = View.OnClickListener {
-            db.addItemToWishlist(sharedViewModel.uid.value!!, pid)
+            db.addItemToWishlist(sharedViewModel.uid, pid)
             binding.startButton.text = getString(R.string.go_to_wishlist)
             binding.startButton.setOnClickListener(goToWishlistAction)
         }
 
-        if (db.isItemInWishlist(sharedViewModel.uid.value!!, pid)) {
+        if (db.isItemInWishlist(sharedViewModel.uid, pid)) {
             binding.startButton.text = getString(R.string.go_to_wishlist)
             binding.startButton.setOnClickListener(goToWishlistAction)
         }

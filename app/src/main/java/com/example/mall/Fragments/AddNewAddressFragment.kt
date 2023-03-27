@@ -38,7 +38,7 @@ class AddNewAddressFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         (activity as MainActivity).toolbar.title = ToolbarTitle.ADD_NEW_ADDRESS
-        uid = sharedViewModel.uid.value!!
+        uid = sharedViewModel.uid
         db = DB(requireContext())
         return inflater.inflate(R.layout.fragment_add_new_address, container, false)
     }

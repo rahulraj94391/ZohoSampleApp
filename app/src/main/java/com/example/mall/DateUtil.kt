@@ -15,7 +15,6 @@ object DateUtil {
         return cal.timeInMillis
     }
 
-
     fun millisToDate(millis: Long): String = SimpleDateFormat(DATE_FORMAT).format(Date(millis))
     fun millisToTime(millis: Long): String = SimpleDateFormat(TIME_FORMAT).format(Date(millis))
 }

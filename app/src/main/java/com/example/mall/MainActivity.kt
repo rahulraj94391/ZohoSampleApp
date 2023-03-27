@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
-        sharedViewModel.uid.value = getSharedPreferences(MSharedPreferences.NAME, MODE_PRIVATE).getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
+        sharedViewModel.uid = getSharedPreferences(MSharedPreferences.NAME, MODE_PRIVATE).getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)
         if (savedInstanceState == null) {
             fm.beginTransaction().apply {
                 replace(R.id.frag_container, HomeFragment())

@@ -44,7 +44,7 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
         Log.d(TAG, "onCreate: called")
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        uid = sharedViewModel.uid.value!!
+        uid = sharedViewModel.uid
 
         arguments?.let {
             cartList = it.getParcelableArrayList(ARG_CART_LIST)!!
@@ -52,7 +52,7 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        addressIdx = sharedViewModel.addressId.value!!
+        addressIdx = sharedViewModel.addressId
         return inflater.inflate(R.layout.fragment_checkout_description, container, false)
     }
 

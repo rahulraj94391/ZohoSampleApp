@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -27,6 +28,7 @@ class AddressFragment : Fragment(), OnAddressRowClicked {
     private lateinit var addressAdapter: AddressAdapter
     private lateinit var addresses: MutableList<DeliveryAddressModel>
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var builder: AlertDialog.Builder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +37,7 @@ class AddressFragment : Fragment(), OnAddressRowClicked {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         db = DB(requireContext())
-        uid = sharedViewModel.uid.value!!
+        uid = sharedViewModel.uid
         return inflater.inflate(R.layout.fragment_address, container, false)
     }
 
@@ -57,11 +59,25 @@ class AddressFragment : Fragment(), OnAddressRowClicked {
         popupMenu.setOnMenuItemClickListener { item ->
             when (item?.itemId) {
                 R.id.edit_address -> updateAddress(position)
-                R.id.delete_address -> deleteAddress(position)
+                R.id.delete_address -> showDeleteConfirmation(position)
             }
             true
         }
         popupMenu.show()
+    }
+
+    private fun showDeleteConfirmation(position: Int) {
+        builder = AlertDialog.Builder(requireContext())
+        builder
+            .setTitle("Delete Address ?")
+            .setCancelable(true)
+            .setPositiveButton("Yes") { _, _ ->
+                deleteAddress(position)
+            }
+            .setNegativeButton("No") { dialogInterface, _ ->
+                dialogInterface.cancel()
+            }
+            .show()
     }
 
     private fun deleteAddress(position: Int) {

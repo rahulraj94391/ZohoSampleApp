@@ -41,7 +41,7 @@ class MyOrdersFragment : Fragment(), OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        uid = sharedViewModel.uid.value!!
+        uid = sharedViewModel.uid
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

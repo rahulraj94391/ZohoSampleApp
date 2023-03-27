@@ -1,4 +1,4 @@
-package com.example.mall
+package com.example.mall.ModelClass
 
 data class UserDetailsModel(
     var userName: String,
