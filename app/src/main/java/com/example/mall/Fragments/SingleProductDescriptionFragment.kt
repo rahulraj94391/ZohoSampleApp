@@ -114,7 +114,6 @@ class SingleProductDescriptionFragment : Fragment() {
 
 //        binding.imageToShare.setImageBitmap(getBitmapFromURL())
         Picasso.get().load(prodDetails.imagesURL[0]).into(binding.imageToShare)
-
     }
 
 
@@ -201,13 +200,14 @@ class SingleProductDescriptionFragment : Fragment() {
         val goToCartAction = View.OnClickListener { navigateNextWithCustomAnim(CartFragment(), "CartFragment") }
 
         val addToCartAction = View.OnClickListener {
+            (requireActivity() as MainActivity).haptics.light()
             val quantity = binding.qtySelector.selectedItem.toString().trim().toInt()
             if (quantity != -1 && quantity <= stock) {
                 db.addItemToCart(sharedViewModel.uid, pid, quantity)
                 binding.endButton.text = getString(R.string.go_to_cart)
                 binding.endButton.setOnClickListener(goToCartAction)
             }
-            else if (quantity != -1 ) {
+            else if (quantity != -1) {
                 Toast.makeText(requireContext(), "Only $stock in stock", Toast.LENGTH_LONG).show()
             }
         }
@@ -226,6 +226,7 @@ class SingleProductDescriptionFragment : Fragment() {
         val goToWishlistAction = View.OnClickListener { navigateNextWithCustomAnim(MyWishlistFragment(), "MyWishlistFragment") }
 
         val addToWishlistAction = View.OnClickListener {
+            (requireActivity() as MainActivity).haptics.light()
             db.addItemToWishlist(sharedViewModel.uid, pid)
             binding.startButton.text = getString(R.string.go_to_wishlist)
             binding.startButton.setOnClickListener(goToWishlistAction)

@@ -32,6 +32,7 @@ class PaymentConfirmedFragment : Fragment() {
             }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -59,5 +60,10 @@ class PaymentConfirmedFragment : Fragment() {
             }
             (activity as MainActivity).bottomNavigationView.menu.getItem(0).isChecked = true
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (requireActivity() as MainActivity).haptics.heavy()
     }
 }

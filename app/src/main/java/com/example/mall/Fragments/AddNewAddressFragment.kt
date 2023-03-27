@@ -66,6 +66,7 @@ class AddNewAddressFragment : Fragment() {
 
     private fun confirmInputs() {
         if (!validateName() or !validateMobile() or !validatePINCode() or !validateAddress()) {
+            (requireActivity() as MainActivity).haptics.heavy()
             return
         }
         else {
@@ -76,16 +77,20 @@ class AddNewAddressFragment : Fragment() {
             val pinCode = pinCode.editText!!.text.toString().trim()
             val address = address.editText!!.text.toString().trim()
             newAddress = DeliveryAddressModel(-1, name, mobile, pinCode, address)
+
             toast = if (sharedViewModel.updateAddressId == -1) {
                 db.addNewAddress(uid, newAddress!!)
+                (requireActivity() as MainActivity).haptics.light()
                 Toast.makeText(requireContext(), "New address saved.", Toast.LENGTH_SHORT)
             }
             else if (oldAddress?.equals(newAddress) == true) {
                 Log.d(TAG, "Address compare:\n$oldAddress\n$newAddress")
+                (requireActivity() as MainActivity).haptics.heavy()
                 Toast.makeText(requireContext(), "Nothing updated.", Toast.LENGTH_SHORT)
             }
             else {
                 db.updateAddress(uid, sharedViewModel.updateAddressId, newAddress!!)
+                (requireActivity() as MainActivity).haptics.light()
                 Toast.makeText(requireContext(), "Address updated.", Toast.LENGTH_SHORT)
             }
             toast.show()

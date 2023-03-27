@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.Adapters.SelectDeliveryAddressAdapter
 import com.example.mall.Interface.OnNewAddressSelected
+import com.example.mall.MainActivity
 import com.example.mall.ModelClass.DeliveryAddressModel
 import com.example.mall.R
 import com.example.mall.SharedViewModel
@@ -53,6 +54,7 @@ class SelectDeliveryAddressFragment : Fragment(), OnNewAddressSelected {
     }
 
     override fun selectedNewAddress(position: Int) {
+        (requireActivity() as MainActivity).haptics.light()
         sharedViewModel.addressId = position
         activity?.supportFragmentManager?.popBackStack()
     }

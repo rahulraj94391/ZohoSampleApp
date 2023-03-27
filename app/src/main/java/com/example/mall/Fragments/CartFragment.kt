@@ -147,6 +147,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     }
 
     fun swipeLeftToDelete(position: Int) {
+        (requireActivity() as MainActivity).haptics.light()
         val rowsDeleted = db.deleteItemFromCart(uid, cartItemList[position].pid)
         if (rowsDeleted > 0) {
             val removedItem = cartItemList.removeAt(position)
@@ -158,6 +159,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     }
 
     fun swipeRightToWishlist(position: Int) {
+        (requireActivity() as MainActivity).haptics.light()
         val isMoved = db.addItemFromCartToWishlist(uid, cartItemList[position].pid)
         if (isMoved) {
             val removedItem = cartItemList.removeAt(position)
@@ -198,6 +200,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     }
 
     override fun onQuantityIncrease(plus: Button, position: Int, minus: Button) {
+        (requireActivity() as MainActivity).haptics.light()
         cartItemList[position].quantity++
         db.incrementItemQuantityInCart(uid, cartItemList[position].pid)
         changeQtyBtn(plus, position, minus)
@@ -206,6 +209,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     }
 
     override fun onQuantityDecrease(minus: Button, position: Int, plus: Button) {
+        (requireActivity() as MainActivity).haptics.light()
         cartItemList[position].quantity--
         db.decrementItemQuantityInCart(uid, cartItemList[position].pid)
         changeQtyBtn(plus, position, minus)

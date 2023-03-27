@@ -4,20 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mall.*
 import com.example.mall.Adapters.AddressAdapter
-import com.example.mall.DB
 import com.example.mall.Interface.OnAddressRowClicked
 import com.example.mall.ModelClass.DeliveryAddressModel
-import com.example.mall.R
-import com.example.mall.SharedViewModel
-import com.example.mall.navigateNextWithDefaultAnim
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 private const val TAG = "CT_AddressFrag"
 
@@ -28,7 +25,7 @@ class AddressFragment : Fragment(), OnAddressRowClicked {
     private lateinit var addressAdapter: AddressAdapter
     private lateinit var addresses: MutableList<DeliveryAddressModel>
     private lateinit var sharedViewModel: SharedViewModel
-    private lateinit var builder: AlertDialog.Builder
+    private lateinit var builder: MaterialAlertDialogBuilder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +64,8 @@ class AddressFragment : Fragment(), OnAddressRowClicked {
     }
 
     private fun showDeleteConfirmation(position: Int) {
-        builder = AlertDialog.Builder(requireContext())
+        (requireActivity() as MainActivity).haptics.light()
+        builder = MaterialAlertDialogBuilder(requireContext(), R.style.MyDialogStyle)
         builder
             .setTitle("Delete Address ?")
             .setCancelable(true)

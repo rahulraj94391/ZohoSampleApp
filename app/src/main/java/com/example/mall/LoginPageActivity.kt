@@ -1,9 +1,13 @@
 package com.example.mall
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
+import android.os.Vibrator
 import android.view.View
+import android.view.WindowInsetsController
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +19,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-
 private const val TAG = "CT_LoginPageActivity"
 
 class LoginPageActivity : AppCompatActivity() {
@@ -24,12 +27,20 @@ class LoginPageActivity : AppCompatActivity() {
     private lateinit var btnLogin: Button
     private lateinit var progressBar: LinearProgressIndicator
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var haptics: Haptics
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         // changes the content color of the system bars
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-
+        if (Build.VERSION.SDK_INT >= 30) {
+            window.decorView.windowInsetsController?.apply {
+                setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
+                setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS)
+            }
+        }
+        else if (Build.VERSION.SDK_INT in 11..29) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        }
+        haptics = Haptics(this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
         sharedPreferences = getSharedPreferences(MSharedPreferences.NAME, MODE_PRIVATE)
@@ -67,6 +78,7 @@ class LoginPageActivity : AppCompatActivity() {
 
     private fun confirmInputs() {
         if (!validateUsername() or !validatePassword()) {
+            haptics.heavy()
             return
         }
         else {
@@ -81,6 +93,7 @@ class LoginPageActivity : AppCompatActivity() {
                 val db = DB(this@LoginPageActivity)
                 val isValidUser = db.isExistingUser(textInputUsername.editText?.text.toString(), textInputPassword.editText?.text.toString())
                 if (isValidUser) {
+                    haptics.light()
                     sharedPreferences.edit().apply {
                         putBoolean(MSharedPreferences.IS_LOGGED_IN, true)
                         putInt(MSharedPreferences.LOGGED_IN_USER_ID, db.getUserId(textInputUsername.editText!!.text.toString().trim()))
@@ -90,6 +103,7 @@ class LoginPageActivity : AppCompatActivity() {
                     finish()
                 }
                 else {
+                    haptics.heavy()
                     Toast.makeText(this@LoginPageActivity, "Wrong Credentials.", Toast.LENGTH_LONG).show()
                     btnLogin.apply {
                         visibility = View.VISIBLE

@@ -101,16 +101,7 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
             else -> throw java.lang.Exception("Undefined Payment Method Selected")
         }
         DB(requireContext()).confirmOrdersOnPayment(uid, addresses[addressIdx].addressId, payment)
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            setCustomAnimations(
-                R.anim.enter_from_right,
-                R.anim.exit_to_left,
-                R.anim.enter_from_left,
-                R.anim.exit_to_right
-            )
-            replace(R.id.frag_container, PaymentConfirmedFragment.newInstance(payment))
-            addToBackStack(backStackName)
-            commit()
-        }
+        (requireActivity() as MainActivity).haptics.light()
+        navigateNextWithCustomAnim(PaymentConfirmedFragment.newInstance(payment), "PaymentConfirmedFragment")
     }
 }

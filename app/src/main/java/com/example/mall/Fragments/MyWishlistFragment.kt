@@ -10,13 +10,10 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mall.*
 import com.example.mall.Adapters.WishlistAdapter
-import com.example.mall.DB
 import com.example.mall.Interface.WishlistItemClickListener
 import com.example.mall.ModelClass.ItemImgNamePriceModel
-import com.example.mall.R
-import com.example.mall.SharedViewModel
-import com.example.mall.backStackName
 import kotlin.properties.Delegates
 
 private const val TAG = "Common_Tag_MyWishlistFragment"
@@ -79,6 +76,7 @@ class MyWishlistFragment : Fragment(), WishlistItemClickListener {
         if (deletedRow > 0) {
             listOfProducts.removeAt(position)
             adapter.notifyItemRemoved(position)
+            (requireActivity() as MainActivity).haptics.light()
         }
         wishListStatus()
     }

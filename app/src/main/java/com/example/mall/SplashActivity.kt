@@ -3,8 +3,10 @@ package com.example.mall
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.*
@@ -14,9 +16,18 @@ private const val TAG = "Common_Tag_Splash"
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
-    override fun onCreate(savedInstanceState: Bundle?) {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // changes the content color of the system bars
+        if (Build.VERSION.SDK_INT >= 30) {
+            window.decorView.windowInsetsController?.apply {
+                setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
+                setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS)
+            }
+        }
+        else if (Build.VERSION.SDK_INT in 11..29) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         sharedPreferences = getSharedPreferences(MSharedPreferences.NAME, MODE_PRIVATE)
@@ -42,13 +53,13 @@ class SplashActivity : AppCompatActivity() {
 
     private fun insertDummyData() {
         with(DB(this)) {
+            insertCategoryTags()
+            insertProdDetails()
+            insertItemsToCart()
             insertProfileData()
             insertAddresses()
-            insertUsers()
             insertProdSpecs()
-            insertProdDetails()
-            insertCategoryTags()
-            insertItemsToCart()
+            insertUsers()
         }
     }
 }

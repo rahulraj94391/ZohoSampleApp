@@ -1,6 +1,8 @@
 package com.example.mall
 
+import android.content.Context
 import android.os.Bundle
+import android.os.Vibrator
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -18,6 +20,7 @@ private const val TAG = "CT_MainActivity"
 const val backStackName = "Main_Back_Stack"
 
 class MainActivity : AppCompatActivity() {
+    lateinit var haptics: Haptics
     lateinit var toolbar: Toolbar
     lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var fm: FragmentManager
@@ -83,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         window.statusBarColor = ContextCompat.getColor(this, R.color.status_bar_nav_bar)
         window.navigationBarColor = ContextCompat.getColor(this, R.color.status_bar_nav_bar)
+        haptics = Haptics(this@MainActivity.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator)
         fm = supportFragmentManager
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
