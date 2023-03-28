@@ -9,10 +9,12 @@ import android.util.Log
 import com.example.mall.Database.*
 import com.example.mall.Enum.Category
 import com.example.mall.Enum.DeliveryStatus
+import com.example.mall.Enum.DeliveryStatus.*
 import com.example.mall.Enum.PaymentType
 import com.example.mall.ModelClass.*
 import org.json.JSONObject
 
+const val NO_CHANGE = "no_change"
 const val DATABASE_NAME = "shopie.db"
 private const val TAG = "CT_DB"
 
@@ -450,7 +452,7 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
                 put(OrdersTable.COL_UID, uid)
                 put(OrdersTable.COL_PID, item.pid)
                 put(OrdersTable.COL_QUANTITY, item.quantity)
-                put(OrdersTable.COL_DELIVERY_STATUS, DeliveryStatus.IN_TRANSIT.status())
+                put(OrdersTable.COL_DELIVERY_STATUS, IN_TRANSIT.status())
                 put(OrdersTable.COL_DELIVERY_DATE, DateUtil.randomDate())
                 put(OrdersTable.COL_ADDRESS_ID, addressId)
                 put(OrdersTable.COL_ORDER_DATE, DateUtil.currentDate())
@@ -582,4 +584,49 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
         Log.d(TAG, "Address Update: Rows affected = $rows")
     }
 
+    fun changeDeliveryStatusOfOrders() {
+        val orders: MutableList<Int> = mutableListOf()
+        val query = "SELECT ${OrdersTable.COL_OID} FROM ${OrdersTable.ORDERS_TABLE_NAME}"
+        val cursor = readableDatabase.rawQuery(query, null)
+        if (cursor.moveToFirst()) {
+            do {
+                orders.add(cursor.getInt(0))
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        orders.forEach { changeDeliveryStatus(it) }
+    }
+
+    private fun changeDeliveryStatus(oid: Int) {
+        val cv = ContentValues().apply {
+            put(OrdersTable.COL_DELIVERY_STATUS, getNextDeliveryStatus(oid))
+        }
+        val success = writableDatabase.update(OrdersTable.ORDERS_TABLE_NAME, cv, "oid = ?", arrayOf(oid.toString()))
+        Log.d(TAG, "changeDeliveryStatus: no of rows affected = $success")
+    }
+
+    private fun getNextDeliveryStatus(oid: Int): String {
+        val query = "SELECT ${OrdersTable.COL_DELIVERY_STATUS} FROM ${OrdersTable.ORDERS_TABLE_NAME} WHERE ${OrdersTable.COL_OID} = ?"
+        val cursor = readableDatabase.rawQuery(query, arrayOf(oid.toString()))
+        cursor.moveToFirst()
+        val status: DeliveryStatus = deliveryStatusStringToDeliveryStatusEnum(cursor.getString(0))
+        cursor.close()
+        val nextStatus: String = when (status) {
+            REATTEMPT -> OUT_FOR_DELIVERY.status()
+            DISPATCHED -> IN_TRANSIT.status()
+            IN_TRANSIT -> OUT_FOR_DELIVERY.status()
+            OUT_FOR_DELIVERY -> DELIVERED.status()
+            else -> NO_CHANGE
+        }
+        return nextStatus
+    }
+
+    private fun deliveryStatusStringToDeliveryStatusEnum(deliveryStatusString: String): DeliveryStatus {
+        for (status in DeliveryStatus.values()) {
+            if (deliveryStatusString == status.status()) {
+                return status
+            }
+        }
+        throw Exception("Undefined deliveryStatusString")
+    }
 }

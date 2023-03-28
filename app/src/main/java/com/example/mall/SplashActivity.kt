@@ -5,13 +5,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.*
 
-private const val TAG = "Common_Tag_Splash"
+private const val TAG = "CT_Splash"
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -39,6 +40,11 @@ class SplashActivity : AppCompatActivity() {
                 putBoolean(MSharedPreferences.IS_FIRST_TIME, false)
                 apply()
             }
+        }else{
+            with(DB(this@SplashActivity)) {
+                Log.d(TAG, "onCreate: Called")
+                changeDeliveryStatusOfOrders()
+            }
         }
 
         CoroutineScope(Dispatchers.Main).launch {
@@ -52,7 +58,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun insertDummyData() {
-        with(DB(this)) {
+        with(DB(this@SplashActivity)) {
             insertCategoryTags()
             insertProdDetails()
             insertItemsToCart()
