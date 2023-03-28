@@ -114,6 +114,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     }
 
     private fun showItemOutOfStockDialog(itemWentOutOfStockList: MutableList<Int>) {
+        (requireActivity() as MainActivity).haptics.heavy()
         builder = AlertDialog.Builder(requireContext())
         builder
             .setTitle("Item(s) out of stock!")

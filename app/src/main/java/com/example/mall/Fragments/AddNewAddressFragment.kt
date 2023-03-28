@@ -2,66 +2,78 @@ package com.example.mall.Fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mall.*
 import com.example.mall.ModelClass.DeliveryAddressModel
-import com.google.android.material.textfield.TextInputLayout
+import com.example.mall.databinding.FragmentAddNewAddressBinding
 import java.util.regex.Pattern
 
 private const val TAG = "CT_AddNewAddressFrag"
 
 class AddNewAddressFragment : Fragment() {
+    private lateinit var binding: FragmentAddNewAddressBinding
     private lateinit var sharedViewModel: SharedViewModel
-    private lateinit var fullName: TextInputLayout
+
+    /*private lateinit var fullName: TextInputLayout
     private lateinit var pinCode: TextInputLayout
     private lateinit var address: TextInputLayout
     private lateinit var mobile: TextInputLayout
-    private lateinit var btnSaveAddress: Button
+    private lateinit var btnSaveAddress: Button*/
     private lateinit var db: DB
     private var uid: Int = -1
     private var oldAddress: DeliveryAddressModel? = null
     private var newAddress: DeliveryAddressModel? = null
     private lateinit var toast: Toast
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         (activity as MainActivity).toolbar.title = ToolbarTitle.ADD_NEW_ADDRESS
         uid = sharedViewModel.uid
         db = DB(requireContext())
-        return inflater.inflate(R.layout.fragment_add_new_address, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_new_address, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fullName = view.findViewById(R.id.fullName)
+        /*fullName = view.findViewById(R.id.fullName)
         mobile = view.findViewById(R.id.mobile)
         pinCode = view.findViewById(R.id.pinCode)
         address = view.findViewById(R.id.address)
+        btnSaveAddress = view.findViewById(R.id.saveAddress)*/
         if (sharedViewModel.updateAddressId != -1) {
-            fillTextFields()
+            fillTextFieldsWithPreviousAddress()
         }
-        btnSaveAddress = view.findViewById(R.id.saveAddress)
-        btnSaveAddress.setOnClickListener { confirmInputs() }
+
+        binding.fullNameField.addTextChangedListener(CustomTextWatcher(binding.fullNameField))
+        binding.mobileField.addTextChangedListener(CustomTextWatcher(binding.mobileField))
+        binding.pinCodeField.addTextChangedListener(CustomTextWatcher(binding.pinCodeField))
+        binding.addressField.addTextChangedListener(CustomTextWatcher(binding.addressField))
+
+        binding.saveAddress.setOnClickListener { confirmInputs() }
     }
 
-    private fun fillTextFields() {
+    private fun fillTextFieldsWithPreviousAddress() {
         oldAddress = db.getAddress(sharedViewModel.updateAddressId)
-        fullName.editText!!.setText(oldAddress!!.fullName)
-        mobile.editText!!.setText(oldAddress!!.mobile)
-        pinCode.editText!!.setText(oldAddress!!.pinCode)
-        address.editText!!.setText(oldAddress!!.address)
+        binding.fullName.editText!!.setText(oldAddress!!.fullName)
+        binding.mobile.editText!!.setText(oldAddress!!.mobile)
+        binding.pinCode.editText!!.setText(oldAddress!!.pinCode)
+        binding.address.editText!!.setText(oldAddress!!.address)
     }
 
     private fun confirmInputs() {
@@ -71,11 +83,11 @@ class AddNewAddressFragment : Fragment() {
         }
         else {
             val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-            imm?.hideSoftInputFromWindow(this.mobile.windowToken, 0)
-            val name = fullName.editText!!.text.toString().trim()
-            val mobile = mobile.editText!!.text.toString().trim()
-            val pinCode = pinCode.editText!!.text.toString().trim()
-            val address = address.editText!!.text.toString().trim()
+            imm?.hideSoftInputFromWindow(binding.mobile.windowToken, 0)
+            val name = binding.fullName.editText!!.text.toString().trim()
+            val mobile = binding.mobile.editText!!.text.toString().trim()
+            val pinCode = binding.pinCode.editText!!.text.toString().trim()
+            val address = binding.address.editText!!.text.toString().trim()
             newAddress = DeliveryAddressModel(-1, name, mobile, pinCode, address)
 
             toast = if (sharedViewModel.updateAddressId == -1) {
@@ -98,73 +110,87 @@ class AddNewAddressFragment : Fragment() {
         }
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         sharedViewModel.updateAddressId = -1
     }
 
     private fun validateName(): Boolean {
-        val name: String = fullName.editText!!.text.toString().trim()
+        val name: String = binding.fullName.editText!!.text.toString().trim()
 
         return if (name.isEmpty()) {
-            fullName.error = "Field can't be empty."
+            binding.fullName.error = "Field can't be empty."
             false
         }
         else {
-            fullName.error = null
+            binding.fullName.error = null
             true
         }
     }
 
     private fun validateMobile(): Boolean {
-        val mob: String = mobile.editText!!.text.toString().trim()
+        val mob: String = binding.mobile.editText!!.text.toString().trim()
         return if (mob.isEmpty()) {
-            mobile.error = "Field can't be empty."
+            binding.mobile.error = "Field can't be empty."
             false
         }
         else if (mob.length != 10) {
-            mobile.error = "Must contains 10 digits"
+            binding.mobile.error = "Must contains 10 digits"
             false
         }
         else {
-            mobile.error = null
+            binding.mobile.error = null
             true
         }
     }
 
     private fun validatePINCode(): Boolean {
-        val pin: String = pinCode.editText!!.text.toString().trim()
+        val pin: String = binding.pinCode.editText!!.text.toString().trim()
         val regex = "^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$"
         val pattern = Pattern.compile(regex)
         val matcher = pattern.matcher(pin)
-        return if (!matcher.matches()) {
-            pinCode.error = "PIN Invalid"
-            false
-        }
-        else if (pin.length != 6) {
-            pinCode.error = "PIN Invalid"
+        return if (!matcher.matches() || pin.length != 6) {
+            binding.pinCode.error = "PIN Invalid"
             false
         }
         else {
-            pinCode.error = null
+            binding.pinCode.error = null
             true
         }
     }
 
     private fun validateAddress(): Boolean {
-        val address = address.editText!!.text.toString().trim()
+        val address = binding.address.editText!!.text.toString().trim()
         return if (address.isEmpty()) {
-            this.address.error = "Address cannot be empty!"
+            binding.address.error = "Address cannot be empty!"
             false
         }
         else if (address.length < 10) {
-            this.address.error = "At least 10 character"
+            binding.address.error = "At least 10 character"
             false
         }
         else {
-            this.address.error = null
+            binding.address.error = null
             true
+        }
+    }
+
+    inner class CustomTextWatcher(private val inputField: View) : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            when (inputField.id) {
+                R.id.fullNameField -> validateName()
+                R.id.mobileField -> validateMobile()
+                R.id.pinCodeField -> validatePINCode()
+                R.id.addressField -> validateAddress()
+            }
         }
     }
 }

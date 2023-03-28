@@ -29,4 +29,13 @@ class Haptics(private val vibrator: Vibrator) {
             vibrator.vibrate(60)
         }
     }
+
+    fun heavy() {
+        if (Build.VERSION.SDK_INT >= 29) {
+            vibrator.vibrate(VibrationEffect.createOneShot(10, 255))
+        }
+        else {
+            vibrator.vibrate(10)
+        }
+    }
 }

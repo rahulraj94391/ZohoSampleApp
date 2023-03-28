@@ -6,14 +6,15 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.os.Vibrator
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.WindowInsetsController
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.google.android.material.progressindicator.LinearProgressIndicator
-import com.google.android.material.textfield.TextInputLayout
+import androidx.databinding.DataBindingUtil
+import com.example.mall.databinding.ActivityLoginPageBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -22,12 +23,32 @@ import kotlinx.coroutines.launch
 private const val TAG = "CT_LoginPageActivity"
 
 class LoginPageActivity : AppCompatActivity() {
-    private lateinit var textInputUsername: TextInputLayout
-    private lateinit var textInputPassword: TextInputLayout
-    private lateinit var btnLogin: Button
-    private lateinit var progressBar: LinearProgressIndicator
+    private lateinit var binding: ActivityLoginPageBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var haptics: Haptics
+
+    inner class CustomTextWatcher(private val inputField: View) : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+            when (inputField.id) {
+                R.id.usernameField -> {
+                    validateUsername()
+                }
+
+                R.id.passwordField -> {
+                    validatePassword()
+                }
+            }
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // changes the content color of the system bars
@@ -42,36 +63,34 @@ class LoginPageActivity : AppCompatActivity() {
         }
         haptics = Haptics(this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_page)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login_page)
         sharedPreferences = getSharedPreferences(MSharedPreferences.NAME, MODE_PRIVATE)
         window.navigationBarColor = ContextCompat.getColor(this, R.color.primary_container)
-        textInputUsername = findViewById(R.id.text_input_username)
-        textInputPassword = findViewById(R.id.text_input_password)
-        btnLogin = findViewById(R.id.btn_login)
-        progressBar = findViewById(R.id.progress_indicator)
-        btnLogin.setOnClickListener { confirmInputs() }
+        binding.btnLogin.setOnClickListener { confirmInputs() }
+        binding.usernameField.addTextChangedListener(CustomTextWatcher(binding.usernameField))
+        binding.passwordField.addTextChangedListener(CustomTextWatcher(binding.passwordField))
     }
 
     private fun validateUsername(): Boolean {
-        val email: String = textInputUsername.editText!!.text.toString().trim()
+        val email: String = binding.textInputUsername.editText!!.text.toString().trim()
         return if (email.isEmpty()) {
-            textInputUsername.error = "Field can't be empty."
+            binding.textInputUsername.error = "Field can't be empty."
             false
         }
         else {
-            textInputUsername.error = null
+            binding.textInputUsername.error = null
             true
         }
     }
 
     private fun validatePassword(): Boolean {
-        val password: String = textInputPassword.editText!!.text.toString().trim()
+        val password: String = binding.textInputPassword.editText!!.text.toString().trim()
         return if (password.isEmpty()) {
-            textInputPassword.error = "Field can't be empty."
+            binding.textInputPassword.error = "Field can't be empty."
             false
         }
         else {
-            textInputPassword.error = null
+            binding.textInputPassword.error = null
             true
         }
     }
@@ -82,21 +101,21 @@ class LoginPageActivity : AppCompatActivity() {
             return
         }
         else {
-            btnLogin.apply {
+            binding.btnLogin.apply {
                 visibility = View.INVISIBLE
                 isEnabled = false
             }
 
-            progressBar.visibility = View.VISIBLE
+            binding.progressIndicator.visibility = View.VISIBLE
             CoroutineScope(Dispatchers.Main).launch {
                 delay(800)
                 val db = DB(this@LoginPageActivity)
-                val isValidUser = db.isExistingUser(textInputUsername.editText?.text.toString(), textInputPassword.editText?.text.toString())
+                val isValidUser = db.isExistingUser(binding.textInputUsername.editText?.text.toString(), binding.textInputPassword.editText?.text.toString())
                 if (isValidUser) {
                     haptics.light()
                     sharedPreferences.edit().apply {
                         putBoolean(MSharedPreferences.IS_LOGGED_IN, true)
-                        putInt(MSharedPreferences.LOGGED_IN_USER_ID, db.getUserId(textInputUsername.editText!!.text.toString().trim()))
+                        putInt(MSharedPreferences.LOGGED_IN_USER_ID, db.getUserId(binding.textInputUsername.editText!!.text.toString().trim()))
                         apply()
                     }
                     startActivity(Intent(this@LoginPageActivity, MainActivity::class.java))
@@ -105,12 +124,12 @@ class LoginPageActivity : AppCompatActivity() {
                 else {
                     haptics.doubleClick()
                     Toast.makeText(this@LoginPageActivity, "Wrong Credentials.", Toast.LENGTH_LONG).show()
-                    btnLogin.apply {
+                    binding.btnLogin.apply {
                         visibility = View.VISIBLE
                         isEnabled = true
                     }
                 }
-                progressBar.visibility = View.INVISIBLE
+                binding.progressIndicator.visibility = View.INVISIBLE
             }
         }
     }
