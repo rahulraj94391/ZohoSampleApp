@@ -64,6 +64,6 @@ class PaymentConfirmedFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (requireActivity() as MainActivity).haptics.heavy()
+        (requireActivity() as MainActivity).haptics.doubleClick()
     }
 }

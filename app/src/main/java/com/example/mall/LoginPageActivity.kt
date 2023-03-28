@@ -78,7 +78,7 @@ class LoginPageActivity : AppCompatActivity() {
 
     private fun confirmInputs() {
         if (!validateUsername() or !validatePassword()) {
-            haptics.heavy()
+            haptics.doubleClick()
             return
         }
         else {
@@ -103,7 +103,7 @@ class LoginPageActivity : AppCompatActivity() {
                     finish()
                 }
                 else {
-                    haptics.heavy()
+                    haptics.doubleClick()
                     Toast.makeText(this@LoginPageActivity, "Wrong Credentials.", Toast.LENGTH_LONG).show()
                     btnLogin.apply {
                         visibility = View.VISIBLE

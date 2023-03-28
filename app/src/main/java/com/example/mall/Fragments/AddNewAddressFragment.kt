@@ -66,7 +66,7 @@ class AddNewAddressFragment : Fragment() {
 
     private fun confirmInputs() {
         if (!validateName() or !validateMobile() or !validatePINCode() or !validateAddress()) {
-            (requireActivity() as MainActivity).haptics.heavy()
+            (requireActivity() as MainActivity).haptics.doubleClick()
             return
         }
         else {
@@ -85,7 +85,7 @@ class AddNewAddressFragment : Fragment() {
             }
             else if (oldAddress?.equals(newAddress) == true) {
                 Log.d(TAG, "Address compare:\n$oldAddress\n$newAddress")
-                (requireActivity() as MainActivity).haptics.heavy()
+                (requireActivity() as MainActivity).haptics.doubleClick()
                 Toast.makeText(requireContext(), "Nothing updated.", Toast.LENGTH_SHORT)
             }
             else {

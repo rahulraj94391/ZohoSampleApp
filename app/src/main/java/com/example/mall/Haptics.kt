@@ -14,16 +14,14 @@ class Haptics(private val vibrator: Vibrator) {
         }
     }
 
-    /*fun light() {
-        val timings: LongArray = longArrayOf(50, 50, 50, 50, 50, 100, 350, 25, 25, 25, 25, 200)
-        val amplitudes: IntArray = intArrayOf(33, 51, 75, 113, 170, 255, 0, 38, 62, 100, 160, 255)
+    fun deny() {
+        val timings: LongArray = longArrayOf(10, 10, 60, 10, 10, 60, 10, 10)
+        val amplitudes: IntArray = intArrayOf(180, 180, 0, 80, 80, 0, 180, 180)
         val repeatIndex = -1 // Do not repeat.
-
         vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, repeatIndex))
-    }*/
+    }
 
-
-    fun heavy() {
+    fun doubleClick() {
         if (Build.VERSION.SDK_INT >= 29) {
             vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_DOUBLE_CLICK))
         }
