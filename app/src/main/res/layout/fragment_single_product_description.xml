@@ -77,12 +77,12 @@
                         />
 
                     <TextView
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
                         android:id="@+id/stockIndicator"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
                         android:layout_marginTop="18dp"
-                        android:layout_marginEnd="8dp"
                         android:textColor="#0A9900"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -91,15 +91,14 @@
                         tools:text="In Stock" />
 
                     <TextView
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
                         android:id="@+id/prodName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-
-                        android:layout_marginEnd="8dp"
                         android:fontFamily="@font/fs_me_bold"
-                        android:paddingTop="6dp"
-                        android:paddingBottom="6dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
                         android:textColor="@color/customBlack"
                         android:textSize="16sp"
                         app:layout_constraintTop_toBottomOf="@+id/stockIndicator"
