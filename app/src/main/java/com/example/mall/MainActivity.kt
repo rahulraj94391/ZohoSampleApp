@@ -1,10 +1,13 @@
 package com.example.mall
 
 import android.content.Context
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.os.Vibrator
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowInsetsController
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -85,7 +88,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        /*if (Build.VERSION.SDK_INT >= 30) {
+        if (Build.VERSION.SDK_INT >= 30) {
             window.decorView.windowInsetsController?.apply {
                 setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
                 setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS, WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS)
@@ -93,8 +96,8 @@ class MainActivity : AppCompatActivity() {
         }
         else if (Build.VERSION.SDK_INT in 11..29) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-        }*/
-        window.statusBarColor = ContextCompat.getColor(this, R.color.status_bar_nav_bar)
+        }
+        window.statusBarColor = ContextCompat.getColor(this, R.color.primary_container)
         window.navigationBarColor = ContextCompat.getColor(this, R.color.status_bar_nav_bar)
         haptics = Haptics(this@MainActivity.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator)
         fm = supportFragmentManager

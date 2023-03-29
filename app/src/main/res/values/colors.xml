@@ -10,15 +10,17 @@
 
     <color name="swipe_delete">#ed675c</color>
     <color name="swipe_wishlist">#C600810D</color>
-    <color name="primary">#6750A4</color>
-    
-    <color name="status_bar_nav_bar">#4A3976</color>
-    <color name="common_background">#fdfbff</color>
-    <color name="primary_container">#EADDFF</color>
-    <color name="color_on_primary">#371E73</color>
 
 
-    <color name="secondary">#625B71</color>
+    <color name="primary">#8CBCF0</color>
+    <color name="status_bar_nav_bar">#b8d6f6</color>
+    <color name="common_background">#FFFFFF</color>
+    <color name="primary_container">#e2effb</color>
+    <color name="color_on_primary">#4590e4</color>
+    <color name="new_blue">#61a3e8</color>
+
+
+    <color name="secondary">#2f7ede</color>
     <color name="secondary_container">#1E192B</color>
     <color name="color_on_secondary">#FFFFFF</color>
     <color name="transparent">#00000000</color>

@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary_container"
+        android:background="#e2effb"
         android:orientation="vertical"
         tools:context=".LoginPageActivity">
 

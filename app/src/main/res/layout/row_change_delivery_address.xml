@@ -5,11 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="2dp"
+    app:cardCornerRadius="0dp"
     app:cardElevation="0dp"
-    app:strokeColor="@color/primary"
-    app:strokeWidth="1dp"
 
     >
 
@@ -23,6 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
+            android:fontFamily="@font/fs_me_bold"
+            android:textColor="@color/customBlack"
+
             android:layout_marginEnd="16dp"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,6 +32,8 @@
 
         <TextView
             android:id="@+id/tv_new_del_mobile"
+            android:fontFamily="@font/fs_me_regular"
+            android:textColor="@color/customBlack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -47,6 +49,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:fontFamily="@font/fs_me_regular"
+            android:textColor="@color/customBlack"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
             android:textSize="16sp"

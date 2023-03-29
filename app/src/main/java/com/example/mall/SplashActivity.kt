@@ -48,7 +48,7 @@ class SplashActivity : AppCompatActivity() {
         }*/
 
         CoroutineScope(Dispatchers.Main).launch {
-            delay(800)
+            delay(400)
             if (sharedPreferences.getBoolean(MSharedPreferences.IS_LOGGED_IN, false))
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
             else

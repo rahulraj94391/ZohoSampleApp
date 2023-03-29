@@ -90,7 +90,7 @@ class PriceFilter(
             true
         }
         else {
-            Toast.makeText(requireContext(), "Invalid Inputs", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "min price should be lesser than max price.", Toast.LENGTH_SHORT).show()
             false
         }
     }

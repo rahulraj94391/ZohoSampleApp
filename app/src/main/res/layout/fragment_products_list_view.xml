@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_background"
+    android:splitMotionEvents="false"
     tools:context=".Fragments.ProductsListViewFragment">
 
     <TextView
@@ -37,16 +38,17 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:splitMotionEvents="false">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/fs_me_regular"
                 android:text="Filters:"
-                android:textColor="@color/primary"
+                android:textColor="@color/new_blue"
                 android:textSize="16sp"
 
                 />
@@ -56,21 +58,21 @@
                 style="@style/Widget.MaterialComponents.Chip.Entry"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/fs_me_regular"
                 android:paddingTop="8dp"
                 android:paddingBottom="80dp"
                 android:text="Sort by"
-                android:textColor="@color/primary"
-                app:checkedIconTint="@color/primary"
+                android:textColor="@color/new_blue"
+                app:checkedIconTint="@color/new_blue"
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@android:color/transparent"
-                app:chipStrokeColor="@color/primary"
+                app:chipStrokeColor="@color/new_blue"
                 app:chipStrokeWidth="1dp"
                 app:closeIcon="@drawable/down_arrow"
                 app:closeIconSize="18dp"
-                app:closeIconTint="@color/primary"
-                app:rippleColor="#6C5A9F" />
+                app:closeIconTint="@color/new_blue"
+                app:rippleColor="@color/new_blue" />
 
 
             <com.google.android.material.chip.Chip
@@ -78,21 +80,21 @@
                 style="@style/Widget.MaterialComponents.Chip.Entry"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="12dp"
                 android:fontFamily="@font/fs_me_regular"
                 android:paddingTop="8dp"
                 android:paddingBottom="80dp"
                 android:text="Price"
-                android:textColor="@color/primary"
-                app:checkedIconTint="@color/primary"
+                android:textColor="@color/new_blue"
+                app:checkedIconTint="@color/new_blue"
                 app:checkedIconVisible="false"
                 app:chipBackgroundColor="@android:color/transparent"
-                app:chipStrokeColor="@color/primary"
+                app:chipStrokeColor="@color/new_blue"
                 app:chipStrokeWidth="1dp"
                 app:closeIcon="@drawable/down_arrow"
                 app:closeIconSize="18dp"
-                app:closeIconTint="@color/primary"
-                app:rippleColor="#6C5A9F" />
+                app:closeIconTint="@color/new_blue"
+                app:rippleColor="@color/new_blue" />
 
 
             <TextView
@@ -102,7 +104,7 @@
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/fs_me_regular"
                 android:text="Clear All"
-                android:textColor="@color/primary" />
+                android:textColor="@color/new_blue" />
         </LinearLayout>
     </HorizontalScrollView>
 

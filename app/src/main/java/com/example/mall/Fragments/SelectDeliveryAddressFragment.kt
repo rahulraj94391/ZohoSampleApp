@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import avinash.first.ziphered.mainactivity.password.passwords.TopSpacingDec
 import com.example.mall.Adapters.SelectDeliveryAddressAdapter
 import com.example.mall.Interface.OnNewAddressSelected
 import com.example.mall.MainActivity
 import com.example.mall.ModelClass.DeliveryAddressModel
 import com.example.mall.R
 import com.example.mall.SharedViewModel
+import com.google.android.material.divider.MaterialDividerItemDecoration
 
 private const val TAG = "CT_SelectDelAddFrag"
 private const val ARG_ADDRESSES = "addresses"
@@ -51,6 +53,12 @@ class SelectDeliveryAddressFragment : Fragment(), OnNewAddressSelected {
         adapter = SelectDeliveryAddressAdapter(addresses, this)
         newDeliveryAddress.adapter = adapter
         newDeliveryAddress.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+
+        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+        divider.dividerInsetStart = 15
+        divider.dividerInsetEnd = 15
+        newDeliveryAddress.addItemDecoration(divider)
     }
 
     override fun selectedNewAddress(position: Int) {
