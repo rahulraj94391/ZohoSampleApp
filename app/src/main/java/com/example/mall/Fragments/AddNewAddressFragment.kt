@@ -23,12 +23,6 @@ private const val TAG = "CT_AddNewAddressFrag"
 class AddNewAddressFragment : Fragment() {
     private lateinit var binding: FragmentAddNewAddressBinding
     private lateinit var sharedViewModel: SharedViewModel
-
-    /*private lateinit var fullName: TextInputLayout
-    private lateinit var pinCode: TextInputLayout
-    private lateinit var address: TextInputLayout
-    private lateinit var mobile: TextInputLayout
-    private lateinit var btnSaveAddress: Button*/
     private lateinit var db: DB
     private var uid: Int = -1
     private var oldAddress: DeliveryAddressModel? = null
@@ -51,11 +45,6 @@ class AddNewAddressFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*fullName = view.findViewById(R.id.fullName)
-        mobile = view.findViewById(R.id.mobile)
-        pinCode = view.findViewById(R.id.pinCode)
-        address = view.findViewById(R.id.address)
-        btnSaveAddress = view.findViewById(R.id.saveAddress)*/
         if (sharedViewModel.updateAddressId != -1) {
             fillTextFieldsWithPreviousAddress()
         }

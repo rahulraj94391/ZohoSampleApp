@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
+    android:layout_marginStart="12dp"
     android:layout_marginTop="1dp"
+    android:layout_marginEnd="12dp"
     android:layout_marginBottom="1dp">
 
     <TextView
@@ -12,20 +12,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="4"
+        android:fontFamily="@font/fs_me_regular"
         android:paddingStart="4dp"
         android:text="secondary_camera"
-
-
-        />
+        android:textColor="@color/customBlack" />
 
     <TextView
         android:id="@+id/highlight_val"
         android:layout_width="0dp"
-        android:paddingStart="4dp"
         android:layout_height="wrap_content"
         android:layout_weight="6"
+        android:fontFamily="@font/fs_me_regular"
+        android:paddingStart="4dp"
         android:text="secondary_camera"
-
-        />
+        android:textColor="@color/customBlack" />
 
 </LinearLayout>

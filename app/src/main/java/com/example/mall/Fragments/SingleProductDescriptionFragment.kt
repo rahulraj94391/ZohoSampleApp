@@ -16,6 +16,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mall.*
@@ -63,12 +64,29 @@ class SingleProductDescriptionFragment : Fragment() {
         }
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         db = DB(requireContext())
         prodDetails = db.singleProdDesc(pid)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_single_product_description, container, false)
+
+        mMenuProvider = object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.toolbar_menu_share, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.share_product -> {
+                        shareAction()
+                        return true
+                    }
+                }
+                return false
+            }
+        }
+
+        (requireActivity() as MenuHost).addMenuProvider(mMenuProvider, viewLifecycleOwner, Lifecycle.State.STARTED)
         return binding.root
     }
 
@@ -114,33 +132,6 @@ class SingleProductDescriptionFragment : Fragment() {
 
 //        binding.imageToShare.setImageBitmap(getBitmapFromURL())
         Picasso.get().load(prodDetails.imagesURL[0]).into(binding.imageToShare)
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        mMenuProvider = object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.toolbar_menu_share, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when (menuItem.itemId) {
-                    R.id.share_product -> {
-                        shareAction()
-                        return true
-                    }
-                }
-                return false
-            }
-        }
-
-        (requireActivity() as MenuHost).addMenuProvider(mMenuProvider, viewLifecycleOwner)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        (requireActivity() as MenuHost).removeMenuProvider(mMenuProvider)
     }
 
     private fun shareAction() {
@@ -200,6 +191,7 @@ class SingleProductDescriptionFragment : Fragment() {
         val goToCartAction = View.OnClickListener { navigateNextWithCustomAnim(CartFragment(), "CartFragment") }
 
         val addToCartAction = View.OnClickListener {
+            Toast.makeText(requireContext(), "Item added to cart.", Toast.LENGTH_SHORT).show()
             (requireActivity() as MainActivity).haptics.light()
             val quantity = binding.qtySelector.selectedItem.toString().trim().toInt()
             if (quantity != -1 && quantity <= stock) {
@@ -226,6 +218,7 @@ class SingleProductDescriptionFragment : Fragment() {
         val goToWishlistAction = View.OnClickListener { navigateNextWithCustomAnim(MyWishlistFragment(), "MyWishlistFragment") }
 
         val addToWishlistAction = View.OnClickListener {
+            Toast.makeText(requireContext(), "Item added to wishlist.", Toast.LENGTH_SHORT).show()
             (requireActivity() as MainActivity).haptics.light()
             db.addItemToWishlist(sharedViewModel.uid, pid)
             binding.startButton.text = getString(R.string.go_to_wishlist)

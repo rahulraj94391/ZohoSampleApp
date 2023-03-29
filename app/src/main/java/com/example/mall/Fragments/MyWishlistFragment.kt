@@ -21,7 +21,7 @@ private const val TAG = "Common_Tag_MyWishlistFragment"
 class MyWishlistFragment : Fragment(), WishlistItemClickListener {
     private lateinit var listOfProducts: MutableList<ItemImgNamePriceModel>
     private lateinit var sharedViewModel: SharedViewModel
-    private lateinit var tvWishlistEmpty: TextView
+    private lateinit var wishlistEmptyMessage: View
     private lateinit var adapter: WishlistAdapter
     private lateinit var productsRV: RecyclerView
     private var uid: Int by Delegates.notNull()
@@ -29,11 +29,11 @@ class MyWishlistFragment : Fragment(), WishlistItemClickListener {
 
     private fun wishListStatus() {
         if (listOfProducts.size == 0) {
-            tvWishlistEmpty.visibility = View.VISIBLE
+            wishlistEmptyMessage.visibility = View.VISIBLE
             productsRV.visibility = View.GONE
         }
         else {
-            tvWishlistEmpty.visibility = View.GONE
+            wishlistEmptyMessage.visibility = View.GONE
             productsRV.visibility = View.VISIBLE
         }
     }
@@ -51,7 +51,7 @@ class MyWishlistFragment : Fragment(), WishlistItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tvWishlistEmpty = view.findViewById(R.id.tv_wishlist_empty)
+        wishlistEmptyMessage = view.findViewById(R.id.wishlistEmptyMessage)
         productsRV = view.findViewById(R.id.rv_wishlist)
         listOfProducts = db.getWishlistItems(uid)
         wishListStatus()

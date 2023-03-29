@@ -11,9 +11,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/fs_me_bold"
         android:text="Price Details"
+        android:textColor="@color/customBlack"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +24,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/fs_me_regular"
         android:text="Price (4 items)"
+        android:textColor="@color/customBlack"
         app:layout_constraintStart_toStartOf="@+id/tv_price_details_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_price_details_title" />
 
@@ -32,7 +35,9 @@
         android:id="@+id/tv_price_before_discount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fs_me_regular"
         android:text="14,000"
+        android:textColor="@color/customBlack"
         app:layout_constraintEnd_toEndOf="@+id/tv_price_details_title"
         app:layout_constraintTop_toTopOf="@+id/tv_price_x_items" />
 
@@ -42,7 +47,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/fs_me_regular"
         android:text="Discount"
+        android:textColor="@color/customBlack"
         app:layout_constraintStart_toStartOf="@+id/tv_price_details_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_price_x_items"
 
@@ -54,7 +61,9 @@
         android:id="@+id/tv_discount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fs_me_regular"
         android:text="2,345"
+        android:textColor="@color/customBlack"
         app:layout_constraintEnd_toEndOf="@+id/tv_price_details_title"
         app:layout_constraintTop_toTopOf="@+id/tv_discount_title"
 
@@ -65,7 +74,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/fs_me_regular"
         android:text="Delivery charges"
+        android:textColor="@color/customBlack"
         app:layout_constraintStart_toStartOf="@+id/tv_price_details_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_discount_title"
 
@@ -77,15 +88,16 @@
         android:id="@+id/tv_delivery_charges"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fs_me_regular"
         android:text="FREE Delivery"
         android:textColor="#389B42"
         app:layout_constraintEnd_toEndOf="@+id/tv_price_details_title"
         app:layout_constraintTop_toTopOf="@+id/tv_delivery_chargers_title"
 
-
         />
 
     <TextView
+
         android:id="@+id/tv_div1"
         style="?android:attr/listSeparatorTextViewStyle"
         android:layout_width="match_parent"
@@ -100,7 +112,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/fs_me_regular"
         android:text="Total Amount"
+        android:textColor="@color/customBlack"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tv_price_details_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_div1"
@@ -113,7 +127,9 @@
         android:id="@+id/tv_total_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/fs_me_regular"
         android:text="8,235"
+        android:textColor="@color/customBlack"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/tv_price_details_title"
         app:layout_constraintTop_toTopOf="@+id/tv_total_amount_title" />

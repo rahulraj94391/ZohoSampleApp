@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/address_view"
     android:layout_width="match_parent"
-    app:cardElevation="0dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,11 +12,13 @@
 
         <TextView
             android:id="@+id/tv_deliverTo_title"
+            style="@style/headings_and_imp_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:fontFamily="@font/fs_me_bold"
             android:text="Deliver to: "
-            style="@style/headings_and_imp_text"
+            android:textColor="@color/customBlack"
             app:layout_constraintBottom_toBottomOf="@+id/btn_change_delivery_address"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btn_change_delivery_address" />
@@ -28,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/fs_me_bold"
             android:text="Change"
             android:textColor="@color/black"
             android:textSize="12sp"
@@ -39,7 +42,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
+            android:fontFamily="@font/fs_me_bold"
             android:text="Rahul Raj"
+            android:textColor="@color/customBlack"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_change_delivery_address" />
@@ -51,7 +56,9 @@
             android:layout_marginStart="22dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="22dp"
+            android:fontFamily="@font/fs_me_regular"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam venenatis mauris vitae enim lacinia, sit."
+            android:textColor="@color/customBlack"
             app:layout_constraintTop_toBottomOf="@+id/tv_delivery_to_person_name" />
 
         <TextView
@@ -62,7 +69,9 @@
             android:layout_marginTop="6dp"
             android:layout_marginEnd="22dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/fs_me_regular"
             android:text="9155881234"
+            android:textColor="@color/customBlack"
             app:layout_constraintTop_toBottomOf="@id/tv_delivery_address" />
 
 

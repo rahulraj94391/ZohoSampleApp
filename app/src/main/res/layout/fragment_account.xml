@@ -18,9 +18,9 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="12dp"
                 android:layout_marginBottom="8dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
@@ -31,7 +31,7 @@
                     android:id="@+id/ll_profile_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#fcf9ff"
+                    android:background="@color/common_background"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -54,52 +54,47 @@
 
                     <TextView
                         android:id="@+id/fullName"
-                        style="@style/large_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="30dp"
+                        android:fontFamily="@font/fs_me_bold"
                         android:gravity="center"
                         android:textColor="@color/primary"
-                        android:textStyle="bold"
+                        android:textSize="16sp"
                         app:layout_constraintTop_toBottomOf="@+id/siv_profile_pic"
-                        tools:text="Full Name"
-
-                        />
+                        tools:text="Full Name" />
 
                     <TextView
                         android:id="@+id/mobileNumber"
-                        style="@style/headings_and_imp_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:layout_marginEnd="30dp"
-                        android:layout_marginBottom="4dp"
+                        android:fontFamily="@font/fs_me_bold"
                         android:gravity="center"
                         android:textColor="@color/primary"
+                        android:textSize="16sp"
                         app:layout_constraintTop_toBottomOf="@+id/fullName"
-                        tools:text="91XXXXXXXX"
-
-                        />
+                        tools:text="91XXXXXXXX" />
 
                     <TextView
                         android:id="@+id/eMail"
-                        style="@style/headings_and_imp_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="30dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="4dp"
                         android:layout_marginEnd="30dp"
                         android:layout_marginBottom="16dp"
+                        android:fontFamily="@font/fs_me_bold"
                         android:gravity="center"
                         android:textColor="@color/primary"
+                        android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/btn_save_details"
                         app:layout_constraintTop_toBottomOf="@+id/mobileNumber"
-                        tools:text="username@domain.com"
-
-                        />
+                        tools:text="username@domain.com" />
 
                     <Button
                         android:id="@+id/btn_save_details"
@@ -121,10 +116,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
+                android:layout_margin="12dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
                 app:strokeColor="@color/primary"
@@ -134,7 +126,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#fcf9ff">
+                    android:background="@color/common_background">
 
                     <LinearLayout
                         android:id="@+id/myOrders"
@@ -159,18 +151,19 @@
                             tools:ignore="ContentDescription" />
 
                         <TextView
-                            style="@style/large_text"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="8dp"
                             android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/fs_me_bold"
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
                             android:text="My Orders"
-                            android:textColor="@color/primary" />
+                            android:textColor="@color/primary"
+                            android:textSize="16sp" />
 
                         <ImageView
                             android:layout_width="20dp"
@@ -206,14 +199,16 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="8dp"
                             android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/fs_me_bold"
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
                             android:text="My Wishlist"
-                            android:textColor="@color/primary" />
+                            android:textColor="@color/primary"
+                            android:textSize="16sp" />
 
                         <ImageView
                             android:layout_width="20dp"
@@ -245,18 +240,19 @@
                             tools:ignore="ContentDescription" />
 
                         <TextView
-                            style="@style/large_text"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="8dp"
                             android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/fs_me_bold"
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
                             android:text="Saved Address"
-                            android:textColor="@color/primary" />
+                            android:textColor="@color/primary"
+                            android:textSize="16sp" />
 
                         <ImageView
                             android:layout_width="20dp"
@@ -289,18 +285,19 @@
                             tools:ignore="ContentDescription" />
 
                         <TextView
-                            style="@style/large_text"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="8dp"
                             android:layout_marginEnd="4dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_marginBottom="8dp"
                             android:layout_weight="1"
+                            android:fontFamily="@font/fs_me_bold"
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
                             android:text="Contact Us"
-                            android:textColor="@color/primary" />
+                            android:textColor="@color/primary"
+                            android:textSize="16sp" />
 
                         <ImageView
                             android:layout_width="20dp"

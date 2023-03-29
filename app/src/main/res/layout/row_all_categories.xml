@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:background="@color/pressed_state_color"
     android:orientation="horizontal">
 
@@ -10,9 +11,10 @@
         android:id="@+id/iv_category_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:padding="3dp"
         android:scaleType="centerInside"
         android:src="@drawable/img_placeholder"
@@ -21,14 +23,16 @@
 
     <TextView
         android:id="@+id/tv_category_type"
-        style="@style/left_right_padding_8dp"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/fs_me_regular"
         android:gravity="center_vertical"
-        android:textSize="18sp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:textColor="@color/customBlack"
+        android:textSize="16sp"
         tools:text="category" />
-
 </LinearLayout>

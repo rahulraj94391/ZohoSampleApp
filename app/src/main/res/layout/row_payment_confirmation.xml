@@ -15,7 +15,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/fs_me_regular"
             android:text="Payment Options "
+            android:textColor="@color/customBlack"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,6 +25,7 @@
 
 
         <RadioGroup
+
             android:id="@+id/rg_payment_selector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,25 +41,33 @@
                 android:id="@+id/rb_payment_upi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="UPI" />
+                android:fontFamily="@font/fs_me_regular"
+                android:text="UPI"
+                android:textColor="@color/customBlack" />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/rb_payment_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Credit / Debit / ATM Card" />
+                android:fontFamily="@font/fs_me_regular"
+                android:text="Credit / Debit / ATM Card"
+                android:textColor="@color/customBlack" />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/rb_payment_pod"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pay on Delivery" />
+                android:fontFamily="@font/fs_me_regular"
+                android:text="Pay on Delivery"
+                android:textColor="@color/customBlack" />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/rb_payment_EMI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="EMI" />
+                android:fontFamily="@font/fs_me_regular"
+                android:text="EMI"
+                android:textColor="@color/customBlack" />
         </RadioGroup>
 
 

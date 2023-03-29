@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:background="@color/pressed_state_color"
 
     >
@@ -10,10 +11,9 @@
         android:id="@+id/iv_products_list_res"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:padding="2dp"
         android:src="@drawable/img_placeholder" />
 
@@ -21,36 +21,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="12dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:padding="4dp">
 
         <TextView
+
             android:id="@+id/tv_products_list_name"
-            style="@style/prod_name_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="4dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/fs_me_regular"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
             android:text="Product Name"
-            android:textStyle="normal"
-
-            />
+            android:textColor="@color/customBlack"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_products_list_price"
-            style="@style/prod_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/fs_me_regular"
             android:text="Product Price"
-            android:textStyle="normal" />
+            android:textColor="@color/customBlack"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/tv_products_list_stock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fs_me_regular"
             android:text="In Stock"
-            android:textSize="14sp"
-            android:textStyle="normal" />
+            android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>

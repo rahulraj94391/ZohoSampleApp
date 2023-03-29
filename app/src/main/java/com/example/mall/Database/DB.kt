@@ -584,7 +584,7 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
         Log.d(TAG, "Address Update: Rows affected = $rows")
     }
 
-    fun changeDeliveryStatusOfOrders() {
+    /*fun changeDeliveryStatusOfOrders() {
         val orders: MutableList<Int> = mutableListOf()
         val query = "SELECT ${OrdersTable.COL_OID} FROM ${OrdersTable.ORDERS_TABLE_NAME}"
         val cursor = readableDatabase.rawQuery(query, null)
@@ -628,5 +628,5 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
             }
         }
         throw Exception("Undefined deliveryStatusString")
-    }
+    }*/
 }

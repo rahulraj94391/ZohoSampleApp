@@ -8,12 +8,15 @@
 
     <TextView
         android:id="@+id/tv_order_confirmation_msg"
+        style="@style/large_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_marginTop="230dp"
+        android:fontFamily="@font/fs_me_bold"
         android:gravity="center"
         android:text="Your Order is confirmed.\nYou paid through UPI."
-        style="@style/large_text"
+        android:textColor="@color/customBlack"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,20 +27,22 @@
     <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="35dp"
         android:src="@drawable/success_green_check_mark_icon"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_order_confirmation_msg" />
 
 
     <TextView
         android:id="@+id/tv_redirecting_to_home_msg"
+        style="@style/headings_and_imp_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="260dp"
+        android:fontFamily="@font/fs_me_regular"
         android:text="Redirecting you to Home Page"
-        style="@style/headings_and_imp_text"
+        android:textColor="@color/customBlack"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -40,12 +40,12 @@ class SplashActivity : AppCompatActivity() {
                 putBoolean(MSharedPreferences.IS_FIRST_TIME, false)
                 apply()
             }
-        }else{
+        }/*else{
             with(DB(this@SplashActivity)) {
                 Log.d(TAG, "onCreate: Called")
                 changeDeliveryStatusOfOrders()
             }
-        }
+        }*/
 
         CoroutineScope(Dispatchers.Main).launch {
             delay(800)

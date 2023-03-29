@@ -6,6 +6,7 @@
     tools:context=".Fragments.AddressFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:splitMotionEvents="false"
         android:id="@+id/rv_saved_address"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

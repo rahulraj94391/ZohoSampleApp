@@ -43,9 +43,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/fs_me_regular"
                 android:text="Filters:"
-                android:textSize="16sp" />
+                android:textColor="@color/primary"
+                android:textSize="16sp"
+
+                />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_sort_by"
@@ -53,6 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginEnd="8dp"
+                android:fontFamily="@font/fs_me_regular"
                 android:paddingTop="8dp"
                 android:paddingBottom="80dp"
                 android:text="Sort by"
@@ -74,6 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginEnd="8dp"
+                android:fontFamily="@font/fs_me_regular"
                 android:paddingTop="8dp"
                 android:paddingBottom="80dp"
                 android:text="Price"
@@ -93,7 +99,8 @@
                 android:id="@+id/clear_all_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/fs_me_regular"
                 android:text="Clear All"
                 android:textColor="@color/primary" />
         </LinearLayout>
@@ -104,6 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/common_background"
+        android:splitMotionEvents="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

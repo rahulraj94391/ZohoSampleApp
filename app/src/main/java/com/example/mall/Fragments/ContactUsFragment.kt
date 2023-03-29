@@ -14,7 +14,7 @@ import com.example.mall.R
 class ContactUsFragment : Fragment() {
     private lateinit var rvContactUs: RecyclerView
     private lateinit var adapter: ContactUsAdapter
-    private lateinit var contactUsList: MutableList<ContactUsModel>
+    private var contactUsList: MutableList<ContactUsModel> = mutableListOf()
 
     init {
         addOptions()

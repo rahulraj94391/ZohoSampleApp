@@ -6,25 +6,35 @@
     android:background="@color/common_background"
     tools:context=".Fragments.MyOrdersFragment">
 
-    <TextView
-        android:id="@+id/tv_orders_empty"
+    <LinearLayout
+        android:id="@+id/ordersEmptyMessage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.3"
         android:clickable="false"
         android:gravity="center"
-        android:text="No Orders Yet"
-        android:textColor="@color/secondary_container"
-        android:textSize="40sp" />
+        android:orientation="vertical"
+        android:textColor="@color/secondary_container">
 
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/box_cross" />
+
+        <TextView
+            android:layout_marginTop="12dp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Orders Yet"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_my_orders_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/common_background"
-        android:id="@+id/rv_my_orders_list"
-        android:visibility="gone"
-
-        />
+        android:splitMotionEvents="false"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

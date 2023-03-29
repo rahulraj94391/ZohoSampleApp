@@ -13,26 +13,41 @@
             android:id="@+id/cartItemsList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:splitMotionEvents="false"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/bottom_cart_linear_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <LinearLayout
             android:id="@+id/cartEmptyMessage"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:alpha="0.3"
-            android:clickable="false"
             android:gravity="center"
-            android:text="Cart Empty"
+            android:orientation="vertical"
             android:textColor="@color/secondary_container"
-            android:textSize="40sp"
             app:layout_constraintBottom_toTopOf="@+id/bottom_cart_linear_layout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/empty_cart_64" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:clickable="false"
+                android:text="Cart Empty"
+                android:textSize="20sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/bottom_cart_linear_layout"
@@ -67,8 +82,6 @@
                 android:text="Place Order"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
-
-
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -64,7 +64,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:background="@color/common_background"
-                app:counterEnabled="true"
+                android:maxLength="6"
                 app:counterMaxLength="6"
                 app:errorEnabled="true">
 
@@ -84,7 +84,7 @@
                 android:layout_below="@+id/pinCode"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                app:counterMaxLength="60"
+                android:maxLength="60"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -94,7 +94,8 @@
                     android:background="@color/common_background"
                     android:hint="Address"
                     android:inputType="textShortMessage"
-                    android:maxLength="100" />
+                    android:maxLength="100"
+                    android:maxLines="5" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
