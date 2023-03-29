@@ -61,7 +61,7 @@
                         android:layout_marginEnd="30dp"
                         android:fontFamily="@font/fs_me_bold"
                         android:gravity="center"
-                        android:textColor="@color/primary"
+                        android:textColor="@color/customBlack"
                         android:textSize="16sp"
                         app:layout_constraintTop_toBottomOf="@+id/siv_profile_pic"
                         tools:text="Full Name" />
@@ -75,7 +75,7 @@
                         android:layout_marginEnd="30dp"
                         android:fontFamily="@font/fs_me_bold"
                         android:gravity="center"
-                        android:textColor="@color/primary"
+                        android:textColor="@color/customBlack"
                         android:textSize="16sp"
                         app:layout_constraintTop_toBottomOf="@+id/fullName"
                         tools:text="91XXXXXXXX" />
@@ -90,7 +90,7 @@
                         android:layout_marginBottom="16dp"
                         android:fontFamily="@font/fs_me_bold"
                         android:gravity="center"
-                        android:textColor="@color/primary"
+                        android:textColor="@color/customBlack"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/btn_save_details"
                         app:layout_constraintTop_toBottomOf="@+id/mobileNumber"
@@ -162,7 +162,7 @@
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
                             android:text="My Orders"
-                            android:textColor="@color/primary"
+                            android:textColor="@color/customBlack"
                             android:textSize="16sp" />
 
                         <ImageView
@@ -207,7 +207,7 @@
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
                             android:text="My Wishlist"
-                            android:textColor="@color/primary"
+                            android:textColor="@color/customBlack"
                             android:textSize="16sp" />
 
                         <ImageView
@@ -251,7 +251,7 @@
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
                             android:text="Saved Address"
-                            android:textColor="@color/primary"
+                            android:textColor="@color/customBlack"
                             android:textSize="16sp" />
 
                         <ImageView
@@ -296,7 +296,7 @@
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
                             android:text="Contact Us"
-                            android:textColor="@color/primary"
+                            android:textColor="@color/customBlack"
                             android:textSize="16sp" />
 
                         <ImageView

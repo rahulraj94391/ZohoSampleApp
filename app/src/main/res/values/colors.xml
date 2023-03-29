@@ -10,9 +10,8 @@
 
     <color name="swipe_delete">#ed675c</color>
     <color name="swipe_wishlist">#C600810D</color>
-
-
     <color name="primary">#6750A4</color>
+    
     <color name="status_bar_nav_bar">#4A3976</color>
     <color name="common_background">#fdfbff</color>
     <color name="primary_container">#EADDFF</color>
