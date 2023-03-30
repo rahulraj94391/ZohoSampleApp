@@ -63,6 +63,7 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
         adapter = OrderActivityAdapter(cartList, getCheckoutDetails(), addresses[addressIdx], this@CheckoutDescriptionFragment)
         rvCheckout.adapter = adapter
         rvCheckout.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
     }
 
 

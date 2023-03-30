@@ -16,6 +16,6 @@
             android:layout_height="50dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:src="@drawable/add_icon" />
+            android:src="@drawable/plus" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.cardview.widget.CardView>

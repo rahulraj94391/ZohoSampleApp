@@ -100,7 +100,7 @@ class SortFilter : BottomSheetDialogFragment() {
     }
 
 
-    fun getCheckItem(): SortBy {
+    private fun getCheckItem(): SortBy {
         return when (radioGroup.checkedRadioButtonId) {
             R.id.radio_high_to_low -> SortBy.HIGH_TO_LOW
             R.id.radio_low_to_high -> SortBy.LOW_TO_HIGH

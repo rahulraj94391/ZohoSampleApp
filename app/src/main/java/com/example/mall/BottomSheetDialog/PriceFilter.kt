@@ -16,6 +16,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 private const val MIN_RANGE: Int = 0
 private const val MAX_RANGE: Int = 999999999
 
+private const val TAG = "CT_PriceFilter"
+
 
 class PriceFilter(
     /*private val selectChipColor: () -> Unit,
@@ -63,6 +65,7 @@ class PriceFilter(
             val frag = requireActivity().supportFragmentManager.findFragmentByTag("ProductsListViewFragment") as ProductsListViewFragment
             frag.deselectStateChipBackgroundColor(frag.chipPrice)
             frag.removePriceFilter()
+            frag.applySortFilter()
             dismiss()
         }
 
@@ -89,8 +92,12 @@ class PriceFilter(
             maxRange = maxPrice.toInt()
             true
         }
+        else if (minPrice.isBlank() || maxPrice.isBlank()) {
+            Toast.makeText(requireContext(), "Enter max and min price.", Toast.LENGTH_SHORT).show()
+            false
+        }
         else {
-            Toast.makeText(requireContext(), "min price should be lesser than max price.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "max price is less than min price.", Toast.LENGTH_SHORT).show()
             false
         }
     }

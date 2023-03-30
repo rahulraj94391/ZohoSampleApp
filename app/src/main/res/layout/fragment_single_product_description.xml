@@ -77,12 +77,13 @@
                         />
 
                     <TextView
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
                         android:id="@+id/stockIndicator"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="18dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+
                         android:textColor="#0A9900"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -91,38 +92,41 @@
                         tools:text="In Stock" />
 
                     <TextView
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
                         android:id="@+id/prodName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/fs_me_bold"
+                        android:paddingStart="16dp"
                         android:paddingTop="4dp"
+                        android:paddingEnd="16dp"
                         android:paddingBottom="4dp"
                         android:textColor="@color/customBlack"
-                        android:textSize="16sp"
+                        android:textSize="20sp"
                         app:layout_constraintTop_toBottomOf="@+id/stockIndicator"
                         tools:text="Product Name" />
 
                     <TextView
                         android:id="@+id/prodPrice"
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:fontFamily="@font/fs_me_bold"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
                         android:textColor="@color/customBlack"
-                        android:textSize="15sp"
+                        android:textSize="18sp"
                         app:layout_constraintTop_toBottomOf="@+id/prodName"
                         tools:text="Product price" />
 
                     <LinearLayout
                         android:id="@+id/segment_btn_linear_layout"
-                        style="@style/left_right_padding_8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:gravity="center_vertical"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
                         app:layout_constraintTop_toBottomOf="@id/prodPrice">
 
                         <TextView
@@ -132,13 +136,13 @@
                             android:layout_marginEnd="12dp"
                             android:text="Select Qty: "
                             android:textColor="@color/customBlack"
-                            android:textSize="14sp" />
+                            android:textSize="16sp" />
 
                         <Spinner
-
                             android:id="@+id/qtySelector"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:background="@drawable/spinner_border" />
                     </LinearLayout>
 
@@ -156,9 +160,9 @@
                         android:id="@+id/tv_highlights_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="12dp"
                         android:layout_marginTop="18dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="12dp"
                         android:fontFamily="@font/fs_me_bold"
                         android:text="Highlights"
                         android:textColor="@color/customBlack"

@@ -12,14 +12,16 @@ import com.example.mall.ModelClass.CartItemModel
 import com.example.mall.R
 import com.example.mall.rupeeString
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 private const val TAG = "CT_CartItemsAdapter"
 
 class CartItemsAdapter(
-
     private val cartItems: MutableList<CartItemModel>,
     private val listener: OnCartItemClickListener
-
 ) : RecyclerView.Adapter<CartItemsAdapter.CartItemViewHolder>() {
     inner class CartItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var minus: Button = itemView.findViewById(R.id.btn_item_decrease)
@@ -28,11 +30,29 @@ class CartItemsAdapter(
         var quantity: TextView = itemView.findViewById(R.id.tv_prod_quantity)
         val imageView: ImageView = itemView.findViewById(R.id.iv_product_image)
         var prodName: TextView = itemView.findViewById(R.id.tv_prod_name)
+        var deleteBtn: Button = itemView.findViewById(R.id.btn_start)
+        var wishlistBtn: Button = itemView.findViewById(R.id.btn_end)
 
         init {
-            itemView.setOnClickListener { listener.onItemClicked(adapterPosition) }
-            plus.setOnClickListener { listener.onQuantityIncrease(plus, adapterPosition, minus) }
-            minus.setOnClickListener { listener.onQuantityDecrease(minus, adapterPosition, plus) }
+            deleteBtn.setOnClickListener { listener.deleteItem(adapterPosition) }
+            wishlistBtn.setOnClickListener { listener.wishlistItem(adapterPosition) }
+            imageView.setOnClickListener { listener.onItemClicked(adapterPosition) }
+            plus.setOnClickListener {
+                listener.onQuantityIncrease(plus, adapterPosition, minus)
+                (it as View).isClickable = false
+                CoroutineScope(Dispatchers.Main).launch {
+                    delay(130)
+                    it.isClickable = true
+                }
+            }
+            minus.setOnClickListener {
+                listener.onQuantityDecrease(minus, adapterPosition, plus)
+                (it as View).isClickable = false
+                CoroutineScope(Dispatchers.Main).launch {
+                    delay(130)
+                    it.isClickable = true
+                }
+            }
         }
     }
 

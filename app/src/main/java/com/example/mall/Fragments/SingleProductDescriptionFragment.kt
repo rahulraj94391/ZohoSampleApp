@@ -191,13 +191,13 @@ class SingleProductDescriptionFragment : Fragment() {
         val goToCartAction = View.OnClickListener { navigateNextWithCustomAnim(CartFragment(), "CartFragment") }
 
         val addToCartAction = View.OnClickListener {
-            Toast.makeText(requireContext(), "Item added to cart.", Toast.LENGTH_SHORT).show()
             (requireActivity() as MainActivity).haptics.light()
             val quantity = binding.qtySelector.selectedItem.toString().trim().toInt()
             if (quantity != -1 && quantity <= stock) {
                 db.addItemToCart(sharedViewModel.uid, pid, quantity)
                 binding.endButton.text = getString(R.string.go_to_cart)
                 binding.endButton.setOnClickListener(goToCartAction)
+                Toast.makeText(requireContext(), "Item added to cart.", Toast.LENGTH_SHORT).show()
             }
             else if (quantity != -1) {
                 Toast.makeText(requireContext(), "Only $stock in stock", Toast.LENGTH_LONG).show()

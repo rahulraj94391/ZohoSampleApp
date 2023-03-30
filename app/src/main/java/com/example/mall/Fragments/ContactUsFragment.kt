@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.Adapters.ContactUsAdapter
 import com.example.mall.ModelClass.ContactUsModel
 import com.example.mall.R
+import com.google.android.material.divider.MaterialDividerItemDecoration
 
 class ContactUsFragment : Fragment() {
     private lateinit var rvContactUs: RecyclerView
@@ -30,6 +31,13 @@ class ContactUsFragment : Fragment() {
         adapter = ContactUsAdapter(contactUsList)
         rvContactUs.adapter = adapter
         rvContactUs.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+
+        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+        divider.dividerInsetStart = 15
+        divider.dividerInsetEnd = 15
+        rvContactUs.addItemDecoration(divider)
+
     }
 
     private fun addOptions() {

@@ -82,7 +82,7 @@ class AccountFragment : Fragment() {
 
     private fun logoutDecisionDialog() {
         (requireActivity() as MainActivity).haptics.light()
-        builder = MaterialAlertDialogBuilder(requireContext(), R.style.MyDialogStyle)
+        builder = MaterialAlertDialogBuilder(requireContext())
         builder.setTitle("Logout current user ?")
             .setCancelable(false)
             .setPositiveButton("yes") { _, _ -> logoutUser() }

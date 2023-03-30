@@ -8,21 +8,35 @@
     android:splitMotionEvents="false"
     tools:context=".Fragments.ProductsListViewFragment">
 
-    <TextView
+    <LinearLayout
         android:id="@+id/noProductFound"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:alpha="0.3"
         android:clickable="false"
         android:gravity="center"
-        android:text="No Products"
-        android:textColor="@color/secondary_container"
-        android:textSize="40sp"
+        android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/no_product" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="No Products"
+            android:fontFamily="@font/fs_me_bold"
+            android:textColor="@color/customBlack"
+            android:textSize="20sp" />
+
+    </LinearLayout>
 
     <HorizontalScrollView
         android:id="@+id/hsv_filter"
@@ -104,7 +118,8 @@
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/fs_me_regular"
                 android:text="Clear All"
-                android:textColor="@color/new_blue" />
+                android:textColor="@color/new_blue"
+                android:visibility="gone" />
         </LinearLayout>
     </HorizontalScrollView>
 

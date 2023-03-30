@@ -29,11 +29,11 @@ class ContactUsAdapter(private val list: MutableList<ContactUsModel>) : Recycler
         val helpTitle: TextView = itemView.findViewById(R.id.help_title)
         val helpDesc: TextView = itemView.findViewById(R.id.help_desc)
 
-        init {
+        /*init {
             itemView.setOnClickListener {
                 Toast.makeText(context, "clicked $adapterPosition", Toast.LENGTH_SHORT).show()
             }
-        }
+        }*/
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

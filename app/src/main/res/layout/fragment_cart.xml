@@ -45,7 +45,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:clickable="false"
+                android:fontFamily="@font/fs_me_bold"
                 android:text="Cart Empty"
+                android:textColor="@color/customBlack"
                 android:textSize="20sp" />
         </LinearLayout>
 

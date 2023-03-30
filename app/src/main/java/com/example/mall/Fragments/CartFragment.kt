@@ -1,27 +1,22 @@
 package com.example.mall.Fragments
 
-import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.mall.*
 import com.example.mall.Adapters.CartItemsAdapter
 import com.example.mall.Interface.OnCartItemClickListener
 import com.example.mall.ModelClass.CartItemModel
 import com.example.mall.databinding.FragmentCartBinding
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 private const val TAG = "CT_CartFragment"
 
@@ -29,7 +24,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     private lateinit var binding: FragmentCartBinding
     private lateinit var cartItemList: ArrayList<CartItemModel>
     private lateinit var cartItemsAdapter: CartItemsAdapter
-    private lateinit var builder: AlertDialog.Builder
+    private lateinit var builder: MaterialAlertDialogBuilder
     private lateinit var db: DB
     private var uid: Int = -1
     private lateinit var sharedViewModel: SharedViewModel
@@ -39,32 +34,6 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             field = value
             binding.cartTotalPrice.text = "Cart total ₹$cartTotal"
         }
-
-    private val simpleCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-            return false
-        }
-
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            val position = viewHolder.adapterPosition
-            when (direction) {
-                ItemTouchHelper.LEFT -> swipeLeftToDelete(position)
-                ItemTouchHelper.RIGHT -> swipeRightToWishlist(position)
-            }
-        }
-
-        override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
-            RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                .addSwipeLeftBackgroundColor(ContextCompat.getColor(requireContext(), R.color.swipe_delete))
-                .addSwipeLeftActionIcon(R.drawable.swipe_delete)
-                .addSwipeRightBackgroundColor(ContextCompat.getColor(requireContext(), R.color.swipe_wishlist))
-                .addSwipeRightActionIcon(R.drawable.my_wishlist_24_black)
-                .create()
-                .decorate()
-
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,12 +54,10 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         cartTotal = calculateCartTotal()
         cartItemsAdapter = CartItemsAdapter(cartItemList, this@CartFragment)
 
-        val itemTouchHelper = ItemTouchHelper(simpleCallback)
         binding.cartItemsList.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = cartItemsAdapter
             addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
-            itemTouchHelper.attachToRecyclerView(this)
         }
         binding.placeOrder.setOnClickListener { placeOrder() }
     }
@@ -113,9 +80,29 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         }
     }
 
+    private fun deleteDecisionDialog(position: Int) {
+        (requireActivity() as MainActivity).haptics.light()
+        builder = MaterialAlertDialogBuilder(requireContext())
+        builder.setTitle("Delete item ?")
+            .setCancelable(true)
+            .setPositiveButton("yes") { _, _ -> delete(position) }
+            .setNegativeButton("no") { dialogInterface, _ -> dialogInterface.cancel() }
+            .show()
+    }
+
+    private fun wishlistDecisionDialog(position: Int) {
+        (requireActivity() as MainActivity).haptics.light()
+        builder = MaterialAlertDialogBuilder(requireContext())
+        builder.setTitle("Move item to wishlist ?")
+            .setCancelable(true)
+            .setPositiveButton("yes") { _, _ -> addItemToWishlist(position) }
+            .setNegativeButton("no") { dialogInterface, _ -> dialogInterface.cancel() }
+            .show()
+    }
+
     private fun showItemOutOfStockDialog(itemWentOutOfStockList: MutableList<Int>) {
         (requireActivity() as MainActivity).haptics.heavy()
-        builder = AlertDialog.Builder(requireContext())
+        builder = MaterialAlertDialogBuilder(requireContext())
         builder
             .setTitle("Item(s) out of stock!")
             .setMessage("Few items went out of stock.\nMove them to wishlist and proceed?")
@@ -147,26 +134,24 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         }
     }
 
-    fun swipeLeftToDelete(position: Int) {
-        (requireActivity() as MainActivity).haptics.light()
+    private fun delete(position: Int) {
         val rowsDeleted = db.deleteItemFromCart(uid, cartItemList[position].pid)
         if (rowsDeleted > 0) {
             val removedItem = cartItemList.removeAt(position)
             cartTotal -= removedItem.price * removedItem.quantity
             cartItemsAdapter.notifyItemRemoved(position)
-            Toast.makeText(requireContext(), "${removedItem.productName} deleted...", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), "${removedItem.productName} deleted...", Toast.LENGTH_SHORT).show()
         }
         checkCartStatus()
     }
 
-    fun swipeRightToWishlist(position: Int) {
-        (requireActivity() as MainActivity).haptics.light()
+    private fun addItemToWishlist(position: Int) {
         val isMoved = db.addItemFromCartToWishlist(uid, cartItemList[position].pid)
         if (isMoved) {
             val removedItem = cartItemList.removeAt(position)
             cartTotal -= removedItem.price * removedItem.quantity
             cartItemsAdapter.notifyItemRemoved(position)
-            Toast.makeText(requireContext(), "${removedItem.productName} added to wishlist...", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), "${removedItem.productName} added to wishlist...", Toast.LENGTH_SHORT).show()
         }
         checkCartStatus()
     }
@@ -198,6 +183,15 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         if (cartItemList[position].quantity == db.checkProductStock(cartItemList[position].pid)) {
             plus.isEnabled = false
         }
+    }
+
+    override fun deleteItem(position: Int) {
+//        delete(position)
+        deleteDecisionDialog(position)
+    }
+
+    override fun wishlistItem(position: Int) {
+        wishlistDecisionDialog(position)
     }
 
     override fun onQuantityIncrease(plus: Button, position: Int, minus: Button) {

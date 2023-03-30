@@ -1,7 +1,6 @@
 package com.example.mall
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Vibrator
@@ -11,7 +10,6 @@ import android.view.WindowInsetsController
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -102,6 +100,7 @@ class MainActivity : AppCompatActivity() {
         haptics = Haptics(this@MainActivity.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator)
         fm = supportFragmentManager
         toolbar = findViewById(R.id.toolbar)
+
         setSupportActionBar(toolbar)
         sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
         sharedViewModel.uid = getSharedPreferences(MSharedPreferences.NAME, MODE_PRIVATE).getInt(MSharedPreferences.LOGGED_IN_USER_ID, -1)

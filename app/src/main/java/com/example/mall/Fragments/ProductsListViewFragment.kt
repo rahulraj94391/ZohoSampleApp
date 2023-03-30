@@ -31,7 +31,7 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
     lateinit var chipSortBy: Chip
     lateinit var chipPrice: Chip
     private lateinit var filter: HorizontalScrollView
-    private lateinit var tvNoProductFound: TextView
+    private lateinit var tvNoProductFound: View
     private lateinit var clearAllFilters: TextView
     private lateinit var rvProductList: RecyclerView
     private lateinit var priceFilter: PriceFilter
@@ -93,8 +93,19 @@ class ProductsListViewFragment : Fragment(), OnClickListener {
             listOfProducts.addAll(sharedViewModel.prodList)
             adapter.notifyDataSetChanged()
         }
-        chipSortBy.setOnClickListener { sortFilter.show(requireActivity().supportFragmentManager, "sortFilter") }
-        chipPrice.setOnClickListener { priceFilter.show(requireActivity().supportFragmentManager, "priceFilter") }
+
+
+
+        chipSortBy.setOnClickListener {
+            if (requireActivity().supportFragmentManager.findFragmentByTag("sortFilter") == null) {
+                sortFilter.show(requireActivity().supportFragmentManager, "sortFilter")
+            }
+        }
+        chipPrice.setOnClickListener {
+            if (requireActivity().supportFragmentManager.findFragmentByTag("priceFilter") == null) {
+                priceFilter.show(requireActivity().supportFragmentManager, "priceFilter")
+            }
+        }
     }
 
 
