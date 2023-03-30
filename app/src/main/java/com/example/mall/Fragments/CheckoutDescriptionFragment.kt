@@ -17,6 +17,7 @@ import com.example.mall.Interface.CheckoutDescriptionListener
 import com.example.mall.ModelClass.CartItemModel
 import com.example.mall.ModelClass.DeliveryAddressModel
 import com.example.mall.ModelClass.PriceDetailsModel
+import com.google.android.material.divider.MaterialDividerItemDecoration
 
 private const val TAG = "Common_Tag_CheckoutDescFrag"
 private const val ARG_CART_LIST = "cartList"
@@ -63,6 +64,13 @@ class CheckoutDescriptionFragment : Fragment(), CheckoutDescriptionListener {
         adapter = OrderActivityAdapter(cartList, getCheckoutDetails(), addresses[addressIdx], this@CheckoutDescriptionFragment)
         rvCheckout.adapter = adapter
         rvCheckout.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+
+//        val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
+//        divider.dividerInsetStart = 15
+//        divider.dividerInsetEnd = 15
+//        rvCheckout.addItemDecoration(divider)
+
 
     }
 

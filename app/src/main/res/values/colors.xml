@@ -24,6 +24,8 @@
     <color name="secondary_container">#1E192B</color>
     <color name="color_on_secondary">#FFFFFF</color>
     <color name="transparent">#00000000</color>
-    <color name="customBlack">#474747</color>
+    <color name="customBlack">#000000</color>
+<!--    <color name="customBlack">#474747</color>-->
     <color name="rv_state_pressed">#FFDABB</color>
+    <color name="grey_300">#BDBDBD</color>
 </resources>

@@ -62,9 +62,9 @@
 
             <TextView
                 android:id="@+id/cartTotalPrice"
-                style="@style/left_right_padding_8dp"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingStart="6dp"
@@ -76,8 +76,8 @@
                 android:id="@+id/placeOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:layout_marginEnd="6dp"
+
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/selector_btn"
                 android:paddingStart="40dp"
                 android:paddingEnd="40dp"

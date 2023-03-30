@@ -45,12 +45,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:textSize="15sp"
                 android:fontFamily="@font/fs_me_regular"
                 android:text="Product Price"
                 android:textColor="@color/customBlack" />
 
             <TextView
                 android:id="@+id/tv_checkout_prod_qty"
+                android:textSize="14sp"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fs_me_regular"

@@ -45,7 +45,7 @@
             android:fontFamily="@font/fs_me_bold"
             android:text="Rahul Raj"
             android:textColor="@color/customBlack"
-            android:textStyle="bold"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_change_delivery_address" />
 
@@ -59,6 +59,7 @@
             android:fontFamily="@font/fs_me_regular"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam venenatis mauris vitae enim lacinia, sit."
             android:textColor="@color/customBlack"
+            android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@+id/tv_delivery_to_person_name" />
 
         <TextView
@@ -72,6 +73,7 @@
             android:fontFamily="@font/fs_me_regular"
             android:text="9155881234"
             android:textColor="@color/customBlack"
+            android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/tv_delivery_address" />
 
 

@@ -14,7 +14,6 @@ fun Fragment.navigateNextWithDefaultAnim(fragmentInstance: Fragment, tag: String
 
 fun Fragment.navigateNextWithCustomAnim(fragmentInstance: Fragment, tag: String = "") {
     requireActivity().supportFragmentManager.beginTransaction().apply {
-        (activity as MainActivity).bottomNavigationView.menu.getItem(3).isChecked = true
         setCustomAnimations(
             R.anim.enter_from_right,
             R.anim.exit_to_left,

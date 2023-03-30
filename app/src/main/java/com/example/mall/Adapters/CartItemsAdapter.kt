@@ -30,12 +30,20 @@ class CartItemsAdapter(
         var quantity: TextView = itemView.findViewById(R.id.tv_prod_quantity)
         val imageView: ImageView = itemView.findViewById(R.id.iv_product_image)
         var prodName: TextView = itemView.findViewById(R.id.tv_prod_name)
-        var deleteBtn: Button = itemView.findViewById(R.id.btn_start)
-        var wishlistBtn: Button = itemView.findViewById(R.id.btn_end)
+        private var deleteBtn: Button = itemView.findViewById(R.id.btn_start)
+        private var wishlistBtn: Button = itemView.findViewById(R.id.btn_end)
 
         init {
-            deleteBtn.setOnClickListener { listener.deleteItem(adapterPosition) }
-            wishlistBtn.setOnClickListener { listener.wishlistItem(adapterPosition) }
+            deleteBtn.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    listener.deleteItem(adapterPosition)
+                }
+            }
+            wishlistBtn.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    listener.wishlistItem(adapterPosition)
+                }
+            }
             imageView.setOnClickListener { listener.onItemClicked(adapterPosition) }
             plus.setOnClickListener {
                 listener.onQuantityIncrease(plus, adapterPosition, minus)
