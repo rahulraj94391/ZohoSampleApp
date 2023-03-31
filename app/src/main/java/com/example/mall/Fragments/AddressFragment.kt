@@ -65,7 +65,7 @@ class AddressFragment : Fragment(), OnAddressRowClicked {
 
     private fun showDeleteConfirmation(position: Int) {
         (requireActivity() as MainActivity).haptics.light()
-        builder = MaterialAlertDialogBuilder(requireContext(), R.style.MyDialogStyle)
+        builder = MaterialAlertDialogBuilder(requireContext())
         builder
             .setTitle("Delete Address ?")
             .setCancelable(true)

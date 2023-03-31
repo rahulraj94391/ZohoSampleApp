@@ -140,7 +140,8 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             val removedItem = cartItemList.removeAt(position)
             cartTotal -= removedItem.price * removedItem.quantity
             cartItemsAdapter.notifyItemRemoved(position)
-//            Toast.makeText(requireContext(), "${removedItem.productName} deleted...", Toast.LENGTH_SHORT).show()
+//            val message: String = "${removedItem.productName} deleted..."
+            Toast.makeText(requireContext(), "Item deleted from cart.", Toast.LENGTH_SHORT).show()
         }
         checkCartStatus()
     }
@@ -151,7 +152,8 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             val removedItem = cartItemList.removeAt(position)
             cartTotal -= removedItem.price * removedItem.quantity
             cartItemsAdapter.notifyItemRemoved(position)
-//            Toast.makeText(requireContext(), "${removedItem.productName} added to wishlist...", Toast.LENGTH_SHORT).show()
+//            val message: String = "${removedItem.productName} added to wishlist..."
+            Toast.makeText(requireContext(), "Item added to wishlist.", Toast.LENGTH_SHORT).show()
         }
         checkCartStatus()
     }
@@ -186,12 +188,13 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     }
 
     override fun deleteItem(position: Int) {
-//        delete(position)
-        deleteDecisionDialog(position)
+        delete(position)
+//        deleteDecisionDialog(position)
     }
 
     override fun wishlistItem(position: Int) {
-        wishlistDecisionDialog(position)
+        addItemToWishlist(position)
+//        wishlistDecisionDialog(position)
     }
 
     override fun onQuantityIncrease(plus: Button, position: Int, minus: Button) {

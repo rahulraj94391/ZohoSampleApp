@@ -6,18 +6,22 @@
     android:layout_height="wrap_content"
     android:background="@color/pressed_state_color"
     android:orientation="vertical"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
     tools:context=".Fragments.AddressFragment">
 
     <TextView
         android:id="@+id/nameLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/fs_me_regular"
+        android:gravity="end"
         android:text="Name :"
         android:textColor="@color/customBlack"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -35,13 +39,15 @@
 
     <TextView
         android:id="@+id/phoneLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fs_me_regular"
+        android:gravity="end"
         android:text="Phone :"
         android:textColor="@color/customBlack"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/phone" />
 
     <TextView
@@ -61,13 +67,15 @@
 
     <TextView
         android:id="@+id/addressLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fs_me_regular"
+        android:gravity="end"
         android:text="Address :"
         android:textColor="@color/customBlack"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/address" />
 
     <TextView
@@ -87,16 +95,19 @@
 
     <TextView
         android:id="@+id/pinCodeLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fs_me_regular"
-        android:text="PIN Code :"
+        android:gravity="end"
+        android:text="PIN :"
         android:textColor="@color/customBlack"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/pinCode" />
 
     <TextView
+        android:gravity="center_vertical"
         android:id="@+id/pinCode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

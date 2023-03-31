@@ -6,7 +6,6 @@
     android:id="@+id/view_pager_image_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
     android:scaleType="fitCenter"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"

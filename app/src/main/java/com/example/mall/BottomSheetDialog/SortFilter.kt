@@ -23,16 +23,6 @@ class SortFilter : BottomSheetDialogFragment() {
     private lateinit var btnApply: Button
     private lateinit var btnClear: Button
 
-    override fun onAttach(context: Context) {
-        Log.d(TAG, "onAttach: called")
-        super.onAttach(context)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d(TAG, "onCreate: called")
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG, "onCreateView: called")
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
@@ -48,10 +38,15 @@ class SortFilter : BottomSheetDialogFragment() {
 
         btnApply.setOnClickListener {
             sharedViewModel.sortMethod = getCheckItem()
-            val frag = requireActivity().supportFragmentManager.findFragmentByTag("ProductsListViewFragment") as ProductsListViewFragment
-            frag.selectStateChipBackgroundColor(frag.chipSortBy)
-            frag.applySortFilter()
-            dismiss()
+            if (sharedViewModel.sortMethod == SortBy.NONE) {
+                dismiss()
+            }
+            else {
+                val frag = requireActivity().supportFragmentManager.findFragmentByTag("ProductsListViewFragment") as ProductsListViewFragment
+                frag.selectStateChipBackgroundColor(frag.chipSortBy)
+                frag.applySortFilter()
+                dismiss()
+            }
         }
 
         btnClear.setOnClickListener {
@@ -63,42 +58,6 @@ class SortFilter : BottomSheetDialogFragment() {
             dismiss()
         }
     }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG, "onStart: called")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "onResume: called")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG, "onPause: called")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG, "onStop: called")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.d(TAG, "onDestroyView: called")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "onDestroy: called")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.d(TAG, "onDetach: called")
-    }
-
 
     private fun getCheckItem(): SortBy {
         return when (radioGroup.checkedRadioButtonId) {
