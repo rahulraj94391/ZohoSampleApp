@@ -34,7 +34,6 @@ import java.net.URL
 import java.util.*
 import kotlin.properties.Delegates
 
-
 private const val TAG = "CT_SingleProdDescFrag"
 private const val ARG_PID = "pid"
 
@@ -46,6 +45,7 @@ class SingleProductDescriptionFragment : Fragment() {
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var arrayAdapter: ArrayAdapter<Int>
     private lateinit var mMenuProvider: MenuProvider
+    private lateinit var toast: Toast
     private lateinit var prodDetails: ProdDescPageModel
 
     companion object {
@@ -197,10 +197,25 @@ class SingleProductDescriptionFragment : Fragment() {
                 db.addItemToCart(sharedViewModel.uid, pid, quantity)
                 binding.endButton.text = getString(R.string.go_to_cart)
                 binding.endButton.setOnClickListener(goToCartAction)
-                Toast.makeText(requireContext(), "Item added to cart.", Toast.LENGTH_SHORT).show()
+
+                if (this::toast.isInitialized) {
+                    toast.cancel()
+                }
+                toast = Toast.makeText(requireContext(), "Item added to cart.", Toast.LENGTH_SHORT)
+                if (this::toast.isInitialized) {
+                    toast.cancel()
+                }
+                toast.show()
             }
             else if (quantity != -1) {
-                Toast.makeText(requireContext(), "Only $stock in stock", Toast.LENGTH_LONG).show()
+                if (this::toast.isInitialized) {
+                    toast.cancel()
+                }
+                toast = Toast.makeText(requireContext(), "Only $stock in stock", Toast.LENGTH_LONG)
+                if (this::toast.isInitialized) {
+                    toast.cancel()
+                }
+                toast.show()
             }
         }
 
@@ -218,7 +233,11 @@ class SingleProductDescriptionFragment : Fragment() {
         val goToWishlistAction = View.OnClickListener { navigateNextWithCustomAnim(MyWishlistFragment(), "MyWishlistFragment") }
 
         val addToWishlistAction = View.OnClickListener {
-            Toast.makeText(requireContext(), "Item added to wishlist.", Toast.LENGTH_SHORT).show()
+            toast = Toast.makeText(requireContext(), "Item added to wishlist.", Toast.LENGTH_SHORT)
+            if (this::toast.isInitialized) {
+                toast.cancel()
+            }
+            toast.show()
             (requireActivity() as MainActivity).haptics.light()
             db.addItemToWishlist(sharedViewModel.uid, pid)
             binding.startButton.text = getString(R.string.go_to_wishlist)

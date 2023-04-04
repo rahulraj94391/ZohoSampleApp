@@ -53,7 +53,6 @@ class AddNewAddressFragment : Fragment() {
         binding.mobileField.addTextChangedListener(CustomTextWatcher(binding.mobileField))
         binding.pinCodeField.addTextChangedListener(CustomTextWatcher(binding.pinCodeField))
         binding.addressField.addTextChangedListener(CustomTextWatcher(binding.addressField))
-
         binding.saveAddress.setOnClickListener { confirmInputs() }
     }
 
@@ -94,6 +93,8 @@ class AddNewAddressFragment : Fragment() {
                 (requireActivity() as MainActivity).haptics.light()
                 Toast.makeText(requireContext(), "Address updated.", Toast.LENGTH_SHORT)
             }
+
+            if (this::toast.isInitialized) toast.cancel()
             toast.show()
             requireActivity().supportFragmentManager.popBackStack()
         }
@@ -107,14 +108,25 @@ class AddNewAddressFragment : Fragment() {
     private fun validateName(): Boolean {
         val name: String = binding.fullName.editText!!.text.toString().trim()
 
-        return if (name.isEmpty()) {
+        if (name.isEmpty()) {
             binding.fullName.error = "Field can't be empty."
-            false
+            return false
         }
-        else {
-            binding.fullName.error = null
-            true
+        if (containsSpecialCharacter(name)) {
+            binding.fullName.error = ""
+            return false
         }
+        binding.fullName.error = null
+        return true
+    }
+
+    private fun containsSpecialCharacter(name: String): Boolean {
+        for (i in name.indices) {
+            if (name[i].code in 65..90 || name[i].code in 97..122 || name[i].code == 32) {
+                return false
+            }
+        }
+        return true
     }
 
     private fun validateMobile(): Boolean {

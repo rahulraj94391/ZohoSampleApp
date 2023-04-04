@@ -10,6 +10,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.WindowInsetsController
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -26,6 +27,7 @@ class LoginPageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginPageBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var haptics: Haptics
+    private lateinit var toast: Toast
 
     inner class CustomTextWatcher(private val inputField: View) : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -49,9 +51,9 @@ class LoginPageActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         // changes the content color of the system bars
+        toast = Toast.makeText(this@LoginPageActivity, "Wrong Credentials.", Toast.LENGTH_SHORT)
         if (Build.VERSION.SDK_INT >= 30) {
             window.decorView.windowInsetsController?.apply {
                 setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
@@ -96,6 +98,8 @@ class LoginPageActivity : AppCompatActivity() {
     }
 
     private fun confirmInputs() {
+        val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(binding.textInputPassword.windowToken, 0)
         if (!validateUsername() or !validatePassword()) {
             haptics.doubleClick()
             return
@@ -123,7 +127,10 @@ class LoginPageActivity : AppCompatActivity() {
                 }
                 else {
                     haptics.doubleClick()
-                    Toast.makeText(this@LoginPageActivity, "Wrong Credentials.", Toast.LENGTH_LONG).show()
+                    if (::toast.isInitialized) {
+                        toast.cancel()
+                    }
+                    toast.show()
                     binding.btnLogin.apply {
                         visibility = View.VISIBLE
                         isEnabled = true

@@ -21,6 +21,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 private const val TAG = "CT_CartFragment"
 
 class CartFragment : Fragment(), OnCartItemClickListener {
+    private lateinit var toast: Toast
     private lateinit var binding: FragmentCartBinding
     private lateinit var cartItemList: ArrayList<CartItemModel>
     private lateinit var cartItemsAdapter: CartItemsAdapter
@@ -140,8 +141,12 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             val removedItem = cartItemList.removeAt(position)
             cartTotal -= removedItem.price * removedItem.quantity
             cartItemsAdapter.notifyItemRemoved(position)
-//            val message: String = "${removedItem.productName} deleted..."
-            Toast.makeText(requireContext(), "Item deleted from cart.", Toast.LENGTH_SHORT).show()
+//            val message: String = "${removedItem.productName} deleted...
+            if (this::toast.isInitialized) {
+                toast.cancel()
+            }
+            toast = Toast.makeText(requireContext(), "Item deleted from cart.", Toast.LENGTH_SHORT)
+            toast.show()
         }
         checkCartStatus()
     }
@@ -153,7 +158,13 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             cartTotal -= removedItem.price * removedItem.quantity
             cartItemsAdapter.notifyItemRemoved(position)
 //            val message: String = "${removedItem.productName} added to wishlist..."
-            Toast.makeText(requireContext(), "Item added to wishlist.", Toast.LENGTH_SHORT).show()
+
+            if (this::toast.isInitialized) {
+                toast.cancel()
+            }
+            toast = Toast.makeText(requireContext(), "Item added to wishlist.", Toast.LENGTH_SHORT)
+            toast.show()
+
         }
         checkCartStatus()
     }

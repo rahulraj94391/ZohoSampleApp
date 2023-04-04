@@ -19,7 +19,6 @@ class WishlistAdapter(
 ) : RecyclerView.Adapter<WishlistAdapter.WishlistViewHolder>() {
 
     inner class WishlistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         init {
             itemView.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
