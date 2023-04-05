@@ -18,6 +18,7 @@ import com.example.mall.ModelClass.DeliveryAddressModel
 import com.example.mall.databinding.FragmentAddNewAddressBinding
 import java.util.regex.Pattern
 
+
 private const val TAG = "CT_AddNewAddressFrag"
 
 class AddNewAddressFragment : Fragment() {
@@ -28,7 +29,6 @@ class AddNewAddressFragment : Fragment() {
     private var oldAddress: DeliveryAddressModel? = null
     private var newAddress: DeliveryAddressModel? = null
     private lateinit var toast: Toast
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,13 +107,12 @@ class AddNewAddressFragment : Fragment() {
 
     private fun validateName(): Boolean {
         val name: String = binding.fullName.editText!!.text.toString().trim()
-
         if (name.isEmpty()) {
             binding.fullName.error = "Field can't be empty."
             return false
         }
         if (containsSpecialCharacter(name)) {
-            binding.fullName.error = ""
+            binding.fullName.error = "Only alphabets are allowed."
             return false
         }
         binding.fullName.error = null
@@ -121,12 +120,12 @@ class AddNewAddressFragment : Fragment() {
     }
 
     private fun containsSpecialCharacter(name: String): Boolean {
-        for (i in name.indices) {
-            if (name[i].code in 65..90 || name[i].code in 97..122 || name[i].code == 32) {
-                return false
+        name.toCharArray().forEach {
+            if (it !in 'a'..'z' && it !in 'A'..'Z' && it != ' ') {
+                return true
             }
         }
-        return true
+        return false
     }
 
     private fun validateMobile(): Boolean {
@@ -147,7 +146,7 @@ class AddNewAddressFragment : Fragment() {
 
     private fun validatePINCode(): Boolean {
         val pin: String = binding.pinCode.editText!!.text.toString().trim()
-        val regex = "^[1-9]{1}[0-9]{2}\\s{0,1}[0-9]{3}$"
+        val regex = "^[1-9]\\d{2}\\s?\\d{3}$"
         val pattern = Pattern.compile(regex)
         val matcher = pattern.matcher(pin)
         return if (!matcher.matches() || pin.length != 6) {
@@ -166,8 +165,8 @@ class AddNewAddressFragment : Fragment() {
             binding.address.error = "Address cannot be empty!"
             false
         }
-        else if (address.length < 10) {
-            binding.address.error = "At least 10 character"
+        else if (!address.matches(Regex("^[a-zA-Z0-9 \\-\\\\/,.&']*$"))) {
+            binding.address.error = "Allowed special characters are {.}, {'}, {-}, {&}, {,}, {/}, {\\} and whitespaces"
             false
         }
         else {

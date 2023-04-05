@@ -33,7 +33,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
     private var cartTotal: Int = 0
         set(value) {
             field = value
-            binding.cartTotalPrice.text = "Cart total ₹$cartTotal"
+            binding.cartTotalPrice.text = "Cart total ${rupeeString(cartTotal)}"
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,7 +81,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         }
     }
 
-    private fun deleteDecisionDialog(position: Int) {
+    /*private fun deleteDecisionDialog(position: Int) {
         (requireActivity() as MainActivity).haptics.light()
         builder = MaterialAlertDialogBuilder(requireContext())
         builder.setTitle("Delete item ?")
@@ -89,9 +89,9 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             .setPositiveButton("yes") { _, _ -> delete(position) }
             .setNegativeButton("no") { dialogInterface, _ -> dialogInterface.cancel() }
             .show()
-    }
+    }*/
 
-    private fun wishlistDecisionDialog(position: Int) {
+    /*private fun wishlistDecisionDialog(position: Int) {
         (requireActivity() as MainActivity).haptics.light()
         builder = MaterialAlertDialogBuilder(requireContext())
         builder.setTitle("Move item to wishlist ?")
@@ -99,7 +99,7 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             .setPositiveButton("yes") { _, _ -> addItemToWishlist(position) }
             .setNegativeButton("no") { dialogInterface, _ -> dialogInterface.cancel() }
             .show()
-    }
+    }*/
 
     private fun showItemOutOfStockDialog(itemWentOutOfStockList: MutableList<Int>) {
         (requireActivity() as MainActivity).haptics.heavy()

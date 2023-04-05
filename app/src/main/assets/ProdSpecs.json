@@ -17,7 +17,7 @@
     },
     {
       "pid": 1,
-      "key": "ROM",
+      "key": "Storage",
       "val": "128GB"
     },
     {
@@ -42,17 +42,17 @@
     },
     {
       "pid": 1,
-      "key": "OS version",
+      "key": "OS Version",
       "val": "Android 12"
     },
     {
       "pid": 1,
-      "key": "Main camera",
+      "key": "Main Camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 1,
-      "key": "Secondary camera",
+      "key": "Secondary Camera",
       "val": "8MP"
     },
     {
@@ -72,7 +72,7 @@
     },
     {
       "pid": 2,
-      "key": "ROM",
+      "key": "Storage",
       "val": "128GB"
     },
     {
@@ -97,17 +97,17 @@
     },
     {
       "pid": 2,
-      "key": "OS version",
+      "key": "OS Version",
       "val": "Android 12"
     },
     {
       "pid": 2,
-      "key": "Main camera",
+      "key": "Main Camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 2,
-      "key": "Secondary camera",
+      "key": "Secondary Camera",
       "val": "8MP"
     },
     {
@@ -127,7 +127,7 @@
     },
     {
       "pid": 3,
-      "key": "ROM",
+      "key": "Storage",
       "val": "128GB"
     },
     {
@@ -152,17 +152,17 @@
     },
     {
       "pid": 3,
-      "key": "OS version",
+      "key": "OS Version",
       "val": "Android 12"
     },
     {
       "pid": 3,
-      "key": "Main camera",
+      "key": "Main Camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 3,
-      "key": "Secondary camera",
+      "key": "Secondary Camera",
       "val": "8MP"
     },
     {
@@ -182,7 +182,7 @@
     },
     {
       "pid": 4,
-      "key": "ROM",
+      "key": "Storage",
       "val": "128GB"
     },
     {
@@ -207,17 +207,17 @@
     },
     {
       "pid": 4,
-      "key": "OS version",
+      "key": "OS Version",
       "val": "Android 12"
     },
     {
       "pid": 4,
-      "key": "Main camera",
+      "key": "Main Camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 4,
-      "key": "Secondary camera",
+      "key": "Secondary Camera",
       "val": "8MP"
     },
     {
@@ -237,7 +237,7 @@
     },
     {
       "pid": 5,
-      "key": "ROM",
+      "key": "Storage",
       "val": "128GB"
     },
     {
@@ -262,17 +262,17 @@
     },
     {
       "pid": 5,
-      "key": "OS version",
+      "key": "OS Version",
       "val": "Android 12"
     },
     {
       "pid": 5,
-      "key": "Main camera",
+      "key": "Main Camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 5,
-      "key": "Secondary camera",
+      "key": "Secondary Camera",
       "val": "8MP"
     },
     {
@@ -292,7 +292,7 @@
     },
     {
       "pid": 6,
-      "key": "ROM",
+      "key": "Storage",
       "val": "128GB"
     },
     {
@@ -317,27 +317,27 @@
     },
     {
       "pid": 6,
-      "key": "OS version",
+      "key": "OS Version",
       "val": "Android 12"
     },
     {
       "pid": 6,
-      "key": "Main camera",
+      "key": "Main Camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 6,
-      "key": "Secondary camera",
+      "key": "Secondary Camera",
       "val": "8MP"
     },
     {
       "pid": 7,
-      "key": "BT version",
+      "key": "BT Version",
       "val": "5.3.1"
     },
     {
       "pid": 7,
-      "key": "Playback time",
+      "key": "Play time",
       "val": "40hr"
     },
     {
@@ -348,7 +348,7 @@
     {
       "pid": 7,
       "key": "Connectivity",
-      "val": "Bluetooth"
+      "val": "bluetooth"
     },
     {
       "pid": 7,
@@ -362,12 +362,12 @@
     },
     {
       "pid": 8,
-      "key": "BT version",
+      "key": "BT Version",
       "val": "5"
     },
     {
       "pid": 8,
-      "key": "Playback time",
+      "key": "Play time",
       "val": "20hr"
     },
     {
@@ -378,7 +378,7 @@
     {
       "pid": 8,
       "key": "Connectivity",
-      "val": "Bluetooth"
+      "val": "bluetooth"
     },
     {
       "pid": 8,
@@ -392,12 +392,12 @@
     },
     {
       "pid": 9,
-      "key": "BT version",
+      "key": "BT Version",
       "val": "5"
     },
     {
       "pid": 9,
-      "key": "Playback time",
+      "key": "Play time",
       "val": "32hr"
     },
     {
@@ -408,7 +408,7 @@
     {
       "pid": 9,
       "key": "Connectivity",
-      "val": "Bluetooth"
+      "val": "bluetooth"
     },
     {
       "pid": 9,
@@ -433,7 +433,7 @@
     {
       "pid": 10,
       "key": "OS",
-      "val": "Android"
+      "val": "android"
     },
     {
       "pid": 10,
@@ -442,7 +442,7 @@
     },
     {
       "pid": 10,
-      "key": "Refresh rate",
+      "key": "FPS",
       "val": "60 FPS"
     },
     {
@@ -467,7 +467,7 @@
     },
     {
       "pid": 11,
-      "key": "OS",
+      "key": "OS Version",
       "val": "android"
     },
     {
@@ -477,7 +477,7 @@
     },
     {
       "pid": 11,
-      "key": "Refresh rate",
+      "key": "FPS",
       "val": "60 Hz"
     },
     {
@@ -512,7 +512,7 @@
     },
     {
       "pid": 12,
-      "key": "Refresh rate",
+      "key": "FPS",
       "val": "60 Hz"
     },
     {
@@ -537,7 +537,7 @@
     },
     {
       "pid": 13,
-      "key": "OS",
+      "key": "OS Version",
       "val": "android"
     },
     {
@@ -547,7 +547,7 @@
     },
     {
       "pid": 13,
-      "key": "Refresh rate",
+      "key": "FPS",
       "val": "60 Hz"
     },
     {
@@ -577,7 +577,7 @@
     },
     {
       "pid": 14,
-      "key": "ROM",
+      "key": "Storage",
       "val": "128GB"
     },
     {
@@ -602,17 +602,17 @@
     },
     {
       "pid": 14,
-      "key": "OS version",
+      "key": "OS Version",
       "val": "Android 12"
     },
     {
       "pid": 14,
-      "key": "Main camera",
+      "key": "Main Camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 14,
-      "key": "Secondary camera",
+      "key": "Secondary Camera",
       "val": "8MP"
     },
     {
@@ -632,7 +632,7 @@
     },
     {
       "pid": 15,
-      "key": "ROM",
+      "key": "Storage",
       "val": "128GB"
     },
     {
@@ -657,17 +657,17 @@
     },
     {
       "pid": 15,
-      "key": "OS version",
+      "key": "OS Version",
       "val": "Android 12"
     },
     {
       "pid": 15,
-      "key": "Main camera",
+      "key": "Main Camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 15,
-      "key": "Secondary camera",
+      "key": "Secondary Camera",
       "val": "8MP"
     },
     {
@@ -687,7 +687,7 @@
     },
     {
       "pid": 16,
-      "key": "ROM",
+      "key": "Storage",
       "val": "128GB"
     },
     {
@@ -712,17 +712,17 @@
     },
     {
       "pid": 16,
-      "key": "OS version",
+      "key": "OS Version",
       "val": "Android 12"
     },
     {
       "pid": 16,
-      "key": "Main camera",
+      "key": "Main Camera",
       "val": "50MP + 8MP + 2MP"
     },
     {
       "pid": 16,
-      "key": "Secondary camera",
+      "key": "Secondary Camera",
       "val": "8MP"
     },
     {
@@ -749,6 +749,466 @@
       "pid": 17,
       "key": "Defrost ",
       "val": "Automatic"
+    },
+    {
+      "pid": 18,
+      "key": "Capacity",
+      "val": "652L"
+    },
+    {
+      "pid": 18,
+      "key": "Energy Star",
+      "val": "3 Star"
+    },
+    {
+      "pid": 18,
+      "key": "Color",
+      "val": "Black"
+    },
+    {
+      "pid": 18,
+      "key": "No of Doors",
+      "val": "2"
+    },
+    {
+      "pid": 18,
+      "key": "Defrost ",
+      "val": "Automatic"
+    },
+    {
+      "pid": 19,
+      "key": "Capacity",
+      "val": "652L"
+    },
+    {
+      "pid": 19,
+      "key": "Energy Star",
+      "val": "3 Star"
+    },
+    {
+      "pid": 19,
+      "key": "Color",
+      "val": "Black"
+    },
+    {
+      "pid": 19,
+      "key": "No of Doors",
+      "val": "2"
+    },
+    {
+      "pid": 19,
+      "key": "Defrost ",
+      "val": "Automatic"
+    },
+    {
+      "pid": 20,
+      "key": "Capacity",
+      "val": "652L"
+    },
+    {
+      "pid": 20,
+      "key": "Energy Star",
+      "val": "3 Star"
+    },
+    {
+      "pid": 20,
+      "key": "Color",
+      "val": "Black"
+    },
+    {
+      "pid": 20,
+      "key": "No of Doors",
+      "val": "2"
+    },
+    {
+      "pid": 20,
+      "key": "Defrost ",
+      "val": "Automatic"
+    },
+    {
+      "pid": 21,
+      "key": "Capacity",
+      "val": "652L"
+    },
+    {
+      "pid": 21,
+      "key": "Energy Star",
+      "val": "3 Star"
+    },
+    {
+      "pid": 21,
+      "key": "Color",
+      "val": "Black"
+    },
+    {
+      "pid": 21,
+      "key": "No of Doors",
+      "val": "2"
+    },
+    {
+      "pid": 21,
+      "key": "Defrost ",
+      "val": "Automatic"
+    },
+    {
+      "pid": 22,
+      "key": "Capacity",
+      "val": "652L"
+    },
+    {
+      "pid": 22,
+      "key": "Energy Star",
+      "val": "3 Star"
+    },
+    {
+      "pid": 22,
+      "key": "Color",
+      "val": "Black"
+    },
+    {
+      "pid": 22,
+      "key": "No of Doors",
+      "val": "2"
+    },
+    {
+      "pid": 22,
+      "key": "Defrost ",
+      "val": "Automatic"
+    },
+    {
+      "pid": 23,
+      "key": "Focus",
+      "val": "Automatic"
+    },
+    {
+      "pid": 23,
+      "key": "Flash",
+      "val": "Capcitor Flash"
+    },
+    {
+      "pid": 23,
+      "key": "SD Card",
+      "val": "XHCP 128GB"
+    },
+    {
+      "pid": 23,
+      "key": "Sensor ",
+      "val": "SONY IMX-PI39N"
+    },
+    {
+      "pid": 23,
+      "key": "Second Screen",
+      "val": "No"
+    },
+    {
+      "pid": 23,
+      "key": "ISO Range",
+      "val": "50 - 216000"
+    },
+    {
+      "pid": 24,
+      "key": "Focus",
+      "val": "Automatic"
+    },
+    {
+      "pid": 24,
+      "key": "Flash",
+      "val": "Capcitor Flash"
+    },
+    {
+      "pid": 24,
+      "key": "SD Card",
+      "val": "XHCP 128GB"
+    },
+    {
+      "pid": 24,
+      "key": "Sensor ",
+      "val": "SONY IMX-PI39N"
+    },
+    {
+      "pid": 24,
+      "key": "Second Screen",
+      "val": "No"
+    },
+    {
+      "pid": 24,
+      "key": "ISO Range",
+      "val": "50 - 216000"
+    },
+    {
+      "pid": 25,
+      "key": "Focus",
+      "val": "Automatic"
+    },
+    {
+      "pid": 25,
+      "key": "Flash",
+      "val": "Capcitor Flash"
+    },
+    {
+      "pid": 25,
+      "key": "SD Card",
+      "val": "XHCP 128GB"
+    },
+    {
+      "pid": 25,
+      "key": "Sensor ",
+      "val": "SONY IMX-PI39N"
+    },
+    {
+      "pid": 25,
+      "key": "Second Screen",
+      "val": "No"
+    },
+    {
+      "pid": 25,
+      "key": "ISO Range",
+      "val": "50 - 216000"
+    },
+    {
+      "pid": 26,
+      "key": "Focus",
+      "val": "Automatic"
+    },
+    {
+      "pid": 26,
+      "key": "Flash",
+      "val": "Capcitor Flash"
+    },
+    {
+      "pid": 26,
+      "key": "SD Card",
+      "val": "XHCP 128GB"
+    },
+    {
+      "pid": 26,
+      "key": "Sensor ",
+      "val": "SONY IMX-PI39N"
+    },
+    {
+      "pid": 26,
+      "key": "Second Screen",
+      "val": "No"
+    },
+    {
+      "pid": 26,
+      "key": "ISO Range",
+      "val": "50 - 216000"
+    },
+    {
+      "pid": 32,
+      "key": "Focus",
+      "val": "Automatic"
+    },
+    {
+      "pid": 32,
+      "key": "Flash",
+      "val": "Capcitor Flash"
+    },
+    {
+      "pid": 32,
+      "key": "SD Card",
+      "val": "XHCP 128GB"
+    },
+    {
+      "pid": 32,
+      "key": "Sensor ",
+      "val": "SONY IMX-PI39N"
+    },
+    {
+      "pid": 32,
+      "key": "Second Screen",
+      "val": "No"
+    },
+    {
+      "pid": 32,
+      "key": "ISO Range",
+      "val": "50 - 216000"
+    },
+    {
+      "pid": 27,
+      "key": "Range",
+      "val": "40mm - 500mm"
+    },
+    {
+      "pid": 27,
+      "key": "Stabalisation",
+      "val": "Tilt-Shift"
+    },
+    {
+      "pid": 27,
+      "key": "Extendable",
+      "val": "Yes"
+    },
+    {
+      "pid": 28,
+      "key": "Range",
+      "val": "40mm - 500mm"
+    },
+    {
+      "pid": 28,
+      "key": "Stabalisation",
+      "val": "Tilt-Shift"
+    },
+    {
+      "pid": 28,
+      "key": "Extendable",
+      "val": "Yes"
+    },
+    {
+      "pid": 29,
+      "key": "Range",
+      "val": "40mm - 500mm"
+    },
+    {
+      "pid": 29,
+      "key": "Stabalisation",
+      "val": "Tilt-Shift"
+    },
+    {
+      "pid": 29,
+      "key": "Extendable",
+      "val": "Yes"
+    },
+    {
+      "pid": 30,
+      "key": "Range",
+      "val": "40mm - 500mm"
+    },
+    {
+      "pid": 30,
+      "key": "Stabalisation",
+      "val": "Tilt-Shift"
+    },
+    {
+      "pid": 30,
+      "key": "Extendable",
+      "val": "Yes"
+    },
+    {
+      "pid": 31,
+      "key": "Range",
+      "val": "40mm - 500mm"
+    },
+    {
+      "pid": 31,
+      "key": "Stabalisation",
+      "val": "Tilt-Shift"
+    },
+    {
+      "pid": 31,
+      "key": "Extendable",
+      "val": "Yes"
+    },
+    {
+      "pid": 33,
+      "key": "Output",
+      "val": "1500 W"
+    },
+    {
+      "pid": 33,
+      "key": "AC Input",
+      "val": "240V 50Hz"
+    },
+    {
+      "pid": 34,
+      "key": "Output",
+      "val": "1500 W"
+    },
+    {
+      "pid": 34,
+      "key": "AC Input",
+      "val": "240V 50Hz"
+    },
+    {
+      "pid": 35,
+      "key": "Output",
+      "val": "1500 W"
+    },
+    {
+      "pid": 35,
+      "key": "AC Input",
+      "val": "240V 50Hz"
+    },
+    {
+      "pid": 36,
+      "key": "Output",
+      "val": "1500 W"
+    },
+    {
+      "pid": 36,
+      "key": "AC Input",
+      "val": "240V 50Hz"
+    },
+    {
+      "pid": 37,
+      "key": "PSP Verion",
+      "val": "5"
+    },
+    {
+      "pid": 38,
+      "key": "Height",
+      "val": "130cm"
+    },
+    {
+      "pid": 38,
+      "key": "Max Height",
+      "val": "1500cm"
+    },
+    {
+      "pid": 39,
+      "key": "Height",
+      "val": "130cm"
+    },
+    {
+      "pid": 39,
+      "key": "Max Height",
+      "val": "1500cm"
+    },
+    {
+      "pid": 40,
+      "key": "power",
+      "val": "250 watt"
+    },
+    {
+      "pid": 41,
+      "key": "power",
+      "val": "250 watt"
+    },
+    {
+      "pid": 42,
+      "key": "power",
+      "val": "250 watt"
+    },
+    {
+      "pid": 43,
+      "key": "Ton",
+      "val": "1.5"
+    },
+    {
+      "pid": 44,
+      "key": "Ton",
+      "val": "1.5"
+    },
+    {
+      "pid": 45,
+      "key": "Ton",
+      "val": "1.5"
+    },
+    {
+      "pid": 46,
+      "key": "Ton",
+      "val": "1.5"
+    },
+    {
+      "pid": 47,
+      "key": "Ton",
+      "val": "1.5"
+    },
+    {
+      "pid": 48,
+      "key": "Ton",
+      "val": "1.5"
     }
   ]
 }

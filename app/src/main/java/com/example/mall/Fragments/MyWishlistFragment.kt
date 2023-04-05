@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +14,7 @@ import com.example.mall.Interface.WishlistItemClickListener
 import com.example.mall.ModelClass.ItemImgNamePriceModel
 import kotlin.properties.Delegates
 
-private const val TAG = "Common_Tag_MyWishlistFragment"
+private const val TAG = "CT_MyWishlistFrag"
 
 class MyWishlistFragment : Fragment(), WishlistItemClickListener {
     private lateinit var listOfProducts: MutableList<ItemImgNamePriceModel>
@@ -58,17 +56,13 @@ class MyWishlistFragment : Fragment(), WishlistItemClickListener {
         adapter = WishlistAdapter(listOfProducts, this)
         productsRV.adapter = adapter
         productsRV.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+
+//        productsRV.addItemDecoration(WishlistItemDecoration(16 /* space in px, maybe. */))
     }
 
 
     override fun onItemClicked(position: Int) {
-        activity?.supportFragmentManager?.beginTransaction()?.apply {
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-
-            replace(R.id.frag_container, SingleProductDescriptionFragment.newInstance(listOfProducts[position].pid))
-            addToBackStack(backStackName)
-            commit()
-        }
+        navigateNextWithDefaultAnim(SingleProductDescriptionFragment.newInstance(listOfProducts[position].pid), "SingleProductDescriptionFragment")
     }
 
     override fun onTopBtnClicked(position: Int) {
@@ -81,4 +75,6 @@ class MyWishlistFragment : Fragment(), WishlistItemClickListener {
         wishListStatus()
     }
 }
+
+
 

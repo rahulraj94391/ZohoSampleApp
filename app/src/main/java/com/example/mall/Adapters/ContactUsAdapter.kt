@@ -15,10 +15,18 @@ private const val ISSUE = 1
 
 class ContactUsAdapter(private val list: MutableList<ContactUsModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var context: Context
+    private lateinit var toast: Toast
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         this.context = recyclerView.context
         super.onAttachedToRecyclerView(recyclerView)
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        if (::toast.isInitialized) {
+            toast.cancel()
+        }
     }
 
     inner class TitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,11 +37,15 @@ class ContactUsAdapter(private val list: MutableList<ContactUsModel>) : Recycler
         val helpTitle: TextView = itemView.findViewById(R.id.help_title)
         val helpDesc: TextView = itemView.findViewById(R.id.help_desc)
 
-        /*init {
+        init {
             itemView.setOnClickListener {
-                Toast.makeText(context, "clicked $adapterPosition", Toast.LENGTH_SHORT).show()
+                if (::toast.isInitialized) {
+                    toast.cancel()
+                }
+                toast = Toast.makeText(context, "clicked $adapterPosition", Toast.LENGTH_SHORT)
+                toast.show()
             }
-        }*/
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

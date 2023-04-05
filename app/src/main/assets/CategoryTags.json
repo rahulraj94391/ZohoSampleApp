@@ -259,6 +259,406 @@
     {
       "pid": 17,
       "category_tag": "electronics"
+    },
+    {
+      "pid": 18,
+      "category_tag": "appliance"
+    },
+    {
+      "pid": 18,
+      "category_tag": "fridge"
+    },
+    {
+      "pid": 18,
+      "category_tag": "refrigerator"
+    },
+    {
+      "pid": 18,
+      "category_tag": "cold storage"
+    },
+    {
+      "pid": 18,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 19,
+      "category_tag": "appliance"
+    },
+    {
+      "pid": 19,
+      "category_tag": "fridge"
+    },
+    {
+      "pid": 19,
+      "category_tag": "refrigerator"
+    },
+    {
+      "pid": 19,
+      "category_tag": "cold storage"
+    },
+    {
+      "pid": 19,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 20,
+      "category_tag": "appliance"
+    },
+    {
+      "pid": 20,
+      "category_tag": "fridge"
+    },
+    {
+      "pid": 20,
+      "category_tag": "refrigerator"
+    },
+    {
+      "pid": 20,
+      "category_tag": "cold storage"
+    },
+    {
+      "pid": 20,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 21,
+      "category_tag": "appliance"
+    },
+    {
+      "pid": 21,
+      "category_tag": "fridge"
+    },
+    {
+      "pid": 21,
+      "category_tag": "refrigerator"
+    },
+    {
+      "pid": 21,
+      "category_tag": "cold storage"
+    },
+    {
+      "pid": 21,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 22,
+      "category_tag": "appliance"
+    },
+    {
+      "pid": 22,
+      "category_tag": "fridge"
+    },
+    {
+      "pid": 22,
+      "category_tag": "refrigerator"
+    },
+    {
+      "pid": 22,
+      "category_tag": "cold storage"
+    },
+    {
+      "pid": 22,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 23,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 23,
+      "category_tag": "camera"
+    },
+    {
+      "pid": 23,
+      "category_tag": "dslr"
+    },
+    {
+      "pid": 23,
+      "category_tag": "slr"
+    },
+    {
+      "pid": 23,
+      "category_tag": "mirrorless camera"
+    },
+    {
+      "pid": 24,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 24,
+      "category_tag": "camera"
+    },
+    {
+      "pid": 24,
+      "category_tag": "dslr"
+    },
+    {
+      "pid": 24,
+      "category_tag": "slr"
+    },
+    {
+      "pid": 24,
+      "category_tag": "mirrorless camera"
+    },
+    {
+      "pid": 25,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 25,
+      "category_tag": "camera"
+    },
+    {
+      "pid": 25,
+      "category_tag": "dslr"
+    },
+    {
+      "pid": 25,
+      "category_tag": "slr"
+    },
+    {
+      "pid": 25,
+      "category_tag": "mirrorless camera"
+    },
+    {
+      "pid": 26,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 26,
+      "category_tag": "camera"
+    },
+    {
+      "pid": 26,
+      "category_tag": "dslr"
+    },
+    {
+      "pid": 26,
+      "category_tag": "slr"
+    },
+    {
+      "pid": 26,
+      "category_tag": "mirrorless camera"
+    },
+    {
+      "pid": 32,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 32,
+      "category_tag": "camera"
+    },
+    {
+      "pid": 32,
+      "category_tag": "dslr"
+    },
+    {
+      "pid": 32,
+      "category_tag": "slr"
+    },
+    {
+      "pid": 32,
+      "category_tag": "mirrorless camera"
+    },
+    {
+      "pid": 27,
+      "category_tag": "lens"
+    },
+    {
+      "pid": 27,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 28,
+      "category_tag": "lens"
+    },
+    {
+      "pid": 28,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 29,
+      "category_tag": "lens"
+    },
+    {
+      "pid": 29,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 30,
+      "category_tag": "lens"
+    },
+    {
+      "pid": 30,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 31,
+      "category_tag": "lens"
+    },
+    {
+      "pid": 31,
+      "category_tag": "electronics"
+    },
+    {
+      "pid": 33,
+      "category_tag": "party speaker"
+    },
+    {
+      "pid": 33,
+      "category_tag": "bluetooth speaker"
+    },
+    {
+      "pid": 33,
+      "category_tag": "karaoke"
+    },
+    {
+      "pid": 34,
+      "category_tag": "party speaker"
+    },
+    {
+      "pid": 34,
+      "category_tag": "bluetooth speaker"
+    },
+    {
+      "pid": 34,
+      "category_tag": "karaoke"
+    },
+    {
+      "pid": 35,
+      "category_tag": "party speaker"
+    },
+    {
+      "pid": 35,
+      "category_tag": "bluetooth speaker"
+    },
+    {
+      "pid": 35,
+      "category_tag": "karaoke"
+    },
+    {
+      "pid": 36,
+      "category_tag": "party speaker"
+    },
+    {
+      "pid": 36,
+      "category_tag": "bluetooth speaker"
+    },
+    {
+      "pid": 36,
+      "category_tag": "karaoke"
+    },
+    {
+      "pid": 37,
+      "category_tag": "playstation"
+    },
+    {
+      "pid": 37,
+      "category_tag": "play station"
+    },
+    {
+      "pid": 37,
+      "category_tag": "PS5"
+    },
+    {
+      "pid": 37,
+      "category_tag": "ps5"
+    },
+    {
+      "pid": 37,
+      "category_tag": "psp"
+    },
+    {
+      "pid": 38,
+      "category_tag": "table"
+    },
+    {
+      "pid": 38,
+      "category_tag": "height adjustable table"
+    },
+    {
+      "pid": 38,
+      "category_tag": "office table"
+    },
+    {
+      "pid": 38,
+      "category_tag": "work table"
+    },
+    {
+      "pid": 39,
+      "category_tag": "table"
+    },
+    {
+      "pid": 39,
+      "category_tag": "height adjustable table"
+    },
+    {
+      "pid": 39,
+      "category_tag": "office table"
+    },
+    {
+      "pid": 39,
+      "category_tag": "work table"
+    },
+    {
+      "pid": 40,
+      "category_tag": "juicer"
+    },
+    {
+      "pid": 41,
+      "category_tag": "juicer"
+    },
+    {
+      "pid": 42,
+      "category_tag": "juicer"
+    },
+    {
+      "pid": 43,
+      "category_tag": "ac"
+    },
+    {
+      "pid": 43,
+      "category_tag": "air conditioner"
+    },
+    {
+      "pid": 44,
+      "category_tag": "ac"
+    },
+    {
+      "pid": 44,
+      "category_tag": "air conditioner"
+    },
+    {
+      "pid": 45,
+      "category_tag": "ac"
+    },
+    {
+      "pid": 45,
+      "category_tag": "air conditioner"
+    },
+    {
+      "pid": 46,
+      "category_tag": "ac"
+    },
+    {
+      "pid": 46,
+      "category_tag": "air conditioner"
+    },
+    {
+      "pid": 47,
+      "category_tag": "ac"
+    },
+    {
+      "pid": 47,
+      "category_tag": "air conditioner"
+    },
+    {
+      "pid": 48,
+      "category_tag": "ac"
+    },
+    {
+      "pid": 48,
+      "category_tag": "air conditioner"
     }
   ]
 }

@@ -253,5 +253,12 @@ class SingleProductDescriptionFragment : Fragment() {
             binding.startButton.setOnClickListener(addToWishlistAction)
         }
     }
+
+    override fun onPause() {
+        super.onPause()
+        if (this::toast.isInitialized) {
+            toast.cancel()
+        }
+    }
 }
 
