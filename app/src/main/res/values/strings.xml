@@ -56,7 +56,7 @@
     <string name="out_of_stock">Out of Stock</string>
     <string name="go_to_cart">Go to Cart</string>
     <string name="add_to_cart">Add to Cart</string>
-    <string name="go_to_wishlist">Go to Wishlist</string>
+    <string name="remove_from_wishlist">Remove From Wishlist</string>
     <string name="add_in_wishlist">Add in Wishlist</string>
     <string name="in_stock">In Stock</string>
     <string name="order_soon">Order soon</string>

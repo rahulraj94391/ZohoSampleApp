@@ -96,6 +96,7 @@ class SingleProductDescriptionFragment : Fragment() {
         arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_spinner, itemQuantities)
         binding.qtySelector.adapter = arrayAdapter
         val stock = prodDetails.stock
+        checkWishlistButtonStatus()
         setupStartBtn()
         setupEndBtn(stock)
         val highlightsList = mutableListOf<ProductHighlightsModel>()
@@ -132,6 +133,15 @@ class SingleProductDescriptionFragment : Fragment() {
 
 //        binding.imageToShare.setImageBitmap(getBitmapFromURL())
         Picasso.get().load(prodDetails.imagesURL[0]).into(binding.imageToShare)
+    }
+
+    fun checkWishlistButtonStatus() {
+        if (db.isItemInWishlist(sharedViewModel.uid, pid)) {
+            binding.startButton.text = getString(R.string.remove_from_wishlist)
+        }
+        else {
+            binding.startButton.text = getString(R.string.add_in_wishlist)
+        }
     }
 
     private fun shareAction() {
@@ -229,28 +239,38 @@ class SingleProductDescriptionFragment : Fragment() {
         }
     }
 
-    private fun setupStartBtn() {
-        val goToWishlistAction = View.OnClickListener { navigateNextWithCustomAnim(MyWishlistFragment(), "MyWishlistFragment") }
 
-        val addToWishlistAction = View.OnClickListener {
+    private fun setupStartBtn() {
+        binding.startButton.setOnClickListener() {
+            check()
+            checkWishlistButtonStatus()
+        }
+    }
+
+    private fun check() {
+        val addToWishlist = {
+            db.addItemToWishlist(sharedViewModel.uid, pid)
             toast = Toast.makeText(requireContext(), "Item added to wishlist.", Toast.LENGTH_SHORT)
-            if (this::toast.isInitialized) {
-                toast.cancel()
-            }
+            if (this::toast.isInitialized) toast.cancel()
             toast.show()
             (requireActivity() as MainActivity).haptics.light()
-            db.addItemToWishlist(sharedViewModel.uid, pid)
-            binding.startButton.text = getString(R.string.go_to_wishlist)
-            binding.startButton.setOnClickListener(goToWishlistAction)
+        }
+
+        val removeFromWishlist = {
+            db.deleteItemFromWishlist(sharedViewModel.uid, pid)
+            toast = Toast.makeText(requireContext(), "Item removed from wishlist.", Toast.LENGTH_SHORT)
+            if (this::toast.isInitialized) toast.cancel()
+            toast.show()
+            (requireActivity() as MainActivity).haptics.light()
         }
 
         if (db.isItemInWishlist(sharedViewModel.uid, pid)) {
-            binding.startButton.text = getString(R.string.go_to_wishlist)
-            binding.startButton.setOnClickListener(goToWishlistAction)
+            binding.startButton.text = getString(R.string.remove_from_wishlist)
+            removeFromWishlist.invoke()
         }
         else {
             binding.startButton.text = getString(R.string.add_in_wishlist)
-            binding.startButton.setOnClickListener(addToWishlistAction)
+            addToWishlist.invoke()
         }
     }
 
