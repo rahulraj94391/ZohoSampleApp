@@ -141,10 +141,10 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             val removedItem = cartItemList.removeAt(position)
             cartTotal -= removedItem.price * removedItem.quantity
             cartItemsAdapter.notifyItemRemoved(position)
-//            val message: String = "${removedItem.productName} deleted...
             if (this::toast.isInitialized) {
                 toast.cancel()
             }
+            (requireActivity() as MainActivity).haptics.light()
             toast = Toast.makeText(requireContext(), "Item deleted from cart.", Toast.LENGTH_SHORT)
             toast.show()
         }
@@ -157,7 +157,10 @@ class CartFragment : Fragment(), OnCartItemClickListener {
             val removedItem = cartItemList.removeAt(position)
             cartTotal -= removedItem.price * removedItem.quantity
             cartItemsAdapter.notifyItemRemoved(position)
-//            val message: String = "${removedItem.productName} added to wishlist..."
+            if (this::toast.isInitialized) {
+                toast.cancel()
+            }
+            (requireActivity() as MainActivity).haptics.light()
 
             if (this::toast.isInitialized) {
                 toast.cancel()
@@ -224,5 +227,12 @@ class CartFragment : Fragment(), OnCartItemClickListener {
         changeQtyBtn(plus, position, minus)
         cartTotal = calculateCartTotal()
         cartItemsAdapter.notifyItemChanged(position)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (this::toast.isInitialized) {
+            toast.cancel()
+        }
     }
 }

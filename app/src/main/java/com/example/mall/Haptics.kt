@@ -7,7 +7,7 @@ import android.os.Vibrator
 class Haptics(private val vibrator: Vibrator) {
     fun light() {
         if (Build.VERSION.SDK_INT >= 29) {
-            vibrator.vibrate(VibrationEffect.createOneShot(10, 80))
+            vibrator.vibrate(VibrationEffect.createOneShot(10, 120))
         }
         else {
             vibrator.vibrate(10)
