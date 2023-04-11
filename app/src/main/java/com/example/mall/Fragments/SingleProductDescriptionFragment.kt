@@ -198,45 +198,42 @@ class SingleProductDescriptionFragment : Fragment() {
             return
         }
 
-        val goToCartAction = View.OnClickListener { navigateNextWithCustomAnim(CartFragment(), "CartFragment") }
-
-        val addToCartAction = View.OnClickListener {
-            (requireActivity() as MainActivity).haptics.light()
-            val quantity = binding.qtySelector.selectedItem.toString().trim().toInt()
-            if (quantity != -1 && quantity <= stock) {
-                db.addItemToCart(sharedViewModel.uid, pid, quantity)
-                binding.endButton.text = getString(R.string.go_to_cart)
-                binding.endButton.setOnClickListener(goToCartAction)
-
-                if (this::toast.isInitialized) {
-                    toast.cancel()
+        val addToCartListener = View.OnClickListener {
+            if (db.isItemInCart(sharedViewModel.uid, pid)) {
+                // update with new quantity
+                val quantity = binding.qtySelector.selectedItem.toString().trim().toInt()
+                if (quantity != -1 && quantity <= stock) {
+                    db.updateItemInCart(sharedViewModel.uid, pid, quantity)
+                    toast = Toast.makeText(requireContext(), "Item updated in cart.", Toast.LENGTH_SHORT)
+                    if (this::toast.isInitialized) toast.cancel()
+                    toast.show()
                 }
-                toast = Toast.makeText(requireContext(), "Item added to cart.", Toast.LENGTH_SHORT)
-                if (this::toast.isInitialized) {
-                    toast.cancel()
+                else if (quantity != -1) {
+                    toast = Toast.makeText(requireContext(), "Only $stock in stock", Toast.LENGTH_LONG)
+                    if (this::toast.isInitialized) toast.cancel()
+                    toast.show()
                 }
-                toast.show()
+
             }
-            else if (quantity != -1) {
-                if (this::toast.isInitialized) {
-                    toast.cancel()
+            else {
+                // add the selected the quantity
+                val quantity = binding.qtySelector.selectedItem.toString().trim().toInt()
+                if (quantity != -1 && quantity <= stock) {
+                    db.addItemToCart(sharedViewModel.uid, pid, quantity)
+                    toast = Toast.makeText(requireContext(), "Item added to cart.", Toast.LENGTH_SHORT)
+                    if (this::toast.isInitialized) toast.cancel()
+                    toast.show()
                 }
-                toast = Toast.makeText(requireContext(), "Only $stock in stock", Toast.LENGTH_LONG)
-                if (this::toast.isInitialized) {
-                    toast.cancel()
+                else if (quantity != -1) {
+                    toast = Toast.makeText(requireContext(), "Only $stock in stock", Toast.LENGTH_LONG)
+                    if (this::toast.isInitialized) toast.cancel()
+                    toast.show()
                 }
-                toast.show()
             }
         }
 
-        if (db.isItemInCart(sharedViewModel.uid, pid)) {
-            binding.endButton.text = getString(R.string.go_to_cart)
-            binding.endButton.setOnClickListener(goToCartAction)
-        }
-        else {
-            binding.endButton.text = getString(R.string.add_to_cart)
-            binding.endButton.setOnClickListener(addToCartAction)
-        }
+        binding.endButton.text = getString(R.string.add_to_cart)
+        binding.endButton.setOnClickListener(addToCartListener)
     }
 
 

@@ -8,8 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.example.mall.Database.*
 import com.example.mall.Enum.Category
-import com.example.mall.Enum.DeliveryStatus
-import com.example.mall.Enum.DeliveryStatus.*
+import com.example.mall.Enum.DeliveryStatus.IN_TRANSIT
 import com.example.mall.Enum.PaymentType
 import com.example.mall.ModelClass.*
 import org.json.JSONObject
@@ -272,6 +271,17 @@ class DB(val context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 
         }
         cursor.close()
         return cartItemList
+    }
+
+    fun updateItemInCart(uid: Int, pid: Int, quantity: Int): Boolean {
+
+        val cv = ContentValues().apply {
+            put(CartTable.COL_QUANTITY, quantity)
+        }
+        val whereClause = "uid = ? and pid = ?"
+        val updateStat = writableDatabase.update(CartTable.CART_TABLE_NAME, cv, whereClause, arrayOf(uid.toString(), pid.toString()))
+        Log.d(TAG, "updateItemInCart: Rows affected = $updateStat")
+        return updateStat > 0
     }
 
     fun addItemToCart(uid: Int, pid: Int, quantity: Int): Boolean {
