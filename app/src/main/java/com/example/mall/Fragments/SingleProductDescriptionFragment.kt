@@ -85,7 +85,6 @@ class SingleProductDescriptionFragment : Fragment() {
                 return false
             }
         }
-
         (requireActivity() as MenuHost).addMenuProvider(mMenuProvider, viewLifecycleOwner, Lifecycle.State.STARTED)
         return binding.root
     }
