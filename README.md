@@ -1,5 +1,5 @@
 # ZohoSampleApp
-sample app 
+Sample app is included as Shopie.apk
 
 User ID and Password\
 Id- "rahul", Password = "12345678"\
