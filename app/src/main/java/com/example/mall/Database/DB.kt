@@ -6,11 +6,26 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.example.mall.Database.*
+import com.example.mall.Database.AddressTable
+import com.example.mall.Database.CartTable
+import com.example.mall.Database.CategoryTagTable
+import com.example.mall.Database.OrdersTable
+import com.example.mall.Database.ProdSpecsTable
+import com.example.mall.Database.ProductDetails
+import com.example.mall.Database.ProfileTable
+import com.example.mall.Database.UserTable
+import com.example.mall.Database.WishlistTable
 import com.example.mall.Enum.Category
 import com.example.mall.Enum.DeliveryStatus.IN_TRANSIT
 import com.example.mall.Enum.PaymentType
-import com.example.mall.ModelClass.*
+import com.example.mall.ModelClass.CartItemModel
+import com.example.mall.ModelClass.DeliveryAddressModel
+import com.example.mall.ModelClass.ItemImgNamePriceModel
+import com.example.mall.ModelClass.OrderDescriptionModel
+import com.example.mall.ModelClass.OrdersModel
+import com.example.mall.ModelClass.ProdDescPageModel
+import com.example.mall.ModelClass.ProductListModel
+import com.example.mall.ModelClass.UserDetailsModel
 import org.json.JSONObject
 
 const val DATABASE_NAME = "shopie.db"

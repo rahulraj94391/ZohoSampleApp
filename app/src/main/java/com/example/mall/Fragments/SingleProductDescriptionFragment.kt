@@ -144,8 +144,19 @@ class SingleProductDescriptionFragment : Fragment() {
     }
 
     private fun shareAction() {
-        val bitmapDrawable: BitmapDrawable = binding.imageToShare.drawable as BitmapDrawable
-        val bitmap = bitmapDrawable.bitmap
+        var bitmapDrawable: BitmapDrawable? = null
+        var bitmap: Bitmap? = null
+        try {
+            bitmapDrawable = binding.imageToShare.drawable as BitmapDrawable
+            bitmap = bitmapDrawable!!.bitmap
+        } catch (e: Exception) {
+            Log.d(TAG, "shareAction: ${e.message}")
+        }
+
+        if (bitmap == null) {
+            Toast.makeText(requireContext(), "Internet required to share image.", Toast.LENGTH_SHORT).show()
+            return
+        }
         val share = Intent(Intent.ACTION_SEND)
         share.type = "image/jpeg"
         val textToShare = "Take a look at this ${prodDetails.name} on Shopie\n\nhttps://shopie.com/pid=${prodDetails.pid}"
