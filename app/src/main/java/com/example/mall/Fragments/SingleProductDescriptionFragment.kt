@@ -198,6 +198,7 @@ class SingleProductDescriptionFragment : Fragment() {
         }
 
         val addToCartListener = View.OnClickListener {
+            (requireActivity() as MainActivity).haptics.light()
             if (db.isItemInCart(sharedViewModel.uid, pid)) {
                 // update with new quantity
                 val quantity = binding.qtySelector.selectedItem.toString().trim().toInt()
