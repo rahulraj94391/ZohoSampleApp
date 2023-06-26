@@ -10,5 +10,6 @@ Id- "vivek", Password = "87654321"
 Video - https://youtu.be/nct94aUe0HQ
 
 
-#### Note: 
-The product images might not load as the source URL is no longer valid.
+> #### Note: 
+> The product images might not load as the source URL is no longer valid.
+> The image URLs are from flipkart, and they are stored in the local DB.
